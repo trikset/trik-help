@@ -1,0 +1,150 @@
+# Table of contents
+
+* [TRIK help](README.md)
+
+## TRIK Studio <a href="#studio" id="studio"></a>
+
+* [About TRIK Studio](studio/about/README.md)
+  * [How to find out the version of TRIK Studio](studio/about/version.md)
+* [Getting started and creating a project](studio/start.md)
+* [TRIK Studio interface](studio/interface/README.md)
+  * [TRIK Studio main menu](studio/interface/main-menu.md)
+  * [Working with graphs](studio/interface/graphics.md)
+  * [How to open robot settings](studio/interface/faq-robot-settings.md)
+  * [How to change TRIK Studio interface language](studio/interface/language.md)
+* [TRIK Studio settings](studio/settings.md)
+* [2D model](studio/2d-model/README.md)
+  * [2D model tuning](studio/2d-model/settings.md)
+  * [Adding restrictions to the 2D Model](studio/2d-model/restrictions/README.md)
+    * [Restrictions setting examples](studio/2d-model/restrictions/untitled.md)
+* [Visual programming](studio/programming-visual/README.md)
+  * [Adding and removing blocks](studio/programming-visual/blocks-add-delete.md)
+  * [Common blocks](studio/programming-visual/blocks.md)
+  * [Links between blocks](studio/programming-visual/connection-between-blocks.md)
+  * [Syntax of expressions in the blocks](studio/programming-visual/expression-syntax/README.md)
+    * [TRIK Studio language types](studio/programming-visual/expression-syntax/types/README.md)
+      * [Array](studio/programming-visual/expression-syntax/types/array.md)
+    * [TRIK Studio language tokens](studio/programming-visual/expression-syntax/lexemes.md)
+    * [TRIK Studio language operators](studio/programming-visual/expression-syntax/operators.md)
+    * [Constants](studio/programming-visual/expression-syntax/const.md)
+    * [Sensor variables](studio/programming-visual/expression-syntax/sensory-variables.md)
+    * [Built-in functions](studio/programming-visual/expression-syntax/built-in-functions.md)
+  * [Property editing](studio/programming-visual/editing-element-properties.md)
+  * [Subprograms](studio/programming-visual/subprograms.md)
+* [Textual programming](studio/programming-code.md)
+* [Exercises](studio/exercises.md)
+* [External tools](studio/utilities/README.md)
+  * [PuTTY](studio/utilities/putty.md)
+  * [WinSCP](studio/utilities/winscp.md)
+* [TRIK Studio shortcuts](studio/shortcuts.md)
+* [Antivirus conflicts](studio/antivirus-conflicts/README.md)
+  * [Avast antivirus blocks TRIK Studio. What to do?](studio/antivirus-conflicts/avast.md)
+
+## TRIK Studio Junior
+
+* [About TRIK Studio Junior](trik-studio-junior/about/README.md)
+  * [How to find out the version of TRIK Studio Junior](trik-studio-junior/about/version.md)
+* [Getting started and creating a project in TRIK Studio Junior](trik-studio-junior/start.md)
+* [TRIK Studio Junior interface](trik-studio-junior/interface/README.md)
+  * [How do I replace the "Character movement" image?](trik-studio-junior/interface/robot-image-change.md)
+* [TRIK Studio Junior settings](trik-studio-junior/settings.md)
+* [Visual programming in TRIK Studio Junior](trik-studio-junior/visual-programming/README.md)
+  * [Adding and removing blocks in TRIK Studio Junior](trik-studio-junior/visual-programming/blocks-add-delete.md)
+  * [Blocks in TRIK Studio Junior](trik-studio-junior/visual-programming/blocks.md)
+  * [Links between blocks in TRIK Studio Junior](trik-studio-junior/visual-programming/connection-between-blocks.md)
+  * [Syntax of expressions in the blocks in TRIK Studio Junior](trik-studio-junior/visual-programming/expression-syntax.md)
+  * [Property editing in TRIK Studio Junior](trik-studio-junior/visual-programming/editing-element-properties.md)
+  * [Subprograms in TRIK Studio Junior](trik-studio-junior/visual-programming/subprograms.md)
+* [Exercises in TRIK Studio Junior](trik-studio-junior/exercises.md)
+
+## INTEGRATIONS
+
+* [PyCharm](integrations/pycharm/README.md)
+  * [Running a 2D model in TRIK Studio from PyCharm](integrations/pycharm/running-2d-model-in-trik-studio-from-pycharm.md)
+* [Sublime Text](integrations/sublime/README.md)
+  * [Running a 2D model in TRIK Studio from Sublime Text](integrations/sublime/run-2d-from-sublime.md)
+  * [Uploading programs to several TRIK robots from Sublime Text](integrations/sublime/loading-programs-on-several-robots.md)
+* [VSCode](integrations/vscode/README.md)
+  * [Running a 2D model in TRIK Studio from VSCode](integrations/vscode/run-2d-from-vscode.md)
+  * [Uploading programs to several TRIK robots from VSCode](integrations/vscode/loading-programs-on-several-robots.md)
+
+## TRIK controller <a href="#trik" id="trik"></a>
+
+* [About the TRIK controller](trik/about/README.md)
+  * [Screenshot of the TRIK controller screen](trik/about/screenshot.md)
+* [TRIK controller firmware](trik/firmware/README.md)
+  * [How to find out the firmware version of the TRIK controller?](trik/firmware/version.md)
+* [TRIK controller menu](trik/menu.md)
+* [Connecting to the TRIK controller via Wi-Fi](trik/wi-fi/README.md)
+  * [Connecting the TRIK controller to a computer and smartphone](trik/wi-fi/network-connection.md)
+  * [Connecting the TRIK controller to TRIK Studio](trik/wi-fi/connect-to-ts.md)
+  * [Interaction of TRIK controllers](trik/wi-fi/interaction/README.md)
+    * [An example of solving a problem on the interaction of two robots](trik/wi-fi/interaction/interaction-example.md)
+* [Connecting to the TRIK controller using UART](trik/uart.md)
+* [Launching and uploading programs to the TRIK controller](trik/run-upload-programs.md)
+* [Programming TRIK with the visual programming language](trik/programming-visual/README.md)
+  * [TRIK specific blocks](trik/programming-visual/blocks.md)
+  * [Sensory variables for the TRIK controller](trik/programming-visual/sensory-variables.md)
+* [TRIK controller programming in Python and JavaScript](trik/programming-code/README.md)
+  * [Object «brick»](trik/programming-code/object-brick/README.md)
+    * [Class «accelerometer»](trik/programming-code/object-brick/class-accelerometer.md)
+    * [Class «battery»](trik/programming-code/object-brick/class-battery.md)
+    * [Class «colorSensor»](trik/programming-code/object-brick/class-colorsensor.md)
+    * [Class «display»](trik/programming-code/object-brick/class-display.md)
+    * [Class «encoder»](trik/programming-code/object-brick/class-encoder.md)
+    * [Class «gyroscope»](trik/programming-code/object-brick/class-gyroscope.md)
+    * [Class «keys»](trik/programming-code/object-brick/class-keys.md)
+    * [Class «led»](trik/programming-code/object-brick/class-led.md)
+    * [Class «lineSensor»](trik/programming-code/object-brick/class-linesensor.md)
+    * [Class «motor»](trik/programming-code/object-brick/class-motor.md)
+    * [Class «objectSensor»](trik/programming-code/object-brick/class-objectsensor.md)
+    * [Class «sensor»](trik/programming-code/object-brick/class-sensor.md)
+  * [Object «script»](trik/programming-code/object-script.md)
+  * [Object «mailbox»](trik/programming-code/object-mailbox.md)
+  * [Object «gamepad»](trik/programming-code/object-gamepad.md)
+  * [Object «Threading»](trik/programming-code/object-threading.md)
+  * [Function getPhoto](trik/programming-code/function-getphoto.md)
+  * [Function include](trik/programming-code/function-include.md)
+* [TRIK controller web interface](trik/web-interface.md)
+* [Connecting devices to TRIK and working with them](trik/work-with-devices/README.md)
+  * [Connecting and working with the video module](trik/work-with-devices/video.md)
+  * [Testing devices connected to the TRIK controller](trik/work-with-devices/testing-connected-devices.md)
+  * [Configuring the operation of a USB camera with a TRIK controller](trik/work-with-devices/usb-camera.md)
+  * [Capturing images with TRIK camera and using them in TRIK Studio](trik/work-with-devices/capture-images-on-camera.md)
+  * [Working with battery and charger](trik/work-with-devices/battery-and-charger.md)
+
+## LEGO EV3 Controller <a href="#ev3" id="ev3"></a>
+
+* [About LEGO EV3](ev3/about.md)
+* [Connecting a LEGO EV3 Controller to TRIK Studio](ev3/connect-to-studio.md)
+* [LEGO EV3 specific blocks](ev3/blocks.md)
+* [Sensory Variables for the LEGO EV3 Controller](ev3/sensory-variables.md)
+* [Launching and uploading programs to the LEGO EV3](ev3/run-upload-programs.md)
+
+## LEGO NXT Controller <a href="#nxt" id="nxt"></a>
+
+* [About LEGO NXT](nxt/about.md)
+* [LEGO NXT Controller Firmware](nxt/firmware.md)
+* [Connecting a LEGO NXT Controller to TRIK Studio](nxt/connect-to-studio.md)
+* [LEGO NXT specific blocks](nxt/blocks.md)
+* [Sensory Variables for the LEGO NXT Controller](nxt/sensory-variables.md)
+* [LEGO NXT C Programming](nxt/c.md)
+* [Launching and uploading programs to the LEGO NXT](nxt/run-upload-programs.md)
+
+## Quadcopter Geoscan Pioneer <a href="#pioneer" id="pioneer"></a>
+
+* [About quadcopter Geoscan Pioneer](pioneer/about.md)
+* [Geoscan Pioneer specific blocks](pioneer/blocks.md)
+
+## TRIK Gamepad <a href="#gamepad" id="gamepad"></a>
+
+* [About TRIK Gamepad](gamepad/about/README.md)
+  * [TRIK Gamepad App](gamepad/about/app.md)
+  * [TRIK Gamepad Utility](gamepad/about/utility.md)
+* [Robot control from the remote control](gamepad/remote-control.md)
+
+## Feedback
+
+* [Actions in case of TRIK Studio or TRIK controller malfunction](feedback/logging.md)
+* [Ask a Question](https://trikset.com/en/support#feedback)
+* [trikset.com](https://trikset.com/en)
