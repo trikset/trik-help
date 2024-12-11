@@ -152,3 +152,5 @@
 * [Действия при неправильной работе TRIK Studio или контроллера ТРИК](feedback/logging.md)
 * [Задать вопрос](https://trikset.com/support#feedback)
 * [trikset.com](https://trikset.com/)
+* [Задать вопрос](https://trikset.com/support#feedback)
+* [trikset.com](https://trikset.com/)
