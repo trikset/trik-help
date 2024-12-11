@@ -20,7 +20,7 @@ description: Подробная инструкция
 
 ## 1. Установка драйверов <a href="#uart-driver" id="uart-driver"></a>
 
-1\. [Скачайте драйвера](https://www.silabs.com/documents/public/software/CP210x\_Windows\_Drivers.zip) с официального сайта производителя преобразователя: [silabs.com](https://www.silabs.com/).
+1\. [Скачайте драйвера](https://www.silabs.com/documents/public/software/CP210x_Windows_Drivers.zip) с официального сайта производителя преобразователя: [silabs.com](https://www.silabs.com/).
 
 2\. Распакуйте архив и запустите установщик драйвера, соответствующий вашей операционной системе (32 или 64 бит).
 
@@ -97,7 +97,7 @@ description: Подробная инструкция
 
 3\. Если параметры на вкладках «Модем» и «Дополнительные параметры связи» невозможно изменить,
 
-![](<../.gitbook/assets/UART 4 Modem2 2.jpg>)
+<div align="center"><img src="../.gitbook/assets/UART 4 Modem2 2.jpg" alt=""></div>
 
 ![](<../.gitbook/assets/UART 4 Modem2 2a.jpg>)
 

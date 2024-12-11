@@ -24,7 +24,7 @@
 
 2\. Выберите `Tools → Build System → New Build System`. &#x20;
 
-![](../../.gitbook/assets/Sublime\_1.png)
+![](../../.gitbook/assets/Sublime_1.png)
 
 3\. Откроется окно с текстовым файлом. В нем необходимо всё стереть и вставить вместо этого следующий код, где `<path to field dir>` — полный путь к папке с полями:
 
@@ -43,11 +43,11 @@
 * Для Windows необходимо подставить свой путь к файлу `run_2d_model.cmd` вместо указанного в коде. Например:\
   `"cmd": ["D:\TRIKStudio\run_2d_model.cmd", "D:\Users\Admin\fields", "$file"]`
 
-![](../../.gitbook/assets/Sublime\_2.png)
+![](../../.gitbook/assets/Sublime_2.png)
 
 5\. Сохраните этот текстовый файл в предлагаемой директории\
-_`<папка с системными файлами>\Sublime Text 3\Packages\User`_\
-__под именем `TRIK.sublime-build`.
+&#xNAN;_`<папка с системными файлами>\Sublime Text 3\Packages\User`_\
+под именем `TRIK.sublime-build`.
 
 6\. Откройте ваш исходный код в **Sublime Text**. Для его запуска достаточно нажать `Tools → Build` или соответствующую комбинацию клавиш (**Ctrl+B**).
 

@@ -15,4 +15,4 @@
 * [LEGO NXT](nxt/about.md).
 * [Квадрокоптером Геоскан Пионер](pioneer/about.md).
 
-![](.gitbook/assets/trik\_studio\_logo\_&\_text\_right.png)
+<div align="center"><img src=".gitbook/assets/trik_studio_logo_&#x26;_text_right.png" alt=""></div>

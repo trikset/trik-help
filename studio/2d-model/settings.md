@@ -84,14 +84,14 @@ XML-файл состоит из тегов и атрибутов.
 
 Для описания роботов имеются следующие теги:
 
-| Тег                                                                                              | Описание                                                                                                                                                          |
-| ------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ****[**robots**](settings.md#less-than-robots-greater-than-less-than-robots-greater-than)****    | Определяет робота на сцене. Используется как контейнер и должен содержать элемент [robot](settings.md#less-than-robot-greater-than-less-than-robot-greater-than). |
-| ****[**robot**](settings.md#less-than-robot-greater-than-less-than-robot-greater-than)****       | Добавляет робота на сцену. Может использоваться как контейнер.                                                                                                    |
-| ****[**sensors**](settings.md#less-than-sensors-greater-than-less-than-sensors-greater-than)**** | Определяет датчики на роботе. Используется как контейнер.                                                                                                         |
-| ****[**sensor**](settings.md#less-than-sensor-greater-than)****                                  | Конфигурация портов датчиков.                                                                                                                                     |
-| ****[**startPosition**](settings.md#less-than-startposition-greater-than)****                    | Определяет стартовое положение робота.                                                                                                                            |
-| ****[**wheels**](settings.md#wheels)****                                                         | Конфигурация портов моторов.                                                                                                                                      |
+| Тег                                                                                      | Описание                                                                                                                                                          |
+| ---------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [**robots**](settings.md#less-than-robots-greater-than-less-than-robots-greater-than)    | Определяет робота на сцене. Используется как контейнер и должен содержать элемент [robot](settings.md#less-than-robot-greater-than-less-than-robot-greater-than). |
+| [**robot**](settings.md#less-than-robot-greater-than-less-than-robot-greater-than)       | Добавляет робота на сцену. Может использоваться как контейнер.                                                                                                    |
+| [**sensors**](settings.md#less-than-sensors-greater-than-less-than-sensors-greater-than) | Определяет датчики на роботе. Используется как контейнер.                                                                                                         |
+| [**sensor**](settings.md#less-than-sensor-greater-than)                                  | Конфигурация портов датчиков.                                                                                                                                     |
+| [**startPosition**](settings.md#less-than-startposition-greater-than)                    | Определяет стартовое положение робота.                                                                                                                            |
+| [**wheels**](settings.md#wheels)                                                         | Конфигурация портов моторов.                                                                                                                                      |
 
 
 
@@ -129,7 +129,7 @@ XML-файл состоит из тегов и атрибутов.
 <robot id="trikKitRobot" position="0:0" direction="0">
 ```
 
-![](../../.gitbook/assets/robot-example.png)
+<div align="left"><img src="../../.gitbook/assets/robot-example.png" alt=""></div>
 
 
 
@@ -193,7 +193,7 @@ XML-файл состоит из тегов и атрибутов.
 type="trik::robotModel::parts::TrikInfraredSensor"/>
 ```
 
-![](../../.gitbook/assets/sensor-example.png)
+<div align="left"><img src="../../.gitbook/assets/sensor-example.png" alt=""></div>
 
 
 
@@ -216,7 +216,7 @@ type="trik::robotModel::parts::TrikInfraredSensor"/>
 <startPosition id="{7a326d25-82f4-4eb4-9b42-1e75576f35a4}" direction="0" x="25" y="25"/>
 ```
 
-![](../../.gitbook/assets/startPosition-example.png)
+<div align="left"><img src="../../.gitbook/assets/startPosition-example.png" alt=""></div>
 
 
 
@@ -290,7 +290,7 @@ type="trik::robotModel::parts::TrikInfraredSensor"/>
 <wall id="{wall1}" begin="50:-50" end="250:-50"/>
 ```
 
-![](https://thumb.tildacdn.com/tild6663-3261-4931-b236-333164353633/-/resize/413x/-/format/webp/2019-03-18\_18-57-03.png)
+<div align="left"><img src="https://thumb.tildacdn.com/tild6663-3261-4931-b236-333164353633/-/resize/413x/-/format/webp/2019-03-18_18-57-03.png" alt=""></div>
 
 
 
@@ -315,7 +315,7 @@ type="trik::robotModel::parts::TrikInfraredSensor"/>
 markerX="220"/>
 ```
 
-![](https://thumb.tildacdn.com/tild3162-3532-4136-a166-346330343430/-/resize/148x/-/format/webp/2019-03-18\_19-02-41.png)
+<div align="left"><img src="https://thumb.tildacdn.com/tild3162-3532-4136-a166-346330343430/-/resize/148x/-/format/webp/2019-03-18_19-02-41.png" alt=""></div>
 
 
 
@@ -339,7 +339,7 @@ markerX="220"/>
 <ball rotation="0" id="{ball1}" markerY="169" startRotation="0" x="-18" y="169" markerX="-18"/> 
 ```
 
-![](https://thumb.tildacdn.com/tild6537-3061-4462-b664-646330373237/-/resize/164x/-/format/webp/2019-03-18\_19-05-10.png)
+<div align="left"><img src="https://thumb.tildacdn.com/tild6537-3061-4462-b664-646330373237/-/resize/164x/-/format/webp/2019-03-18_19-05-10.png" alt=""></div>
 
 
 
@@ -367,7 +367,7 @@ markerX="220"/>
 fill="#ff000000" stroke="#ff000000" begin="50:-50"/>
 ```
 
-![](https://thumb.tildacdn.com/tild3131-3637-4536-b833-373734383231/-/resize/350x/-/format/webp/2019-03-18\_19-17-05.png)
+<div align="left"><img src="https://thumb.tildacdn.com/tild3131-3637-4536-b833-373734383231/-/resize/350x/-/format/webp/2019-03-18_19-17-05.png" alt=""></div>
 
 
 
@@ -398,7 +398,7 @@ begin="-112.95:-192.25" fill="#ff000000" cp1="-142.95:-192.25" cp2="17.0502:-192
 stroke="#ff000000" stroke-style="solid"/>
 ```
 
-![](https://thumb.tildacdn.com/tild3039-3336-4136-b962-353831373133/-/resize/459x/-/format/webp/2019-03-18\_19-44-30.png)
+<div align="left"><img src="https://thumb.tildacdn.com/tild3039-3336-4136-b962-353831373133/-/resize/459x/-/format/webp/2019-03-18_19-44-30.png" alt=""></div>
 
 ###
 
@@ -426,7 +426,7 @@ stroke="#ff000000" stroke-style="solid"/>
 stroke-style="solid" fill="#ff000000" stroke="#ff000000" begin="285:229"/>
 ```
 
-![](https://thumb.tildacdn.com/tild3435-3234-4464-a232-653365343039/-/resize/363x/-/format/webp/2019-03-18\_19-50-54.png)
+<div align="left"><img src="https://thumb.tildacdn.com/tild3435-3234-4464-a232-653365343039/-/resize/363x/-/format/webp/2019-03-18_19-50-54.png" alt=""></div>
 
 ###
 
@@ -454,7 +454,7 @@ stroke-style="solid" fill="#ff000000" stroke="#ff000000" begin="285:229"/>
 stroke-style="solid" fill="#ff000000" stroke="#ff000000" begin="-260:7"/>
 ```
 
-![](https://thumb.tildacdn.com/tild3261-3339-4333-b639-663432303630/-/resize/402x/-/format/webp/2019-03-18\_19-54-16.png)
+<div align="left"><img src="https://thumb.tildacdn.com/tild3261-3339-4333-b639-663432303630/-/resize/402x/-/format/webp/2019-03-18_19-54-16.png" alt=""></div>
 
 ###
 
@@ -480,7 +480,7 @@ stroke-style="solid" fill="#ff000000" stroke="#ff000000" begin="-260:7"/>
 fill="#ff000000" stroke="#ff000000">
 ```
 
-![](https://thumb.tildacdn.com/tild3731-3835-4431-a632-623366313137/-/resize/214x/-/format/webp/2019-03-18\_20-05-28.png)
+<div align="left"><img src="https://thumb.tildacdn.com/tild3731-3835-4431-a632-623366313137/-/resize/214x/-/format/webp/2019-03-18_20-05-28.png" alt=""></div>
 
 
 
@@ -510,7 +510,7 @@ fill="#ff000000" stroke="#ff000000" begin="-334:259"/>
 fill="#ff000000" stroke="#ff000000" begin="-333:258"/>
 ```
 
-&#x20;![](https://thumb.tildacdn.com/tild3731-3835-4431-a632-623366313137/-/resize/214x/-/format/webp/2019-03-18\_20-05-28.png)
+&#x20;![](https://thumb.tildacdn.com/tild3731-3835-4431-a632-623366313137/-/resize/214x/-/format/webp/2019-03-18_20-05-28.png)
 
 
 
@@ -552,7 +552,7 @@ text="Finish" textY="0" x="1300" y="-200" visible="true" id="Start" color="#ff00
 </regions>
 ```
 
-![](https://thumb.tildacdn.com/tild3334-6334-4534-b539-356262353336/-/resize/360x/-/format/webp/2019-04-01\_14-23-44.png)
+![](https://thumb.tildacdn.com/tild3334-6334-4534-b539-356262353336/-/resize/360x/-/format/webp/2019-04-01_14-23-44.png)
 
 ## Пример настройки 2D-модели
 
@@ -572,7 +572,7 @@ text="Finish" textY="0" x="1300" y="-200" visible="true" id="Start" color="#ff00
 
 2\. Сохраните модель мира.
 
-![](../../.gitbook/assets/context\_save\_worldmap.png)
+![](../../.gitbook/assets/context_save_worldmap.png)
 
 3\. Откройте получившийся XML-файл в любом удобном редакторе. Обратите внимание на блок кода с тегом `<line...>`.
 

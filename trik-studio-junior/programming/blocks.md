@@ -9,28 +9,28 @@
 
 ## Алгоритмы <a href="#algorithms" id="algorithms"></a>
 
-|                                                                                              Вид                                                                                              |                             Название                            | Описание                                                                                                                                                                                                                                                                                            |
-| :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------: | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ![](https://gblobscdn.gitbook.com/assets%2F-M-9YMGCK0ySSnTAiseS%2F-M4siuJqdaQ-i-x\_2pCT%2F-M4soizl8q-7pvnHEsmN%2FinitialBlock\_50.png?alt=media\&token=c1fd4b99-84cd-4f2f-a78d-4cb718f8dbe0)  |                    [Начало](blocks.md#start)                    | <p>Начальная точка выполнения программы.</p><p></p><p>На каждой диаграмме должен быть только один такой блок. В него не должно быть входящих связей, а исходящая связь из этого элемента должна быть только одна.</p><p></p><p>Процесс интерпретации диаграммы начинается именно с этого блока.</p> |
-|                                                        <img src="../../.gitbook/assets/finalBlock_50.png" alt="" data-size="original">                                                        |                     [Конец](blocks.md#final)                    | <p>Конец программы.</p><p></p><p>Если программа состоит из нескольких параллельных участков выполнения, достижение этого блока завершает соответствующий участок выполнения.</p><p></p><p>У данного блока не может быть исходящих связей.</p>                                                       |
-|                                                  <img src="../../.gitbook/assets/variableInitBlock — копия.png" alt="" data-size="original">                                                  |         [Инициализация переменной](blocks.md#condition)         | Блок для объявления новой переменной и задания ей значения.                                                                                                                                                                                                                                         |
-|                                                       <img src="../../.gitbook/assets/ifBlock_50 (1).png" alt="" data-size="original">                                                        |                 [Условие](blocks.md#condition-1)                | Разделение выполнения программы в соответствии с заданным условием.                                                                                                                                                                                                                                 |
-|                                                        <img src="../../.gitbook/assets/endIfBlock_50.png" alt="" data-size="original">                                                        |                 [Конец условия](blocks.md#endif)                | Обозначает слияние двух веток условного оператора. Никаких действий не выполняет, но полезен для обеспечения структурности программы.                                                                                                                                                               |
-|                                                 <img src="../../.gitbook/assets/preconditionalLoopBlock (1).png" alt="" data-size="original">                                                 |              [Цикл с предусловием](blocks.md#while)             | Цикл, который выполняется пока истинно некоторое условие, указанное перед его началом. Это условие проверяется до выполнения тела цикла, поэтому тело может быть не выполнено ни разу (если условие с самого начала ложно).                                                                         |
-|                                                        <img src="../../.gitbook/assets/loopBlock_50.png" alt="" data-size="original">                                                         |                      [Цикл](blocks.md#loop)                     | Блок, организующий выполнение последовательности блоков несколько раз.                                                                                                                                                                                                                              |
-|                                                       <img src="../../.gitbook/assets/switchBlock_50.png" alt="" data-size="original">                                                        |                    [Выбор](blocks.md#switch)                    | Условие с несколькими альтернативами.                                                                                                                                                                                                                                                               |
-|                                                      <img src="../../.gitbook/assets/functionBlock_50.png" alt="" data-size="original">                                                       |                [Выражение](blocks.md#expression)                | Считает значение заданного выражения. Также допускается инициализация переменных.                                                                                                                                                                                                                   |
-|                                                   <img src="../../.gitbook/assets/subprogramRobotsBloc_50.png" alt="" data-size="original">                                                   |               [Подпрограмма](blocks.md#subprogram)              | Вызов подпрограммы.                                                                                                                                                                                                                                                                                 |
-|                                                        <img src="../../.gitbook/assets/Black-box (3).png" alt="" data-size="original">                                                        |                [Черный ящик](blocks.md#black-box)               | Подпрограмма, которую нельзя отредактировать после сохранения.                                                                                                                                                                                                                                      |
-|                                                        <img src="../../.gitbook/assets/forkBlock_50.png" alt="" data-size="original">                                                         |              [Параллельные задачи](blocks.md#fork)              | Блок разделяет выполнение программы на несколько потоков.                                                                                                                                                                                                                                           |
-|                                                       <img src="../../.gitbook/assets/blocks-merge_50.png" alt="" data-size="original">                                                       | [Слияние задач](../../studio/programming-visual/blocks.md#join) | Блок слияния параллельных задач.                                                                                                                                                                                                                                                                    |
-|                                                     <img src="../../.gitbook/assets/killThreadBlock_50.png" alt="" data-size="original">                                                      |             [Завершить задачу](blocks.md#killthread)            | Завершает задачу с указанным в свойстве «Задача» идентификатором. Должен применяться из другой задачи.                                                                                                                                                                                              |
-|                                                     <img src="../../.gitbook/assets/randomizerBlock_50.png" alt="" data-size="original">                                                      |               [Случайное число](blocks.md#random)               | Блок для присвоения указанной переменной случайного целого числа из заданного промежутка.                                                                                                                                                                                                           |
-|                                                      <img src="../../.gitbook/assets/block-comment_50.png" alt="" data-size="original">                                                       |                 [Комментарий](blocks.md#comment)                | Блок для добавления на диаграмму произвольного текста в качестве комментария.                                                                                                                                                                                                                       |
+|                                                                                             Вид                                                                                             |                             Название                            | Описание                                                                                                                                                                                                                                                                                            |
+| :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------: | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ![](https://gblobscdn.gitbook.com/assets%2F-M-9YMGCK0ySSnTAiseS%2F-M4siuJqdaQ-i-x_2pCT%2F-M4soizl8q-7pvnHEsmN%2FinitialBlock_50.png?alt=media\&token=c1fd4b99-84cd-4f2f-a78d-4cb718f8dbe0)  |                    [Начало](blocks.md#start)                    | <p>Начальная точка выполнения программы.</p><p></p><p>На каждой диаграмме должен быть только один такой блок. В него не должно быть входящих связей, а исходящая связь из этого элемента должна быть только одна.</p><p></p><p>Процесс интерпретации диаграммы начинается именно с этого блока.</p> |
+|                                                       <img src="../../.gitbook/assets/finalBlock_50.png" alt="" data-size="original">                                                       |                     [Конец](blocks.md#final)                    | <p>Конец программы.</p><p></p><p>Если программа состоит из нескольких параллельных участков выполнения, достижение этого блока завершает соответствующий участок выполнения.</p><p></p><p>У данного блока не может быть исходящих связей.</p>                                                       |
+|                                                 <img src="../../.gitbook/assets/variableInitBlock — копия.png" alt="" data-size="original">                                                 |         [Инициализация переменной](blocks.md#condition)         | Блок для объявления новой переменной и задания ей значения.                                                                                                                                                                                                                                         |
+|                                                      <img src="../../.gitbook/assets/ifBlock_50 (1).png" alt="" data-size="original">                                                       |                 [Условие](blocks.md#condition-1)                | Разделение выполнения программы в соответствии с заданным условием.                                                                                                                                                                                                                                 |
+|                                                       <img src="../../.gitbook/assets/endIfBlock_50.png" alt="" data-size="original">                                                       |                 [Конец условия](blocks.md#endif)                | Обозначает слияние двух веток условного оператора. Никаких действий не выполняет, но полезен для обеспечения структурности программы.                                                                                                                                                               |
+|                                                <img src="../../.gitbook/assets/preconditionalLoopBlock (1).png" alt="" data-size="original">                                                |              [Цикл с предусловием](blocks.md#while)             | Цикл, который выполняется пока истинно некоторое условие, указанное перед его началом. Это условие проверяется до выполнения тела цикла, поэтому тело может быть не выполнено ни разу (если условие с самого начала ложно).                                                                         |
+|                                                       <img src="../../.gitbook/assets/loopBlock_50.png" alt="" data-size="original">                                                        |                      [Цикл](blocks.md#loop)                     | Блок, организующий выполнение последовательности блоков несколько раз.                                                                                                                                                                                                                              |
+|                                                      <img src="../../.gitbook/assets/switchBlock_50.png" alt="" data-size="original">                                                       |                    [Выбор](blocks.md#switch)                    | Условие с несколькими альтернативами.                                                                                                                                                                                                                                                               |
+|                                                     <img src="../../.gitbook/assets/functionBlock_50.png" alt="" data-size="original">                                                      |                [Выражение](blocks.md#expression)                | Считает значение заданного выражения. Также допускается инициализация переменных.                                                                                                                                                                                                                   |
+|                                                  <img src="../../.gitbook/assets/subprogramRobotsBloc_50.png" alt="" data-size="original">                                                  |               [Подпрограмма](blocks.md#subprogram)              | Вызов подпрограммы.                                                                                                                                                                                                                                                                                 |
+|                                                       <img src="../../.gitbook/assets/Black-box (3).png" alt="" data-size="original">                                                       |                [Черный ящик](blocks.md#black-box)               | Подпрограмма, которую нельзя отредактировать после сохранения.                                                                                                                                                                                                                                      |
+|                                                       <img src="../../.gitbook/assets/forkBlock_50.png" alt="" data-size="original">                                                        |              [Параллельные задачи](blocks.md#fork)              | Блок разделяет выполнение программы на несколько потоков.                                                                                                                                                                                                                                           |
+|                                                      <img src="../../.gitbook/assets/blocks-merge_50.png" alt="" data-size="original">                                                      | [Слияние задач](../../studio/programming-visual/blocks.md#join) | Блок слияния параллельных задач.                                                                                                                                                                                                                                                                    |
+|                                                    <img src="../../.gitbook/assets/killThreadBlock_50.png" alt="" data-size="original">                                                     |             [Завершить задачу](blocks.md#killthread)            | Завершает задачу с указанным в свойстве «Задача» идентификатором. Должен применяться из другой задачи.                                                                                                                                                                                              |
+|                                                    <img src="../../.gitbook/assets/randomizerBlock_50.png" alt="" data-size="original">                                                     |               [Случайное число](blocks.md#random)               | Блок для присвоения указанной переменной случайного целого числа из заданного промежутка.                                                                                                                                                                                                           |
+|                                                     <img src="../../.gitbook/assets/block-comment_50.png" alt="" data-size="original">                                                      |                 [Комментарий](blocks.md#comment)                | Блок для добавления на диаграмму произвольного текста в качестве комментария.                                                                                                                                                                                                                       |
 
 ### Начало <a href="#start" id="start"></a>
 
-![Начало](../../.gitbook/assets/initialBlock.png)
+<div align="center"><img src="../../.gitbook/assets/initialBlock.png" alt="Начало"></div>
 
 Начальная точка выполнения программы.
 
@@ -50,7 +50,7 @@
 
 ### Инициализация переменной <a href="#condition" id="condition"></a>
 
-![Инициализация переменной](../../.gitbook/assets/variableInitBlock.png)
+<div align="center"><img src="../../.gitbook/assets/variableInitBlock.png" alt="Инициализация переменной"></div>
 
 Блок для объявления новой переменной и задания ей значения. Этого же можно добиться с помощью блока «[Выражение](blocks.md#expression)», но этот блок делает программу понятнее.
 
@@ -63,7 +63,7 @@
 
 ### Условие <a href="#condition" id="condition"></a>
 
-![Условие](<../../.gitbook/assets/ifBlock\_100 (1).png>)
+![Условие](<../../.gitbook/assets/ifBlock_100 (1).png>)
 
 Разделение выполнения программы в соответствии с заданным условием.
 
@@ -77,7 +77,7 @@
 
 ### Конец условия <a href="#endif" id="endif"></a>
 
-![Конец условия](<../../.gitbook/assets/endIfBlock\_100 (1).png>)
+![Конец условия](<../../.gitbook/assets/endIfBlock_100 (1).png>)
 
 Обозначает слияние двух веток условного оператора.\
 \
@@ -97,7 +97,7 @@
 
 ### Цикл <a href="#loop" id="loop"></a>
 
-![Цикл](../../.gitbook/assets/loopBlock\_100.png)
+![Цикл](../../.gitbook/assets/loopBlock_100.png)
 
 Блок, организующий выполнение последовательности блоков несколько раз.\
 \
@@ -107,7 +107,7 @@
 
 ### Выбор <a href="#switch" id="switch"></a>
 
-![Выбор](../../.gitbook/assets/switchBlock\_100.png)
+![Выбор](../../.gitbook/assets/switchBlock_100.png)
 
 Условие с несколькими альтернативами.\
 \
@@ -117,7 +117,7 @@
 
 ### Выражение <a href="#expression" id="expression"></a>
 
-![Выражение](<../../.gitbook/assets/functionBlock\_100 (1).png>)
+![Выражение](<../../.gitbook/assets/functionBlock_100 (1).png>)
 
 Считает значение заданного выражения. Также допускается инициализация переменных.\
 \
@@ -125,7 +125,7 @@
 
 ### Подпрограмма <a href="#subprogram" id="subprogram"></a>
 
-![Подпрограмма](../../.gitbook/assets/subprogramRobotsBloc\_100.png)
+![Подпрограмма](../../.gitbook/assets/subprogramRobotsBloc_100.png)
 
 Вызов подпрограммы.\
 \
@@ -217,7 +217,7 @@
 
 ### Параллельные задачи <a href="#fork" id="fork"></a>
 
-![Параллельные задачи](../../.gitbook/assets/forkBlock\_100.png)
+![Параллельные задачи](../../.gitbook/assets/forkBlock_100.png)
 
 Блок разделяет выполнение программы на несколько потоков. Например, можно одновременно ждать срабатывания сенсора и истечения временного интервала.\
 \
@@ -227,7 +227,7 @@
 
 ### Слияние задач <a href="#join" id="join"></a>
 
-![Слияние задач](../../.gitbook/assets/blocks-merge\_100.png)
+![Слияние задач](../../.gitbook/assets/blocks-merge_100.png)
 
 Блок слияния параллельных задач.\
 \
@@ -237,19 +237,19 @@
 
 ### Завершить задачу <a href="#killthread" id="killthread"></a>
 
-![Завершить задачу](../../.gitbook/assets/killThreadBlock\_100.png)
+![Завершить задачу](../../.gitbook/assets/killThreadBlock_100.png)
 
 Завершает задачу с указанным в свойстве «Задача» идентификатором. Должен применяться из другой задачи.
 
 ### Случайное число <a href="#random" id="random"></a>
 
-![Случайное число](../../.gitbook/assets/randomizerBlock\_100.png)
+![Случайное число](../../.gitbook/assets/randomizerBlock_100.png)
 
 Блок для присвоения указанной переменной случайного целого числа из заданного с помощью свойств «От» и «До» промежутка.
 
 ### Комментарий <a href="#comment" id="comment"></a>
 
-![Комментарий](../../.gitbook/assets/block-comment\_100.png)
+![Комментарий](../../.gitbook/assets/block-comment_100.png)
 
 Блок для добавления на диаграмму произвольного текста в качестве комментария.
 
@@ -337,7 +337,7 @@
 
 ### Таймер <a href="#timer" id="timer"></a>
 
-![Таймер](../../.gitbook/assets/timerBlock\_100.png)
+![Таймер](../../.gitbook/assets/timerBlock_100.png)
 
 Блок для задания задержки. Устанавливается время задержки в параметре «Задержка» в миллисекундах.&#x20;
 
@@ -409,13 +409,13 @@
 
 ### Опустить маркер <a href="#markerdown" id="markerdown"></a>
 
-![Опустить маркер](../../.gitbook/assets/markerDownBlock\_100.png)
+![Опустить маркер](../../.gitbook/assets/markerDownBlock_100.png)
 
 Начать рисование маркером заданного цвета на полу. При движении «Исполнителя» за ним будет оставаться цветная линия.
 
 ### Поднять маркер <a href="#markerup" id="markerup"></a>
 
-![Поднять маркер](../../.gitbook/assets/markerUpBlock\_100.png)
+![Поднять маркер](../../.gitbook/assets/markerUpBlock_100.png)
 
 Закончить рисование маркером.
 

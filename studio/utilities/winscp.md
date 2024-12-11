@@ -14,7 +14,7 @@
 
 1\. В каталоге с установленной TRIK Studio зайдите в папку `winscp` и запустите `WinSCP.exe`
 
-2\. **** Заполните данные:
+2\. Заполните данные:
 
 * **File protocol:** SCP
 * **Host name:** [IP-адрес контроллера](../../trik/wi-fi/network-connection.md#accesspoint).
