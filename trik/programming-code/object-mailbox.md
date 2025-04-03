@@ -33,7 +33,7 @@ mailbox.joinNetwork("", port, hullNumber);
 {% endtab %}
 {% endtabs %}
 
-В качестве параметров необходимо указать IP-адрес робота, порт и бортномер. В случае, если порт не указан, используется порт по умолчанию.\
+В качестве параметров необходимо указать IP-адрес робота, порт и бортномер. В случае, если порт не указан, используется порт по умолчанию. Борт номер должен быть положительным числом, начиная с 1.\
 Если не указан IP-адрес, но изменен бортномер, то происходит смена бортномера без подключения.
 
 #### Пример
@@ -41,7 +41,7 @@ mailbox.joinNetwork("", port, hullNumber);
 {% tabs %}
 {% tab title="Python" %}
 ```python
-mailbox.joinNetwork("192.168.77.1", -1, -1)
+mailbox.joinNetwork("192.168.77.1", -1, 1)
 //Подключение к 192.168.77.1, порту 8889 без смены бортномера
 mailbox.joinNetwork("192.168.77.1", -1, 2)
 //Подключение к 192.168.77.1, порту 8889 со сменой бортномера на 2
@@ -52,7 +52,7 @@ mailbox.joinNetwork("", -1, 2)
 
 {% tab title="JavaScript" %}
 ```javascript
-mailbox.joinNetwork("192.168.77.1", -1, -1);
+mailbox.joinNetwork("192.168.77.1", -1, 1);
 //Подключение к 192.168.77.1, порту 8889 без смены бортномера
 mailbox.joinNetwork("192.168.77.1", -1, 2);
 //Подключение к 192.168.77.1, порту 8889 со сменой бортномера на 2
@@ -154,7 +154,7 @@ var message = mailbox.receive();
 {% tab title="Python" %}
 ```python
 mailbox.send("message")
-mailbox.send(boardNumber, "message")
+mailbox.send(hullNumber, "message")
 ```
 {% endtab %}
 
