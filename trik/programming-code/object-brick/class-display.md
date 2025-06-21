@@ -33,13 +33,13 @@
 {% tabs %}
 {% tab title="Python" %}
 ```python
-brick.display().addLabel("text", x, y)
+brick.display().addLabel("text", x, y, size)
 ```
 {% endtab %}
 
 {% tab title="JavaScript" %}
 ```javascript
-brick.display().addLabel("text", x, y);
+brick.display().addLabel("text", x, y, size);
 ```
 {% endtab %}
 {% endtabs %}
@@ -48,13 +48,14 @@ brick.display().addLabel("text", x, y);
 
 * `text` — выводимый текст,
 * `x`, `y` — координаты экрана.
+* `size` – размер шрифта в пикселях (необязательный параметр, по-умолчанию шрифт размером 20 пикселей).
 
 #### Пример
 
 {% tabs %}
 {% tab title="Python" %}
 ```python
-brick.display().addLabel('Привет, мир!', 1, 1)
+brick.display().addLabel('Привет, мир!', 1, 1, 20)
 ```
 {% endtab %}
 
