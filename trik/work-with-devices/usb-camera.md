@@ -1,5 +1,15 @@
 # Настройка работы USB-камеры с контроллером ТРИК
 
+## **Список камер, которые можно использовать с контроллером ТРИК**
+
+**Logitech C270 HD**
+
+<figure><img src="../../.gitbook/assets/1925876-0.jpg" alt="" width="188"><figcaption></figcaption></figure>
+
+**DEXP Chat M100R1**
+
+<figure><img src="../../.gitbook/assets/i (15).webp" alt="" width="188"><figcaption></figcaption></figure>
+
 {% hint style="info" %}
 Ниже описана настройка USB-камеры в режиме датчика линии **`lineSensor`**.
 {% endhint %}
