@@ -1,6 +1,6 @@
 # Table of contents
 
-* [Справочный центр ТРИКани](README.md)
+* [Справочный центр ТРИК](README.md)
 
 ## TRIK Studio <a href="#studio" id="studio"></a>
 
