@@ -51,6 +51,8 @@ description: Инструкция для Windows, Linux и Ubuntu
 2. Не отпуская их, кратковременно нажмите кнопку **питания**.
 3. Дождитесь запуска системы.
 
+<figure><img src="../../.gitbook/assets/Запуск контроллера после прошивки.png" alt=""><figcaption></figcaption></figure>
+
 ## Linux
 
 1\. Скачайте последнюю версию [встроенного программного обеспечения](https://trikset.com/downloads#firmware).\
