@@ -20,7 +20,7 @@
 
 ### Отправить сообщение в задачу <a href="#send-message-to-thread" id="send-message-to-thread"></a>
 
-![Отправить сообщение в задачу](<../../.gitbook/assets/sendMessageThreadsBlock (3).png>)
+<img src="../../.gitbook/assets/sendMessageThreadsBlock (3).png" alt="Отправить сообщение в задачу" width="375">
 
 Отправляет данное сообщение в параллельную задачу с заданным идентификатором (идентификатор должен быть указан при создании задачи в блоке [«Параллельные задачи»](../../studio/programming-visual/blocks.md#fork)).\
 \
@@ -74,7 +74,7 @@
 
 ### Сбросить показания энкодера <a href="#clear-encoder" id="clear-encoder"></a>
 
-![Сбросить показания энкодера](<../../.gitbook/assets/nullificationEncoderBlock (3).png>)
+<img src="../../.gitbook/assets/nullificationEncoderBlock (3).png" alt="Сбросить показания энкодера" width="563">
 
 Сбросить показания количества оборотов моторов по указанным портам.\
 \
@@ -179,7 +179,7 @@
 
 ### Калибровка гироскопа
 
-![Калибровка гироскопа](<../../.gitbook/assets/calibrateGyroscopeBlock (3).png>)
+<img src="../../.gitbook/assets/calibrateGyroscopeBlock (3).png" alt="Калибровка гироскопа" width="188">
 
 Устанавливает гироскоп в 0 в текущей позиции.
 

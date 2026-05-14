@@ -115,6 +115,7 @@
   * [Настройка работы USB-камеры с контроллером ТРИК](trik/work-with-devices/usb-camera.md)
   * [Съемка изображений на камеру ТРИК и использование их в TRIK Studio](trik/work-with-devices/capture-images-on-camera.md)
   * [Работа с аккумулятором и зарядным устройством](trik/work-with-devices/battery-and-charger.md)
+  * [Подключение USB Wi-Fi адаптера к контроллеру ТРИК](trik/work-with-devices/podklyuchenie-usb-wi-fi-adaptera-k-kontrolleru-trik.md)
 
 ## Контроллер LEGO EV3 <a href="#ev3" id="ev3"></a>
 
