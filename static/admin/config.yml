@@ -1,0 +1,36 @@
+backend:
+  name: github
+  repo: ilyashir/trik-help-docusaurus
+  branch: main
+  squash_merges: true
+
+publish_mode: editorial_workflow
+
+media_folder: "static/gitbook/assets"
+public_folder: "/gitbook/assets"
+
+locale: "ru"
+display_url: "https://help-new.trikset.com"
+site_url: "https://help-new.trikset.com"
+logo_url: "/img/logo.svg"
+
+collections:
+  - name: "docs"
+    label: "Страницы справки"
+    label_singular: "Страница"
+    folder: "docs"
+    create: true
+    extension: "md"
+    format: "frontmatter"
+    summary: "{{title}} — {{path}}"
+    nested:
+      depth: 10
+      summary: "{{title}}"
+      subfolders: false
+    meta:
+      path:
+        widget: "string"
+        label: "Путь файла"
+    fields:
+      - { name: "title", label: "Заголовок", widget: "string" }
+      - { name: "body", label: "Текст", widget: "markdown", modes: ["rich_text", "raw"] }
