@@ -2,6 +2,7 @@ backend:
   name: github
   repo: ilyashir/trik-help-docusaurus
   branch: main
+  base_url: https://help-new.trikset.com
   squash_merges: true
 
 publish_mode: editorial_workflow
