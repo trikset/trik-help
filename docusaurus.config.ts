@@ -14,8 +14,13 @@ const config: Config = {
   projectName: 'trik-help',
 
   onBrokenLinks: 'warn',
-  onBrokenMarkdownLinks: 'warn',
   onBrokenAnchors: 'warn',
+
+  markdown: {
+    hooks: {
+      onBrokenMarkdownLinks: 'warn',
+    },
+  },
 
   i18n: {
     defaultLocale: 'ru',
