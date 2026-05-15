@@ -48,7 +48,7 @@ import TabItem from '@theme/TabItem';
 
 4\. Переключите контроллер в режим Wi-Fi-клиента.
 
-![](/gitbook/assets/dac (1).png)
+![](/gitbook/assets/dac%20%281%29.png)
 
 5\. При успешном подключении вверху экрана рядом с иконкой <img src="/gitbook/assets/icon-1.png" alt="" data-size="line" /> отобразится ip-адрес контроллера, а в списке иконкой <img src="/gitbook/assets/icon-2.png" alt="" data-size="line" /> будет выделено имя сети.
 

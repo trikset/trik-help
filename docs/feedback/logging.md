@@ -18,7 +18,7 @@ title: "Действия при неправильной работе TRIK Studi
 
 1\. В меню TRIK Studio выберите «Справка» → «Открыть лог-файлы».
 
-![](/gitbook/assets/logging0 (1).png)
+![](/gitbook/assets/logging0%20%281%29.png)
 
 2\. В открывшемся окне выделите файлы `actions.log` и `qreal.log`.
 
@@ -63,7 +63,7 @@ title: "Действия при неправильной работе TRIK Studi
 
 3\. Выберите в веб-интерфейсе пункт «Бортовой журнал».
 
-4\. В правом верхнем углу нажмите на значок <img src="/gitbook/assets/logs2 (1).png" alt="" data-size="line" /> .
+4\. В правом верхнем углу нажмите на значок <img src="/gitbook/assets/logs2%20%281%29.png" alt="" data-size="line" /> .
 
 ![](/gitbook/assets/logs.png)
 

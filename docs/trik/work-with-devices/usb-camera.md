@@ -12,7 +12,7 @@ title: "Настройка работы USB-камеры с контроллер
 
 **DEXP Chat M100R1**
 
-<figure><img src="/gitbook/assets/i (15).webp" alt="" width="188" /><figcaption></figcaption></figure>
+<figure><img src="/gitbook/assets/i%20%2815%29.webp" alt="" width="188" /><figcaption></figcaption></figure>
 
 :::info
 Ниже описана настройка USB-камеры в режиме датчика линии **`lineSensor`**.
@@ -33,7 +33,7 @@ title: "Настройка работы USB-камеры с контроллер
 
 3\. Запустите утилиту **PuTTY**. Для этого в главном меню откройте `Инструменты → Сторонние программы → PuTTY`.&#x20;
 
-![](/gitbook/assets/putty (1).png)
+![](/gitbook/assets/putty%20%281%29.png)
 
 4\. Введите [ip-адрес контроллера](../wi-fi/network-connection.md) (указан в параметрах сети контроллера) и нажмите «Open».&#x20;
 

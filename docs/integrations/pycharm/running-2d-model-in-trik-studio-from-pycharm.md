@@ -27,7 +27,7 @@ title: "Запуск 2D-модели в TRIK Studio из PyCharm"
 
 2\. Выберите `File → Settings` или нажмите комбинацию клавиш `«Ctrl+Alt+S»`.
 
-![](/gitbook/assets/1 (1).png)
+![](/gitbook/assets/1%20%281%29.png)
 
 3\. Выберите `Tools → External tools` и нажмите на значок `«+»`.
 

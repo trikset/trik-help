@@ -9,7 +9,7 @@ import TabItem from '@theme/TabItem';
 
 **TRIK Studio** — бесплатная среда программирования роботов.
 
-<div align="center"><img src="/gitbook/assets/trik_studio_logo_&#x26;_text_right.png" alt="" /></div>
+<div align="center"><img src="/gitbook/assets/trik_studio_logo_%26#x26;_text_right.png" alt="" /></div>
 
 Она позволяет решать задачи как с помощью [визуального](../programming-visual/) программирования, так и [текстовых языков](../programming-code.md).
 
@@ -25,7 +25,7 @@ import TabItem from '@theme/TabItem';
 
 Отличительной особенностью TRIK Studio является [интерактивный режим имитационного моделирования](../2d-model/). Чтобы научиться программировать, необязательно иметь конструктор.
 
-![](/gitbook/assets/TRIK Studio 2D model.gif)
+![](/gitbook/assets/TRIK%20Studio%202D%20model.gif)
 
 TRIK Studio — универсальное программное обеспечение для преподавания основ программирования. В ней предусмотрен переход [от диаграмм к текстовым языкам](../programming-code.md#generation).
 

@@ -29,11 +29,11 @@ title: "Загрузка программ на нескольких робото
 
 2\. Вызовите `Terminal → Configure Tasks`.
 
-![](/gitbook/assets/VSCode\_1 (1).png)
+![](/gitbook/assets/VSCode_1%20%281%29.png)
 
 3\. Если ранее задач не было, то выберите в выпадающем меню `Create tasks.json file from template → Others`. Откроется файл `tasks.json`. Если tasks были созданы ранее, он откроется сразу после пункта 2.
 
-![](/gitbook/assets/VSCode\_2 (1).jpg)
+![](/gitbook/assets/VSCode_2%20%281%29.jpg)
 
 4\. Удалите всё из этого файла и вставьте данный код:
 

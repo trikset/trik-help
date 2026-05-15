@@ -43,7 +43,7 @@ title: "Запуск программ и их загрузка на контро
 
 3 . Для запуска программы на контроллере зайдите в меню «Файлы», выберите нужную программу и нажмите на кнопку «Ввод».
 
-<figure><img src="/gitbook/assets/аыаа (1).png" alt="" /><figcaption></figcaption></figure>
+<figure><img src="/gitbook/assets/%D0%B0%D1%8B%D0%B0%D0%B0%20%281%29.png" alt="" /><figcaption></figcaption></figure>
 
 
 {/* Compatibility anchors for old GitBook/Docusaurus links. */}

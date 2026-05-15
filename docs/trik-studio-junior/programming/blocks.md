@@ -16,15 +16,15 @@ title: "Блоки в TRIK Studio Junior"
 | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------: | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | ![](https://gblobscdn.gitbook.com/assets%2F-M-9YMGCK0ySSnTAiseS%2F-M4siuJqdaQ-i-x_2pCT%2F-M4soizl8q-7pvnHEsmN%2FinitialBlock_50.png?alt=media\&token=c1fd4b99-84cd-4f2f-a78d-4cb718f8dbe0)  |                    [Начало](blocks.md#start)                    | <p>Начальная точка выполнения программы.</p><p></p><p>На каждой диаграмме должен быть только один такой блок. В него не должно быть входящих связей, а исходящая связь из этого элемента должна быть только одна.</p><p></p><p>Процесс интерпретации диаграммы начинается именно с этого блока.</p> |
 |                                                       <img src="/gitbook/assets/finalBlock_50.png" alt="" data-size="original" />                                                       |                     [Конец](blocks.md#final)                    | <p>Конец программы.</p><p></p><p>Если программа состоит из нескольких параллельных участков выполнения, достижение этого блока завершает соответствующий участок выполнения.</p><p></p><p>У данного блока не может быть исходящих связей.</p>                                                       |
-|                                                 <img src="/gitbook/assets/variableInitBlock — копия.png" alt="" data-size="original" />                                                 |         [Инициализация переменной](blocks.md#condition)         | Блок для объявления новой переменной и задания ей значения.                                                                                                                                                                                                                                         |
-|                                                      <img src="/gitbook/assets/ifBlock_50 (1).png" alt="" data-size="original" />                                                       |                 [Условие](blocks.md#condition-1)                | Разделение выполнения программы в соответствии с заданным условием.                                                                                                                                                                                                                                 |
+|                                                 <img src="/gitbook/assets/variableInitBlock%20%E2%80%94%20%D0%BA%D0%BE%D0%BF%D0%B8%D1%8F.png" alt="" data-size="original" />                                                 |         [Инициализация переменной](blocks.md#condition)         | Блок для объявления новой переменной и задания ей значения.                                                                                                                                                                                                                                         |
+|                                                      <img src="/gitbook/assets/ifBlock_50%20%281%29.png" alt="" data-size="original" />                                                       |                 [Условие](blocks.md#condition-1)                | Разделение выполнения программы в соответствии с заданным условием.                                                                                                                                                                                                                                 |
 |                                                       <img src="/gitbook/assets/endIfBlock_50.png" alt="" data-size="original" />                                                       |                 [Конец условия](blocks.md#endif)                | Обозначает слияние двух веток условного оператора. Никаких действий не выполняет, но полезен для обеспечения структурности программы.                                                                                                                                                               |
-|                                                <img src="/gitbook/assets/preconditionalLoopBlock (1).png" alt="" data-size="original" />                                                |              [Цикл с предусловием](blocks.md#while)             | Цикл, который выполняется пока истинно некоторое условие, указанное перед его началом. Это условие проверяется до выполнения тела цикла, поэтому тело может быть не выполнено ни разу (если условие с самого начала ложно).                                                                         |
+|                                                <img src="/gitbook/assets/preconditionalLoopBlock%20%281%29.png" alt="" data-size="original" />                                                |              [Цикл с предусловием](blocks.md#while)             | Цикл, который выполняется пока истинно некоторое условие, указанное перед его началом. Это условие проверяется до выполнения тела цикла, поэтому тело может быть не выполнено ни разу (если условие с самого начала ложно).                                                                         |
 |                                                       <img src="/gitbook/assets/loopBlock_50.png" alt="" data-size="original" />                                                        |                      [Цикл](blocks.md#loop)                     | Блок, организующий выполнение последовательности блоков несколько раз.                                                                                                                                                                                                                              |
 |                                                      <img src="/gitbook/assets/switchBlock_50.png" alt="" data-size="original" />                                                       |                    [Выбор](blocks.md#switch)                    | Условие с несколькими альтернативами.                                                                                                                                                                                                                                                               |
 |                                                     <img src="/gitbook/assets/functionBlock_50.png" alt="" data-size="original" />                                                      |                [Выражение](blocks.md#expression)                | Считает значение заданного выражения. Также допускается инициализация переменных.                                                                                                                                                                                                                   |
 |                                                  <img src="/gitbook/assets/subprogramRobotsBloc_50.png" alt="" data-size="original" />                                                  |               [Подпрограмма](blocks.md#subprogram)              | Вызов подпрограммы.                                                                                                                                                                                                                                                                                 |
-|                                                       <img src="/gitbook/assets/Black-box (3).png" alt="" data-size="original" />                                                       |                [Черный ящик](blocks.md#black-box)               | Подпрограмма, которую нельзя отредактировать после сохранения.                                                                                                                                                                                                                                      |
+|                                                       <img src="/gitbook/assets/Black-box%20%283%29.png" alt="" data-size="original" />                                                       |                [Черный ящик](blocks.md#black-box)               | Подпрограмма, которую нельзя отредактировать после сохранения.                                                                                                                                                                                                                                      |
 |                                                       <img src="/gitbook/assets/forkBlock_50.png" alt="" data-size="original" />                                                        |              [Параллельные задачи](blocks.md#fork)              | Блок разделяет выполнение программы на несколько потоков.                                                                                                                                                                                                                                           |
 |                                                      <img src="/gitbook/assets/blocks-merge_50.png" alt="" data-size="original" />                                                      | [Слияние задач](../../studio/programming-visual/blocks.md#join) | Блок слияния параллельных задач.                                                                                                                                                                                                                                                                    |
 |                                                    <img src="/gitbook/assets/killThreadBlock_50.png" alt="" data-size="original" />                                                     |             [Завершить задачу](blocks.md#killthread)            | Завершает задачу с указанным в свойстве «Задача» идентификатором. Должен применяться из другой задачи.                                                                                                                                                                                              |
@@ -41,7 +41,7 @@ title: "Блоки в TRIK Studio Junior"
 Процесс интерпретации диаграммы начинается именно с этого блока.
 
 ### Конец &#123;#final&#125;
-![Конец](/gitbook/assets/finalBlock (1).png)
+![Конец](/gitbook/assets/finalBlock%20%281%29.png)
 
 Конец программы.
 
@@ -62,7 +62,7 @@ title: "Блоки в TRIK Studio Junior"
 | **Переменная** | Указывается имя переменной.                                        |
 
 ### Условие &#123;#condition&#125;
-![Условие](/gitbook/assets/ifBlock_100 (1).png)
+![Условие](/gitbook/assets/ifBlock_100%20%281%29.png)
 
 Разделение выполнения программы в соответствии с заданным условием.
 
@@ -75,14 +75,14 @@ title: "Блоки в TRIK Studio Junior"
 | **Условие** | Указывается логическое выражение (подробнее см. в статье «[Синтаксис выражений](expression-syntax.md)»), на основе значения которого будет осуществлен выбор дальнейшего пути выполнения диаграммы. |
 
 ### Конец условия &#123;#endif&#125;
-![Конец условия](/gitbook/assets/endIfBlock_100 (1).png)
+![Конец условия](/gitbook/assets/endIfBlock_100%20%281%29.png)
 
 Обозначает слияние двух веток условного оператора.\
 \
 Никаких действий не выполняет, но полезен для обеспечения структурности программы. Если придерживаться правила, что все ветки операторов «[Условие](blocks.md#condition-1)» или «[Выбор](blocks.md#switch)» сходятся на таком блоке, это существенно повысит шансы на то, что генератор сможет породить код на текстовом языке без операторов `goto`.
 
 ### Цикл с предусловием &#123;#while&#125;
-![Цикл с предусловием](/gitbook/assets/preconditionalLoopBlock (2).png)
+![Цикл с предусловием](/gitbook/assets/preconditionalLoopBlock%20%282%29.png)
 
 Цикл с предусловием — цикл, который выполняется пока истинно некоторое условие, указанное перед его началом. Это условие проверяется до выполнения тела цикла, поэтому тело может быть не выполнено ни разу (если условие с самого начала ложно).
 
@@ -111,7 +111,7 @@ title: "Блоки в TRIK Studio Junior"
 У данного блока должны быть несколько исходящих связей. Все связи, кроме одной, должны быть помечены элементарным значением (строка, число и др.), которое может принимать выражение (значение просто пишется в свойство «Условие» у связи). Одна из связей должна быть не помечена: по ней осуществляется переход, если выражение не равно ни одному из перечисленных значений.
 
 ### Выражение &#123;#expression&#125;
-![Выражение](/gitbook/assets/functionBlock_100 (1).png)
+![Выражение](/gitbook/assets/functionBlock_100%20%281%29.png)
 
 Считает значение заданного выражения. Также допускается инициализация переменных.\
 \
@@ -144,7 +144,7 @@ title: "Блоки в TRIK Studio Junior"
 ![](/gitbook/assets/subprogramm2.png)
 
 ### Черный ящик &#123;#black-box&#125;
-![Черный ящик](/gitbook/assets/Black-box (1) (1).png)
+![Черный ящик](/gitbook/assets/Black-box%20%281%29%20%281%29.png)
 
 Блок «Черный ящик» используется для составления задач на поиск правила обработки информации.
 
@@ -247,31 +247,31 @@ title: "Блоки в TRIK Studio Junior"
 ## Блоки действия &#123;#action-blocks&#125;
 | Вид                                                                                            |                             Название                             | Описание                                                                      |
 | ---------------------------------------------------------------------------------------------- | :--------------------------------------------------------------: | ----------------------------------------------------------------------------- |
-| <img src="/gitbook/assets/sendMessageThreadsBlock (2).png" alt="" data-size="original" />  | [Отправить сообщение в задачу](blocks.md#send-message-to-thread) | Отправляет данное сообщение в параллельную задачу с заданным идентификатором. |
+| <img src="/gitbook/assets/sendMessageThreadsBlock%20%282%29.png" alt="" data-size="original" />  | [Отправить сообщение в задачу](blocks.md#send-message-to-thread) | Отправляет данное сообщение в параллельную задачу с заданным идентификатором. |
 | <img src="/gitbook/assets/getButtonCodeBlock.png" alt="" data-size="original" />           |         [Получить код кнопки](blocks.md#get-button-code)         | Сохраняет в указанную переменную код нажатой на роботе кнопки.                |
-| <img src="/gitbook/assets/forwardOneCellBlock - Copy.png" alt="" data-size="original" />   |               [Вперед](blocks.md#get-button-code-1)              | Перемещает «Исполнителя» на указанное количество клеток вперед.               |
-| <img src="/gitbook/assets/backwardOneCellBlock - Copy.png" alt="" data-size="original" />  |               [Назад](blocks.md#get-button-code-2)               | Перемещает «Исполнителя» на указанное количество клеток назад.                |
-| <img src="/gitbook/assets/turnRightBlock - Copy.png" alt="" data-size="original" />        |              [Направо](blocks.md#get-button-code-3)              | Поворачивает «Исполнителя» направо.                                           |
-| <img src="/gitbook/assets/turnLeftBlock - Copy.png" alt="" data-size="original" />         |               [Налево](blocks.md#get-button-code-4)              | Поворачивает «Исполнителя» налево.                                            |
+| <img src="/gitbook/assets/forwardOneCellBlock%20-%20Copy.png" alt="" data-size="original" />   |               [Вперед](blocks.md#get-button-code-1)              | Перемещает «Исполнителя» на указанное количество клеток вперед.               |
+| <img src="/gitbook/assets/backwardOneCellBlock%20-%20Copy.png" alt="" data-size="original" />  |               [Назад](blocks.md#get-button-code-2)               | Перемещает «Исполнителя» на указанное количество клеток назад.                |
+| <img src="/gitbook/assets/turnRightBlock%20-%20Copy.png" alt="" data-size="original" />        |              [Направо](blocks.md#get-button-code-3)              | Поворачивает «Исполнителя» направо.                                           |
+| <img src="/gitbook/assets/turnLeftBlock%20-%20Copy.png" alt="" data-size="original" />         |               [Налево](blocks.md#get-button-code-4)              | Поворачивает «Исполнителя» налево.                                            |
 | <img src="/gitbook/assets/sayBlock.png" alt="" data-size="original" />                     |                     [Сказать](blocks.md#say)                     | Произнести с помощью динамика фразу, переданную в качестве аргумента блока.   |
-| <img src="/gitbook/assets/ledBlock (2).png" alt="" data-size="original" />                 |                    [Светодиод](blocks.md#led)                    | Установить указанный цвет светодиода на корпусе контроллера.                  |
+| <img src="/gitbook/assets/ledBlock%20%282%29.png" alt="" data-size="original" />                 |                    [Светодиод](blocks.md#led)                    | Установить указанный цвет светодиода на корпусе контроллера.                  |
 
 ### Отправить сообщение в задачу &#123;#send-message-to-thread&#125;
-![Отправить сообщение в задачу](/gitbook/assets/sendMessageThreadsBlock (3).png)
+![Отправить сообщение в задачу](/gitbook/assets/sendMessageThreadsBlock%20%283%29.png)
 
 Отправляет данное сообщение в параллельную задачу с заданным идентификатором (идентификатор должен быть указан при создании задачи в блоке [«Параллельные задачи»](blocks.md#fork)).\
 \
 В качестве сообщения может быть любое выражение.
 
 ### Получить код кнопки &#123;#get-button-code&#125;
-![Получить код кнопки](/gitbook/assets/getButtonCodeBlock (1).png)
+![Получить код кнопки](/gitbook/assets/getButtonCodeBlock%20%281%29.png)
 
 Сохраняет в указанную переменную код нажатой на роботе кнопки.\
 \
 Свойство «Ожидание» позволяет дождаться или не дожидаться, когда кнопка действительно будет нажата. Если нажатия кнопки блок не дожидается и кнопка не нажата, переменной присваивается значение «-1».
 
 ### Вперед &#123;#get-button-code&#125;
-![](/gitbook/assets/forwardOneCellBlock (1).png)
+![](/gitbook/assets/forwardOneCellBlock%20%281%29.png)
 
 Перемещает «Исполнителя» на указанное количество клеток вперед.\
 \
@@ -295,12 +295,12 @@ title: "Блоки в TRIK Studio Junior"
 Поворачивает «Исполнителя» налево.
 
 ### Сказать &#123;#say&#125;
-![Сказать](/gitbook/assets/sayBlock (1).png)
+![Сказать](/gitbook/assets/sayBlock%20%281%29.png)
 
 Произнести с помощью динамика фразу, переданную в качестве аргумента блока.
 
 ### Светодиод &#123;#led&#125;
-![Светодиод](/gitbook/assets/ledBlock (3).png)
+![Светодиод](/gitbook/assets/ledBlock%20%283%29.png)
 
 Установить указанный цвет светодиода на корпусе контроллера.
 
@@ -308,9 +308,9 @@ title: "Блоки в TRIK Studio Junior"
 |                                                Вид                                                |                                   Название                                   | Описание                                                                                           |
 | :-----------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------: | -------------------------------------------------------------------------------------------------- |
 |          <img src="/gitbook/assets/timerBlock_50.png" alt="" data-size="original" />          |                          [Таймер](blocks.md#timer-1)                         | Блок для задания задержки. Устанавливается время задержки в параметре «Задержка» в миллисекундах.  |
-| <img src="/gitbook/assets/receiveMessageThreadsBlock (2).png" alt="" data-size="original" />  | [Получить сообщение из другой задачи](blocks.md#receive-message-from-thread) | Ждать получения сообщения из другой параллельной задачи.                                           |
-|                      ![](/gitbook/assets/ezgif.com-gif-maker (1).png)                     |                 [Пользовательский ввод](blocks.md#userinput)                 | Ждать ввода значения от пользователя.                                                              |
-|     <img src="/gitbook/assets/waitForButtonsBlock (2).png" alt="" data-size="original" />     |               [Ждать нажатия кнопки](blocks.md#wait-for-button)              | Ждать, пока не будет нажата указанная кнопка на корпусе робота.                                    |
+| <img src="/gitbook/assets/receiveMessageThreadsBlock%20%282%29.png" alt="" data-size="original" />  | [Получить сообщение из другой задачи](blocks.md#receive-message-from-thread) | Ждать получения сообщения из другой параллельной задачи.                                           |
+|                      ![](/gitbook/assets/ezgif.com-gif-maker%20%281%29.png)                     |                 [Пользовательский ввод](blocks.md#userinput)                 | Ждать ввода значения от пользователя.                                                              |
+|     <img src="/gitbook/assets/waitForButtonsBlock%20%282%29.png" alt="" data-size="original" />     |               [Ждать нажатия кнопки](blocks.md#wait-for-button)              | Ждать, пока не будет нажата указанная кнопка на корпусе робота.                                    |
 
 ### Таймер &#123;#timer&#125;
 ![Таймер](/gitbook/assets/timerBlock_100.png)
@@ -318,7 +318,7 @@ title: "Блоки в TRIK Studio Junior"
 Блок для задания задержки. Устанавливается время задержки в параметре «Задержка» в миллисекундах.&#x20;
 
 ### Получить сообщение из другой задачи &#123;#receive-message-from-thread&#125;
-![Получить сообщение из другой задачи](/gitbook/assets/receiveMessageThreadsBlock (3).png)
+![Получить сообщение из другой задачи](/gitbook/assets/receiveMessageThreadsBlock%20%283%29.png)
 
 Ждать получения сообщения из другой параллельной задачи.\
 \
@@ -350,7 +350,7 @@ title: "Блоки в TRIK Studio Junior"
 | <p></p><p><img src="/gitbook/assets/2020-09-15_11-35-35.png" alt="" /></p> | <p></p><p><img src="/gitbook/assets/2020-09-15_11-34-54.png" alt="" /></p> |
 
 ### Ждать нажатия кнопки &#123;#wait-for-button&#125;
-![Ждать нажатия кнопки](/gitbook/assets/waitForButtonsBlock (3).png)
+![Ждать нажатия кнопки](/gitbook/assets/waitForButtonsBlock%20%283%29.png)
 
 Ждать, пока не будет нажата указанная кнопка на корпусе робота.
 
@@ -358,24 +358,24 @@ title: "Блоки в TRIK Studio Junior"
 
 | Вид                                                                                     |                       Название                       | Описание                                                                                                                                                                                                         |
 | --------------------------------------------------------------------------------------- | :--------------------------------------------------: | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| <img src="/gitbook/assets/clearScreenBlock (2).png" alt="" data-size="original" />  |       [Очистить экран](blocks.md#clear-screen)       | Стереть всё, что нарисовано на экране.                                                                                                                                                                           |
+| <img src="/gitbook/assets/clearScreenBlock%20%282%29.png" alt="" data-size="original" />  |       [Очистить экран](blocks.md#clear-screen)       | Стереть всё, что нарисовано на экране.                                                                                                                                                                           |
 | <img src="/gitbook/assets/markerDownBlock_50.png" alt="" data-size="original" />    |        [Опустить маркер](blocks.md#markerdown)       | Начать рисование маркером заданного цвета на полу. При движении «Исполнителя» за ним будет оставаться цветная линия.                                                                                             |
 | <img src="/gitbook/assets/markerUpBlock_50.png" alt="" data-size="original" />      |         [Поднять маркер](blocks.md#markerup)         | Закончить рисование маркером.                                                                                                                                                                                    |
 | <img src="/gitbook/assets/fillBlock.png" alt="" data-size="original" />             |          [Закрасить клетку](blocks.md#fill)          | Закрасить клетку, на которой находится «Исполнитель».                                                                                                                                                            |
-| <img src="/gitbook/assets/printTextBlock (2).png" alt="" data-size="original" />    |       [Напечатать текст](blocks.md#print-text)       | Печатает заданную строку в заданном месте на экране робота. Значение свойства «Текст» по умолчанию трактуется как строка в чистом виде, оно так и будет выведено на экран.                                       |
+| <img src="/gitbook/assets/printTextBlock%20%282%29.png" alt="" data-size="original" />    |       [Напечатать текст](blocks.md#print-text)       | Печатает заданную строку в заданном месте на экране робота. Значение свойства «Текст» по умолчанию трактуется как строка в чистом виде, оно так и будет выведено на экран.                                       |
 | <img src="/gitbook/assets/brushColorBlock.png" alt="" data-size="original" />       |         [Цвет кисти](blocks.md#painter-color)        | Указать цвет, которым будут рисоваться простые графические фигуры на экране робота.                                                                                                                              |
 | <img src="/gitbook/assets/brushWidthBlock.png" alt="" data-size="original" />       |       [Толщина кисти](blocks.md#painter-width)       | Указать ширину линии, которой будут рисоваться простые графические фигуры на экране робота.                                                                                                                      |
-| <img src="/gitbook/assets/drawPixelBlock (2).png" alt="" data-size="original" />    |       [Нарисовать точку](blocks.md#draw-pixel)       | Нарисовать на экране точку в указанных координатах.                                                                                                                                                              |
-| <img src="/gitbook/assets/drawLineBlock (2).png" alt="" data-size="original" />     |        [Нарисовать линию](blocks.md#draw-line)       | Нарисовать на экране отрезок. В качестве параметров блоку указываются концы отрезка.                                                                                                                             |
-| <img src="/gitbook/assets/drawRectBlock (2).png" alt="" data-size="original" />     | [Нарисовать прямоугольник](blocks.md#draw-rectangle) | Нарисовать на экране прямоугольник. В качестве параметров указываются координаты левого верхнего угла, ширина и высота прямоугольника.                                                                           |
-| <img src="/gitbook/assets/drawCircleBlock (2).png" alt="" data-size="original" />   |      [Нарисовать эллипс](blocks.md#draw-ellipse)     | Нарисовать на экране эллипс, вписанный в заданный прямоугольник.                                                                                                                                                 |
+| <img src="/gitbook/assets/drawPixelBlock%20%282%29.png" alt="" data-size="original" />    |       [Нарисовать точку](blocks.md#draw-pixel)       | Нарисовать на экране точку в указанных координатах.                                                                                                                                                              |
+| <img src="/gitbook/assets/drawLineBlock%20%282%29.png" alt="" data-size="original" />     |        [Нарисовать линию](blocks.md#draw-line)       | Нарисовать на экране отрезок. В качестве параметров блоку указываются концы отрезка.                                                                                                                             |
+| <img src="/gitbook/assets/drawRectBlock%20%282%29.png" alt="" data-size="original" />     | [Нарисовать прямоугольник](blocks.md#draw-rectangle) | Нарисовать на экране прямоугольник. В качестве параметров указываются координаты левого верхнего угла, ширина и высота прямоугольника.                                                                           |
+| <img src="/gitbook/assets/drawCircleBlock%20%282%29.png" alt="" data-size="original" />   |      [Нарисовать эллипс](blocks.md#draw-ellipse)     | Нарисовать на экране эллипс, вписанный в заданный прямоугольник.                                                                                                                                                 |
 | <img src="/gitbook/assets/drawArcBlock.png" alt="" data-size="original" />          |         [Нарисовать дугу](blocks.md#draw-arc)        | Нарисовать на экране дугу, заданную координатами прямоугольника, в который она будет вписана, и углами (в градусах) её начала и конца на окружности. Если начало и конец совпадают, будет нарисована окружность. |
 | <img src="/gitbook/assets/smileBlock.png" alt="" data-size="original" />            |              [Смайлик](blocks.md#smile)              | Нарисовать на экране смайлик.                                                                                                                                                                                    |
 | <img src="/gitbook/assets/sadSmileBlock.png" alt="" data-size="original" />         |        [Грустный смайлик](blocks.md#sad-smile)       | Нарисовать на экране грустный смайлик.                                                                                                                                                                           |
 | <img src="/gitbook/assets/setBackgroundBlock.png" alt="" data-size="original" />    |        [Цвет фона](blocks.md#background-color)       | Задаёт цвет фона экрана.                                                                                                                                                                                         |
 
 ### Очистить экран &#123;#clear-screen&#125;
-![Очистить экран](/gitbook/assets/clearScreenBlock (3).png)
+![Очистить экран](/gitbook/assets/clearScreenBlock%20%283%29.png)
 
 Стереть всё, что нарисовано на экране.
 
@@ -390,7 +390,7 @@ title: "Блоки в TRIK Studio Junior"
 Закончить рисование маркером.
 
 ### Закрасить клетку &#123;#fill&#125;
-![](/gitbook/assets/fillBlock (1).png)
+![](/gitbook/assets/fillBlock%20%281%29.png)
 
 Закрасить клетку, на которой находится «Исполнитель», выбранным цветом. Цвет выбирается в свойствах блоках в выпадающем меню.
 
@@ -403,7 +403,7 @@ title: "Блоки в TRIK Studio Junior"
 | Текст     | Текст / имя переменной (выражение) для вывода в клетке.                                                    |
 
 ### Напечатать текст &#123;#print-text&#125;
-![Напечатать текст](/gitbook/assets/printTextBlock (3).png)
+![Напечатать текст](/gitbook/assets/printTextBlock%20%283%29.png)
 
 Печатает заданную строку в заданном месте на экране робота.
 
@@ -431,52 +431,52 @@ title: "Блоки в TRIK Studio Junior"
 2. Поставьте галочку в свойстве «Вычислять».
 
 ### Цвет кисти &#123;#painter-color&#125;
-![Цвет кисти](/gitbook/assets/brushColorBlock (1).png)
+![Цвет кисти](/gitbook/assets/brushColorBlock%20%281%29.png)
 
 Указать цвет, которым будут рисоваться простые графические фигуры на экране робота.
 
 ### Толщина кисти &#123;#painter-width&#125;
-![Ширина кисти](/gitbook/assets/brushWidthBlock (1).png)
+![Ширина кисти](/gitbook/assets/brushWidthBlock%20%281%29.png)
 
 Указать ширину линии, которой будут рисоваться простые графические фигуры на экране робота.
 
 ### Нарисовать точку &#123;#draw-pixel&#125;
-![Нарисовать точку](/gitbook/assets/drawPixelBlock (3).png)
+![Нарисовать точку](/gitbook/assets/drawPixelBlock%20%283%29.png)
 
 Нарисовать на экране точку в указанных координатах.
 
 ### Нарисовать линию &#123;#draw-line&#125;
-![Нарисовать линию](/gitbook/assets/drawLineBlock (3).png)
+![Нарисовать линию](/gitbook/assets/drawLineBlock%20%283%29.png)
 
 Нарисовать на экране отрезок. В качестве параметров блоку указываются концы отрезка.
 
 ### Нарисовать прямоугольник &#123;#draw-rectangle&#125;
-![Нарисовать прямоугольник](/gitbook/assets/drawRectBlock (3).png)
+![Нарисовать прямоугольник](/gitbook/assets/drawRectBlock%20%283%29.png)
 
 Нарисовать на экране прямоугольник. В качестве параметров указываются координаты левого верхнего угла, ширина и высота прямоугольника.
 
 ### Нарисовать эллипс &#123;#draw-ellipse&#125;
-![Нарисовать эллипс](/gitbook/assets/drawCircleBlock (3).png)
+![Нарисовать эллипс](/gitbook/assets/drawCircleBlock%20%283%29.png)
 
 Нарисовать на экране эллипс, вписанный в заданный прямоугольник.
 
 ### Нарисовать дугу &#123;#draw-arc&#125;
-![Нарисовать дугу](/gitbook/assets/drawArcBlock (1).png)
+![Нарисовать дугу](/gitbook/assets/drawArcBlock%20%281%29.png)
 
 Нарисовать на экране дугу, заданную координатами прямоугольника, в который она будет вписана, и углами (в градусах) её начала и конца на окружности. Если начало и конец совпадают, будет нарисована окружность.
 
 ### Смайлик &#123;#smile&#125;
-![Смайлик](/gitbook/assets/smileBlock (1).png)
+![Смайлик](/gitbook/assets/smileBlock%20%281%29.png)
 
 Нарисовать на экране смайлик.
 
 ### Грустный смайлик &#123;#sad-smile&#125;
-![Грустный смайлик](/gitbook/assets/sadSmileBlock (1).png)
+![Грустный смайлик](/gitbook/assets/sadSmileBlock%20%281%29.png)
 
 Нарисовать на экране грустный смайлик.
 
 ### Цвет фона &#123;#background-color&#125;
-![Цвет фона](/gitbook/assets/setBackgroundBlock (1).png)
+![Цвет фона](/gitbook/assets/setBackgroundBlock%20%281%29.png)
 
 Задаёт цвет фона экрана.
 

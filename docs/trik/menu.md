@@ -27,7 +27,7 @@ title: "Меню контроллера ТРИК"
 ## **Файлы** &#123;#files&#125;
 Раздел «Файлы» предназначен для просмотра, запуска и удаления загруженных на контроллер программ.
 
-| ![](/gitbook/assets/screenshot_0.png) | ![](/gitbook/assets/Файлы.png) |
+| ![](/gitbook/assets/screenshot_0.png) | ![](/gitbook/assets/%D0%A4%D0%B0%D0%B9%D0%BB%D1%8B.png) |
 | ---------------------------------------- | --------------------------------- |
 |                                          |                                   |
 
@@ -39,7 +39,7 @@ title: "Меню контроллера ТРИК"
 
 Для удаления программы нажмите кнопку «Вправо» и подтвердите удаление.
 
-<figure><img src="/gitbook/assets/удаленин.png" alt="" /><figcaption></figcaption></figure>
+<figure><img src="/gitbook/assets/%D1%83%D0%B4%D0%B0%D0%BB%D0%B5%D0%BD%D0%B8%D0%BD.png" alt="" /><figcaption></figcaption></figure>
 
 ### Удаление всех программ
 
@@ -56,7 +56,7 @@ title: "Меню контроллера ТРИК"
 6. Гироскоп.
 7. Акселерометр.
 
-| ![](/gitbook/assets/Рисунок1.png) | ![](/gitbook/assets/screenshot_1.png) |
+| ![](/gitbook/assets/%D0%A0%D0%B8%D1%81%D1%83%D0%BD%D0%BE%D0%BA1.png) | ![](/gitbook/assets/screenshot_1.png) |
 | ------------------------------------ | ---------------------------------------- |
 
 Подробнее смотрите в статье
@@ -69,7 +69,7 @@ title: "Меню контроллера ТРИК"
 Для того, чтобы перейти в раздел "Сеть" необходимо зайти в пункт меню "Настройки".\
 Данный раздел предназначен для настройки подключения контроллера к компьютеру или смартфону.
 
-| ![](/gitbook/assets/Рисунок2.png) | ![](/gitbook/assets/Рисунок3.png) | <p><img src="/gitbook/assets/Рисунок4.png" alt="" data-size="original" /></p><p></p> |
+| ![](/gitbook/assets/%D0%A0%D0%B8%D1%81%D1%83%D0%BD%D0%BE%D0%BA2.png) | ![](/gitbook/assets/%D0%A0%D0%B8%D1%81%D1%83%D0%BD%D0%BE%D0%BA3.png) | <p><img src="/gitbook/assets/%D0%A0%D0%B8%D1%81%D1%83%D0%BD%D0%BE%D0%BA4.png" alt="" data-size="original" /></p><p></p> |
 | ------------------------------------ | ------------------------------------ | ------------------------------------------------------------------------------------- |
 
 В пункте «Сеть» вы можете подключить контроллер к компьютеру или смартфону в двух режимах:
@@ -86,7 +86,7 @@ title: "Меню контроллера ТРИК"
 ## **Взаимодействие** &#123;#interaction&#125;
 В пункте «Взаимодействие» вы можете настроить параметры для взаимодействия контроллеров.
 
-| ![](/gitbook/assets/screenshot_4.png) | <img src="/gitbook/assets/Взаимодействие (2).png" alt="" data-size="original" /> |
+| ![](/gitbook/assets/screenshot_4.png) | <img src="/gitbook/assets/%D0%92%D0%B7%D0%B0%D0%B8%D0%BC%D0%BE%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D0%B5%20%282%29.png" alt="" data-size="original" /> |
 | ---------------------------------------- | --------------------------------------------------------------------------------- |
 
 Подробнее смотрите в статье
@@ -100,7 +100,7 @@ title: "Меню контроллера ТРИК"
 
 1\. Выберите требуемый язык и нажмите «Ввод».<br />
 
-<table data-header-hidden><thead><tr><th width="402.22479248046875"></th><th></th></tr></thead><tbody><tr><td><div><figure><img src="/gitbook/assets/Выбор языка.png" alt="" /><figcaption></figcaption></figure></div><p></p></td><td><p><img src="/gitbook/assets/Переключение языка (1).png" alt="" data-size="original" /></p><p></p></td></tr></tbody></table>
+<table data-header-hidden><thead><tr><th width="402.22479248046875"></th><th></th></tr></thead><tbody><tr><td><div><figure><img src="/gitbook/assets/%D0%92%D1%8B%D0%B1%D0%BE%D1%80%20%D1%8F%D0%B7%D1%8B%D0%BA%D0%B0.png" alt="" /><figcaption></figcaption></figure></div><p></p></td><td><p><img src="/gitbook/assets/%D0%9F%D0%B5%D1%80%D0%B5%D0%BA%D0%BB%D1%8E%D1%87%D0%B5%D0%BD%D0%B8%D0%B5%20%D1%8F%D0%B7%D1%8B%D0%BA%D0%B0%20%281%29.png" alt="" data-size="original" /></p><p></p></td></tr></tbody></table>
 
 ### **Настройки системы** &#123;#system-settings&#125;
 В данном подразделе вы можете выбрать, что будет отображаться в папке «Файлы»:
@@ -108,12 +108,12 @@ title: "Меню контроллера ТРИК"
 * Папка со скриптами. В данном случае будут отображаться только загруженные программы из TRIK Studio.
 * Файловая система.
 
-![](/gitbook/assets/Папка файлы.png)
+![](/gitbook/assets/%D0%9F%D0%B0%D0%BF%D0%BA%D0%B0%20%D1%84%D0%B0%D0%B9%D0%BB%D1%8B.png)
 
 ### **О системе** &#123;#system-version&#125;
 В данном подразделе вы можете посмотреть версию прошивки и MAC-адрес.
 
-| ![](/gitbook/assets/О системе1.png) | ![](/gitbook/assets/О системе 2.png) |
+| ![](/gitbook/assets/%D0%9E%20%D1%81%D0%B8%D1%81%D1%82%D0%B5%D0%BC%D0%B51.png) | ![](/gitbook/assets/%D0%9E%20%D1%81%D0%B8%D1%81%D1%82%D0%B5%D0%BC%D0%B5%202.png) |
 | ---------------------------------------- | ----------------------------------------- |
 
 

@@ -8,7 +8,7 @@ title: "О контроллере ТРИК"
 
 [TRIK Studio](../../studio/about/) поддерживает данную платформу для [программирования](./#programmirovanie-kontrollera-trik).
 
-![](/gitbook/assets/КонтроллерТРИК (1).png)
+![](/gitbook/assets/%D0%9A%D0%BE%D0%BD%D1%82%D1%80%D0%BE%D0%BB%D0%BB%D0%B5%D1%80%D0%A2%D0%A0%D0%98%D0%9A%20%281%29.png)
 
 Контроллер ТРИК снабжён цветным сенсорным дисплеем, [программируемыми кнопками](../programming-visual/sensory-variables.md) и Wi-Fi-модулем, который может работать в [двух режимах](../wi-fi/).
 
@@ -24,7 +24,7 @@ title: "О контроллере ТРИК"
 
 Для программирования контроллера ТРИК выберите «ТРИК» в настройках TRIK Studio во вкладке [«Роботы»](../../studio/interface/faq-robot-settings.md).
 
-![](/gitbook/assets/robots-trik (1).png)
+![](/gitbook/assets/robots-trik%20%281%29.png)
 
 Используйте [специализированные](../programming-visual/blocks.md) и [общие](../../studio/programming-visual/blocks.md) блоки для написания программ на визуальном языке. Подробнее о визуальном программировании читайте в статье
 

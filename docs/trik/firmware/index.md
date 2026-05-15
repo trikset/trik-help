@@ -15,7 +15,7 @@ title: "Обновление встроенного программного о�
 1\. Скачайте последнюю версию [встроенного программного обеспечения](https://trikset.com/downloads#firmware).\
 2\. Скачайте и установите программу [DiskImager](https://github.com/RomanBelkov/DiskImager/releases/download/1.4.1/DiskImager.Installer.msi).&#x20;
 
-![Установка DiskImager](/gitbook/assets/diskImager-install 3.gif)
+![Установка DiskImager](/gitbook/assets/diskImager-install%203.gif)
 
 :::warning
 **Внимание!** Для установки и использования DiskImager вам понадобятся права администратора.
@@ -25,23 +25,23 @@ title: "Обновление встроенного программного о�
 4\. Вставьте её в компьютер, используя картридер.\
 5\. Запустите DiskImager. Для смены языка выберите в меню `About → Language`.
 
-![Для смены языка выберите в меню «About» → «Language»](/gitbook/assets/diskImager 2 lang.png)
+![Для смены языка выберите в меню «About» → «Language»](/gitbook/assets/diskImager%202%20lang.png)
 
 6\. Выберите диск для записи.
 
-![](/gitbook/assets/diskimager 3 disk.jpg)
+![](/gitbook/assets/diskimager%203%20disk.jpg)
 
 &#x20;7\. Нажмите «Восстановить флешки из образа» («Restore drives from»).
 
-![](/gitbook/assets/diskimager 4.jpg)
+![](/gitbook/assets/diskimager%204.jpg)
 
 8\. В появившемся окне отфильтруйте файлы по типу `.xz` и выберите скачанный файл.
 
-![](/gitbook/assets/diskimager 5.jpg)
+![](/gitbook/assets/diskimager%205.jpg)
 
 9\. Нажмите «Открыть».
 
-![](/gitbook/assets/diskimager 6.jpg)
+![](/gitbook/assets/diskimager%206.jpg)
 
 10\. Дождитесь выполнения операции.
 
@@ -51,7 +51,7 @@ title: "Обновление встроенного программного о�
 2. Не отпуская их, кратковременно нажмите кнопку **питания**.
 3. Дождитесь запуска системы.
 
-<figure><img src="/gitbook/assets/Запуск контроллера после прошивки.png" alt="" /><figcaption></figcaption></figure>
+<figure><img src="/gitbook/assets/%D0%97%D0%B0%D0%BF%D1%83%D1%81%D0%BA%20%D0%BA%D0%BE%D0%BD%D1%82%D1%80%D0%BE%D0%BB%D0%BB%D0%B5%D1%80%D0%B0%20%D0%BF%D0%BE%D1%81%D0%BB%D0%B5%20%D0%BF%D1%80%D0%BE%D1%88%D0%B8%D0%B2%D0%BA%D0%B8.png" alt="" /><figcaption></figcaption></figure>
 
 ## Linux
 

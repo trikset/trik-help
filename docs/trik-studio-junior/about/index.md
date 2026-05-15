@@ -6,7 +6,7 @@ title: "О TRIK Studio Junior"
 
 **TRIK Studio** **Junior** — бесплатная среда программирования с [«Исполнителем»](./#chto-takoe-ispolnitel) для начальной и средней школы.
 
-![](/gitbook/assets/trik\_studio\_jr\_logo\_&\_text\_right.png)
+![](/gitbook/assets/trik_studio_jr_logo_%26_text_right.png)
 
 Среда имеет общий интерфейс со средой программирования роботов [TRIK Studio](../../studio/about/), что позволяет вести непрерывный процесс обучения, начиная с начальной школы.
 

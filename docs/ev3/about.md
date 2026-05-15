@@ -15,7 +15,7 @@ title: "O LEGO EV3"
 ## Программирование LEGO EV3 &#123;#programming&#125;
 Для программирования контроллера Lego EV3 выберите «Lego EV3» в настройках TRIK Studio во вкладке [«Роботы»](../studio/interface/faq-robot-settings.md).
 
-![](/gitbook/assets/robots-ev3 (1).png)
+![](/gitbook/assets/robots-ev3%20%281%29.png)
 
 Используйте [специализированные](blocks.md) и [общие](../studio/programming-visual/blocks.md) блоки для написания программ.
 

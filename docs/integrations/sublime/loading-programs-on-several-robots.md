@@ -23,7 +23,7 @@ title: "Загрузка программ на нескольких робото
 
 2\. Выберите `Tools → Build System → New Build System`
 
-![](/gitbook/assets/Sublime\_1 (1).png)
+![](/gitbook/assets/Sublime_1%20%281%29.png)
 
 3\. Откроется окно с текстовым файлом. В нем необходимо всё стереть и вставить вместо этого следующий код:
 
@@ -40,8 +40,8 @@ title: "Загрузка программ на нескольких робото
 
 6\. Выберите `Tools → Build System` и в открывшемся списке выберите `TRIK_send`.
 
-![](/gitbook/assets/Sublime\_3.png)
+![](/gitbook/assets/Sublime_3.png)
 
 7\. Для начала отправки программ на роботов достаточно нажать `Tools → Build` или соответствующую комбинацию клавиш `Ctrl+B`. Для того чтобы вернуться к [запуску 2D-модели](run-2d-from-sublime.md), необходимо выбрать `Tools → Build System` и в открывшемся списке выбрать `TRIK`.
 
-![](/gitbook/assets/Sublime\_4.png)
+![](/gitbook/assets/Sublime_4.png)

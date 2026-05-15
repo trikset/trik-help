@@ -56,7 +56,7 @@ TRIK Studio в режиме редактирования имеет следую
 
 Здесь же осуществляется отображение текущего исполняемого блока при интерпретации диаграмм.
 
-![](/gitbook/assets/04 3 ru chart-interpretation 4.gif)
+![](/gitbook/assets/04%203%20ru%20chart-interpretation%204.gif)
 
 
 
@@ -82,7 +82,7 @@ TRIK Studio в режиме редактирования имеет следую
 Панель «Файл» повторяет основные операции, доступные из меню «[Файл](main-menu.md#menu-file)».
 
 &#x20;<img src="/gitbook/assets/newProject.svg" alt="" data-size="line" /> Создать новый проект.\
-&#x20;<img src="/gitbook/assets/open (1).svg" alt="" data-size="line" /> Открыть сохраненный проект.\
+&#x20;<img src="/gitbook/assets/open%20%281%29.svg" alt="" data-size="line" /> Открыть сохраненный проект.\
 &#x20;<img src="/gitbook/assets/save.svg" alt="" data-size="line" /> Сохранить текущий проект.
 
 
@@ -239,7 +239,7 @@ TRIK Studio в режиме редактирования имеет следую
 
 #### Открытие панели «Настройки робота»
 
-![](/gitbook/assets/04 D ru panel-controller-open 2.gif)
+![](/gitbook/assets/04%20D%20ru%20panel-controller-open%202.gif)
 
 
 
@@ -248,14 +248,14 @@ TRIK Studio в режиме редактирования имеет следую
 
 Для просмотра блока, в котором допущена ошибка, необходимо кликнуть на сообщение.
 
-![](/gitbook/assets/04 F ru panel-error 2.gif)
+![](/gitbook/assets/04%20F%20ru%20panel-error%202.gif)
 
 ###
 
 ### Панель «Графики» &#123;#panel-graphics&#125;
 Окно «Графики» отображает в реальном времени значения, присылаемые датчиками.&#x20;
 
-![](/gitbook/assets/04 G ru panel-graphics.png)
+![](/gitbook/assets/04%20G%20ru%20panel-graphics.png)
 
 Подробнее читайте в статье:
 

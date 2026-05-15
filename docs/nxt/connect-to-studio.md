@@ -17,13 +17,13 @@ title: "Подключение контроллера LEGO NXT к TRIK Studio"
 
 1\. В настройках TRIK Studio в разделе «[Роботы](../studio/settings.md#robots)» выберите «Интерпретация (USB)» в окне «Модель робота».
 
-![](/gitbook/assets/NXT-connect 2 usb.png)
+![](/gitbook/assets/NXT-connect%202%20usb.png)
 
 2\. Подключите контроллер LEGO NXT к компьютеру по USB.
 
 3\. На панели инструментов нажмите кнопку «Подключиться».
 
-![](/gitbook/assets/NXT-connect 3b usb (1).png)
+![](/gitbook/assets/NXT-connect%203b%20usb%20%281%29.png)
 
 :::warning
 **Внимание!** В случае, если драйвер для работы с NXT по USB не установлен на компьютер (или установлен некорректно), TRIK Studio предложит установить собственный драйвер.
@@ -33,7 +33,7 @@ title: "Подключение контроллера LEGO NXT к TRIK Studio"
 
 4\. В окне вывода должно появиться сообщение об успешном подключении. После этого робот готов к работе.
 
-![](/gitbook/assets/NXT-connect 4 usb.png)
+![](/gitbook/assets/NXT-connect%204%20usb.png)
 
 ## Подключение по Bluetooth
 
@@ -47,19 +47,19 @@ title: "Подключение контроллера LEGO NXT к TRIK Studio"
 
 1\. Откройте «Пуск» → «Параметры» → «Устройства».&#x20;
 
-![](/gitbook/assets/NXT-connect 5 BT.png)
+![](/gitbook/assets/NXT-connect%205%20BT.png)
 
 2\. В появившемся окне выберите «Добавление Bluetooth или другого устройства».
 
-![](/gitbook/assets/NXT-connect 6 BT.png)
+![](/gitbook/assets/NXT-connect%206%20BT.png)
 
 3\. Выберите «Bluetooth».
 
-![](/gitbook/assets/NXT-connect 7 BT.png)
+![](/gitbook/assets/NXT-connect%207%20BT.png)
 
 4\. В появившемся окне выберите устройство «NXT».
 
-![](/gitbook/assets/NXT-connect 8 BT.png)
+![](/gitbook/assets/NXT-connect%208%20BT.png)
 
 5\. На роботе в это время должен отобразиться ввод пароля Bluetooth-соединения. Можно оставить пароль по умолчанию и нажать оранжевую кнопку.
 
@@ -69,29 +69,29 @@ title: "Подключение контроллера LEGO NXT к TRIK Studio"
 
 6\. После нажатия оранжевой кнопки на роботе, на компьютере должно появиться окно ввода пароля. Введите пароль и нажмите «Подключиться».
 
-![](/gitbook/assets/NXT-connect 9 BT.png)
+![](/gitbook/assets/NXT-connect%209%20BT.png)
 
 7\. Нажмите «Готово».
 
-![](/gitbook/assets/NXT-connect A BT.png)
+![](/gitbook/assets/NXT-connect%20A%20BT.png)
 
 8\. В меню «Bluetooth или другие устройства» откройте «Устройства и принтеры».
 
-![](/gitbook/assets/NXT-connect B BT.png)
+![](/gitbook/assets/NXT-connect%20B%20BT.png)
 
 9\. В открывшемся списке найдите устройство «NXT» и кликните дважды левой кнопкой мыши по иконке.
 
-![](/gitbook/assets/NXT-connect C BT.png)
+![](/gitbook/assets/NXT-connect%20C%20BT.png)
 
 10\. В появившемся окне перейдите во вкладку «Службы» и запомните номер COM-порта.
 
-![](/gitbook/assets/NXT-connect D BT.png)
+![](/gitbook/assets/NXT-connect%20D%20BT.png)
 
 11\. В TRIK Studio в настройках на вкладке «Роботы» поставьте маркер напротив платформы LEGO NXT и модели робота «Интерпретация (Bluetooth)».
 
 В настройках Bluetooth укажите порт из предыдущего пункта.
 
-![](/gitbook/assets/NXT-connect E BT.png)
+![](/gitbook/assets/NXT-connect%20E%20BT.png)
 
 12\. Нажмите «ОК».
 

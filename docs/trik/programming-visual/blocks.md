@@ -17,58 +17,58 @@ title: "Блоки ТРИК"
 
 
 ## Блоки действия &#123;#action-blocks&#125;
-<table data-header-hidden><thead><tr><th width="219.33333333333331">Вид</th><th align="center">Название</th><th>Описание</th></tr></thead><tbody><tr><td>Вид</td><td align="center">Название</td><td>Описание</td></tr><tr><td><img src="/gitbook/assets/sendMessageThreadsBlock (2).png" alt="" data-size="original" /> </td><td align="center">[Отправить сообщение в задачу](blocks.md#send-message-to-thread)</td><td>Отправляет данное сообщение в параллельную задачу с заданным идентификатором.</td></tr><tr><td><img src="/gitbook/assets/getButtonCodeBlock.png" alt="" data-size="original" /> </td><td align="center">[Получить код кнопки](blocks.md#get-button-code)</td><td>Сохраняет в указанную переменную код нажатой на роботе кнопки.</td></tr><tr><td><img src="/gitbook/assets/beepBlock (2).png" alt="" data-size="original" /> </td><td align="center">[Играть звук](blocks.md#play-sound)</td><td>Проигрывает на контроллере звук с заданной частотой и длительностью.</td></tr><tr><td><img src="/gitbook/assets/playToneBlock (2).png" alt="" data-size="original" /> </td><td align="center">[Играть звуковой файл](blocks.md#igrat-zvukovoi-fail)</td><td>Проиграть на контроллере заданный звуковой файл.</td></tr><tr><td><img src="/gitbook/assets/enginesForwardBlock (2).png" alt="" data-size="original" /> </td><td align="center">[Моторы вперёд](blocks.md#motors-forward)</td><td>Включить моторы по заданным портам с заданной мощностью.</td></tr><tr><td><img src="/gitbook/assets/enginesBackwardBlock (2).png" alt="" data-size="original" /> </td><td align="center">[Моторы назад](blocks.md#motors-backward)</td><td>Включить моторы в режиме реверса по заданным портам с заданной мощностью.</td></tr><tr><td><img src="/gitbook/assets/enginesStopBlock (2).png" alt="" data-size="original" /> </td><td align="center">[Моторы стоп](blocks.md#stop-motors)</td><td>Выключить моторы по заданным портам.</td></tr><tr><td><img src="/gitbook/assets/nullificationEncoderBlock (2).png" alt="" data-size="original" /> </td><td align="center">[Сбросить показания энкодера](blocks.md#clear-encoder)</td><td>Сбросить показания количества оборотов моторов по указанным портам.</td></tr><tr><td><img src="/gitbook/assets/angularServoBlock.png" alt="" data-size="original" /> </td><td align="center">[Угловой сервомотор](blocks.md#uglovoi-servomotor)</td><td>Установить валы угловых сервомоторов на указанных портах в указанное положение</td></tr><tr><td><img src="/gitbook/assets/sayBlock.png" alt="" data-size="original" /> </td><td align="center">[Сказать](blocks.md#say)</td><td>Произнести с помощью динамика фразу, переданную в качестве аргумента блока.</td></tr><tr><td><img src="/gitbook/assets/ledBlock (2).png" alt="" data-size="original" /> </td><td align="center">[Светодиод](blocks.md#led)</td><td>Установить указанный цвет светодиода на корпусе контроллера.</td></tr><tr><td><img src="/gitbook/assets/systemBlock (1).png" alt="" data-size="original" /> </td><td align="center">[Системный вызов](blocks.md#system-call)</td><td>Блок имеет логический параметр «Код». Если он имеет значение «Истина», содержимое параметра «Команда» генерируется напрямую в текст программы при генерации этого блока. Если «Ложь», генерируется вызов консольной команды операционной системы.</td></tr><tr><td><img src="/gitbook/assets/initCameraBlock.png" alt="" data-size="original" /> </td><td align="center">[Включить видеокамеру](blocks.md#initialize-videocamera)</td><td>Включить видеокамеру на контроллере в одном из трёх режимов.</td></tr><tr><td><img src="/gitbook/assets/stopCameraBlock.png" alt="" data-size="original" /> </td><td align="center">[Выключить видеокамеру](blocks.md#vyklyuchit-videokameru)</td><td>Выключить видеокамеру.</td></tr><tr><td><img src="/gitbook/assets/detectBlock (1).png" alt="" data-size="original" /> </td><td align="center">[Детектировать по камере](blocks.md#detect-videocamera)</td><td>Фиксирует изображение в центре кадра и инициализирует им датчик линии или датчик объекта.</td></tr><tr><td><img src="/gitbook/assets/lineDetectorIntoVariableBlock.png" alt="" data-size="original" /> </td><td align="center">[Датчик линии в переменную](blocks.md#line-detector-into-variable)</td><td>Помещает текущее показание датчика линии в указанную переменную.</td></tr><tr><td><img src="/gitbook/assets/initVideoStreamingBlock.png" alt="" data-size="original" /> </td><td align="center">[Запустить видеотрансляцию](blocks.md#camera-on)</td><td>Запускает видеотрансляцию на роботе.</td></tr><tr><td><img src="/gitbook/assets/stopVideoStreamingBlock.png" alt="" data-size="original" /> </td><td align="center">[Отключить видеотрансляцию](blocks.md#otklyuchit-videotranslyaciyu)</td><td>Останавливает видеотрансляцию с камеры робота.</td></tr><tr><td><img src="/gitbook/assets/sendMessageBlock (2).png" alt="" data-size="original" /> </td><td align="center">[Послать сообщение](blocks.md#send-message)</td><td>Отправляет данное сообщение роботу с данным бортовым номером.</td></tr><tr><td><img src="/gitbook/assets/writeToFileBlock.png" alt="" data-size="original" /> </td><td align="center">[Записать в файл](blocks.md#write-to-file)</td><td>Записывает значение данного выражения в заданный файл на роботе.</td></tr><tr><td><img src="/gitbook/assets/removeFileBlock.png" alt="" data-size="original" /> </td><td align="center">[Удалить файл](blocks.md#remove-file)</td><td>Удаляет заданный файл на роботе.</td></tr><tr><td><img src="/gitbook/assets/calibrateGyroscopeBlock (2).png" alt="" data-size="original" /> </td><td align="center">[Калибровка гироскопа](blocks.md#kalibrovka-giroskopa)</td><td>Устанавливает гироскоп в 0 в текущей позиции.</td></tr><tr><td><img src="/gitbook/assets/Дизайн без названия (12).png" alt="" data-size="original" /></td><td align="center">[Join network](blocks.md#join-network)</td><td>Устанавливает соединение между роботами и объединяет их в одну сеть.</td></tr></tbody></table>
+<table data-header-hidden><thead><tr><th width="219.33333333333331">Вид</th><th align="center">Название</th><th>Описание</th></tr></thead><tbody><tr><td>Вид</td><td align="center">Название</td><td>Описание</td></tr><tr><td><img src="/gitbook/assets/sendMessageThreadsBlock%20%282%29.png" alt="" data-size="original" /> </td><td align="center">[Отправить сообщение в задачу](blocks.md#send-message-to-thread)</td><td>Отправляет данное сообщение в параллельную задачу с заданным идентификатором.</td></tr><tr><td><img src="/gitbook/assets/getButtonCodeBlock.png" alt="" data-size="original" /> </td><td align="center">[Получить код кнопки](blocks.md#get-button-code)</td><td>Сохраняет в указанную переменную код нажатой на роботе кнопки.</td></tr><tr><td><img src="/gitbook/assets/beepBlock%20%282%29.png" alt="" data-size="original" /> </td><td align="center">[Играть звук](blocks.md#play-sound)</td><td>Проигрывает на контроллере звук с заданной частотой и длительностью.</td></tr><tr><td><img src="/gitbook/assets/playToneBlock%20%282%29.png" alt="" data-size="original" /> </td><td align="center">[Играть звуковой файл](blocks.md#igrat-zvukovoi-fail)</td><td>Проиграть на контроллере заданный звуковой файл.</td></tr><tr><td><img src="/gitbook/assets/enginesForwardBlock%20%282%29.png" alt="" data-size="original" /> </td><td align="center">[Моторы вперёд](blocks.md#motors-forward)</td><td>Включить моторы по заданным портам с заданной мощностью.</td></tr><tr><td><img src="/gitbook/assets/enginesBackwardBlock%20%282%29.png" alt="" data-size="original" /> </td><td align="center">[Моторы назад](blocks.md#motors-backward)</td><td>Включить моторы в режиме реверса по заданным портам с заданной мощностью.</td></tr><tr><td><img src="/gitbook/assets/enginesStopBlock%20%282%29.png" alt="" data-size="original" /> </td><td align="center">[Моторы стоп](blocks.md#stop-motors)</td><td>Выключить моторы по заданным портам.</td></tr><tr><td><img src="/gitbook/assets/nullificationEncoderBlock%20%282%29.png" alt="" data-size="original" /> </td><td align="center">[Сбросить показания энкодера](blocks.md#clear-encoder)</td><td>Сбросить показания количества оборотов моторов по указанным портам.</td></tr><tr><td><img src="/gitbook/assets/angularServoBlock.png" alt="" data-size="original" /> </td><td align="center">[Угловой сервомотор](blocks.md#uglovoi-servomotor)</td><td>Установить валы угловых сервомоторов на указанных портах в указанное положение</td></tr><tr><td><img src="/gitbook/assets/sayBlock.png" alt="" data-size="original" /> </td><td align="center">[Сказать](blocks.md#say)</td><td>Произнести с помощью динамика фразу, переданную в качестве аргумента блока.</td></tr><tr><td><img src="/gitbook/assets/ledBlock%20%282%29.png" alt="" data-size="original" /> </td><td align="center">[Светодиод](blocks.md#led)</td><td>Установить указанный цвет светодиода на корпусе контроллера.</td></tr><tr><td><img src="/gitbook/assets/systemBlock%20%281%29.png" alt="" data-size="original" /> </td><td align="center">[Системный вызов](blocks.md#system-call)</td><td>Блок имеет логический параметр «Код». Если он имеет значение «Истина», содержимое параметра «Команда» генерируется напрямую в текст программы при генерации этого блока. Если «Ложь», генерируется вызов консольной команды операционной системы.</td></tr><tr><td><img src="/gitbook/assets/initCameraBlock.png" alt="" data-size="original" /> </td><td align="center">[Включить видеокамеру](blocks.md#initialize-videocamera)</td><td>Включить видеокамеру на контроллере в одном из трёх режимов.</td></tr><tr><td><img src="/gitbook/assets/stopCameraBlock.png" alt="" data-size="original" /> </td><td align="center">[Выключить видеокамеру](blocks.md#vyklyuchit-videokameru)</td><td>Выключить видеокамеру.</td></tr><tr><td><img src="/gitbook/assets/detectBlock%20%281%29.png" alt="" data-size="original" /> </td><td align="center">[Детектировать по камере](blocks.md#detect-videocamera)</td><td>Фиксирует изображение в центре кадра и инициализирует им датчик линии или датчик объекта.</td></tr><tr><td><img src="/gitbook/assets/lineDetectorIntoVariableBlock.png" alt="" data-size="original" /> </td><td align="center">[Датчик линии в переменную](blocks.md#line-detector-into-variable)</td><td>Помещает текущее показание датчика линии в указанную переменную.</td></tr><tr><td><img src="/gitbook/assets/initVideoStreamingBlock.png" alt="" data-size="original" /> </td><td align="center">[Запустить видеотрансляцию](blocks.md#camera-on)</td><td>Запускает видеотрансляцию на роботе.</td></tr><tr><td><img src="/gitbook/assets/stopVideoStreamingBlock.png" alt="" data-size="original" /> </td><td align="center">[Отключить видеотрансляцию](blocks.md#otklyuchit-videotranslyaciyu)</td><td>Останавливает видеотрансляцию с камеры робота.</td></tr><tr><td><img src="/gitbook/assets/sendMessageBlock%20%282%29.png" alt="" data-size="original" /> </td><td align="center">[Послать сообщение](blocks.md#send-message)</td><td>Отправляет данное сообщение роботу с данным бортовым номером.</td></tr><tr><td><img src="/gitbook/assets/writeToFileBlock.png" alt="" data-size="original" /> </td><td align="center">[Записать в файл](blocks.md#write-to-file)</td><td>Записывает значение данного выражения в заданный файл на роботе.</td></tr><tr><td><img src="/gitbook/assets/removeFileBlock.png" alt="" data-size="original" /> </td><td align="center">[Удалить файл](blocks.md#remove-file)</td><td>Удаляет заданный файл на роботе.</td></tr><tr><td><img src="/gitbook/assets/calibrateGyroscopeBlock%20%282%29.png" alt="" data-size="original" /> </td><td align="center">[Калибровка гироскопа](blocks.md#kalibrovka-giroskopa)</td><td>Устанавливает гироскоп в 0 в текущей позиции.</td></tr><tr><td><img src="/gitbook/assets/%D0%94%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD%20%D0%B1%D0%B5%D0%B7%20%D0%BD%D0%B0%D0%B7%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%20%2812%29.png" alt="" data-size="original" /></td><td align="center">[Join network](blocks.md#join-network)</td><td>Устанавливает соединение между роботами и объединяет их в одну сеть.</td></tr></tbody></table>
 
 ### Отправить сообщение в задачу &#123;#send-message-to-thread&#125;
-<img src="/gitbook/assets/sendMessageThreadsBlock (3).png" alt="Отправить сообщение в задачу" width="375" />
+<img src="/gitbook/assets/sendMessageThreadsBlock%20%283%29.png" alt="Отправить сообщение в задачу" width="375" />
 
 Отправляет данное сообщение в параллельную задачу с заданным идентификатором (идентификатор должен быть указан при создании задачи в блоке [«Параллельные задачи»](../../studio/programming-visual/blocks.md#fork)).\
 \
 В качестве сообщения может быть любое выражение.
 
 ### Получить код кнопки &#123;#get-button-code&#125;
-![Получить код кнопки](/gitbook/assets/getButtonCodeBlock (1).png)
+![Получить код кнопки](/gitbook/assets/getButtonCodeBlock%20%281%29.png)
 
 Сохраняет в указанную переменную код нажатой на роботе кнопки.\
 \
 Свойство «Ожидание» позволяет дождаться или не дожидаться, когда кнопка действительно будет нажата. Если нажатия кнопки блок не дожидается и кнопка не нажата, переменной присваивается значение «-1».
 
 ### Играть звук &#123;#play-sound&#125;
-![Играть звук](/gitbook/assets/beepBlock (3).png)
+![Играть звук](/gitbook/assets/beepBlock%20%283%29.png)
 
 Проигрывает на контроллере звук с заданной частотой и длительностью.
 
 ### Играть звуковой файл
 
-![Играть звуковой файл](/gitbook/assets/playToneBlock (3).png)
+![Играть звуковой файл](/gitbook/assets/playToneBlock%20%283%29.png)
 
 Проиграть на контроллере заданный звуковой файл.\
 \
 Файл должен быть заранее загружен на контроллер. Путь до файла указывается относительно папки `trik` на контроллере. Загрузить файл на контроллер можно, например, с помощью программы [WinSCP](../../studio/utilities/winscp.md).
 
 ### Моторы вперёд &#123;#motors-forward&#125;
-![Моторы вперед](/gitbook/assets/enginesForwardBlock (3).png)
+![Моторы вперед](/gitbook/assets/enginesForwardBlock%20%283%29.png)
 
 Включить моторы по заданным портам с заданной мощностью.\
 \
 Порты задаются строками M1, M2, M3 и M4, разделенными запятыми. Мощность задается в процентах числом от -100 до 100. Если задано отрицательное значение, мотор включается в режиме реверса.
 
 ### Моторы назад &#123;#motors-backward&#125;
-![Моторы назад](/gitbook/assets/enginesBackwardBlock (3).png)
+![Моторы назад](/gitbook/assets/enginesBackwardBlock%20%283%29.png)
 
 Включить моторы в режиме реверса по заданным портам с заданной мощностью.\
 \
 Параметры аналогичны параметрами блока [«Моторы вперёд»](blocks.md#motors-forward).
 
 ### Моторы стоп &#123;#stop-motors&#125;
-![Моторы стоп](/gitbook/assets/enginesStopBlock (3).png)
+![Моторы стоп](/gitbook/assets/enginesStopBlock%20%283%29.png)
 
 Выключить моторы по заданным портам.\
 \
 Порты задаются строками M1, M2, M3 и M4, разделенными запятыми.
 
 ### Сбросить показания энкодера &#123;#clear-encoder&#125;
-<img src="/gitbook/assets/nullificationEncoderBlock (3).png" alt="Сбросить показания энкодера" width="563" />
+<img src="/gitbook/assets/nullificationEncoderBlock%20%283%29.png" alt="Сбросить показания энкодера" width="563" />
 
 Сбросить показания количества оборотов моторов по указанным портам.\
 \
@@ -76,29 +76,29 @@ title: "Блоки ТРИК"
 
 ### Угловой сервомотор
 
-![Угловой сервомотор](/gitbook/assets/angularServoBlock (1).png)
+![Угловой сервомотор](/gitbook/assets/angularServoBlock%20%281%29.png)
 
 Установить валы угловых сервомоторов на указанных портах в указанное положение (в градусах, от -90 до 90).\
 \
 Порты задаются строками, разделенными запятыми.
 
 ### Сказать &#123;#say&#125;
-![Сказать](/gitbook/assets/sayBlock (1).png)
+![Сказать](/gitbook/assets/sayBlock%20%281%29.png)
 
 Произнести с помощью динамика фразу, переданную в качестве аргумента блока.
 
 ### Светодиод &#123;#led&#125;
-![Светодиод](/gitbook/assets/ledBlock (3).png)
+![Светодиод](/gitbook/assets/ledBlock%20%283%29.png)
 
 Установить указанный цвет светодиода на корпусе контроллера.
 
 ### Системный вызов &#123;#system-call&#125;
-![Системный вызов](/gitbook/assets/systemBlock (2).png)
+![Системный вызов](/gitbook/assets/systemBlock%20%282%29.png)
 
 Блок имеет логический параметр «Код». Если он имеет значение «Истина», содержимое параметра «Команда» генерируется напрямую в текст программы при генерации этого блока. Если «Ложь», генерируется вызов консольной команды операционной системы.
 
 ### Включить видеокамеру &#123;#initialize-videocamera&#125;
-![Включить видеокамеру](/gitbook/assets/initCameraBlock (1).png)
+![Включить видеокамеру](/gitbook/assets/initCameraBlock%20%281%29.png)
 
 Включить видеокамеру на контроллере в одном из трёх режимов:
 
@@ -112,7 +112,7 @@ title: "Блоки ТРИК"
 Фиксирует изображение в центре кадра и инициализирует им датчик линии или датчик объекта. Камера должна быть включена в соответствующем режиме блоком [«Включить видеокамеру»](blocks.md#initialize-videocamera).
 
 ### Датчик линии в переменную &#123;#line-detector-into-variable&#125;
-![Датчик линии в переменную](/gitbook/assets/lineDetectorIntoVariableBlock (1).png)
+![Датчик линии в переменную](/gitbook/assets/lineDetectorIntoVariableBlock%20%281%29.png)
 
 Помещает текущее показание датчика линии в указанную переменную.\
 \
@@ -127,14 +127,14 @@ title: "Блоки ТРИК"
 `&#123;ip-адрес робота&#125;:8080/?action=stream/`.
 
 ### Послать сообщение &#123;#send-message&#125;
-![Послать сообщение](/gitbook/assets/sendMessageBlock (3).png)
+![Послать сообщение](/gitbook/assets/sendMessageBlock%20%283%29.png)
 
 Отправляет данное сообщение роботу с данным бортовым номером.\
 \
 Робот должен быть в той же сети, что и робот, отправляющий сообщение, и зарегистрирован как ведущий или ведомый с помощью меню `Настройки → Сообщения` на роботе. Если роботов с данным бортовым номером в сети несколько, сообщение получат все они.
 
 ### Записать в файл &#123;#write-to-file&#125;
-![Записать в файл](/gitbook/assets/writeToFileBlock (1).png)
+![Записать в файл](/gitbook/assets/writeToFileBlock%20%281%29.png)
 
 Записывает значение данного выражения в заданный файл на роботе.\
 \
@@ -143,7 +143,7 @@ title: "Блоки ТРИК"
 Файл можно получить с контроллера, например, с помощью программы [WinSCP](../../studio/utilities/winscp.md) для Windows или scp для Linux.
 
 ### Удалить файл &#123;#remove-file&#125;
-![Удалить файл](/gitbook/assets/removeFileBlock (1).png)
+![Удалить файл](/gitbook/assets/removeFileBlock%20%281%29.png)
 
 Удаляет заданный файл на роботе.\
 \
@@ -151,19 +151,19 @@ title: "Блоки ТРИК"
 
 ### Выключить видеокамеру
 
-![Выключить видеокамеру](/gitbook/assets/stopCameraBlock (1).png)
+![Выключить видеокамеру](/gitbook/assets/stopCameraBlock%20%281%29.png)
 
 Выключает видеокамеру.
 
 ### Отключить видеотрансляцию
 
-![Отключить видеотрансляцию](/gitbook/assets/stopVideoStreamingBlock (1).png)
+![Отключить видеотрансляцию](/gitbook/assets/stopVideoStreamingBlock%20%281%29.png)
 
 Останавливает видеотрансляцию с камеры робота.
 
 ### Калибровка гироскопа
 
-<img src="/gitbook/assets/calibrateGyroscopeBlock (3).png" alt="Калибровка гироскопа" width="188" />
+<img src="/gitbook/assets/calibrateGyroscopeBlock%20%283%29.png" alt="Калибровка гироскопа" width="188" />
 
 Устанавливает гироскоп в 0 в текущей позиции.
 
@@ -180,16 +180,16 @@ title: "Блоки ТРИК"
 ## Блоки ожидания &#123;#waiting-blocks&#125;
 | Вид                                                                                               |                                   Название                                   | Описание                                                                                                                                              |
 | ------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------: | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| <img src="/gitbook/assets/receiveMessageThreadsBlock (2).png" alt="" data-size="original" />  | [Получить сообщение из другой задачи](blocks.md#receive-message-from-thread) | Ждать получения сообщения из другой параллельной задачи.                                                                                              |
-| ![](/gitbook/assets/ezgif.com-gif-maker (1).png)                                          |                 [Пользовательский ввод](blocks.md#userinput)                 | Ждать ввода значения от пользователя.                                                                                                                 |
-| <img src="/gitbook/assets/waitForGyroscopeBlock (2).png" alt="" data-size="original" />       |                [Ждать гиродатчик](blocks.md#zhdat-girodatchik)               | Ждать, пока значение, возвращаемое гиродатчиком на указанном порту, не будет сравнимо с указанным в значении параметра «градусы».                     |
-| <img src="/gitbook/assets/waitForTouchSensorBlock (2).png" alt="" data-size="original" />     |            [Ждать датчик касания](blocks.md#wait-for-touch-sensor)           | Ждать срабатывания датчика касания на указанном порту.                                                                                                |
-| <img src="/gitbook/assets/waitForLightBlock (2).png" alt="" data-size="original" />           |                    [Ждать свет](blocks.md#wait-for-light)                    | Ждать, пока значение, возвращаемое сенсором света на указанном порту, не будет сравнимо с указанным значением в параметре «Проценты».                 |
-| <img src="/gitbook/assets/waitForSonarDistanceBlock (2).png" alt="" data-size="original" />   |     [Ждать УЗ датчик расстояния](blocks.md#wait-for-ultrasonic-distance)     | Ждать, пока расстояние, возвращаемое ультразвуковым сенсором расстояния, не будет сравнимо со значением, указанным в параметре «Расстояние».          |
-| <img src="/gitbook/assets/waitForSonarDistanceBlock (3).png" alt="" data-size="original" />   |      [Ждать ИК датчик расстояния](blocks.md#wait-for-infrared-distance)      | Ждать, пока расстояние, возвращаемое инфракрасным сенсором расстояния, не будет сравнимо с указанным в значении параметра «Расстояние».               |
-| <img src="/gitbook/assets/waitForEncoderBlock (2).png" alt="" data-size="original" />         |                  [Ждать энкодер](blocks.md#wait-for-encoder)                 | Ждать, пока показания счетчика количества оборотов на заданном порту не станут больше или меньше указанного в значении параметра «Предел оборотов».   |
-| <img src="/gitbook/assets/waitForButtonsBlock (2).png" alt="" data-size="original" />         |               [Ждать нажатия кнопки](blocks.md#wait-for-button)              | Ждать, пока не будет нажата указанная кнопка на корпусе робота.                                                                                       |
-| <img src="/gitbook/assets/waitForMessageBlock (2).png" alt="" data-size="original" />         |               [Получить сообщение](blocks.md#wait-for-message)               | Ждать получения сообщения через систему почтовых ящиков. Когда сообщение будет получено, оно будет помещено в указанную в параметре блока переменную. |
+| <img src="/gitbook/assets/receiveMessageThreadsBlock%20%282%29.png" alt="" data-size="original" />  | [Получить сообщение из другой задачи](blocks.md#receive-message-from-thread) | Ждать получения сообщения из другой параллельной задачи.                                                                                              |
+| ![](/gitbook/assets/ezgif.com-gif-maker%20%281%29.png)                                          |                 [Пользовательский ввод](blocks.md#userinput)                 | Ждать ввода значения от пользователя.                                                                                                                 |
+| <img src="/gitbook/assets/waitForGyroscopeBlock%20%282%29.png" alt="" data-size="original" />       |                [Ждать гиродатчик](blocks.md#zhdat-girodatchik)               | Ждать, пока значение, возвращаемое гиродатчиком на указанном порту, не будет сравнимо с указанным в значении параметра «градусы».                     |
+| <img src="/gitbook/assets/waitForTouchSensorBlock%20%282%29.png" alt="" data-size="original" />     |            [Ждать датчик касания](blocks.md#wait-for-touch-sensor)           | Ждать срабатывания датчика касания на указанном порту.                                                                                                |
+| <img src="/gitbook/assets/waitForLightBlock%20%282%29.png" alt="" data-size="original" />           |                    [Ждать свет](blocks.md#wait-for-light)                    | Ждать, пока значение, возвращаемое сенсором света на указанном порту, не будет сравнимо с указанным значением в параметре «Проценты».                 |
+| <img src="/gitbook/assets/waitForSonarDistanceBlock%20%282%29.png" alt="" data-size="original" />   |     [Ждать УЗ датчик расстояния](blocks.md#wait-for-ultrasonic-distance)     | Ждать, пока расстояние, возвращаемое ультразвуковым сенсором расстояния, не будет сравнимо со значением, указанным в параметре «Расстояние».          |
+| <img src="/gitbook/assets/waitForSonarDistanceBlock%20%283%29.png" alt="" data-size="original" />   |      [Ждать ИК датчик расстояния](blocks.md#wait-for-infrared-distance)      | Ждать, пока расстояние, возвращаемое инфракрасным сенсором расстояния, не будет сравнимо с указанным в значении параметра «Расстояние».               |
+| <img src="/gitbook/assets/waitForEncoderBlock%20%282%29.png" alt="" data-size="original" />         |                  [Ждать энкодер](blocks.md#wait-for-encoder)                 | Ждать, пока показания счетчика количества оборотов на заданном порту не станут больше или меньше указанного в значении параметра «Предел оборотов».   |
+| <img src="/gitbook/assets/waitForButtonsBlock%20%282%29.png" alt="" data-size="original" />         |               [Ждать нажатия кнопки](blocks.md#wait-for-button)              | Ждать, пока не будет нажата указанная кнопка на корпусе робота.                                                                                       |
+| <img src="/gitbook/assets/waitForMessageBlock%20%282%29.png" alt="" data-size="original" />         |               [Получить сообщение](blocks.md#wait-for-message)               | Ждать получения сообщения через систему почтовых ящиков. Когда сообщение будет получено, оно будет помещено в указанную в параметре блока переменную. |
 | <img src="/gitbook/assets/trikWaitGamepadButtonBlock.png" alt="" data-size="original" />      |          [Ждать кнопки на пульте](blocks.md#wait-for-gamepad-button)         | Ждать нажатия на кнопку на пульте, подключённом к роботу.                                                                                             |
 | <img src="/gitbook/assets/trikWaitPadPressBlock.png" alt="" data-size="original" />           |            [Ждать нажатия на пульт](blocks.md#wait-for-pad-press)            | Ждать нажатия на одну из двух активных областей пульта, подключённого к роботу.                                                                       |
 | <img src="/gitbook/assets/trikWaitGamepadWheelBlock.png" alt="" data-size="original" />       |          [Ждать "руля" на пульте](blocks.md#wait-for-gamepad-wheel)          | Ждать нужного наклона пульта, подключённого к роботу.                                                                                                 |
@@ -197,7 +197,7 @@ title: "Блоки ТРИК"
 | <img src="/gitbook/assets/trikWaitGamepadConnectBlock.png" alt="" data-size="original" />     |        [Ждать подключения пульта](blocks.md#wait-for-gamepad-connect)        | Ждать, пока к роботу не подключится пульт. Если пульт уже подключен, программа продолжит выполнение.                                                  |
 
 ### Получить сообщение из другой задачи &#123;#receive-message-from-thread&#125;
-![Получить сообщение из другой задачи](/gitbook/assets/receiveMessageThreadsBlock (3).png)
+![Получить сообщение из другой задачи](/gitbook/assets/receiveMessageThreadsBlock%20%283%29.png)
 
 Ждать получения сообщения из другой параллельной задачи.\
 \
@@ -230,17 +230,17 @@ title: "Блоки ТРИК"
 
 ### Ждать гиродатчик
 
-![Ждать гиродатчик](/gitbook/assets/waitForGyroscopeBlock (3).png)
+![Ждать гиродатчик](/gitbook/assets/waitForGyroscopeBlock%20%283%29.png)
 
 Ждать, пока значение, возвращаемое гиродатчиком на указанном порту, не будет сравнимо с указанным в значении параметра «градусы».
 
 ### Ждать датчик касания &#123;#wait-for-touch-sensor&#125;
-![Ждать датчик касания](/gitbook/assets/waitForTouchSensorBlock (3).png)
+![Ждать датчик касания](/gitbook/assets/waitForTouchSensorBlock%20%283%29.png)
 
 Ждать срабатывания датчика касания на указанном порту.
 
 ### Ждать свет &#123;#wait-for-light&#125;
-![Ждать свет](/gitbook/assets/waitForLightBlock (3).png)
+![Ждать свет](/gitbook/assets/waitForLightBlock%20%283%29.png)
 
 Ждать, пока значение, возвращаемое сенсором света на указанном порту, не будет сравнимо с указанным значением в параметре «Проценты».\
 \
@@ -250,7 +250,7 @@ title: "Блоки ТРИК"
 «Считанное значение» — операция, которая будет использоваться для сравнения со значением параметра «Проценты».
 
 ### Ждать УЗ датчик расстояния &#123;#wait-for-ultrasonic-distance&#125;
-![Ждать УЗ датчик расстояния](/gitbook/assets/waitForSonarDistanceBlock (5).png)
+![Ждать УЗ датчик расстояния](/gitbook/assets/waitForSonarDistanceBlock%20%285%29.png)
 
 Ждать, пока расстояние, возвращаемое ультразвуковым сенсором расстояния, не будет сравнимо со значением, указанным в параметре «Расстояние» (расстояние задается в сантиметрах, от 0 до 300).\
 \
@@ -260,7 +260,7 @@ title: "Блоки ТРИК"
 «Считанное значение» — операция, которая будет использоваться для сравнения со значением параметра «Расстояние».
 
 ### Ждать ИК датчик расстояния &#123;#wait-for-infrared-distance&#125;
-![Ждать ИК датчик расстояния](/gitbook/assets/waitForSonarDistanceBlock (4).png)
+![Ждать ИК датчик расстояния](/gitbook/assets/waitForSonarDistanceBlock%20%284%29.png)
 
 Ждать, пока расстояние, возвращаемое инфракрасным сенсором расстояния, не будет сравнимо с указанным в значении параметра «Расстояние».\
 \
@@ -269,17 +269,17 @@ title: "Блоки ТРИК"
 Еще один параметр — номер порта, к которому подключен датчик расстояния. Также параметром указывается операция, которая будет использоваться для сравнения с введенным расстоянием.
 
 ### Ждать энкодер &#123;#wait-for-encoder&#125;
-![Ждать энкодер](/gitbook/assets/waitForEncoderBlock (3).png)
+![Ждать энкодер](/gitbook/assets/waitForEncoderBlock%20%283%29.png)
 
 Ждать, пока показания счетчика количества оборотов на заданном порту не станут больше или меньше указанного в значении параметра «Предел оборотов».
 
 ### Ждать нажатия кнопки &#123;#wait-for-button&#125;
-![Ждать нажатия кнопки](/gitbook/assets/waitForButtonsBlock (3).png)
+![Ждать нажатия кнопки](/gitbook/assets/waitForButtonsBlock%20%283%29.png)
 
 Ждать, пока не будет нажата указанная кнопка на корпусе робота.
 
 ### Получить сообщение &#123;#wait-for-message&#125;
-![Получить сообщение](/gitbook/assets/waitForMessageBlock (3).png)
+![Получить сообщение](/gitbook/assets/waitForMessageBlock%20%283%29.png)
 
 Ждать получения сообщения через систему почтовых ящиков. Когда сообщение будет получено, оно будет помещено в указанную в параметре блока переменную.\
 \
@@ -288,17 +288,17 @@ title: "Блоки ТРИК"
 Сообщение автоматически приводится к типу, соответствующему типу переменной-приёмника, то есть, например, можно послать число в виде строки и принять его как число.
 
 ### Ждать кнопки на пульте &#123;#wait-for-gamepad-button&#125;
-![Ждать кнопки на пульте](/gitbook/assets/trikWaitGamepadButtonBlock (1).png)
+![Ждать кнопки на пульте](/gitbook/assets/trikWaitGamepadButtonBlock%20%281%29.png)
 
 Ждать нажатия на кнопку на пульте, подключённом к роботу. Кнопки имеют номера от 1 до 5.
 
 ### Ждать нажатия на пульт &#123;#wait-for-pad-press&#125;
-![Ждать нажатия на пульт](/gitbook/assets/trikWaitPadPressBlock (1).png)
+![Ждать нажатия на пульт](/gitbook/assets/trikWaitPadPressBlock%20%281%29.png)
 
 Ждать нажатия на одну из двух активных областей пульта, подключённого к роботу. Координаты нажатия можно получить с помощью сенсорных переменных [«gamepadPad»](sensory-variables.md#gamepadpad).
 
 ### Ждать «руля» на пульте &#123;#wait-for-gamepad-wheel&#125;
-![Ждать «руля» на пульте](/gitbook/assets/trikWaitGamepadWheelBlock (1).png)
+![Ждать «руля» на пульте](/gitbook/assets/trikWaitGamepadWheelBlock%20%281%29.png)
 
 Ждать нужного наклона пульта, подключённого к роботу.\
 \
@@ -307,12 +307,12 @@ title: "Блоки ТРИК"
 Также параметром указывается операция, которая будет использоваться для сравнения со значением параметра «Угол».
 
 ### Ждать отключения пульта &#123;#wait-for-gamepad-disconnect&#125;
-![Ждать отключения пульта](/gitbook/assets/trikWaitGamepadDisconnectBlock (1).png)
+![Ждать отключения пульта](/gitbook/assets/trikWaitGamepadDisconnectBlock%20%281%29.png)
 
 Ждать, пока пульт не отключится от робота. Если пульт не подключен, программа продолжит выполнение.
 
 ### Ждать подключения пульта &#123;#wait-for-gamepad-connect&#125;
-![Ждать подключения пульта](/gitbook/assets/trikWaitGamepadConnectBlock (1).png)
+![Ждать подключения пульта](/gitbook/assets/trikWaitGamepadConnectBlock%20%281%29.png)
 
 Ждать, пока к роботу не подключится пульт. Если пульт уже подключен, программа продолжит выполнение.
 
@@ -322,69 +322,69 @@ title: "Блоки ТРИК"
 | --------------------------------------------------------------------------------------- | :--------------------------------------------------: | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | <img src="/gitbook/assets/brushColorBlock.png" alt="" data-size="original" />       |         [Цвет кисти](blocks.md#painter-color)        | Указать цвет, которым будут рисоваться простые графические фигуры на экране робота.                                                                                                                              |
 | <img src="/gitbook/assets/brushWidthBlock.png" alt="" data-size="original" />       |        [Ширина кисти](blocks.md#painter-width)       | Указать ширину линии, которой будут рисоваться простые графические фигуры на экране робота.                                                                                                                      |
-| <img src="/gitbook/assets/drawPixelBlock (2).png" alt="" data-size="original" />    |       [Нарисовать точку](blocks.md#draw-pixel)       | Нарисовать на экране точку в указанных координатах.                                                                                                                                                              |
-| <img src="/gitbook/assets/drawLineBlock (2).png" alt="" data-size="original" />     |        [Нарисовать линию](blocks.md#draw-line)       | Нарисовать на экране отрезок. В качестве параметров блоку указываются концы отрезка.                                                                                                                             |
-| <img src="/gitbook/assets/drawRectBlock (2).png" alt="" data-size="original" />     | [Нарисовать прямоугольник](blocks.md#draw-rectangle) | Нарисовать на экране прямоугольник. В качестве параметров указываются координаты левого верхнего угла, ширина и высота прямоугольника.                                                                           |
-| <img src="/gitbook/assets/drawCircleBlock (2).png" alt="" data-size="original" />   |      [Нарисовать эллипс](blocks.md#draw-ellipse)     | Нарисовать на экране эллипс, вписанный в заданный прямоугольник.                                                                                                                                                 |
+| <img src="/gitbook/assets/drawPixelBlock%20%282%29.png" alt="" data-size="original" />    |       [Нарисовать точку](blocks.md#draw-pixel)       | Нарисовать на экране точку в указанных координатах.                                                                                                                                                              |
+| <img src="/gitbook/assets/drawLineBlock%20%282%29.png" alt="" data-size="original" />     |        [Нарисовать линию](blocks.md#draw-line)       | Нарисовать на экране отрезок. В качестве параметров блоку указываются концы отрезка.                                                                                                                             |
+| <img src="/gitbook/assets/drawRectBlock%20%282%29.png" alt="" data-size="original" />     | [Нарисовать прямоугольник](blocks.md#draw-rectangle) | Нарисовать на экране прямоугольник. В качестве параметров указываются координаты левого верхнего угла, ширина и высота прямоугольника.                                                                           |
+| <img src="/gitbook/assets/drawCircleBlock%20%282%29.png" alt="" data-size="original" />   |      [Нарисовать эллипс](blocks.md#draw-ellipse)     | Нарисовать на экране эллипс, вписанный в заданный прямоугольник.                                                                                                                                                 |
 | <img src="/gitbook/assets/drawArcBlock.png" alt="" data-size="original" />          |         [Нарисовать дугу](blocks.md#draw-arc)        | Нарисовать на экране дугу, заданную координатами прямоугольника, в который она будет вписана, и углами (в градусах) её начала и конца на окружности. Если начало и конец совпадают, будет нарисована окружность. |
 | <img src="/gitbook/assets/smileBlock.png" alt="" data-size="original" />            |              [Смайлик](blocks.md#smile)              | Нарисовать на экране смайлик.                                                                                                                                                                                    |
 | <img src="/gitbook/assets/sadSmileBlock.png" alt="" data-size="original" />         |        [Грустный смайлик](blocks.md#sad-smile)       | Нарисовать на экране грустный смайлик.                                                                                                                                                                           |
 | <img src="/gitbook/assets/setBackgroundBlock.png" alt="" data-size="original" />    |        [Цвет фона](blocks.md#background-color)       | Задаёт цвет фона экрана.                                                                                                                                                                                         |
-| <img src="/gitbook/assets/printTextBlock (2).png" alt="" data-size="original" />    |       [Напечатать текст](blocks.md#print-text)       | Печатает заданную строку в заданном месте на экране робота. Значение свойства «Текст» по умолчанию трактуется как строка в чистом виде, оно так и будет выведено на экран.                                       |
-| <img src="/gitbook/assets/clearScreenBlock (2).png" alt="" data-size="original" />  |       [Очистить экран](blocks.md#clear-screen)       | Стереть всё, что нарисовано на экране.                                                                                                                                                                           |
+| <img src="/gitbook/assets/printTextBlock%20%282%29.png" alt="" data-size="original" />    |       [Напечатать текст](blocks.md#print-text)       | Печатает заданную строку в заданном месте на экране робота. Значение свойства «Текст» по умолчанию трактуется как строка в чистом виде, оно так и будет выведено на экран.                                       |
+| <img src="/gitbook/assets/clearScreenBlock%20%282%29.png" alt="" data-size="original" />  |       [Очистить экран](blocks.md#clear-screen)       | Стереть всё, что нарисовано на экране.                                                                                                                                                                           |
 
 ### Цвет кисти &#123;#painter-color&#125;
-![Цвет кисти](/gitbook/assets/brushColorBlock (1).png)
+![Цвет кисти](/gitbook/assets/brushColorBlock%20%281%29.png)
 
 Указать цвет, которым будут рисоваться простые графические фигуры на экране робота.
 
 ### Ширина кисти &#123;#painter-width&#125;
-![Ширина кисти](/gitbook/assets/brushWidthBlock (1).png)
+![Ширина кисти](/gitbook/assets/brushWidthBlock%20%281%29.png)
 
 Указать ширину линии, которой будут рисоваться простые графические фигуры на экране робота.
 
 ### Нарисовать точку &#123;#draw-pixel&#125;
-![Нарисовать точку](/gitbook/assets/drawPixelBlock (3).png)
+![Нарисовать точку](/gitbook/assets/drawPixelBlock%20%283%29.png)
 
 Нарисовать на экране точку в указанных координатах.
 
 ### Нарисовать линию &#123;#draw-line&#125;
-![Нарисовать линию](/gitbook/assets/drawLineBlock (3).png)
+![Нарисовать линию](/gitbook/assets/drawLineBlock%20%283%29.png)
 
 Нарисовать на экране отрезок. В качестве параметров блоку указываются концы отрезка.
 
 ### Нарисовать прямоугольник &#123;#draw-rectangle&#125;
-![Нарисовать прямоугольник](/gitbook/assets/drawRectBlock (3).png)
+![Нарисовать прямоугольник](/gitbook/assets/drawRectBlock%20%283%29.png)
 
 Нарисовать на экране прямоугольник. В качестве параметров указываются координаты левого верхнего угла, ширина и высота прямоугольника.
 
 ### Нарисовать эллипс &#123;#draw-ellipse&#125;
-![Нарисовать эллипс](/gitbook/assets/drawCircleBlock (3).png)
+![Нарисовать эллипс](/gitbook/assets/drawCircleBlock%20%283%29.png)
 
 Нарисовать на экране эллипс, вписанный в заданный прямоугольник.
 
 ### Нарисовать дугу &#123;#draw-arc&#125;
-![Нарисовать дугу](/gitbook/assets/drawArcBlock (1).png)
+![Нарисовать дугу](/gitbook/assets/drawArcBlock%20%281%29.png)
 
 Нарисовать на экране дугу, заданную координатами прямоугольника, в который она будет вписана, и углами (в градусах) её начала и конца на окружности. Если начало и конец совпадают, будет нарисована окружность.
 
 ### Смайлик &#123;#smile&#125;
-![Смайлик](/gitbook/assets/smileBlock (1).png)
+![Смайлик](/gitbook/assets/smileBlock%20%281%29.png)
 
 Нарисовать на экране смайлик.
 
 ### Грустный смайлик &#123;#sad-smile&#125;
-![Грустный смайлик](/gitbook/assets/sadSmileBlock (1).png)
+![Грустный смайлик](/gitbook/assets/sadSmileBlock%20%281%29.png)
 
 Нарисовать на экране грустный смайлик.
 
 ### Цвет фона &#123;#background-color&#125;
-![Цвет фона](/gitbook/assets/setBackgroundBlock (1).png)
+![Цвет фона](/gitbook/assets/setBackgroundBlock%20%281%29.png)
 
 Задаёт цвет фона экрана.
 
 ### Напечатать текст &#123;#print-text&#125;
-![Напечатать текст](/gitbook/assets/printTextBlock (3).png)
+![Напечатать текст](/gitbook/assets/printTextBlock%20%283%29.png)
 
 Печатает заданную строку в заданном месте на экране робота.
 
@@ -413,7 +413,7 @@ title: "Блоки ТРИК"
 2. Поставьте галочку в свойстве «Вычислять».
 
 ### Очистить экран &#123;#clear-screen&#125;
-![Очистить экран](/gitbook/assets/clearScreenBlock (3).png)
+![Очистить экран](/gitbook/assets/clearScreenBlock%20%283%29.png)
 
 Стереть всё, что нарисовано на экране.
 

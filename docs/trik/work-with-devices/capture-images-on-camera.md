@@ -70,7 +70,7 @@ title: "Съемка изображений на камеру ТРИК и исп
 Не забывайте пользоваться функциями для рисования графических примитивов ([drawRect](../programming-code/object-brick/class-display.md#drawrect), [drawLine](../programming-code/object-brick/class-display.md#drawline), [drawPoint](../programming-code/object-brick/class-display.md#drawpoint) и т.п) и функцией [show](../programming-code/object-brick/class-display.md#show) для ускорения процесса разработки и отладки алгоритмов обработки изображений.
 :::
 
-![](/gitbook/assets/screen\_record\_2.gif)
+![](/gitbook/assets/screen_record_2.gif)
 
 Пример программы
 
@@ -96,4 +96,4 @@ var main = function()
 
 2\. Запустите код в режиме отладки, используя в качестве режима исполнения программы [двумерную модель](../../studio/2d-model/). На дисплее контроллера будут последовательно выводиться изображения.
 
-![](/gitbook/assets/screen\_record\_1.gif)
+![](/gitbook/assets/screen_record_1.gif)

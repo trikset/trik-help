@@ -8,4 +8,4 @@ TRIK Gamepad — пульт для управления программируе
 
 Для управления роботом с пульта необходимо написать [программу](../remote-control.md) и запустить её на роботе.
 
-![](/gitbook/assets/Copy of icon\_trik\_gamepad.png)
+![](/gitbook/assets/Copy%20of%20icon_trik_gamepad.png)

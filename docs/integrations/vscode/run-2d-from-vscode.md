@@ -29,12 +29,12 @@ title: "Запуск 2D-модели в TRIK Studio из VSCode"
 
 3\.  Вызовите `Terminal → Configure Tasks`.
 
-![](/gitbook/assets/VSCode\_1.png)
+![](/gitbook/assets/VSCode_1.png)
 
 4\. Если ранее задач не было, то выберите в выпадающем меню `Create tasks.json file from template → Others`. Откроется файл `tasks.json`. \
 Если tasks были созданы ранее, он откроется сразу после пункта 3.
 
-![](/gitbook/assets/VSCode\_2.jpg)
+![](/gitbook/assets/VSCode_2.jpg)
 
 5\. Удалите всё из этого файла и вставьте данный код, где `` — полный путь к папке с полями:
 
@@ -63,13 +63,13 @@ title: "Запуск 2D-модели в TRIK Studio из VSCode"
 * Для Windows необходимо в строке соответствующей полю `"windows": { "command"` указать путь к отредактированному `run_2d_model.cmd` и третьим аргументом указать файл вашего исходного кода. Данный файл должен находиться в папке, которую мы открыли с помощью **VSCode**. Например:\
   `"command": "D:\TRIKStudio\run_2d_model.cmd D:\Users\Admin\fields script.js"`
 
-![](/gitbook/assets/VSCode\_3.png)
+![](/gitbook/assets/VSCode_3.png)
 
 7\. Сохраните файл `tasks.json`.
 
 8\. Теперь при нажатии `Terminal → Run Task` в выпадающем меню выберите`Run TRIK 2D model,` чтобы запустить ваш код, или соответствующую комбинацию клавиш (**Ctrl+Shift+B**).&#x20;
 
-![](/gitbook/assets/VSCode\_4.jpg)
+![](/gitbook/assets/VSCode_4.jpg)
 
 :::tip
 За предложение добавить данную функциональность команда проекта ТРИК благодарит участника Олимпиады НТИ ИРС 2018—2020 гг. **Александра Журавлева**.

@@ -6,7 +6,7 @@ title: "WinSCP"
 
 **WinSCP** — графический клиент протоколов **SFTP** и **SCP**, предназначенный для Windows. С помощью него можно обмениваться файлами между контроллером ТРИК и компьютером по протоколу **SCP**.
 
-![](/gitbook/assets/Сторонние утилиты WinSCP.png)
+![](/gitbook/assets/%D0%A1%D1%82%D0%BE%D1%80%D0%BE%D0%BD%D0%BD%D0%B8%D0%B5%20%D1%83%D1%82%D0%B8%D0%BB%D0%B8%D1%82%D1%8B%20WinSCP.png)
 
 ## Запуск WinSCP из TRIK Studio
 

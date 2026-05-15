@@ -19,11 +19,11 @@ TRIK Studio можно использовать для написания про
 
 Алгоритм:
 
-![](/gitbook/assets/program\_for\_vrt.png)
+![](/gitbook/assets/program_for_vrt.png)
 
 Исполнение в VRT:
 
-![](/gitbook/assets/program\_for\_vrt.gif)
+![](/gitbook/assets/program_for_vrt.gif)
 
 :::info
 Благодарим Алексея Михайловича Клячина за помощь при написании статьи.

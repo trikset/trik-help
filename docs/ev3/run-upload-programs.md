@@ -6,7 +6,7 @@ title: "Запуск программ и их загрузка на контро
 
 Для работы с контроллером LEGO EV3 в настройках TRIK Studio перейдите в [раздел «Роботы»](../studio/interface/faq-robot-settings.md) и выберите платформу LEGO EV3.
 
-![](/gitbook/assets/robots-ev3 (1).png)
+![](/gitbook/assets/robots-ev3%20%281%29.png)
 
 Существует несколько вариантов выполнения программ для контроллера LEGO EV3:
 
