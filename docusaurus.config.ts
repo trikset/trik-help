@@ -66,12 +66,6 @@ const config: Config = {
       title: 'Справочный центр ТРИК',
       items: [
         {
-          type: 'docSidebar',
-          sidebarId: 'docs',
-          position: 'left',
-          label: 'Справка',
-        },
-        {
           href: 'https://github.com/trikset/trik-help',
           label: 'GitHub',
           position: 'right',
