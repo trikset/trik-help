@@ -116,3 +116,67 @@
     width: auto !important;
   }
 }
+
+/* GitBook migration polish: keep block icons/tables visually stable. */
+.theme-doc-markdown img[src^="/gitbook/assets/"] {
+  max-width: 100%;
+  height: auto;
+}
+
+.theme-doc-markdown table img[src^="/gitbook/assets/"] {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 170px;
+  max-height: 72px;
+  object-fit: contain;
+  margin: 0 auto;
+}
+
+.theme-doc-markdown table td:first-child img[src^="/gitbook/assets/"],
+.theme-doc-markdown table th:first-child img[src^="/gitbook/assets/"] {
+  max-width: 150px;
+  max-height: 64px;
+}
+
+/* Compatibility anchors are only jump targets for old GitBook links; don't show stray # marks. */
+.theme-doc-markdown h6.anchor {
+  height: 0;
+  line-height: 0;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.theme-doc-markdown h6.anchor .hash-link {
+  display: none;
+}
+
+/* Make Docusaurus heading permalinks feel clickable, especially on touch screens. */
+.theme-doc-markdown h2 .hash-link,
+.theme-doc-markdown h3 .hash-link,
+.theme-doc-markdown h4 .hash-link,
+.theme-doc-markdown h5 .hash-link {
+  cursor: pointer;
+  opacity: 0.45;
+  padding-left: 0.35rem;
+  touch-action: manipulation;
+}
+
+.theme-doc-markdown h2 .hash-link:hover,
+.theme-doc-markdown h3 .hash-link:hover,
+.theme-doc-markdown h4 .hash-link:hover,
+.theme-doc-markdown h5 .hash-link:hover {
+  opacity: 0.9;
+}
+
+.theme-doc-markdown .anchor:target {
+  scroll-margin-top: calc(var(--ifm-navbar-height) + 1rem);
+}
+
+.theme-doc-markdown h2.anchor:target,
+.theme-doc-markdown h3.anchor:target,
+.theme-doc-markdown h4.anchor:target {
+  background: rgba(46, 133, 85, 0.08);
+  border-radius: 6px;
+}
