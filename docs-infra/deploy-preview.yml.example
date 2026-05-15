@@ -1,0 +1,60 @@
+name: Deploy preview to Bender
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: help-new-deploy
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Docusaurus
+        run: npm run build
+
+      - name: Prepare SSH
+        env:
+          BENDER_SSH_KEY: ${{ secrets.BENDER_SSH_KEY }}
+          BENDER_HOST: ${{ secrets.BENDER_HOST }}
+        run: |
+          set -euo pipefail
+          test -n "$BENDER_SSH_KEY"
+          test -n "$BENDER_HOST"
+          mkdir -p ~/.ssh
+          printf '%s\n' "$BENDER_SSH_KEY" > ~/.ssh/bender_deploy_key
+          chmod 600 ~/.ssh/bender_deploy_key
+          ssh-keyscan -H "$BENDER_HOST" >> ~/.ssh/known_hosts
+
+      - name: Deploy to Bender
+        env:
+          BENDER_HOST: ${{ secrets.BENDER_HOST }}
+          BENDER_USER: ${{ secrets.BENDER_USER }}
+          BENDER_PATH: ${{ secrets.BENDER_PATH }}
+          BENDER_PORT: ${{ secrets.BENDER_PORT || '22' }}
+        run: |
+          set -euo pipefail
+          test -n "$BENDER_HOST"
+          test -n "$BENDER_USER"
+          test -n "$BENDER_PATH"
+          rsync -az --delete \
+            -e "ssh -i ~/.ssh/bender_deploy_key -p ${BENDER_PORT} -o BatchMode=yes" \
+            build/ "${BENDER_USER}@${BENDER_HOST}:${BENDER_PATH}/"
