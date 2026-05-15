@@ -28,3 +28,91 @@
   --ifm-color-primary-lightest: #4fddbf;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
+
+/* Compact GitBook-like docs sidebar. */
+.theme-doc-sidebar-container {
+  width: 285px !important;
+}
+
+.menu {
+  font-size: 13px;
+  line-height: 1.25;
+  padding: 0.55rem 0.55rem 0.8rem;
+}
+
+.menu__list {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.menu__list .menu__list {
+  margin-top: 0.05rem;
+  padding-left: 0.58rem;
+  border-left: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.menu__link,
+.menu__caret {
+  border-radius: 6px;
+}
+
+.menu__link {
+  padding: 0.25rem 0.45rem;
+  color: var(--ifm-color-emphasis-800);
+  font-weight: 400;
+}
+
+.menu__link:hover {
+  background: var(--ifm-color-emphasis-100);
+  color: var(--ifm-color-emphasis-900);
+}
+
+.menu__link--active {
+  background: rgba(37, 99, 235, 0.09);
+  color: #1d4ed8;
+  font-weight: 600;
+}
+
+.menu__list-item {
+  margin: 0.035rem 0;
+}
+
+.menu__list-item-collapsible {
+  border-radius: 6px;
+}
+
+.menu__list-item-collapsible .menu__link {
+  font-weight: 500;
+}
+
+.menu__caret:before,
+.menu__link--sublist-caret:after {
+  transform: scale(0.75);
+}
+
+.menu__link--sublist {
+  padding-right: 0.3rem;
+}
+
+.menu__list-item.sidebar-section {
+  margin-top: 0.55rem;
+}
+
+.menu__list-item.sidebar-section > .menu__list-item-collapsible > .menu__link,
+.menu__list-item.sidebar-section > .menu__link {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--ifm-color-emphasis-700);
+}
+
+.theme-doc-sidebar-menu {
+  padding-top: 0.2rem;
+}
+
+@media (max-width: 996px) {
+  .theme-doc-sidebar-container {
+    width: auto !important;
+  }
+}
