@@ -9,7 +9,7 @@ import TabItem from '@theme/TabItem';
 
 **TRIK Studio** — бесплатная среда программирования роботов.
 
-<div align="center"><img src="/gitbook/assets/trik_studio_logo_%26#x26;_text_right.png" alt="" /></div>
+<div align="center"><img src="/gitbook/assets/trik_studio_logo_%26_text_right.png" alt="" /></div>
 
 Она позволяет решать задачи как с помощью [визуального](../programming-visual/) программирования, так и [текстовых языков](../programming-code.md).
 

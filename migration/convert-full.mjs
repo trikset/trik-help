@@ -74,6 +74,7 @@ function encodeGitbookAssetUrl(rawUrl) {
   let url = rawUrl.trim()
     .replace(/^&lt;|^</, '')
     .replace(/&gt;$|>$/, '')
+    .replace(/&#x26;|&#38;|&amp;/g, '&')
     // GitBook sometimes escapes underscores in Markdown URLs; the real files do not.
     .replace(/\\([_() ])/g, '$1');
   const match = url.match(/^([^?#]*)([?#].*)?$/);

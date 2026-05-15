@@ -17,4 +17,4 @@ title: "Справочный центр ТРИК"
 * [LEGO NXT](nxt/about.md).
 * [Квадрокоптером Геоскан Пионер](pioneer/about.md).
 
-<div align="center"><img src="/gitbook/assets/trik_studio_logo_%26#x26;_text_right.png" alt="" /></div>
+<div align="center"><img src="/gitbook/assets/trik_studio_logo_%26_text_right.png" alt="" /></div>
