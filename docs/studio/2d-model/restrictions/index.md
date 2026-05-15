@@ -25,6 +25,7 @@ title: "Добавление ограничений в 2D-модель"
 3. **Ограничения на устройства.**\
    Например, ограничение на набор датчиков или на поведение устройств.
 
+###### ​ {#struktura-napisaniya-ogranichenii}
 ## Структура написания ограничений
 
 Для описания ограничений используется главный тег [`&lt;constraints&gt;…&lt;/constraints&gt;`](./#less-than-constraints-greater-than-less-than-constraints-greater-than), в который вписываются все ограничения. Используется как контейнер. Ограничения описываются внутри тега, каждый дочерний тег должен быть одним из четырех:
@@ -150,6 +151,7 @@ title: "Добавление ограничений в 2D-модель"
 </init>
 ```
 
+###### ​ {#usloviya}
 ## Условия
 
 Теперь обсудим, какими могут быть условия в элементах [\&lt;constraint&gt;](./#less-than-constraint-greater-than-less-than-constraint-greater-than) и [\&lt;event&gt;](./#event). Условия задаются с помощью тега [\&lt;condition&gt;](./#condition) в случае, если проверяется только одно из [атомарных условий](./#atomarnye-usloviya), или тега [\&lt;conditions&gt;](./#less-than-conditions-greater-than-less-than-conditions-greater-than), если проверяется составное условие.
@@ -210,6 +212,7 @@ title: "Добавление ограничений в 2D-модель"
 </conditions>
 ```
 
+###### ​ {#atomarnye-usloviya}
 ## Атомарные условия
 
 Атомарное условие представляет собой один из следующих элементов:
@@ -376,6 +379,7 @@ title: "Добавление ограничений в 2D-модель"
 </event>
 ```
 
+###### ​ {#tipy-peremennykh-i-arifmeticheskie-operacii}
 ## Типы переменных и арифметические операции
 
 | Переменная                                | Описание                                                                                                                 |
@@ -513,6 +517,7 @@ title: "Добавление ограничений в 2D-модель"
 </sum>
 ```
 
+###### ​ {#triggery}
 ## Триггеры
 
 | Тег                                                          | Описание                                                                                                           |
@@ -634,6 +639,7 @@ title: "Добавление ограничений в 2D-модель"
 При срабатывании такого триггера в консоль робота будет выведен текст "Hello, world!"
 ```
 
+###### ​ {#nazvaniya-datchikov}
 ## Названия датчиков
 
 #### Датчики для робота TRIK
@@ -661,6 +667,7 @@ title: "Добавление ограничений в 2D-модель"
 | ev3::robotModel::twoD::parts::GyroscopeSensor    | Гиродатчик                    |
 | ev3::robotModel::twoD::parts::GyroscopeSensor    | Компас                        |
 
+###### ​ {#dopolnitelnye-svoistva-robota}
 ## Дополнительные свойства робота
 
 | Свойство                | Описание                                                                                                |
@@ -671,6 +678,7 @@ title: "Добавление ограничений в 2D-модель"
 | robot1.marker.isDown    | Проверяет, что у робота установлен маркер и он рисует линию на поле. Возвращает значения true или false |
 | robot1.shell.lastPhrase | Узнать текст, который сказал робот                                                                      |
 
+###### ​ {#rabota-s-ekranom-kontrollera}
 ## Работа с экраном контроллера
 
 | Свойство                         | Описание                                                                                              |
@@ -692,6 +700,7 @@ title: "Добавление ограничений в 2D-модель"
 </equals>
 ```
 
+###### ​ {#primer-dobavleniya-ogranichenii}
 ## Пример добавления ограничений
 
 Стартовав в синем квадрате, необходимо проехать вдоль стены с помощью датчика расстояния ИК до красного квадрата.
@@ -814,15 +823,6 @@ title: "Добавление ограничений в 2D-модель"
 
 
 {/* Compatibility anchors for old GitBook/Docusaurus links. */}
-###### ​ {#struktura-napisaniya-ogranichenii}
-###### ​ {#usloviya}
-###### ​ {#atomarnye-usloviya}
-###### ​ {#tipy-peremennykh-i-arifmeticheskie-operacii}
-###### ​ {#triggery}
-###### ​ {#nazvaniya-datchikov}
-###### ​ {#dopolnitelnye-svoistva-robota}
-###### ​ {#rabota-s-ekranom-kontrollera}
-###### ​ {#primer-dobavleniya-ogranichenii}
 ###### ​ {#less-than-constraints-greater-than-less-than-constraints-greater-than}
 ###### ​ {#less-than-timelimit-greater-than}
 ###### ​ {#less-than-constraint-greater-than-less-than-constraint-greater-than}

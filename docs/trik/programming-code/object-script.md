@@ -22,6 +22,7 @@ import TabItem from '@theme/TabItem';
 | [wait](object-script.md#wait)               | Приостанавливает выполнение скрипта на переданное количество миллисекунд.                               |
 | [writeToFile](object-script.md#writetofile) | Записывает строку в файл.                                                                               |
 
+###### ​ {#quit}
 ## quit
 
 Устанавливает флаг окончания работы для событийно-ориентированной программы. Как только будет завершён текущий обработчик события, исполнение скрипта закончится.
@@ -42,6 +43,7 @@ script.quit();
 </TabItem>
 </Tabs>
 
+###### ​ {#random}
 ## random
 
 Возвращает случайное число из заданного диапазона.
@@ -80,6 +82,7 @@ var a = script.random(0, 10); // случайное число от 0 до 10
 </TabItem>
 </Tabs>
 
+###### ​ {#readall}
 ## readAll
 
 Считывает всё содержимое указанного файла в массив строк.
@@ -118,6 +121,7 @@ var lines = script.readAll("input.txt"); // считывает текстовы�
 </TabItem>
 </Tabs>
 
+###### ​ {#removefile}
 ## removeFile
 
 Удаляет указанный файл.
@@ -156,6 +160,7 @@ script.removeFile("file.txt"); // удалить файл file.txt
 </TabItem>
 </Tabs>
 
+###### ​ {#run}
 ## run
 
 Устанавливает флаг событийно-ориентированной программы. По окончанию работы скрипт не выгружается из памяти, а продолжает ждать наступления событий до тех пор, пока какой-либо из обработчиков не вызовет метод «[quit](object-script.md#quit)».
@@ -176,6 +181,7 @@ script.run();
 </TabItem>
 </Tabs>
 
+###### ​ {#system}
 ## system
 
 Выполняет переданную команду.
@@ -214,6 +220,7 @@ script.system("reboot");
 </TabItem>
 </Tabs>
 
+###### ​ {#time}
 ## time
 
 Возвращает временной штамп — количество миллисекунд, прошедших с начала 1 января 1970 года по Гринвичу.
@@ -234,6 +241,7 @@ script.time();
 </TabItem>
 </Tabs>
 
+###### ​ {#timer}
 ## timer
 
 Создаёт и возвращает таймер (класс `«QTimer»`), посылающий сигнал `timeout` каждые n миллисекунд.
@@ -283,6 +291,7 @@ tim.stop()
 </TabItem>
 </Tabs>
 
+###### ​ {#wait}
 ## wait
 
 Приостанавливает выполнение скрипта на переданное количество миллисекунд.
@@ -321,6 +330,7 @@ script.wait(1000); // остановить выполнение скрипта �
 </TabItem>
 </Tabs>
 
+###### ​ {#writetofile}
 ## writeToFile
 
 Записывает сроку в файл.
@@ -358,16 +368,3 @@ script.writeToFile("output.txt", "Hello, world"); // записать «Hello, w
 ```
 </TabItem>
 </Tabs>
-
-
-{/* Compatibility anchors for old GitBook/Docusaurus links. */}
-###### ​ {#quit}
-###### ​ {#random}
-###### ​ {#readall}
-###### ​ {#removefile}
-###### ​ {#run}
-###### ​ {#system}
-###### ​ {#time}
-###### ​ {#timer}
-###### ​ {#wait}
-###### ​ {#writetofile}

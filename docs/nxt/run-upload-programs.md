@@ -35,6 +35,7 @@ title: "Запуск программ и их загрузка на контро
 
 ![](https://static.tildacdn.com/tild6362-3831-4235-b933-303933376430/nxt-2d-4.gif)
 
+###### ​ {#interpretaciya-s-posylkoi-komand-v-robota-po-bluetooth-ili-usb}
 ## **Интерпретация** с посылкой команд в робота по Bluetooth или USB
 
 1\. Включите режим «Интерпретация (USB)» или «Интерпретация (Bluetooth).
@@ -45,6 +46,7 @@ title: "Запуск программ и их загрузка на контро
 
 ![](/gitbook/assets/nxt-usb-2.png)
 
+###### ​ {#zagruzka-na-kontroller}
 ## **Загрузка на контроллер**
 
 Из TRIK Studio можно загрузить готовую программу на робота, чтобы в дальнейшем автономно её исполнять без связи с компьютером.
@@ -56,5 +58,3 @@ title: "Запуск программ и их загрузка на контро
 
 {/* Compatibility anchors for old GitBook/Docusaurus links. */}
 ###### ​ {#2d}
-###### ​ {#interpretaciya-s-posylkoi-komand-v-robota-po-bluetooth-ili-usb}
-###### ​ {#zagruzka-na-kontroller}

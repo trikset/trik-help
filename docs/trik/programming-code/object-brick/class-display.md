@@ -31,6 +31,7 @@ import TabItem from '@theme/TabItem';
 | [show](class-display.md#show)                        | Вывести на дисплей контроллера изображение, сформированное в одномерном массиве.                                                      |
 | [showImage](class-display.md#showimage)              | Вывести на экран изображение, предварительно загруженное на робот.                                                                    |
 
+###### ​ {#addlabel}
 ## addLabel
 
 Вывести на экран указанный текст в указанные координаты. Если в указанных координатах уже был текст, он будет заменён новым.
@@ -73,6 +74,7 @@ brick.display().addLabel('Привет, мир!', 1, 1);
 </TabItem>
 </Tabs>
 
+###### ​ {#clear}
 ## clear
 
 Очистить окно для рисования.
@@ -91,6 +93,7 @@ brick.display().clear();
 </TabItem>
 </Tabs>
 
+###### ​ {#drawarc}
 ## drawArc
 
 Нарисовать дугу эллипса, вписанного в прямоугольник с левым верхним углом в указанных координатах и имеющий заданную ширину и высоту. Изменения на дисплее произойдут только после вызова метода «[redraw](class-display.md#redraw)».
@@ -133,6 +136,7 @@ brick.display().drawArc(0, 0, 10, 10, 20, 50);
 </TabItem>
 </Tabs>
 
+###### ​ {#drawellipse}
 ## drawEllipse
 
 Нарисовать эллипс, вписанный в прямоугольник с левым верхним углом в указанных координатах и имеющий заданную ширину и высоту. Изменения на дисплее произойдут только после вызова метода «[redraw](class-display.md#redraw)».
@@ -176,6 +180,7 @@ brick.display().drawEllipse(0, 0, 10, 10, true);
 </TabItem>
 </Tabs>
 
+###### ​ {#drawline}
 ## drawLine
 
 Нарисовать линию с началом и концом в заданных координатах. Изменения на дисплее произойдут только после вызова метода «[redraw](class-display.md#redraw)».
@@ -215,6 +220,7 @@ brick.display().drawLine(0, 0, 10, 10);
 </TabItem>
 </Tabs>
 
+###### ​ {#drawpoint}
 ## drawPoint
 
 Нарисовать точку в заданных координатах. Изменения на дисплее произойдут только после вызова метода «[redraw](class-display.md#redraw)».
@@ -251,6 +257,7 @@ brick.display().drawPoint(10, 10);
 </TabItem>
 </Tabs>
 
+###### ​ {#drawrect}
 ## drawRect
 
 Нарисовать прямоугольник с левым верхним углом в указанных координатах и имеющий заданную ширину и высоту. Изменения на дисплее произойдут только после вызова метода «[redraw](class-display.md#redraw)».
@@ -292,6 +299,7 @@ brick.display().drawRect(0, 0, 10, 10, true);
 </TabItem>
 </Tabs>
 
+###### ​ {#hide}
 ## hide
 
 Закрыть и очистить окно для рисования.
@@ -310,6 +318,7 @@ brick.display().hide();
 </TabItem>
 </Tabs>
 
+###### ​ {#redraw}
 ## redraw
 
 Перерисовать окно для рисования. Изменения на дисплее произойдут только после вызова этого метода.
@@ -328,6 +337,7 @@ brick.display().redraw();
 </TabItem>
 </Tabs>
 
+###### ​ {#removelabels}
 ## removeLabels
 
 Удалить с экрана весь текст, добавленный на него вызовами метода «[addLabel](class-display.md#addlabel)».
@@ -346,6 +356,7 @@ brick.display().removeLabels();
 </TabItem>
 </Tabs>
 
+###### ​ {#setbackground}
 ## setBackground
 
 Установить фон экрана в указанный цвет.
@@ -394,6 +405,7 @@ brick.display().setBackground("red");
 </TabItem>
 </Tabs>
 
+###### ​ {#setpaintercolor}
 ## setPainterColor
 
 Установить цвет кисти, которой рисуются графические примитивы.
@@ -442,6 +454,7 @@ brick.display().setPainterColor("red");
 </TabItem>
 </Tabs>
 
+###### ​ {#setpainterwidth}
 ## setPainterWidth
 
 Установить толщину кисти, которой рисуются графические примитивы, в пикселях.
@@ -478,6 +491,7 @@ brick.display().setPainterWidth(5);
 </TabItem>
 </Tabs>
 
+###### ​ {#show}
 ## show
 
 Вывести на дисплей контроллера изображение, преобразованное из однородного массива данных.
@@ -577,6 +591,7 @@ script.wait(5000);
 </TabItem>
 </Tabs>
 
+###### ​ {#showimage}
 ## showImage
 
 Вывести на экран изображение, предварительно загруженное на робот.
@@ -612,21 +627,3 @@ brick.display().showImage("media/trik_smile_sad.png");
 ```
 </TabItem>
 </Tabs>
-
-
-{/* Compatibility anchors for old GitBook/Docusaurus links. */}
-###### ​ {#show}
-###### ​ {#addlabel}
-###### ​ {#clear}
-###### ​ {#drawarc}
-###### ​ {#drawellipse}
-###### ​ {#drawline}
-###### ​ {#drawpoint}
-###### ​ {#drawrect}
-###### ​ {#hide}
-###### ​ {#redraw}
-###### ​ {#removelabels}
-###### ​ {#setbackground}
-###### ​ {#setpaintercolor}
-###### ​ {#setpainterwidth}
-###### ​ {#showimage}

@@ -41,6 +41,7 @@ IP-адрес контроллера отображается на экране 
 6. [Программы.](web-interface.md#programmy)
 7. [Изображения.](web-interface.md#izobrazheniya)
 
+###### ​ {#set}
 ## Сеть
 
 На вкладке «Сеть» можно:
@@ -52,6 +53,7 @@ IP-адрес контроллера отображается на экране 
 
 ![Вкладка «Сеть»](https://lh6.googleusercontent.com/pqcyQadVMo8y9EM1VVEHXJcLAwlGPeykZC4nmAYKohSX4mtFnmjGhJcrSxx7Rnv1tCmZ612-r1CMSKpg0iDBA9fxt7sXDPg0XxuplnDSDH3yu6fV5K2yHUgC1mNhgy3AnQZB8DTv)
 
+###### ​ {#porty}
 ## Порты
 
 На вкладке «Порты» можно:
@@ -69,26 +71,32 @@ IP-адрес контроллера отображается на экране 
 
 ![](https://lh3.googleusercontent.com/cPkUdk7HyBuL1DtzCaHxrZyEzBtWtqI5q0CSzuUj\_5hX4u4o9z4e8vvSm4wJRrpkywiJeA417dkNNnJZi\_lZ0fqsODoEbONpE61SFZ8TdMjUT65vY8fh3FR7NVQjUx9co4k9y6RS)
 
+###### ​ {#silovye-motory}
 ### Силовые моторы
 
 В разделе «Силовые моторы» вы можете выбрать тип подключаемых силовых моторов для каждого порта.
 
+###### ​ {#servomotory}
 ### Сервомоторы
 
 В разделе «Сервомоторы» вы можете выбрать тип подключаемых сервомоторов для каждого порта.
 
+###### ​ {#analogovye-sensory}
 ### Аналоговые сенсоры
 
 В разделе «Аналоговые сенсоры» вы можете выбрать тип подключаемых аналоговых сенсоров для каждого порта.
 
+###### ​ {#enkodery}
 ### Энкодеры
 
 В разделе «Энкодеры» вы можете выбрать тип энкодеров, использующихся в моторах, для каждого порта, а также положительное направление отсчета положения вала мотора для каждого порта.
 
+###### ​ {#datchiki-distancii}
 ### Датчики дистанции
 
 В разделе «Датчики дистанции» вы можете выбрать тип подключаемых цифровых датчиков для каждого порта.
 
+###### ​ {#video1-video2}
 ### Video1 / Video2
 
 Видеопорты и подключенные к ним видеокамеры могут работать в следующих режимах:
@@ -100,6 +108,7 @@ IP-адрес контроллера отображается на экране 
 
 ![](/gitbook/assets/WI-22-Video.png)
 
+###### ​ {#mems}
 ## МЭМС
 
 Вкладка МЭМС (микроэлектромеханические системы) позволяет:
@@ -113,18 +122,21 @@ IP-адрес контроллера отображается на экране 
 
 ![](https://lh5.googleusercontent.com/6qgUIBFewE5C1re6c12IYzh7yhUaiCrAaoeiFDbJN1g43QavyastAIuTkKY54vDl9burYWfq1HE4CGszUwng4mDyiTPGkhOpXQRVMuBsCNVodBOeLdq3Eu55\_jGcnPBQ-ol4gM2f)
 
+###### ​ {#videotranslyaciya}
 ## Видеотрансляция
 
 Вкладка «Видеотрансляция» позволяет смотреть видео с установленной на контроллере камеры.
 
 Для её запуска необходимо в [программу управления роботом с пульта](../gamepad/remote-control.md) добавить блок «[Запустить видеотрансляцию](programming-visual/blocks.md#camera-on)».
 
+###### ​ {#bortovoi-zhurnal}
 ## Бортовой журнал
 
 На вкладке «Бортовой журнал» отображаются логи контроллера, которые можно скачать [для последующей отправки их в службу поддержки](../feedback/logging.md#trik).
 
 ![](https://lh3.googleusercontent.com/gSw8G3IcE5WolWHUJSpZlaBou1jVur3MY12FkxpU6\_Zbl\_j49p3-XzsLa2TqG40IWm\_JunJeM7sYQ6UhxRY1s9ZlJWju84ZjKUyZXDaf0NFjuzxKGqQedqwm2ZwNJDn7EQ0iALz-)
 
+###### ​ {#programmy}
 ## Программы
 
 На вкладке «Программы» отображаются загруженные на контроллер программы.
@@ -137,6 +149,7 @@ IP-адрес контроллера отображается на экране 
 
 ![](/gitbook/assets/WI-86%20Progs.png)
 
+###### ​ {#izobrazheniya}
 ## Изображения
 
 Вкладка «Изображения» содержит изображения, сделанные с помощью подключенной камеры, а также скриншоты экрана контроллера.
@@ -152,19 +165,3 @@ IP-адрес контроллера отображается на экране 
 ## LOG
 
 Иконка <img src="/gitbook/assets/logs2%20%281%29.png" alt="" data-size="line" /> позволяет скачать лог-файлы. Подробнее читайте в статье «Действия при неправильной работе TRIK Studio или контроллера ТРИК» в разделе «[Сбор логов на контроллере ТРИК](../feedback/logging.md#trik)».
-
-
-{/* Compatibility anchors for old GitBook/Docusaurus links. */}
-###### ​ {#set}
-###### ​ {#porty}
-###### ​ {#mems}
-###### ​ {#videotranslyaciya}
-###### ​ {#bortovoi-zhurnal}
-###### ​ {#programmy}
-###### ​ {#izobrazheniya}
-###### ​ {#silovye-motory}
-###### ​ {#servomotory}
-###### ​ {#analogovye-sensory}
-###### ​ {#enkodery}
-###### ​ {#datchiki-distancii}
-###### ​ {#video1-video2}

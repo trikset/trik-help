@@ -16,6 +16,7 @@ title: "Блоки LEGO NXT"
 
 
 
+###### ​ {#bloki-deistviya}
 ## Блоки действия
 
 |                                              Вид                                              |                               Название                               | Описание                                                                  |
@@ -27,6 +28,7 @@ title: "Блоки LEGO NXT"
 |      <img src="/gitbook/assets/enginesStopBlock%20%284%29.png" alt="" data-size="original" />      |                 [Моторы стоп](blocks.md#motory-stop)                 | Выключить моторы по заданным портам.                                      |
 | <img src="/gitbook/assets/nullificationEncoderBlock%20%284%29.png" alt="" data-size="original" />  | [Сбросить показания энкодера](blocks.md#sbrosit-pokazaniya-enkodera) | Сбросить показания количества оборотов моторов.                           |
 
+###### ​ {#gudok}
 ### Гудок &#123;#beep&#125;
 ![Гудок](/gitbook/assets/beepBlock%20%285%29.png)
 
@@ -37,6 +39,7 @@ title: "Блоки LEGO NXT"
 1. Ждать ли завершения проигрывания звука или сразу же перейти к следующему блоку. Допустимые значения — истина, ложь.
 2. Громкость воспроизведения (от 0 до 100%).
 
+###### ​ {#igrat-zvuk}
 ### Играть звук &#123;#play-tone&#125;
 ![Играть звук](/gitbook/assets/playToneBlock%20%285%29.png)
 
@@ -49,6 +52,7 @@ title: "Блоки LEGO NXT"
 * Ждать ли завершения проигрывания звука или сразу же перейти к следующему блоку. Допустимые значения — истина, ложь.
 * Громкость воспроизведения (от 0 до 100%).
 
+###### ​ {#motory-vpered}
 ### **Моторы вперед** &#123;#motors-forward&#125;
 ![Моторы вперед](/gitbook/assets/enginesForwardBlock%20%285%29.png)
 
@@ -58,6 +62,7 @@ title: "Блоки LEGO NXT"
 
 Моторы имеют разные режимы работы: режим торможения и режим скольжения (отображаемые красным или зелёным прямоугольником на блоке соответственно). Режимы влияют на то, как двигатель отрабатывает команду — режим торможения стопорит двигатель при отключении, режим скольжения позволяет двигателю прокручиваться по инерции.
 
+###### ​ {#motory-nazad}
 ### **Моторы назад** &#123;#motors-backward&#125;
 ![Моторы назад](/gitbook/assets/enginesBackwardBlock%20%285%29.png)
 
@@ -65,16 +70,19 @@ title: "Блоки LEGO NXT"
 \
 Параметры аналогичны параметрам блока «[Моторы вперёд](blocks.md#motory-vpered)».
 
+###### ​ {#motory-stop}
 ### **Моторы стоп** &#123;#stop-motors&#125;
 ![Моторы стоп](/gitbook/assets/enginesStopBlock%20%285%29.png)
 
 Выключить моторы по заданным портам.
 
+###### ​ {#sbrosit-pokazaniya-enkodera}
 ### **Сбросить показания энкодера** &#123;#clear-encoder&#125;
 ![Сбросить показания энкодера](/gitbook/assets/nullificationEncoderBlock%20%285%29.png)
 
 Сбросить показания количества оборотов моторов.
 
+###### ​ {#bloki-ozhidaniya}
 ## Блоки ожидания
 
 |                                               Вид                                              |                             Название                            | Описание                                                                                                                                             |
@@ -88,6 +96,7 @@ title: "Блоки LEGO NXT"
 |   <img src="/gitbook/assets/waitForSoundSensorBlock%20%282%29.png" alt="" data-size="original" />   |       [Ждать датчик звука](blocks.md#zhdat-datchik-zvuka)       | Ждать, пока громкость, считанная микрофоном на заданном порту, не будет выше или ниже заданного значения.                                            |
 |     <img src="/gitbook/assets/waitForButtonsBlock%20%284%29.png" alt="" data-size="original" />     |     [Ждать нажатия кнопки](blocks.md#zhdat-nazhatiya-knopki)    | Ждать нажатия на кнопку на корпусе робота.                                                                                                           |
 
+###### ​ {#zhdat-datchik-kasaniya}
 ### Ждать датчик касания &#123;#wait-for-touch-sensor&#125;
 ![Ждать датчик касания](/gitbook/assets/waitForTouchSensorBlock%20%285%29.png)
 
@@ -96,6 +105,7 @@ title: "Блоки LEGO NXT"
 Параметром указывается номер порта, к которому подключен датчик.\
 Допустимые значения: 1, 2, 3, 4.
 
+###### ​ {#zhdat-sonar}
 ### Ждать сонар &#123;#wait-for-sonar-distance&#125;
 ![Ждать сонар](/gitbook/assets/waitForSonarDistanceBlock%20%287%29.png)
 
@@ -107,6 +117,7 @@ title: "Блоки LEGO NXT"
 2. Порт — номер порта, к которому подключен датчик расстояния.
 3. Считанное значение — операция, которая будет использоваться для сравнения с введенным расстоянием.
 
+###### ​ {#zhdat-cvet}
 ### Ждать цвет &#123;#wait-for-color&#125;
 ![Ждать цвет](/gitbook/assets/waitForColorBlock%20%283%29.png)
 
@@ -117,6 +128,7 @@ title: "Блоки LEGO NXT"
 1. Цвет.
 2. Порт — номер порта, к которому подключен датчик цвета.
 
+###### ​ {#zhdat-enkoder}
 ### Ждать энкодер &#123;#wait-for-enkoder&#125;
 ![Ждать энкодер](/gitbook/assets/waitForEncoderBlock%20%285%29.png)
 
@@ -128,6 +140,7 @@ title: "Блоки LEGO NXT"
 2. Считанное значение — операция, которая будет использоваться для сравнения с введенным пределом оборотов.
 3. Предел оборотов.
 
+###### ​ {#zhdat-intensivnost-cveta}
 ### Ждать интенсивность цвета &#123;#wait-for-color-intensity&#125;
 ![Ждать интенсивность цвета](/gitbook/assets/waitForColorIntensityBlock%20%283%29.png)
 
@@ -139,6 +152,7 @@ title: "Блоки LEGO NXT"
 2. Порт — номер порта, к которому подключен сенсор цвета.
 3. Считанное значение — операция, которая будет использоваться для сравнения с введенной интенсивностью.
 
+###### ​ {#zhdat-svet}
 ### Ждать свет &#123;#wait-for-light&#125;
 ![Ждать свет](/gitbook/assets/waitForLightBlock%20%285%29.png)
 
@@ -150,16 +164,19 @@ title: "Блоки LEGO NXT"
 2. Порт — номер порта, к которому подключен сенсор цвета.
 3. Считанное значение — операция, которая будет использоваться для сравнения со значением параметра «Проценты».
 
+###### ​ {#zhdat-datchik-zvuka}
 ### Ждать датчик звука &#123;#wait-for-sound-sensor&#125;
 ![Ждать датчик звука](/gitbook/assets/waitForSoundSensorBlock%20%283%29.png)
 
 Ждать, пока громкость, считанная микрофоном на заданном порту, не будет выше или ниже заданного значения.
 
+###### ​ {#zhdat-nazhatiya-knopki}
 ### Ждать нажатия кнопки &#123;#wait-for-button&#125;
 ![Ждать нажатия кнопки](/gitbook/assets/waitForButtonsBlock%20%285%29.png)
 
 Ждать нажатия на кнопку на корпусе робота.
 
+###### ​ {#risovanie-na-displee}
 ## Рисование на дисплее
 
 |                                          Вид                                         |                            Название                           | Описание                                                          |
@@ -171,6 +188,7 @@ title: "Блоки LEGO NXT"
 |   <img src="/gitbook/assets/drawLineBlock%20%284%29.png" alt="" data-size="original" />   |         [Нарисовать линию](blocks.md#narisovat-liniyu)        | Нарисовать на экране отрезок.                                     |
 |  <img src="/gitbook/assets/drawCircleBlock%20%284%29.png" alt="" data-size="original" />  |          [Нарисовать круг](blocks.md#narisovat-krug)          | Нарисовать на экране круг с заданным центром и заданным радиусом. |
 
+###### ​ {#napechatat-tekst}
 ### Напечатать текст &#123;#print-text&#125;
 ![Напечатать текст](/gitbook/assets/printTextBlock%20%285%29.png)
 
@@ -178,11 +196,13 @@ title: "Блоки LEGO NXT"
 
 Значение свойства «Текст» по умолчанию трактуется как строка в чистом виде, оно так и будет выведено на экран. Чтобы система считала, что это выражение на текстовом языке (это может быть полезно, например, при отладке значения переменных), поставьте галочку «Вычислять» в редакторе свойств.
 
+###### ​ {#ochistit-ekran}
 ### Очистить экран &#123;#clear-screen&#125;
 ![Очистить экран](/gitbook/assets/clearScreenBlock%20%285%29.png)
 
 Стереть всё, что нарисовано на экране.
 
+###### ​ {#narisovat-pryamougolnik}
 ### Нарисовать прямоугольник &#123;#draw-rectangle&#125;
 ![Нарисовать прямоугольник](/gitbook/assets/drawRectBlock%20%285%29.png)
 
@@ -195,11 +215,13 @@ title: "Блоки LEGO NXT"
 3. Высота прямоугольника.
 4. Обновить картинку (истина или ложь).
 
+###### ​ {#narisovat-tochku}
 ### Нарисовать точку &#123;#draw-pixel&#125;
 ![Нарисовать точку](/gitbook/assets/drawPixelBlock%20%285%29.png)
 
 Нарисовать на экране точку в указанных координатах.
 
+###### ​ {#narisovat-liniyu}
 ### Нарисовать линию &#123;#draw-line&#125;
 ![Нарисовать линию](/gitbook/assets/drawLineBlock%20%285%29.png)
 
@@ -211,6 +233,7 @@ title: "Блоки LEGO NXT"
 2. X2, Y2 — координаты конца отрезка.
 3. Обновить картинку (истина или ложь).
 
+###### ​ {#narisovat-krug}
 ### Нарисовать круг &#123;#draw-circle&#125;
 ![Нарисовать круг](/gitbook/assets/drawCircleBlock%20%285%29.png)
 
@@ -221,29 +244,3 @@ title: "Блоки LEGO NXT"
 1. X, Y — координаты центра круга.
 2. Радиус круга.
 3. Обновить картинку (истина или ложь).
-
-
-{/* Compatibility anchors for old GitBook/Docusaurus links. */}
-###### ​ {#bloki-deistviya}
-###### ​ {#bloki-ozhidaniya}
-###### ​ {#risovanie-na-displee}
-###### ​ {#gudok}
-###### ​ {#igrat-zvuk}
-###### ​ {#motory-vpered}
-###### ​ {#motory-nazad}
-###### ​ {#motory-stop}
-###### ​ {#sbrosit-pokazaniya-enkodera}
-###### ​ {#zhdat-datchik-kasaniya}
-###### ​ {#zhdat-sonar}
-###### ​ {#zhdat-cvet}
-###### ​ {#zhdat-enkoder}
-###### ​ {#zhdat-intensivnost-cveta}
-###### ​ {#zhdat-svet}
-###### ​ {#zhdat-datchik-zvuka}
-###### ​ {#zhdat-nazhatiya-knopki}
-###### ​ {#napechatat-tekst}
-###### ​ {#ochistit-ekran}
-###### ​ {#narisovat-pryamougolnik}
-###### ​ {#narisovat-tochku}
-###### ​ {#narisovat-liniyu}
-###### ​ {#narisovat-krug}

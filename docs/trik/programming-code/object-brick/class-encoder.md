@@ -15,6 +15,7 @@ import TabItem from '@theme/TabItem';
 | [reset](class-encoder.md#reset)             | Сбрасывает на 0 текущее показание энкодера.                         |
 | [readRawData](class-encoder.md#readrawdata) | Возвращает текущее показание энкодера в «тиках» на заданном порту.  |
 
+###### ​ {#read}
 ## read
 
 Возвращает текущее показание энкодера в градусах на заданном порту.
@@ -57,6 +58,7 @@ brick.encoder("E2").read();
 </TabItem>
 </Tabs>
 
+###### ​ {#reset}
 ## reset
 
 Сбрасывает в 0 текущее показание энкодера.
@@ -99,6 +101,7 @@ brick.encoder("E2").reset();
 </TabItem>
 </Tabs>
 
+###### ​ {#readrawdata}
 ## readRawData
 
 Возвращает текущее показание энкодера в «тиках» на заданном порту.
@@ -138,9 +141,3 @@ brick.encoder("E2").readRawData();
 ```
 </TabItem>
 </Tabs>
-
-
-{/* Compatibility anchors for old GitBook/Docusaurus links. */}
-###### ​ {#read}
-###### ​ {#reset}
-###### ​ {#readrawdata}

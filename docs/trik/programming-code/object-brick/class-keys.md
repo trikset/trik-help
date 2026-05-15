@@ -16,6 +16,7 @@ import TabItem from '@theme/TabItem';
 | [reset](class-keys.md#reset)                 | Сбрасывает запомненные нажатия кнопок.                                                               |
 | [wasPressed](class-keys.md#waspressed)       | Возвращает, была ли нажата кнопка с указанным кодом, сбрасывает запомненные нажатия для этой кнопки. |
 
+###### ​ {#buttonpressed}
 ## buttonPressed
 
 Посылается, когда кнопка с указанным кодом нажата или отпущена.
@@ -38,6 +39,7 @@ brick.keys().buttonPressed.connect(function(code, value){if (code==KeysEnum.Up)b
 
 Первый параметр — код кнопки, второй — 1, если кнопка нажата, 0, если отпущена.
 
+###### ​ {#ispressed}
 ## isPressed
 
 Возвращает `true`, если кнопка с указанным кодом нажата в данный момент.\
@@ -67,6 +69,7 @@ brick.keys().isPressed(KeysEnum.Up);
 </TabItem>
 </Tabs>
 
+###### ​ {#reset}
 ## reset
 
 Сбрасывает запомненные нажатия кнопок.
@@ -87,6 +90,7 @@ brick.keys().reset();
 </TabItem>
 </Tabs>
 
+###### ​ {#waspressed}
 ## wasPressed
 
 Возвращает, была ли нажата кнопка с указанным кодом, сбрасывает запомненные нажатия для этой кнопки.\
@@ -115,10 +119,3 @@ brick.keys().wasPressed(KeysEnum.Up);
 ```
 </TabItem>
 </Tabs>
-
-
-{/* Compatibility anchors for old GitBook/Docusaurus links. */}
-###### ​ {#buttonpressed}
-###### ​ {#ispressed}
-###### ​ {#reset}
-###### ​ {#waspressed}

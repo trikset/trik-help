@@ -354,6 +354,7 @@ title: "Блоки в TRIK Studio Junior"
 
 Ждать, пока не будет нажата указанная кнопка на корпусе робота.
 
+###### ​ {#bloki-risovaniya}
 ## Блоки рисования
 
 | Вид                                                                                     |                       Название                       | Описание                                                                                                                                                                                                         |
@@ -485,7 +486,6 @@ title: "Блоки в TRIK Studio Junior"
 ###### ​ {#algorithms}
 ###### ​ {#action-blocks}
 ###### ​ {#waiting-blocks}
-###### ​ {#bloki-risovaniya}
 ###### ​ {#start}
 ###### ​ {#final}
 ###### ​ {#condition}

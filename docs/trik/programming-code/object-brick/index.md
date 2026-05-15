@@ -31,6 +31,7 @@ import TabItem from '@theme/TabItem';
 | [marker](./#marker)               | Предоставляет доступ к рисованию маркером заданного цвета на полу. Доступен только в режиме двумерной модели. |
 | [irCamera](./#ircamera)           | Предоставляет доступ к инфракрасному датчику.                                                                 |
 
+###### ​ {#accelerometer}
 ## accelerometer
 
 Предоставляет доступ к акселерометру (класс «[Accelerometer](class-accelerometer.md)»).
@@ -51,6 +52,7 @@ brick.accelerometer();
 </TabItem>
 </Tabs>
 
+###### ​ {#battery}
 ## battery
 
 Предоставляет доступ к информации об аккумуляторе.(класс «[Battery](class-battery.md)»).
@@ -71,6 +73,7 @@ brick.battery();
 </TabItem>
 </Tabs>
 
+###### ​ {#colorsensor}
 ## colorSensor
 
 Предоставляет доступ к датчику цвета по видеокамере (класс «[ColorSensor](class-colorsensor.md)»).
@@ -91,6 +94,7 @@ brick.colorSensor("video1");
 </TabItem>
 </Tabs>
 
+###### ​ {#display}
 ## display
 
 Предоставляет доступ к дисплею робота (класс «[Display](class-display.md)»).
@@ -111,6 +115,7 @@ brick.display();
 </TabItem>
 </Tabs>
 
+###### ​ {#encoder}
 ## encoder
 
 Предоставляет доступ к энкодеру на указанном порту (класс «[Encoder](class-encoder.md)»).
@@ -153,6 +158,7 @@ brick.encoder("E2"); // вызов энкодера на порту E2
 </TabItem>
 </Tabs>
 
+###### ​ {#getstillimage}
 ## getStillImage
 
 Получить фотографию с камеры в виде массива байт.
@@ -173,6 +179,7 @@ brick.getStillImage();
 </TabItem>
 </Tabs>
 
+###### ​ {#gyroscope}
 ## gyroscope
 
 Предоставляет доступ к гироскопу (класс «[Gyroscope](class-gyroscope.md)»).
@@ -193,6 +200,7 @@ brick.gyroscope();
 </TabItem>
 </Tabs>
 
+###### ​ {#keys}
 ## keys
 
 Предоставляет доступ к кнопкам на корпусе робота (класс «[Keys](class-keys.md)»).
@@ -213,6 +221,7 @@ brick.keys();
 </TabItem>
 </Tabs>
 
+###### ​ {#led}
 ## led
 
 Предоставляет доступ к светодиоду на корпусе робота (класс «[Led](class-led.md)»).
@@ -233,6 +242,7 @@ brick.led();
 </TabItem>
 </Tabs>
 
+###### ​ {#linesensor}
 ## lineSensor
 
 Предоставляет доступ к датчику линии по видеокамере (класс «[LineSensor](class-linesensor.md)»).
@@ -253,6 +263,7 @@ brick.lineSensor("video1");
 </TabItem>
 </Tabs>
 
+###### ​ {#motor}
 ## motor
 
 Предоставляет доступ к мотору (силовому или сервомотору) на указанном порту (класс «[Motor](class-motor.md)»).
@@ -295,6 +306,7 @@ brick.motor("M2") // вызов мотора на порту M2
 </TabItem>
 </Tabs>
 
+###### ​ {#objectsensor}
 ## objectSensor
 
 Предоставляет доступ к датчику объекта по видеокамере (класс «[ObjectSensor](class-objectsensor.md)»).
@@ -315,6 +327,7 @@ brick.objectSensor();
 </TabItem>
 </Tabs>
 
+###### ​ {#playsound}
 ## playSound
 
 Проиграть звуковой файл.
@@ -357,6 +370,7 @@ brick.playSound("media/sound.mp3"); // проиграть файл sound.mp3 и�
 </TabItem>
 </Tabs>
 
+###### ​ {#playtone}
 ## playTone
 
 Проиграть звук с заданной частотой.
@@ -395,6 +409,7 @@ brick.playTone(1000, 1000);
 </TabItem>
 </Tabs>
 
+###### ​ {#say}
 ## say
 
 Произнести строку (на русском или английском языке).
@@ -433,6 +448,7 @@ brick.say("Привет, я ТРИК");
 </TabItem>
 </Tabs>
 
+###### ​ {#sensor}
 ## sensor
 
 Предоставляет доступ к сенсору на указанном порту (класс «[Sensor](class-sensor.md)»).
@@ -475,6 +491,7 @@ brick.sensor("A2") // вызов сенсора на порту A2
 </TabItem>
 </Tabs>
 
+###### ​ {#stop}
 ## stop
 
 Останавливает все моторы и активные датчики, убирает нарисованное на дисплее.
@@ -495,6 +512,7 @@ brick.stop();
 </TabItem>
 </Tabs>
 
+###### ​ {#marker}
 ## marker
 
 Предоставляет доступ к рисованию маркером заданного цвета на полу. Доступен только в режиме двумерной модели (класс «[Marker](class-marker.md)»)
@@ -515,6 +533,7 @@ brick.marker();
 </TabItem>
 </Tabs>
 
+###### ​ {#ircamera}
 ## irCamera
 
 Предоставляет доступ к инфракрасному датчику (класс «[IrCamera](class-ircamera.md)»).
@@ -534,25 +553,3 @@ brick.irCamera();
 ```
 </TabItem>
 </Tabs>
-
-
-{/* Compatibility anchors for old GitBook/Docusaurus links. */}
-###### ​ {#accelerometer}
-###### ​ {#battery}
-###### ​ {#colorsensor}
-###### ​ {#display}
-###### ​ {#encoder}
-###### ​ {#getstillimage}
-###### ​ {#gyroscope}
-###### ​ {#keys}
-###### ​ {#playsound}
-###### ​ {#playtone}
-###### ​ {#led}
-###### ​ {#linesensor}
-###### ​ {#motor}
-###### ​ {#objectsensor}
-###### ​ {#say}
-###### ​ {#sensor}
-###### ​ {#stop}
-###### ​ {#marker}
-###### ​ {#ircamera}

@@ -21,6 +21,7 @@ title: "Пример решения задачи по взаимодействи
 3. [Подключить](./) роботов в единую сеть.
 4. Запустить программы на роботах.
 
+###### ​ {#algoritm-peredachi-soobsheniya}
 ### Алгоритм передачи сообщения
 
 1\. Перейдите в TRIK Studio в режим [реального робота](../../../studio/interface/#panel-interpreter).
@@ -37,6 +38,7 @@ title: "Пример решения задачи по взаимодействи
 
 ![](/gitbook/assets/sendMes3.png)
 
+###### ​ {#algoritm-priema-soobsheniya}
 ### Алгоритм приема сообщения
 
 1\. Перейдите в TRIK Studio в режим [реального робота](../../../studio/interface/#panel-interpreter).
@@ -58,8 +60,3 @@ title: "Пример решения задачи по взаимодействи
 #### Общий вид алгоритма
 
 ![](/gitbook/assets/receiveMes3.png)
-
-
-{/* Compatibility anchors for old GitBook/Docusaurus links. */}
-###### ​ {#algoritm-peredachi-soobsheniya}
-###### ​ {#algoritm-priema-soobsheniya}

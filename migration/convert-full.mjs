@@ -227,6 +227,36 @@ function resolveDocOutRel(fromOutRel, href) {
   }
   return null;
 }
+function slugifyCompatHeading(title) {
+  const map = {
+    а:'a', б:'b', в:'v', г:'g', д:'d', е:'e', ё:'e', ж:'zh', з:'z', и:'i', й:'i', к:'k', л:'l', м:'m', н:'n', о:'o', п:'p', р:'r', с:'s', т:'t', у:'u', ф:'f', х:'kh', ц:'c', ч:'ch', ш:'sh', щ:'sh', ъ:'', ы:'y', ь:'', э:'e', ю:'yu', я:'ya'
+  };
+  return title
+    .toLowerCase()
+    .replace(/[а-яё]/g, ch => map[ch] ?? ch)
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+function stripHeadingSyntax(line) {
+  return cleanTitle(line
+    .replace(/^#{1,6}\s+/, '')
+    .replace(/\s*\{#[^}]+\}\s*$/, '')
+    .replace(/\s*&#123;#[^&]+&#125;\s*$/, '')
+    .replace(/<a\s+[^>]*id="[^"]+"[^>]*><\/a>/g, '')
+  );
+}
+function insertCompatAnchorNearHeading(text, safe) {
+  const lines = text.split('\n');
+  for (let i = 0; i < lines.length; i++) {
+    if (!/^#{1,6}\s+/.test(lines[i])) continue;
+    const title = stripHeadingSyntax(lines[i]);
+    if (!title) continue;
+    if (slugifyCompatHeading(title) !== safe) continue;
+    lines.splice(i, 0, `###### \u200b {#${safe}}`);
+    return {text: lines.join('\n'), inserted: true};
+  }
+  return {text, inserted: false};
+}
 function addCompatAnchorsForReferencedHashes() {
   const anchorsByOut = new Map();
   for (const outRel of relMd.map(outRelFor)) {
@@ -256,11 +286,83 @@ function addCompatAnchorsForReferencedHashes() {
       const safe = id.replace(/[^A-Za-z0-9А-Яа-я._~%:-]/g, '-');
       if (!safe) continue;
       if (text.includes(`{#${safe}}`) || text.includes(`id="${safe}"`)) continue;
-      additions.push(`###### \u200b {#${safe}}`);
+      const placed = insertCompatAnchorNearHeading(text, safe);
+      text = placed.text;
+      if (!placed.inserted) additions.push(`###### \u200b {#${safe}}`);
     }
     if (additions.length) {
       text += `\n\n{/* Compatibility anchors for old GitBook/Docusaurus links. */}\n` + additions.join('\n') + '\n';
       writeUtf(file, text);
+    }
+  }
+}
+
+function addCompatAnchorsNearLinkedHeadings() {
+  const wanted = new Map();
+  for (const outRel of relMd.map(outRelFor)) {
+    const file = path.join(docs, outRel);
+    const text = readUtf(file);
+    for (const m of text.matchAll(/\[([^\]\n]+)\]\(([^)]+#[^)]+)\)/g)) {
+      const label = cleanTitle(m[1].replace(/[*_`\[\]]/g, ''));
+      const href = m[2];
+      const hash = href.split('#')[1]?.split(/[?&]/)[0];
+      const targetOut = resolveDocOutRel(outRel, href);
+      if (!label || !hash || !targetOut) continue;
+      if (!wanted.has(targetOut)) wanted.set(targetOut, []);
+      wanted.get(targetOut).push({hash: decodeURIComponent(hash), label});
+    }
+  }
+  for (const [outRel, items] of wanted.entries()) {
+    const file = path.join(docs, outRel);
+    let text = readUtf(file);
+    const lines = text.split('\n');
+    const existing = new Set([...text.matchAll(/\{#([^}]+)\}|id="([^"]+)"/g)].map(m => m[1] || m[2]));
+    const inserts = [];
+    for (const {hash, label} of items) {
+      const safe = hash.replace(/[^A-Za-z0-9А-Яа-я._~%:-]/g, '-');
+      if (!safe || existing.has(safe)) continue;
+      const idx = lines.findIndex(line => /^#{1,6}\s+/.test(line) && stripHeadingSyntax(line) === label);
+      if (idx === -1) continue;
+      inserts.push({idx, line: `###### \u200b {#${safe}}`});
+      existing.add(safe);
+    }
+    if (inserts.length) {
+      for (const ins of inserts.sort((a, b) => b.idx - a.idx)) lines.splice(ins.idx, 0, ins.line);
+      writeUtf(file, lines.join('\n'));
+    }
+  }
+}
+
+function addLocalCompatAnchorsForSelfLinks() {
+  for (const outRel of relMd.map(outRelFor)) {
+    const file = path.join(docs, outRel);
+    let text = readUtf(file);
+    const lines = text.split('\n');
+    const existing = new Set([...text.matchAll(/\{#([^}]+)\}|id="([^"]+)"/g)].map(m => m[1] || m[2]));
+    const selfNames = new Set([path.posix.basename(outRel), path.posix.basename(outRel).replace(/\.md$/, ''), './', '.', '']);
+    if (outRel.endsWith('/index.md')) selfNames.add('README.md');
+    const inserts = [];
+    const append = [];
+    for (const m of text.matchAll(/\]\(([^)]+#[^)]+)\)/g)) {
+      const href = m[1];
+      const raw = href.split('#')[0].replace(/^\.\//, '');
+      if (/^https?:/.test(raw) || raw.startsWith('/gitbook/')) continue;
+      if (raw && !selfNames.has(raw) && !raw.endsWith('/' + path.posix.basename(outRel))) continue;
+      const hash = decodeURIComponent(href.split('#')[1]?.split(/[?&]/)[0] || '');
+      const safe = hash.replace(/[^A-Za-z0-9А-Яа-я._~%:-]/g, '-');
+      if (!safe || existing.has(safe)) continue;
+      let idx = -1;
+      for (let i = 0; i < lines.length; i++) {
+        if (/^#{1,6}\s+/.test(lines[i]) && slugifyCompatHeading(stripHeadingSyntax(lines[i])) === safe) { idx = i; break; }
+      }
+      if (idx >= 0) inserts.push({idx, line: `###### \u200b {#${safe}}`});
+      else append.push(`###### \u200b {#${safe}}`);
+      existing.add(safe);
+    }
+    if (inserts.length || append.length) {
+      for (const ins of inserts.sort((a, b) => b.idx - a.idx)) lines.splice(ins.idx, 0, ins.line);
+      if (append.length) lines.push('', '{/* Compatibility anchors for old GitBook/Docusaurus links. */}', ...append);
+      writeUtf(file, lines.join('\n'));
     }
   }
 }
@@ -272,6 +374,8 @@ for (const rel of relMd) {
   writeUtf(path.join(docs, outRel), convert(readUtf(path.join(src, rel)), rel));
 }
 addCompatAnchorsForReferencedHashes();
+addCompatAnchorsNearLinkedHeadings();
+addLocalCompatAnchorsForSelfLinks();
 
 function parseSummary(){
   const lines = readUtf(path.join(src, 'SUMMARY.md')).split('\n');

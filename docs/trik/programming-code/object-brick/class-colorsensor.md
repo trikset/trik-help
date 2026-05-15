@@ -15,6 +15,7 @@ import TabItem from '@theme/TabItem';
 | [read​](class-colorsensor.md#read) | Возвращает массив с координатами доминирующего цвета в цветовой шкале RGB в указанном участке кадра. |
 | [stop](class-colorsensor.md#stop)  | Выключает видеокамеру и прекращает работу датчика.                                                   |
 
+###### ​ {#init}
 ## init
 
 Включает видеокамеру и инициализирует её в режиме датчика цвета.
@@ -40,6 +41,7 @@ brick.colorSensor("video1").init(true);
 * `true` — выводить,
 * `false` — не выводить.
 
+###### ​ {#read}
 ## read
 
 Возвращает массив с координатами доминирующего цвета в цветовой шкале RGB в указанном участке кадра.
@@ -66,6 +68,7 @@ brick.colorSensor("video1").read(x, y);
 
 В качестве параметра необходимо указать индексы квадрата `x` и `y`.
 
+###### ​ {#stop}
 ## stop
 
 Выключает видеокамеру и прекращает работу датчика.
@@ -85,9 +88,3 @@ brick.colorSensor("video1").stop();
 ```
 </TabItem>
 </Tabs>
-
-
-{/* Compatibility anchors for old GitBook/Docusaurus links. */}
-###### ​ {#init}
-###### ​ {#read}
-###### ​ {#stop}

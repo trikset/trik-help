@@ -38,6 +38,7 @@ title: "Блоки ТРИК"
 
 Проигрывает на контроллере звук с заданной частотой и длительностью.
 
+###### ​ {#igrat-zvukovoi-fail}
 ### Играть звуковой файл
 
 ![Играть звуковой файл](/gitbook/assets/playToneBlock%20%283%29.png)
@@ -74,6 +75,7 @@ title: "Блоки ТРИК"
 \
 Порты задаются строками E1, E2, E3 и E4, разделенными запятыми.
 
+###### ​ {#uglovoi-servomotor}
 ### Угловой сервомотор
 
 ![Угловой сервомотор](/gitbook/assets/angularServoBlock%20%281%29.png)
@@ -149,24 +151,28 @@ title: "Блоки ТРИК"
 \
 Путь до файла может быть абсолютным или относительно папки с `trik-studio.exe`.
 
+###### ​ {#vyklyuchit-videokameru}
 ### Выключить видеокамеру
 
 ![Выключить видеокамеру](/gitbook/assets/stopCameraBlock%20%281%29.png)
 
 Выключает видеокамеру.
 
+###### ​ {#otklyuchit-videotranslyaciyu}
 ### Отключить видеотрансляцию
 
 ![Отключить видеотрансляцию](/gitbook/assets/stopVideoStreamingBlock%20%281%29.png)
 
 Останавливает видеотрансляцию с камеры робота.
 
+###### ​ {#kalibrovka-giroskopa}
 ### Калибровка гироскопа
 
 <img src="/gitbook/assets/calibrateGyroscopeBlock%20%283%29.png" alt="Калибровка гироскопа" width="188" />
 
 Устанавливает гироскоп в 0 в текущей позиции.
 
+###### ​ {#join-network}
 ### Join network
 
 <figure><img src="/gitbook/assets/joinNetwork.png" alt="" width="157" /><figcaption><p>Join network</p></figcaption></figure>
@@ -228,6 +234,7 @@ title: "Блоки ТРИК"
 | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
 | <p></p><p><img src="/gitbook/assets/2020-09-15_11-35-35.png" alt="" /></p> | <p></p><p><img src="/gitbook/assets/2020-09-15_11-34-54.png" alt="" /></p> |
 
+###### ​ {#zhdat-girodatchik}
 ### Ждать гиродатчик
 
 ![Ждать гиродатчик](/gitbook/assets/waitForGyroscopeBlock%20%283%29.png)
@@ -316,6 +323,7 @@ title: "Блоки ТРИК"
 
 Ждать, пока к роботу не подключится пульт. Если пульт уже подключен, программа продолжит выполнение.
 
+###### ​ {#bloki-risovaniya}
 ## Блоки рисования
 
 | Вид                                                                                     |                       Название                       | Описание                                                                                                                                                                                                         |
@@ -353,6 +361,7 @@ title: "Блоки ТРИК"
 
 Нарисовать на экране отрезок. В качестве параметров блоку указываются концы отрезка.
 
+###### ​ {#narisovat-pryamougolnik}
 ### Нарисовать прямоугольник &#123;#draw-rectangle&#125;
 ![Нарисовать прямоугольник](/gitbook/assets/drawRectBlock%20%283%29.png)
 
@@ -419,7 +428,6 @@ title: "Блоки ТРИК"
 
 
 {/* Compatibility anchors for old GitBook/Docusaurus links. */}
-###### ​ {#narisovat-pryamougolnik}
 ###### ​ {#camera-on}
 ###### ​ {#wait-for-gamepad-connect}
 ###### ​ {#stop-motors}
@@ -427,30 +435,22 @@ title: "Блоки ТРИК"
 ###### ​ {#wait-for-infrared-distance}
 ###### ​ {#action-blocks}
 ###### ​ {#waiting-blocks}
-###### ​ {#bloki-risovaniya}
 ###### ​ {#send-message-to-thread}
 ###### ​ {#get-button-code}
 ###### ​ {#play-sound}
-###### ​ {#igrat-zvukovoi-fail}
 ###### ​ {#motors-backward}
 ###### ​ {#clear-encoder}
-###### ​ {#uglovoi-servomotor}
 ###### ​ {#say}
 ###### ​ {#led}
 ###### ​ {#system-call}
 ###### ​ {#initialize-videocamera}
-###### ​ {#vyklyuchit-videokameru}
 ###### ​ {#detect-videocamera}
 ###### ​ {#line-detector-into-variable}
-###### ​ {#otklyuchit-videotranslyaciyu}
 ###### ​ {#send-message}
 ###### ​ {#write-to-file}
 ###### ​ {#remove-file}
-###### ​ {#kalibrovka-giroskopa}
-###### ​ {#join-network}
 ###### ​ {#receive-message-from-thread}
 ###### ​ {#userinput}
-###### ​ {#zhdat-girodatchik}
 ###### ​ {#wait-for-touch-sensor}
 ###### ​ {#wait-for-light}
 ###### ​ {#wait-for-ultrasonic-distance}
@@ -473,3 +473,7 @@ title: "Блоки ТРИК"
 ###### ​ {#background-color}
 ###### ​ {#print-text}
 ###### ​ {#clear-screen}
+
+
+{/* Compatibility anchors for old GitBook/Docusaurus links. */}
+###### ​ {#fork}

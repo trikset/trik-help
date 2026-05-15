@@ -10,6 +10,7 @@ title: "Обновление встроенного программного о�
 * [Linux](./#linux)
 * [Ubuntu](./#ubuntu)
 
+###### ​ {#windows}
 ## Windows
 
 1\. Скачайте последнюю версию [встроенного программного обеспечения](https://trikset.com/downloads#firmware).\
@@ -53,6 +54,7 @@ title: "Обновление встроенного программного о�
 
 <figure><img src="/gitbook/assets/%D0%97%D0%B0%D0%BF%D1%83%D1%81%D0%BA%20%D0%BA%D0%BE%D0%BD%D1%82%D1%80%D0%BE%D0%BB%D0%BB%D0%B5%D1%80%D0%B0%20%D0%BF%D0%BE%D1%81%D0%BB%D0%B5%20%D0%BF%D1%80%D0%BE%D1%88%D0%B8%D0%B2%D0%BA%D0%B8.png" alt="" /><figcaption></figcaption></figure>
 
+###### ​ {#linux}
 ## Linux
 
 1\. Скачайте последнюю версию [встроенного программного обеспечения](https://trikset.com/downloads#firmware).\
@@ -197,6 +199,7 @@ sudo dd bs=4M if=trik-base-v2-trikboard.ext4 of=/dev/{first partion}
 sudo dd bs=4M if=trik-base-v2-trikboard.ext4 of=/dev/sdb1
 ```
 
+###### ​ {#ubuntu}
 ## Ubuntu
 
 :::info
@@ -211,9 +214,3 @@ sudo dd bs=4M if=trik-base-v2-trikboard.ext4 of=/dev/sdb1
 6\. Из выпадающего меню выберите диск, на который хотите записать прошивку. Затем нажмите кнопку «Начать восстановление».
 
 ![](/gitbook/assets/ubuntu.png)
-
-
-{/* Compatibility anchors for old GitBook/Docusaurus links. */}
-###### ​ {#windows}
-###### ​ {#linux}
-###### ​ {#ubuntu}

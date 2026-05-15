@@ -18,6 +18,7 @@ import TabItem from '@theme/TabItem';
 | [receive](object-mailbox.md#receive)           | Получает новое сообщение или блокирует исполнение скрипта до тех пор, пока сообщение не придёт.                                                                            |
 | [send](object-mailbox.md#send)                 | Посылает роботу с указанным бортовым номером (или всем роботам) указанное сообщение.                                                                                       |
 
+###### ​ {#joinnetwork}
 ## joinNetwork
 
 Подключается к роботу с заданным IP-адресом по заданному порту (или порту по умолчанию), сообщает ему свой бортовой номер и регистрируется в сети «почтовых ящиков».
@@ -69,6 +70,7 @@ mailbox.joinNetwork("", -1, 2);
 </TabItem>
 </Tabs>
 
+###### ​ {#hasmessages}
 ## hasMessages
 
 Возвращает `true`, если роботу пришло новое сообщение.
@@ -89,6 +91,7 @@ mailbox.hasMessages();
 </TabItem>
 </Tabs>
 
+###### ​ {#myhullnumber}
 ## myHullNumber
 
 Возвращает бортовой номер робота.
@@ -109,6 +112,7 @@ var x = mailbox.myHullNumber();
 </TabItem>
 </Tabs>
 
+###### ​ {#newmessage}
 ## newMessage
 
 Посылает сообщение после получения нового сообщения.
@@ -131,6 +135,7 @@ mailbox.newMessage.connect(function(sender, message) { print(message); });
 
 Первый параметр — бортовой номер отправителя, второй — само сообщение.
 
+###### ​ {#receive}
 ## receive
 
 Получает новое сообщение или блокирует исполнение скрипта до тех пор, пока сообщение не придёт.
@@ -151,6 +156,7 @@ var message = mailbox.receive();
 </TabItem>
 </Tabs>
 
+###### ​ {#send}
 ## send
 
 Посылает роботу с указанным бортовым номером (или всем роботам) указанное сообщение.
@@ -190,12 +196,3 @@ mailbox.send(1, "Hello"); // отправка сообщения роботу с
 ```
 </TabItem>
 </Tabs>
-
-
-{/* Compatibility anchors for old GitBook/Docusaurus links. */}
-###### ​ {#joinnetwork}
-###### ​ {#hasmessages}
-###### ​ {#myhullnumber}
-###### ​ {#newmessage}
-###### ​ {#receive}
-###### ​ {#send}

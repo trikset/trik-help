@@ -16,6 +16,7 @@ import TabItem from '@theme/TabItem';
 | [readSensor](class-ircamera.md#readSensor) | Возвращает среднее значение температуры в специальной шкале в указанном участке кадра. |
 | [stop](class-ircamera.md#stop)             | Останавливает захват кадров.                                                           |
 
+###### ​ {#init}
 ## init
 
 Инициализирует инфракрасную камеру и запускает захват кадров.
@@ -111,6 +112,7 @@ var temp = brick.irCamera().readSensor(x, y);
 
 В качестве параметра необходимо указать индексы квадрата `x` и `y`.
 
+###### ​ {#stop}
 ## stop
 
 #### Синтаксис
@@ -133,7 +135,5 @@ brick.irCamera().stop();
 
 
 {/* Compatibility anchors for old GitBook/Docusaurus links. */}
-###### ​ {#init}
 ###### ​ {#getImage}
 ###### ​ {#readSensor}
-###### ​ {#stop}

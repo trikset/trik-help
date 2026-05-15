@@ -37,6 +37,7 @@ title: "О TRIK Studio Junior"
 Так как интерфейс и работа в **TRIK Studio** **Junior** во многих моментах совпадает с интерфейсом и работой в **TRIK Studio**, в некоторых статьях данного раздела будут даны ссылки на аналогичные статьи раздела справки про TRIK Studio.
 :::
 
+###### ​ {#chto-takoe-ispolnitel}
 ## Что такое «Исполнитель»
 
 «Исполнитель» — объект, который понимает и исполняет команды алгоритма. В TRIK Studio Junior можно менять изображение исполнителя.
@@ -54,7 +55,3 @@ title: "О TRIK Studio Junior"
   * 64-разрядная Windows 10.
   * Ubuntu 16.04 и выше.
   * macOS 10.12 Sierra и выше.
-
-
-{/* Compatibility anchors for old GitBook/Docusaurus links. */}
-###### ​ {#chto-takoe-ispolnitel}

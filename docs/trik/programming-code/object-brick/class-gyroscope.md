@@ -29,6 +29,7 @@ import TabItem from '@theme/TabItem';
 | [calibrationFinished](class-gyroscope.md#calibrationfinished) | Сигнал, посылаемый сенсором после окончания калибровки.        |
 | [newData](class-gyroscope.md#newdata)                         | Сигнал, посылаемый сенсором, когда у него готовы новые данные. |
 
+###### ​ {#calibrate}
 ## calibrate
 
 Вычисляет смещение нуля в течение указанного времени и инициализирует гироскоп этим параметром, сбрасывает текущие углы наклона.Рекомендуемое время калибровки — 10−20 секунд.
@@ -53,10 +54,12 @@ brick.gyroscope().calibrate(msec);
 
 * `msec` — время в миллисекундах.
 
+###### ​ {#calibrationfinished}
 ## calibrationFinished
 
 Сигнал, посылаемый сенсором после окончания калибровки.
 
+###### ​ {#getcalibrationvalues}
 ## getCalibrationValues
 
 Возвращает объект, в котором содержатся необходимые данные о смещении нуля.
@@ -77,6 +80,7 @@ brick.gyroscope().getCalibrationValues();
 </TabItem>
 </Tabs>
 
+###### ​ {#iscalibrated}
 ## isCalibrated
 
 Возвращает `true` в случае завершении калибровки, `false` — в противном случае.
@@ -97,10 +101,12 @@ brick.gyroscope().isCalibrated();
 </TabItem>
 </Tabs>
 
+###### ​ {#newdata}
 ## newData
 
 Сигнал, посылаемый сенсором, когда у него готовы новые данные.
 
+###### ​ {#read}
 ## read
 
 Возвращает массив из семи элементов:
@@ -125,6 +131,7 @@ brick.gyroscope().read();
 </TabItem>
 </Tabs>
 
+###### ​ {#readrawdata}
 ## readRawData
 
 Возвращает массив из трех элементов с угловыми скоростями по трем осям.
@@ -145,6 +152,7 @@ brick.gyroscope().readRawData();
 </TabItem>
 </Tabs>
 
+###### ​ {#setcalibrationvalues}
 ## setCalibrationValues
 
 Устанавливает объект, содержащий необходимые параметры о смещении нуля.&#x20;
@@ -176,11 +184,3 @@ brick.gyroscope().setCalibrationValues(values);
 
 {/* Compatibility anchors for old GitBook/Docusaurus links. */}
 ###### ​ {#gyroscope}
-###### ​ {#calibrate}
-###### ​ {#getcalibrationvalues}
-###### ​ {#setcalibrationvalues}
-###### ​ {#iscalibrated}
-###### ​ {#read}
-###### ​ {#readrawdata}
-###### ​ {#calibrationfinished}
-###### ​ {#newdata}

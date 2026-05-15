@@ -16,6 +16,7 @@ import TabItem from '@theme/TabItem';
 | [orange](class-led.md#orange) | Включает светодиод в режим «оранжевый». |
 | [off](class-led.md#off)       | Выключает светодиод.                    |
 
+###### ​ {#red}
 ## red
 
 Включает светодиод в режим «красный».
@@ -36,6 +37,7 @@ brick.led().red();
 </TabItem>
 </Tabs>
 
+###### ​ {#green}
 ## green
 
 Включает светодиод в режим «зеленый».
@@ -56,6 +58,7 @@ brick.led().green();
 </TabItem>
 </Tabs>
 
+###### ​ {#orange}
 ## orange
 
 Включает светодиод в режим «оранжевый».
@@ -76,6 +79,7 @@ brick.led().orange();
 </TabItem>
 </Tabs>
 
+###### ​ {#off}
 ## off
 
 Выключает светодиод.
@@ -95,10 +99,3 @@ brick.led().off();
 ```
 </TabItem>
 </Tabs>
-
-
-{/* Compatibility anchors for old GitBook/Docusaurus links. */}
-###### ​ {#red}
-###### ​ {#green}
-###### ​ {#orange}
-###### ​ {#off}

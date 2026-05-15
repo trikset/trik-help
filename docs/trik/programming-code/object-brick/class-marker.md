@@ -16,6 +16,7 @@ import TabItem from '@theme/TabItem';
 | [isDown](class-marker.md#isdown)   | Возвращает `true`, если маркер активен, `false`- если нет.                                                                                                                                    |
 | [setDown](class-marker.md#setdown) | Вызывает метод `down("black")`, или `up()` в зависимости от аргумента.                                                                                                                        |
 
+###### ​ {#down}
 ## down
 
 Начать рисование маркером заданного цвета на полу. При движении робота в двумерной модели за ним будет оставаться цветная линия. Если был установлен маркер другого цвета, он будет заменен.&#x20;
@@ -54,6 +55,7 @@ brick.marker().down("blue")
 </TabItem>
 </Tabs>
 
+###### ​ {#up}
 ## up
 
 Закончить рисование маркером.
@@ -74,6 +76,7 @@ brick.marker().up()
 </TabItem>
 </Tabs>
 
+###### ​ {#isdown}
 ## isDown
 
 Возвращает `true`, если маркер активен, `false`- если нет.&#x20;
@@ -94,6 +97,7 @@ brick.marker().isDown();
 </TabItem>
 </Tabs>
 
+###### ​ {#setdown}
 ## setDown
 
 Вызывает метод `down("black")`, или `up()` в зависимости от аргумента.
@@ -115,10 +119,3 @@ brick.marker().setDown(false) // Вызывает brick.marker().up()
 ```
 </TabItem>
 </Tabs>
-
-
-{/* Compatibility anchors for old GitBook/Docusaurus links. */}
-###### ​ {#down}
-###### ​ {#up}
-###### ​ {#isdown}
-###### ​ {#setdown}

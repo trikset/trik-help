@@ -17,6 +17,7 @@ title: "Общие блоки"
 * [LEGO NXT](../../nxt/blocks.md)
 * [Квадрокоптер Геоскан Пионер](../../pioneer/blocks.md)
 
+###### ​ {#vse-obshie-bloki}
 ## Все общие блоки
 
 |                                                                                             Вид                                                                                             |                      Название                      | Описание                                                                                                                                                                                                                                                                                            |
@@ -40,6 +41,7 @@ title: "Общие блоки"
 |                                                    <img src="/gitbook/assets/markerDownBlock_50.png" alt="" data-size="original" />                                                     |       [Опустить маркер](blocks.md#markerdown)      | Начать рисование маркером заданного цвета на полу. При движении робота в двумерной модели за ним будет оставаться цветная линия.                                                                                                                                                                    |
 |                                                     <img src="/gitbook/assets/markerUpBlock_50.png" alt="" data-size="original" />                                                      |        [Поднять маркер](blocks.md#markerup)        | Закончить рисование маркером.                                                                                                                                                                                                                                                                       |
 
+###### ​ {#nachalo}
 ## Начало &#123;#initial&#125;
 <div align="center"><img src="/gitbook/assets/initialBlock.png" alt="Начало" /></div>
 
@@ -49,6 +51,7 @@ title: "Общие блоки"
 
 Процесс интерпретации диаграммы начинается именно с этого блока.
 
+###### ​ {#konec}
 ## Конец &#123;#final&#125;
 ![Конец](/gitbook/assets/finalBlock%20%281%29.png)
 
@@ -58,6 +61,7 @@ title: "Общие блоки"
 
 У данного блока не может быть исходящих связей.
 
+###### ​ {#inicializaciya-peremennoi}
 ## Инициализация переменной &#123;#variableinit&#125;
 <div align="center"><img src="/gitbook/assets/variableInitBlock.png" alt="Инициализация переменной" /></div>
 
@@ -119,6 +123,7 @@ title: "Общие блоки"
 \
 У данного блока должны быть несколько исходящих связей. Все связи, кроме одной, должны быть помечены элементарным значением (строка, число и др.), которое может принимать выражение (значение просто пишется в свойство «Условие» у связи). Одна из связей должна быть не помечена: по ней осуществляется переход, если выражение не равно ни одному из перечисленных значений.
 
+###### ​ {#vyrazhenie}
 ## Выражение &#123;#expression&#125;
 ![Выражение](/gitbook/assets/functionBlock_100%20%281%29.png)
 
@@ -152,6 +157,7 @@ title: "Общие блоки"
 
 ![](/gitbook/assets/subprogramm2.png)
 
+###### ​ {#parallelnye-zadachi}
 ## Параллельные задачи &#123;#fork&#125;
 ![Параллельные задачи](/gitbook/assets/forkBlock_100.png)
 
@@ -189,6 +195,7 @@ title: "Общие блоки"
 
 При выполнении программы блок не учитывается.
 
+###### ​ {#taimer}
 ## Таймер &#123;#timer&#125;
 ![Таймер](/gitbook/assets/timerBlock_100.png)
 
@@ -210,11 +217,9 @@ title: "Общие блоки"
 
 
 {/* Compatibility anchors for old GitBook/Docusaurus links. */}
-###### ​ {#parallelnye-zadachi}
 ###### ​ {#expression}
 ###### ​ {#condition}
 ###### ​ {#timer}
-###### ​ {#nachalo}
 ###### ​ {#initial}
 ###### ​ {#final}
 ###### ​ {#variableinit}
@@ -230,9 +235,4 @@ title: "Общие блоки"
 ###### ​ {#comment}
 ###### ​ {#markerdown}
 ###### ​ {#markerup}
-###### ​ {#taimer}
-###### ​ {#konec}
 ###### ​ {#initialization}
-###### ​ {#vse-obshie-bloki}
-###### ​ {#vyrazhenie}
-###### ​ {#inicializaciya-peremennoi}

@@ -17,6 +17,7 @@ import TabItem from '@theme/TabItem';
 | [sendMessage](object-threading.md#sendmessage)       | Посылает сообщение указанному потоку.                                 |
 | [startThread](object-threading.md#startthread)       | Запускает переданную в качестве параметра функцию в отдельном потоке. |
 
+###### ​ {#jointhread}
 ## joinThread
 
 Ожидает завершения указанного потока.
@@ -33,6 +34,7 @@ Threading.joinThread("threadId")
 
 В качестве параметра необходимо указать id потока.
 
+###### ​ {#killthread}
 ## killThread
 
 Заканчивает исполнение указанного потока.
@@ -49,6 +51,7 @@ Threading.killThread("threadId")
 
 В качестве параметра необходимо указать id потока.
 
+###### ​ {#receivemessage}
 ## receiveMessage
 
 Запрашивает принятое сообщение.
@@ -65,6 +68,7 @@ Threading.receiveMessage(wait)
 
 Если `wait` равен `true`, то ожидает, пока не придет сообщение.
 
+###### ​ {#sendmessage}
 ## sendMessage
 
 Посылает сообщение указанному потоку.
@@ -81,6 +85,7 @@ Threading.sendMessage("threadId", "message")
 
 В качестве параметров необходимо указать id потока и сообщение.
 
+###### ​ {#startthread}
 ## startThread
 
 Запускает переданную в качестве параметра функцию в отдельном потоке.
@@ -100,11 +105,3 @@ Threading.startThread("newThreadId", "functionName")
 </Tabs>
 
 В качестве параметров необходимо указать id потока и функцию.
-
-
-{/* Compatibility anchors for old GitBook/Docusaurus links. */}
-###### ​ {#jointhread}
-###### ​ {#killthread}
-###### ​ {#receivemessage}
-###### ​ {#sendmessage}
-###### ​ {#startthread}

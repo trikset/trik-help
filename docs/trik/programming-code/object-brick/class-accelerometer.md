@@ -17,6 +17,7 @@ import TabItem from '@theme/TabItem';
 | ----------------------------------------- | -------------------------------------------------------------- |
 | [newData](class-accelerometer.md#newdata) | Сигнал, посылаемый сенсором, когда у него готовы новые данные. |
 
+###### ​ {#read}
 ## read
 
 Возвращает текущее показание сенсора в виде массива из трёх элементов, соответствующих показаниям сенсора по каждой из осей.
@@ -37,6 +38,7 @@ brick.accelerometer().read();
 </TabItem>
 </Tabs>
 
+###### ​ {#newdata}
 ## newData
 
 Сигнал, посылаемый сенсором, когда у него готовы новые данные.
@@ -44,5 +46,3 @@ brick.accelerometer().read();
 
 {/* Compatibility anchors for old GitBook/Docusaurus links. */}
 ###### ​ {#accelerometer}
-###### ​ {#read}
-###### ​ {#newdata}

@@ -22,3 +22,7 @@ title: "О LEGO NXT"
 Подробнее о визуальном программировании читайте в статье
 
 [programming-visual](../studio/programming-visual/)
+
+
+{/* Compatibility anchors for old GitBook/Docusaurus links. */}
+###### ​ {#programming}

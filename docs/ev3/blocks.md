@@ -13,6 +13,7 @@ title: "Блоки LEGO EV3"
 
 &#x20;Блоки, доступные для всех платформ см. в статье «[Общие блоки](../studio/programming-visual/blocks.md)».
 
+###### ​ {#bloki-deistviya}
 ## Блоки действия
 
 | Вид                                                                                          | Название                                                                | Описание                                                                                                                                                                                                                         |
@@ -31,6 +32,7 @@ title: "Блоки LEGO EV3"
 | <img src="/gitbook/assets/stopCompassCalibrationBlock.png" alt="" data-size="original" />   | [Закончить калибровку компаса](blocks.md#zakonchit-kalibrovku-kompasa)  | Заканчивает калибровку компаса.                                                                                                                                                                                                  |
 | <img src="/gitbook/assets/readRGBBlock.png" alt="" data-size="original" />                  | [Считать цвета в переменные](blocks.md#schitat-cveta-v-peremennye)      | Читать RGB в переменной.                                                                                                                                                                                                         |
 
+###### ​ {#otpravit-soobshenie-v-zadachu}
 ### Отправить сообщение в задачу
 
 ![Отправить сообщение в задачу](/gitbook/assets/sendMessageThreadsBlock%20%281%29.png)
@@ -39,6 +41,7 @@ title: "Блоки LEGO EV3"
 
 В качестве сообщения может быть любое выражение.
 
+###### ​ {#gudok}
 ### Гудок
 
 ![Гудок](/gitbook/assets/beepBlock%20%281%29.png)
@@ -50,6 +53,7 @@ title: "Блоки LEGO EV3"
 1. &#x20;Ждать ли завершения проигрывания звука или сразу же перейти к следующему блоку. Допустимые значения — «истина», «ложь».
 2. &#x20;Громкость воспроизведения.
 
+###### ​ {#igrat-zvuk}
 ### Играть звук
 
 ![Играть звук](/gitbook/assets/playToneBlock%20%281%29.png)
@@ -63,6 +67,7 @@ title: "Блоки LEGO EV3"
 * &#x20;Ждать ли завершения проигрывания звука или сразу же перейти к следующему блоку. Допустимые значения — истина, ложь.
 * &#x20;Громкость воспроизведения (от 0 до 100%).
 
+###### ​ {#motory-vpered}
 ### **Моторы вперед**
 
 ![Моторы вперед](/gitbook/assets/enginesForwardBlock%20%281%29.png)
@@ -73,42 +78,49 @@ title: "Блоки LEGO EV3"
 
 Моторы имеют разные режимы работы: режим торможения и режим скольжения (отображаемые красным или зелёным прямоугольником на блоке соответственно). Режимы влияют на то, как двигатель отрабатывает команду — режим торможения стопорит двигатель при отключении, режим скольжения позволяет двигателю прокручиваться по инерции.
 
+###### ​ {#motory-nazad}
 ### **Моторы назад**
 
 ![Моторы назад](/gitbook/assets/enginesBackwardBlock%20%281%29.png)
 
 Включить моторы в режиме реверса по заданным портам с заданной мощностью. Параметры аналогичны параметрам блока «[Моторы вперёд](blocks.md#motory-vpered)».
 
+###### ​ {#motory-stop}
 ### **Моторы стоп**
 
 ![Моторы стоп](/gitbook/assets/enginesStopBlock%20%281%29.png)
 
 Выключить моторы по заданным портам.
 
+###### ​ {#sbrosit-pokazaniya-enkodera}
 ### **Сбросить показания энкодера**
 
 ![Сбросить показания энкодера](/gitbook/assets/nullificationEncoderBlock%20%281%29.png)
 
 Сбросить показания количества оборотов моторов.
 
+###### ​ {#svetodiod}
 ### **Светодиод**
 
 ![Светодиод](/gitbook/assets/ledBlock%20%281%29.png)
 
 Установить цвет светодиода на передней панели робота.
 
+###### ​ {#otpravit-pismo-robotu}
 ### **Отправить письмо роботу**
 
 ![Отправить письмо роботу](/gitbook/assets/sendMessageBlock%20%281%29.png)
 
 Отправить письмо другому роботу. Если имя получателя не заполнено, сообщение будет отослано всем соединенным роботам.
 
+###### ​ {#kalibrovka-giroskopa}
 ### Калибровка гироскопа
 
 ![Калибровка гироскопа](/gitbook/assets/calibrateGyroscopeBlock%20%281%29.png)
 
 Устанавливает гироскоп в 0 в текущей позиции.
 
+###### ​ {#nachat-kalibrovku-kompasa}
 ### Начать калибровку компаса
 
 ![Начать калибровку компаса](/gitbook/assets/startCompassCalibrationBlock%20%281%29.png)
@@ -117,18 +129,21 @@ title: "Блоки LEGO EV3"
 \
 Чтобы откалибровать компас, робот должен повернуться на месте больше чем на 540° в одну, а затем в обратную сторону. После поворотов необходимо добавить блок «[Закончить калибровку компаса](blocks.md#zakonchit-kalibrovku-kompasa)».
 
+###### ​ {#zakonchit-kalibrovku-kompasa}
 ### Закончить калибровку компаса
 
 ![Закончить калибровку компаса](/gitbook/assets/stopCompassCalibrationBlock%20%281%29.png)
 
 Заканчивает калибровку компаса. Результат калибровки возвращается в переменной. Ненулевой результат означает успешную калибровку.
 
+###### ​ {#schitat-cveta-v-peremennye}
 ### Считать цвета в переменные
 
 ![Считать цвета в переменные](/gitbook/assets/readRGBBlock%20%281%29.png)
 
 Читать RGB в переменной.
 
+###### ​ {#bloki-ozhidaniya}
 ## Блоки ожидания
 
 | Вид                                                                                        | Название                                                                               | Описание                                                                                                                                  |
@@ -145,6 +160,7 @@ title: "Блоки LEGO EV3"
 | <img src="/gitbook/assets/waitForGyroscopeBlock.png" alt="" data-size="original" />       | [Ждать гиродатчик](blocks.md#zhdat-girodatchik)                                        | Ждать, пока значение, возвращаемое гироскопом на указанном порту, не будет сравнимо с указанным в значении параметра «Значение».          |
 | <img src="/gitbook/assets/waitForMessageBlock.png" alt="" data-size="original" />         | [Ждать приема сообщения](blocks.md#zhdat-priema-soobsheniya)                           | Сохраняет сообщение от другого робота в заданную переменную.                                                                              |
 
+###### ​ {#poluchit-soobshenie-iz-drugoi-zadachi}
 ### Получить сообщение из другой задачи
 
 ![Получить сообщение из другой задачи](/gitbook/assets/receiveMessageThreadsBlock%20%281%29.png)
@@ -157,6 +173,7 @@ title: "Блоки LEGO EV3"
 
 Сообщение автоматически приводится к типу, соответствующему типу переменной-приёмника. Пример: если вы посылаете число в виде строки, то оно будет принято как число.
 
+###### ​ {#zhdat-datchik-kasaniya}
 ### Ждать датчик касания
 
 ![Ждать датчик касания](/gitbook/assets/waitForTouchSensorBlock%20%281%29.png)
@@ -165,6 +182,7 @@ title: "Блоки LEGO EV3"
 
 Параметром указывается номер порта, к которому подключен датчик. Допустимые значения: 1, 2, 3, 4.
 
+###### ​ {#zhdat-enkoder}
 ### Ждать энкодер
 
 ![Ждать энкодер](/gitbook/assets/waitForEncoderBlock%20%281%29.png)
@@ -177,6 +195,7 @@ title: "Блоки LEGO EV3"
 2. Считанное значение — операция, которая будет использоваться для сравнения с введенным пределом оборотов.
 3. &#x20;Предел оборотов.
 
+###### ​ {#zhdat-cvet}
 ### Ждать цвет
 
 ![Ждать цвет](/gitbook/assets/waitForColorBlock%20%281%29.png)
@@ -188,6 +207,7 @@ title: "Блоки LEGO EV3"
 1. Цвет.
 2. Порт — номер порта, к которому подключен датчик цвета.
 
+###### ​ {#zhdat-intensivnost-cveta}
 ### Ждать интенсивность цвета
 
 ![Ждать интенсивность цвета](/gitbook/assets/waitForColorIntensityBlock%20%281%29.png)
@@ -200,6 +220,7 @@ title: "Блоки LEGO EV3"
 2. Порт — номер порта, к которому подключен сенсор цвета.
 3. &#x20;Считанное значение — операция, которая будет использоваться для сравнения с введенной интенсивностью.
 
+###### ​ {#zhdat-svet}
 ### Ждать свет
 
 ![Ждать свет](/gitbook/assets/waitForLightBlock%20%281%29.png)
@@ -212,6 +233,7 @@ title: "Блоки LEGO EV3"
 2. Порт — номер порта, к которому подключен сенсор цвета.
 3. Считанное значение — операция, которая будет использоваться для сравнения со значением параметра «Проценты».
 
+###### ​ {#zhdat-datchik-rasstoyaniya}
 ### Ждать датчик расстояния
 
 ![Ждать датчик расстояния](/gitbook/assets/waitForSonarDistanceBlock%20%281%29.png)
@@ -224,30 +246,35 @@ title: "Блоки LEGO EV3"
 2. &#x20;Порт — номер порта, к которому подключен датчик расстояния.
 3. &#x20;Считанное значение — операция, которая будет использоваться для сравнения с введенным расстоянием.
 
+###### ​ {#zhdat-nazhatiya-knopki}
 ### Ждать нажатия кнопки
 
 ![Ждать нажатия кнопки](/gitbook/assets/waitForButtonsBlock%20%281%29.png)
 
 Ждать нажатия на кнопку на корпусе робота.
 
+###### ​ {#zhdat-datchik-zvuka}
 ### Ждать датчик звука
 
 ![Ждать датчик звука](/gitbook/assets/waitForSoundSensorBlock%20%281%29.png)
 
 Ждать, пока громкость, считанная микрофоном на заданном порту, не будет выше или ниже заданного значения.
 
+###### ​ {#zhdat-girodatchik}
 ### Ждать гиродатчик
 
 ![Ждать гиродатчик](/gitbook/assets/waitForGyroscopeBlock%20%281%29.png)
 
 Ждать, пока значение, возвращаемое гироскопом на указанном порту, не будет сравнимо с указанным в значении параметра «Значение».
 
+###### ​ {#zhdat-priema-soobsheniya}
 ### Ждать приема сообщения
 
 ![Ждать приема сообщения](/gitbook/assets/waitForMessageBlock%20%281%29.png)
 
 Сохраняет сообщение от другого робота в заданную переменную. Если сообщения нет, то робот ждет приход сообщения, если установлен флаг. Иначе в переменную установится значение по умолчанию.
 
+###### ​ {#risovanie-na-displee}
 ## Рисование на дисплее
 
 | Вид                                                                              | Название                                                                                 | Описание                                                          |
@@ -259,6 +286,7 @@ title: "Блоки LEGO EV3"
 | <img src="/gitbook/assets/drawLineBlock.png" alt="" data-size="original" />     | [Нарисовать линию](blocks.md#narisovat-liniyu)                                           | Нарисовать на экране отрезок.                                     |
 | <img src="/gitbook/assets/drawCircleBlock.png" alt="" data-size="original" />   | [Нарисовать круг](blocks.md#narisovat-krug)                                              | Нарисовать на экране круг с заданным центром и заданным радиусом. |
 
+###### ​ {#napechatat-tekst}
 ### Напечатать текст
 
 ![Напечатать текст](/gitbook/assets/printTextBlock%20%281%29.png)
@@ -267,12 +295,14 @@ title: "Блоки LEGO EV3"
 
 Значение свойства «Текст» по умолчанию трактуется как строка в чистом виде, оно так и будет выведено на экран. Чтобы система считала, что это выражение на текстовом языке (это может быть полезно, например, при отладке значения переменных), поставьте галочку «Вычислять» в редакторе свойств.
 
+###### ​ {#ochistit-ekran}
 ### Очистить экран
 
 ![Очистить экран](/gitbook/assets/clearScreenBlock%20%281%29.png)
 
 Стереть всё, что нарисовано на экране.
 
+###### ​ {#narisovat-pryamougolnik}
 ### Нарисовать прямоугольник
 
 ![Нарисовать прямоугольник](/gitbook/assets/drawRectBlock%20%281%29.png)
@@ -286,12 +316,14 @@ title: "Блоки LEGO EV3"
 3. &#x20;Высота прямоугольника.
 4. &#x20;Обновить картинку (истина или ложь).
 
+###### ​ {#narisovat-tochku}
 ### Нарисовать точку
 
 ![Нарисовать точку](/gitbook/assets/drawPixelBlock%20%281%29.png)
 
 Нарисовать на экране точку в указанных координатах.
 
+###### ​ {#narisovat-liniyu}
 ### Нарисовать линию
 
 ![Нарисовать линию](/gitbook/assets/drawLineBlock%20%281%29.png)
@@ -304,6 +336,7 @@ title: "Блоки LEGO EV3"
 2. &#x20;X2, Y2 — координаты конца отрезка.
 3. &#x20;Обновить картинку (истина или ложь).
 
+###### ​ {#narisovat-krug}
 ### Нарисовать круг
 
 ![Нарисовать круг](/gitbook/assets/drawCircleBlock%20%281%29.png)
@@ -316,6 +349,7 @@ title: "Блоки LEGO EV3"
 2. &#x20;Радиус круга.
 3. &#x20;Обновить картинку (истина или ложь).
 
+###### ​ {#line-leader}
 ## Line Leader
 
 | Вид                                                                                    | Название                                                                                      | Описание                                          |
@@ -329,36 +363,42 @@ title: "Блоки LEGO EV3"
 | <img src="/gitbook/assets/readCalLineLeader.png" alt="" data-size="original" />       | [Считать сенсор в массив](blocks.md#schitat-sensor-v-massiv)                                  | Считать значения с сенсора (восемь значений).     |
 | <img src="/gitbook/assets/readSteeringLineLeader.png" alt="" data-size="original" />  | [Управляющее значение в переменную](blocks.md#upravlyayushee-znachenie-v-peremennuyu)         | Считывает управляющее значение в переменную.      |
 
+###### ​ {#kalibrovka-belogo}
 ### Калибровка белого
 
 ![Калибровка белого](/gitbook/assets/calWhiteLineLeader%20%281%29.png)
 
 Калибрует порог белого для сенсора. Должен находиться на белом.
 
+###### ​ {#kalibrovka-chernogo}
 ### Калибровка черного
 
 ![Калибровка черного](/gitbook/assets/calBlackLineLeader%20%281%29.png)
 
 Калибрует порог черного для сенсора. Должен находиться на черном.
 
+###### ​ {#kalibrovka-pid-regulyatora}
 ### Калибровка ПИД — регулятора
 
 ![Калибровка ПИД-регулятора](/gitbook/assets/calPIDLineLeader%20%281%29.png)
 
 Устанавливает уставку сенсора (середина сенсора над линией), П/(П фактор), И/(И фактор), Д/(Д фактор).
 
+###### ​ {#datchik-linii-v-spyashii-rezhim}
 ### Датчик линии в спящий режим
 
 ![Датчик линии в спящий режим](/gitbook/assets/sleepLineLeader%20%281%29.png)
 
 Отправляет датчик линии в режим энергосбережения.
 
+###### ​ {#probudit-datchik-linii}
 ### Пробудить датчик линии
 
 ![Пробудить датчик линии](/gitbook/assets/wakeUpLineLeader%20%281%29.png)
 
 Включает датчик линии для работы.
 
+###### ​ {#srednevzveshennoe-znachenie-v-peremennuyu}
 ### Средневзвешенное значение в переменную
 
 ![Средневзвешенное значение в переменную](/gitbook/assets/readAvrLineLeader%20%281%29.png)
@@ -369,12 +409,14 @@ title: "Блоки LEGO EV3"
 
 Ожидается значение от 0 до 80 (-1 — ошибка).
 
+###### ​ {#schitat-sensor-v-massiv}
 ### Считать сенсор в массив
 
 ![Считать сенсор в массив](/gitbook/assets/readCalLineLeader%20%281%29.png)
 
 Считать значения с сенсора (восемь значений). Значения от 0 до 100. 0 — черный, 100 — белый.
 
+###### ​ {#upravlyayushee-znachenie-v-peremennuyu}
 ### Управляющее значение в переменную
 
 ![Управляющее значение в переменную](/gitbook/assets/readSteeringLineLeader%20%281%29.png)
@@ -385,44 +427,4 @@ title: "Блоки LEGO EV3"
 
 
 {/* Compatibility anchors for old GitBook/Docusaurus links. */}
-###### ​ {#bloki-deistviya}
-###### ​ {#bloki-ozhidaniya}
-###### ​ {#risovanie-na-displee}
-###### ​ {#line-leader}
-###### ​ {#otpravit-soobshenie-v-zadachu}
-###### ​ {#gudok}
-###### ​ {#igrat-zvuk}
-###### ​ {#motory-vpered}
-###### ​ {#motory-nazad}
-###### ​ {#motory-stop}
-###### ​ {#sbrosit-pokazaniya-enkodera}
-###### ​ {#svetodiod}
-###### ​ {#otpravit-pismo-robotu}
-###### ​ {#kalibrovka-giroskopa}
-###### ​ {#nachat-kalibrovku-kompasa}
-###### ​ {#zakonchit-kalibrovku-kompasa}
-###### ​ {#schitat-cveta-v-peremennye}
-###### ​ {#poluchit-soobshenie-iz-drugoi-zadachi}
-###### ​ {#zhdat-datchik-kasaniya}
-###### ​ {#zhdat-enkoder}
-###### ​ {#zhdat-cvet}
-###### ​ {#zhdat-intensivnost-cveta}
-###### ​ {#zhdat-svet}
-###### ​ {#zhdat-datchik-rasstoyaniya}
-###### ​ {#zhdat-nazhatiya-knopki}
-###### ​ {#zhdat-datchik-zvuka}
-###### ​ {#zhdat-girodatchik}
-###### ​ {#zhdat-priema-soobsheniya}
-###### ​ {#napechatat-tekst}
-###### ​ {#ochistit-ekran}
-###### ​ {#narisovat-tochku}
-###### ​ {#narisovat-liniyu}
-###### ​ {#narisovat-krug}
-###### ​ {#kalibrovka-belogo}
-###### ​ {#kalibrovka-chernogo}
-###### ​ {#kalibrovka-pid-regulyatora}
-###### ​ {#datchik-linii-v-spyashii-rezhim}
-###### ​ {#probudit-datchik-linii}
-###### ​ {#srednevzveshennoe-znachenie-v-peremennuyu}
-###### ​ {#schitat-sensor-v-massiv}
-###### ​ {#upravlyayushee-znachenie-v-peremennuyu}
+###### ​ {#parallelnye-zadachi}

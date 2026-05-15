@@ -14,6 +14,7 @@ title: "Действия при неправильной работе TRIK Studi
 2. [Логи на контроллере ТРИК](logging.md#trik).
 
 ## Логи TRIK Studio &#123;#trikstudio&#125;
+###### ​ {#sposob-1}
 ### Способ 1
 
 1\. В меню TRIK Studio выберите «Справка» → «Открыть лог-файлы».
@@ -73,4 +74,3 @@ title: "Действия при неправильной работе TRIK Studi
 {/* Compatibility anchors for old GitBook/Docusaurus links. */}
 ###### ​ {#trikstudio}
 ###### ​ {#trik}
-###### ​ {#sposob-1}

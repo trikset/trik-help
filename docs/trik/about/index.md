@@ -20,6 +20,7 @@ title: "О контроллере ТРИК"
 Подробную информацию о контроллере ТРИК смотрите на [сайте](https://trikset.com/products/trik-controller) производителя.
 :::
 
+###### ​ {#programmirovanie-kontrollera-trik}
 ## Программирование контроллера ТРИК
 
 Для программирования контроллера ТРИК выберите «ТРИК» в настройках TRIK Studio во вкладке [«Роботы»](../../studio/interface/faq-robot-settings.md).
@@ -35,7 +36,3 @@ title: "О контроллере ТРИК"
 О текстовом программировании читайте в статье
 
 [programming-code.md](../../studio/programming-code.md)
-
-
-{/* Compatibility anchors for old GitBook/Docusaurus links. */}
-###### ​ {#programmirovanie-kontrollera-trik}

@@ -11,6 +11,7 @@ import TabItem from '@theme/TabItem';
 
 Для начала необходимо [создать](settings.md#create-xml) XML-файл виртуальной модели.
 
+###### ​ {#sistema-koordinat-v-2d-modeli}
 ## Система координат в 2D-модели
 
 В отладке 2D-модели оси расположены следующим образом:
@@ -617,7 +618,6 @@ text="Finish" textY="0" x="1300" y="-200" visible="true" id="Start" color="#ff00
 ###### ​ {#less-than-sensor-greater-than}
 ###### ​ {#less-than-startposition-greater-than}
 ###### ​ {#wheels}
-###### ​ {#sistema-koordinat-v-2d-modeli}
 ###### ​ {#less-than-wall-greater-than}
 ###### ​ {#less-than-skittle-greater-than}
 ###### ​ {#less-than-ball-greater-than}

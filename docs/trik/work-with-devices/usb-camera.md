@@ -25,6 +25,7 @@ title: "Настройка работы USB-камеры с контроллер
 1. [PuTTY](usb-camera.md#putty).
 2. [WinSCP](usb-camera.md#winscp).
 
+###### ​ {#putty}
 ## **PuTTy**
 
 1\. [Подключитесь](../wi-fi/network-connection.md) к контроллеру с помощью режима «Wi-Fi точка доступа» или «Wi-Fi клиент».
@@ -69,6 +70,7 @@ Now writing PNG file (compression -1)
 
 11\. Введите команду `:wq` и нажмите «Enter» для сохранения и выхода из редактора **vi**.
 
+###### ​ {#winscp}
 ## **WinSCP**
 
 1 . В каталоге с установленной TRIK Studio зайдите в папку `winscp` и запустите **WinSCP.exe**.
@@ -104,8 +106,3 @@ Now writing PNG file (compression -1)
 8\. Сохраните изменения, нажав `Ctrl+s` или на иконку «дискеты» в левом верхнем углу, и закройте редактор.
 
 ![](https://thumb.tildacdn.com/tild6361-3939-4933-b334-373161656265/-/resize/488x/-/format/webp/winscp-7.png)
-
-
-{/* Compatibility anchors for old GitBook/Docusaurus links. */}
-###### ​ {#putty}
-###### ​ {#winscp}
