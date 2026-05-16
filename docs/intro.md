@@ -6,7 +6,7 @@ title: "Справочный центр ТРИК"
 
 **Справочный центр ТРИК** — руководство по работе с бесплатной средой программирования роботов TRIK Studio. Открытый код TRIK Studio вы можете найти в нашем репозитории на [GitHub](https://github.com/trikset/trik-studio).
 
-[about](studio/about/)
+[О TRIK Studio](studio/about/)
 
 
 

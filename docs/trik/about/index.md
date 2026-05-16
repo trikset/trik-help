@@ -29,7 +29,7 @@ title: "О контроллере ТРИК"
 
 Используйте [специализированные](../programming-visual/blocks.md) и [общие](../../studio/programming-visual/blocks.md) блоки для написания программ на визуальном языке. Подробнее о визуальном программировании читайте в статье
 
-[programming-visual](../../studio/programming-visual/)
+[Программирование на визуальном языке](../../studio/programming-visual/)
 
 
 

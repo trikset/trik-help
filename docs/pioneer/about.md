@@ -21,7 +21,7 @@ title: "О квадрокоптере Геоскан Пионер"
 
 Подробнее о визуальном программировании читайте в статье
 
-[programming-visual](../studio/programming-visual/)
+[Программирование на визуальном языке](../studio/programming-visual/)
 
 
 {/* Compatibility anchors for old GitBook/Docusaurus links. */}

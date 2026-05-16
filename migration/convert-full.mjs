@@ -60,11 +60,34 @@ function resolveSourceRel(fromRel, href) {
   if (!raw || /^https?:/i.test(raw) || raw.startsWith('/')) return null;
   let decoded = raw;
   try { decoded = decodeURI(decoded); } catch {}
-  if (decoded.endsWith('/')) decoded += 'README.md';
-  if (!decoded.endsWith('.md')) decoded += '.md';
   const baseDir = path.posix.dirname(fromRel);
-  const rel = path.posix.normalize(path.posix.join(baseDir, decoded));
-  return existingRel.has(rel) ? rel : null;
+  const candidates = [];
+  const push = (candidate) => candidates.push(path.posix.normalize(path.posix.join(baseDir, candidate)));
+  if (decoded.endsWith('/')) {
+    push(decoded + 'README.md');
+    push(decoded.replace(/\/+$/, '') + '.md');
+  } else if (decoded.endsWith('.md')) {
+    push(decoded);
+    push(decoded.replace(/\.md$/, '/README.md'));
+  } else {
+    push(decoded + '.md');
+    push(decoded + '/README.md');
+  }
+  return candidates.find(rel => existingRel.has(rel)) || null;
+}
+
+function shouldHumanizeLinkLabel(label, href, targetTitle) {
+  const plain = cleanTitle(label.replace(/[`*_~]/g, ''));
+  if (!plain) return false;
+  if (plain.endsWith('.md')) return true;
+  const hrefBase = (() => {
+    let raw = href.split('#')[0].split('?')[0].replace(/\/+$/, '');
+    try { raw = decodeURI(raw); } catch {}
+    return path.posix.basename(raw).replace(/\.md$/, '');
+  })();
+  // GitBook content-ref labels are often just technical slugs like
+  // [programming-visual](programming-visual/); use the target article title.
+  return plain === hrefBase && plain !== targetTitle;
 }
 function outRelFor(rel){
   if (rel === 'README.md') return 'intro.md';
@@ -198,11 +221,11 @@ function convert(text, rel){
   text = text.replace(/\[([^\]]+)\]\(&lt;([^&]*?\/gitbook\/assets\/.*?)&gt;\)/g, '[$1]($2)');
   text = normalizeGitbookAssetUrls(text);
 
-  // Humanize GitBook links whose visible label is still a source *.md filename.
-  text = text.replace(/(?<!!)\[([^\]\n]+\.md)\]\(([^)]+)\)/g, (match, label, href) => {
+  // Humanize GitBook links whose visible label is still a source filename/slug.
+  text = text.replace(/(?<!!)\[([^\]\n]+)\]\(([^)]+)\)/g, (match, label, href) => {
     const targetRel = resolveSourceRel(rel, href);
     const targetTitle = targetRel ? titleByRel.get(targetRel) : null;
-    return targetTitle ? `[${targetTitle}](${href})` : match;
+    return targetTitle && shouldHumanizeLinkLabel(label, href, targetTitle) ? `[${targetTitle}](${href})` : match;
   });
 
   // README links -> Docusaurus route-ish links.

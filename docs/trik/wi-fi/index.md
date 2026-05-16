@@ -19,4 +19,4 @@ title: "Подключения по Wi-Fi к контроллеру ТРИК"
 
 [Подключение контроллера ТРИК к TRIK Studio](connect-to-ts.md)
 
-[interaction](interaction/)
+[Взаимодействие контроллеров ТРИК](interaction/)

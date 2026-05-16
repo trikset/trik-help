@@ -13,4 +13,4 @@ TRIK Studio Junior так же, как и [TRIK Studio](../../studio/interface/)
 
 Интерфейс TRIK Studio Junior зависит от выбранного режима и совпадает с интерфесом для TRIK Studio:
 
-[interface](../../studio/interface/)
+[Интерфейс TRIK Studio](../../studio/interface/)
