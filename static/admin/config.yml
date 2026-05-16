@@ -28,10 +28,6 @@ collections:
       depth: 10
       summary: "{{title}}"
       subfolders: false
-    meta:
-      path:
-        widget: "string"
-        label: "Путь файла"
     fields:
       - { name: "title", label: "Заголовок", widget: "string" }
       - { name: "body", label: "Текст", widget: "markdown", modes: ["rich_text", "raw"] }
