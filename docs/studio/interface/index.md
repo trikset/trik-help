@@ -50,9 +50,9 @@ TRIK Studio в режиме редактирования имеет следую
 
 О создании нового проекта и работе с диаграммами читайте в статьях:
 
-[start.md](../start.md)
+[Начало работы и создание проекта](../start.md)
 
-[blocks-add-delete.md](../programming-visual/blocks-add-delete.md)
+[Добавление и удаление блоков](../programming-visual/blocks-add-delete.md)
 
 Здесь же осуществляется отображение текущего исполняемого блока при интерпретации диаграмм.
 
@@ -74,7 +74,7 @@ TRIK Studio в режиме редактирования имеет следую
 
 Подробнее смотрите в статье:
 
-[main-menu.md](main-menu.md)
+[Главное меню TRIK Studio](main-menu.md)
 
 
 
@@ -158,7 +158,7 @@ TRIK Studio в режиме редактирования имеет следую
 
 О работе с редактором смотрите статью:
 
-[editing-element-properties.md](../programming-visual/editing-element-properties.md)
+[Редактирование свойств элементов](../programming-visual/editing-element-properties.md)
 
 
 
@@ -185,7 +185,7 @@ TRIK Studio в режиме редактирования имеет следую
 
 О добавлении и удалении блоков на сцену в TRIK Studio читайте в статье:
 
-[blocks-add-delete.md](../programming-visual/blocks-add-delete.md)
+[Добавление и удаление блоков](../programming-visual/blocks-add-delete.md)
 
 
 
@@ -259,7 +259,7 @@ TRIK Studio в режиме редактирования имеет следую
 
 Подробнее читайте в статье:
 
-[graphics.md](graphics.md)
+[Работа с графиками](graphics.md)
 
 
 {/* Compatibility anchors for old GitBook/Docusaurus links. */}

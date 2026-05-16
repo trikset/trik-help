@@ -8,4 +8,4 @@ title: "Упражнения в TRIK Studio Junior"
 
 Создание и загрузка упражнений в TRIK Studio Junior происходит таким же образом, как и в TRIK Studio:
 
-[exercises.md](../studio/exercises.md)
+[Упражнения](../studio/exercises.md)

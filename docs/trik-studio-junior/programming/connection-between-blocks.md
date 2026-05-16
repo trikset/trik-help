@@ -16,4 +16,4 @@ title: "Связи между блоками в TRIK Studio Junior"
 
 Создание и удаление связей в TRIK Studio Junior происходит так же, как и в TRIK Studio:
 
-[connection-between-blocks.md](../../studio/programming-visual/connection-between-blocks.md)
+[Связи между блоками](../../studio/programming-visual/connection-between-blocks.md)

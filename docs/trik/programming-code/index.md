@@ -8,7 +8,7 @@ title: "Программирование ТРИК на Python и JavaScript"
 
 Про создание новой текстовой программы и генерацию диаграммы в код читайте в статье:
 
-[programming-code.md](../../studio/programming-code.md)
+[Программирование на текстовом языке](../../studio/programming-code.md)
 
 ## Программирование на Python и JavaScript
 

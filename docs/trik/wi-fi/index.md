@@ -15,8 +15,8 @@ title: "Подключения по Wi-Fi к контроллеру ТРИК"
 
 О подключении контроллера к устройствам в разных режимах и взаимодействии нескольких контроллеров читайте в статьях:
 
-[network-connection.md](network-connection.md)
+[Подключение контроллера ТРИК к компьютеру и смартфону](network-connection.md)
 
-[connect-to-ts.md](connect-to-ts.md)
+[Подключение контроллера ТРИК к TRIK Studio](connect-to-ts.md)
 
 [interaction](interaction/)

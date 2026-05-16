@@ -12,4 +12,4 @@ title: "Настройки TRIK Studio Junior"
 
 Интерфейс окна с настройками в TRIK Studio Junior совпадает с интерфейсом настроек в TRIK Studio:
 
-[settings.md](../studio/settings.md)
+[Настройки TRIK Studio](../studio/settings.md)

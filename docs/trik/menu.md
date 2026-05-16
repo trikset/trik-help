@@ -61,7 +61,7 @@ title: "Меню контроллера ТРИК"
 
 Подробнее смотрите в статье
 
-[testing-connected-devices.md](work-with-devices/testing-connected-devices.md)
+[Тестирование подключенных к контроллеру ТРИК устройств](work-with-devices/testing-connected-devices.md)
 
 
 

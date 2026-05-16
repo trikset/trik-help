@@ -14,6 +14,6 @@ TRIK Studio можно интегрировать с внешней средой
 
 О том, как интегрировать VSCode с TRIK Studio читайте в статьях:
 
-[run-2d-from-vscode.md](run-2d-from-vscode.md)
+[Запуск 2D-модели в TRIK Studio из VSCode](run-2d-from-vscode.md)
 
-[loading-programs-on-several-robots.md](loading-programs-on-several-robots.md)
+[Загрузка программ на нескольких роботов ТРИК из VSCode](loading-programs-on-several-robots.md)

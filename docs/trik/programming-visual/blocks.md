@@ -12,7 +12,7 @@ title: "Блоки ТРИК"
 
 Блоки, доступные для всех платформ см. в статье
 
-[blocks.md](../../studio/programming-visual/blocks.md)
+[Общие блоки](../../studio/programming-visual/blocks.md)
 
 
 

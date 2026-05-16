@@ -39,11 +39,11 @@ title: "Съемка изображений на камеру ТРИК и исп
 
 1\. Подключите контроллер ТРИК к компьютеру.
 
-[network-connection.md](../wi-fi/network-connection.md)
+[Подключение контроллера ТРИК к компьютеру и смартфону](../wi-fi/network-connection.md)
 
 2\. В адресной строке браузера введите IP-адрес контроллера. Откроется веб-интерфейс ТРИК.
 
-[web-interface.md](../web-interface.md)
+[Веб-интерфейс контроллера ТРИК](../web-interface.md)
 
 3\. Перейдите на вкладку «Images» и нажмите «Download all», чтобы скачать архив с изображениями.
 
@@ -56,7 +56,7 @@ title: "Съемка изображений на камеру ТРИК и исп
 
 1\. Откройте в TRIK Studio настройки робота.
 
-[faq-robot-settings.md](../../studio/interface/faq-robot-settings.md)
+[Как открыть настройки робота?](../../studio/interface/faq-robot-settings.md)
 
 2\. В открывшемся окне выберите `Модель робота → 2D-модель` и пропишите путь к загруженным ранее изображениям.
 
@@ -64,7 +64,7 @@ title: "Съемка изображений на камеру ТРИК и исп
 
 3\. Теперь при вызове **getPhoto** будут последовательно подгружаться изображения из указанной папки. &#x20;
 
-[function-getphoto.md](../programming-code/function-getphoto.md)
+[Функция getPhoto](../programming-code/function-getphoto.md)
 
 :::info
 Не забывайте пользоваться функциями для рисования графических примитивов ([drawRect](../programming-code/object-brick/class-display.md#drawrect), [drawLine](../programming-code/object-brick/class-display.md#drawline), [drawPoint](../programming-code/object-brick/class-display.md#drawpoint) и т.п) и функцией [show](../programming-code/object-brick/class-display.md#show) для ускорения процесса разработки и отладки алгоритмов обработки изображений.

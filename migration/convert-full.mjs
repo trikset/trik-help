@@ -52,6 +52,20 @@ function titleFrom(text, rel){
 function cleanTitle(s){
   return s.replace(/<[^>]+>/g,'').replace(/#\w[\w-]*/g,'').trim().replace(/\s+/g,' ');
 }
+
+const titleByRel = new Map(relMd.map(rel => [rel, titleFrom(readUtf(path.join(src, rel)), rel)]));
+
+function resolveSourceRel(fromRel, href) {
+  const raw = href.split('#')[0].split('?')[0];
+  if (!raw || /^https?:/i.test(raw) || raw.startsWith('/')) return null;
+  let decoded = raw;
+  try { decoded = decodeURI(decoded); } catch {}
+  if (decoded.endsWith('/')) decoded += 'README.md';
+  if (!decoded.endsWith('.md')) decoded += '.md';
+  const baseDir = path.posix.dirname(fromRel);
+  const rel = path.posix.normalize(path.posix.join(baseDir, decoded));
+  return existingRel.has(rel) ? rel : null;
+}
 function outRelFor(rel){
   if (rel === 'README.md') return 'intro.md';
   return rel.replace(/README\.md$/, 'index.md');
@@ -183,6 +197,13 @@ function convert(text, rel){
   text = text.replace(/!\[([^\]]*)\]\(&lt;([^&]*?\/gitbook\/assets\/.*?)&gt;\)/g, '![$1]($2)');
   text = text.replace(/\[([^\]]+)\]\(&lt;([^&]*?\/gitbook\/assets\/.*?)&gt;\)/g, '[$1]($2)');
   text = normalizeGitbookAssetUrls(text);
+
+  // Humanize GitBook links whose visible label is still a source *.md filename.
+  text = text.replace(/(?<!!)\[([^\]\n]+\.md)\]\(([^)]+)\)/g, (match, label, href) => {
+    const targetRel = resolveSourceRel(rel, href);
+    const targetTitle = targetRel ? titleByRel.get(targetRel) : null;
+    return targetTitle ? `[${targetTitle}](${href})` : match;
+  });
 
   // README links -> Docusaurus route-ish links.
   text = text.replace(/\]\(([^)]+)README\.md(#[^)]+)?\)/g, ']($1$2)');

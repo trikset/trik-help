@@ -15,7 +15,7 @@ title: "Программирование на визуальном языке в
 ## Главная диаграмма &#123;#main-diagramm&#125;
 Главная диаграмма создаётся при [создании проекта](../start.md#new-project). Про добавление и удаление блоков на [сцену](../../studio/interface/#editor-window-1) читайте в статье:
 
-[blocks-add-delete.md](blocks-add-delete.md)
+[Добавление и удаление блоков в TRIK Studio Junior](blocks-add-delete.md)
 
 ## Подпрограммы &#123;#subprogram&#125;
 Диаграммы с подпрограммами создаются автоматически при добавлении блока «Подпрограмма» на сцену. При этом отображение подпрограммы происходит при двойном клике на блок «Подпрограмма» на сцене.
@@ -24,7 +24,7 @@ title: "Программирование на визуальном языке в
 
 Подробнее о подпрограммах читайте в статье:
 
-[subprograms.md](subprograms.md)
+[Подпрограммы в TRIK Studio Junior](subprograms.md)
 
 
 {/* Compatibility anchors for old GitBook/Docusaurus links. */}

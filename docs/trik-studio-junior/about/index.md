@@ -13,19 +13,19 @@ title: "О TRIK Studio Junior"
 ## Особенности TRIK Studio Junior &#123;#features&#125;
 1\. Поддержаны основные алгоритмические структуры (следование, ветвление, циклы, подпрограммы, массивы), математические и логические операции, а также команды для перемещения «Исполнителя».
 
-[blocks.md](../programming/blocks.md)
+[Блоки в TRIK Studio Junior](../programming/blocks.md)
 
 ![](/gitbook/assets/blocks.gif)
 
 2\. Вы можете загрузить как своего «Исполнителя» и мир, так и [выбрать](https://trikset.com/products/trik-studio-junior#fields) из заготовленных.
 
-[robot-image-change.md](../interfeis-trik-studio-junior/robot-image-change.md)
+[Как заменить изображение «Исполнителя» в TRIK Studio Junior?](../interfeis-trik-studio-junior/robot-image-change.md)
 
 ![](/gitbook/assets/photo.webp)
 
 3\. Вы можете создавать упражнения для самостоятельного выполнения с автоматической проверкой.
 
-[exercises.md](../exercises.md)
+[Упражнения в TRIK Studio Junior](../exercises.md)
 
 ![](/gitbook/assets/tasks.gif)
 
@@ -42,12 +42,12 @@ title: "О TRIK Studio Junior"
 
 «Исполнитель» — объект, который понимает и исполняет команды алгоритма. В TRIK Studio Junior можно менять изображение исполнителя.
 
-[robot-image-change.md](../interfeis-trik-studio-junior/robot-image-change.md)
+[Как заменить изображение «Исполнителя» в TRIK Studio Junior?](../interfeis-trik-studio-junior/robot-image-change.md)
 
 ## Скачать TRIK Studio Junior &#123;#download&#125;
 Последнюю версию TRIK Studio Junior можно скачать на сайте [trikset.com](https://trikset.com/downloads#trikstudiojr).
 
-[version.md](version.md)
+[Как узнать версию TRIK Studio Junior](version.md)
 
 ## Рекомендуемые системные требования для TRIK Studio Junior &#123;#system-requirements&#125;
 * Оперативная память: 4 ГБ или больше.

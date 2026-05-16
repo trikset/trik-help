@@ -6,4 +6,4 @@ title: "Добавление и удаление блоков в TRIK Studio Jun
 
 Добавление и удаление блоков в TRIK Studio Junior происходит таким же образом, как и в TRIK Studio:
 
-[blocks-add-delete.md](../../studio/programming-visual/blocks-add-delete.md)
+[Добавление и удаление блоков](../../studio/programming-visual/blocks-add-delete.md)

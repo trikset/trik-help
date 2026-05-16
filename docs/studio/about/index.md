@@ -43,7 +43,7 @@ TRIK Studio поддерживает 4 платформы:
 
 Последнюю версию TRIK Studio можно скачать на сайте [trikset.com](https://trikset.com/downloads#trikstudio).
 
-[version.md](version.md)
+[Как узнать версию TRIK Studio](version.md)
 
 ## Рекомендуемые системные требования
 

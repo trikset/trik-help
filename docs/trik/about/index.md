@@ -35,4 +35,4 @@ title: "О контроллере ТРИК"
 
 О текстовом программировании читайте в статье
 
-[programming-code.md](../../studio/programming-code.md)
+[Программирование на текстовом языке](../../studio/programming-code.md)

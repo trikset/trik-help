@@ -15,7 +15,7 @@ title: "Программирование на визуальном языке"
 ## Главная диаграмма &#123;#main-diagramm&#125;
 Главная диаграмма создаётся при [создании проекта](../start.md#new-project). Про добавление и удаление блоков на [сцену](../interface/#editor-window-1) читайте в статье:
 
-[blocks-add-delete.md](blocks-add-delete.md)
+[Добавление и удаление блоков](blocks-add-delete.md)
 
 ###### ​ {#podprogrammy}
 ## Подпрограммы
@@ -26,7 +26,7 @@ title: "Программирование на визуальном языке"
 
 Подробнее о подпрограммах читайте в статье:
 
-[subprograms.md](subprograms.md)
+[Подпрограммы](subprograms.md)
 
 
 {/* Compatibility anchors for old GitBook/Docusaurus links. */}

@@ -73,4 +73,4 @@ title: "Взаимодействие контроллеров ТРИК"
 
 ![Скриншоты экранов двух подключенных к друг другу контроллеров](/gitbook/assets/%D1%86%D1%83%D1%8B%D0%B2%D0%B0%D0%B0.png)
 
-[interaction-example.md](interaction-example.md)
+[Пример решения задачи по взаимодействию двух роботов](interaction-example.md)
