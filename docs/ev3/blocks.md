@@ -6,38 +6,38 @@ title: "Блоки LEGO EV3"
 
 Специализированные блоки для LEGO EV3 делятся на несколько категорий:
 
-1. [Действия](blocks.md#bloki-deistviya) — блоки, выполняющие какое-либо действие на роботе: включение моторов, проигрывание звука и т.д.
-2. [Ожидания](blocks.md#bloki-ozhidaniya) — блоки, ждущие наступления какого-либо события: определённых показаний датчиков, нажатия на кнопку и т.д.
-3. [Рисования на дисплее](blocks.md#risovanie-na-displee) — блоки, используемые для вывода графики и текста на экран.
-4. [Line Leader](blocks.md#line-leader) — блоки для продвинутого датчика «Line Leader».
+1. [Действия](#bloki-deistviya) — блоки, выполняющие какое-либо действие на роботе: включение моторов, проигрывание звука и т.д.
+2. [Ожидания](#bloki-ozhidaniya) — блоки, ждущие наступления какого-либо события: определённых показаний датчиков, нажатия на кнопку и т.д.
+3. [Рисования на дисплее](#risovanie-na-displee) — блоки, используемые для вывода графики и текста на экран.
+4. [Line Leader](#line-leader) — блоки для продвинутого датчика «Line Leader».
 
-&#x20;Блоки, доступные для всех платформ см. в статье «[Общие блоки](../studio/programming-visual/blocks.md)».
+&#x20;Блоки, доступные для всех платформ см. в статье «[Общие блоки](/docs/studio/programming-visual/blocks/)».
 
 ###### ​ {#bloki-deistviya}
 ## Блоки действия
 
 | Вид                                                                                          | Название                                                                | Описание                                                                                                                                                                                                                         |
 | -------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| <img src="/gitbook/assets/sendMessageThreadsBlock.png" alt="" data-size="original" />       | [Отправить сообщение в задачу](blocks.md#otpravit-soobshenie-v-zadachu) | Отправляет данное сообщение в параллельную задачу с заданным идентификатором (идентификатор должен быть указан при создании задачи в блоке «[Параллельные задачи](../studio/programming-visual/blocks.md#parallelnye-zadachi)»). |
-| <img src="/gitbook/assets/beepBlock.png" alt="" data-size="original" />                     | [Гудок](blocks.md#gudok)                                                | Проиграть на роботе звук с фиксированной частотой.                                                                                                                                                                               |
-| <img src="/gitbook/assets/playToneBlock.png" alt="" data-size="original" />                 | [Играть звук](blocks.md#igrat-zvuk)                                     | Проиграть на роботе звук с заданной частотой и длительностью.                                                                                                                                                                    |
-| <img src="/gitbook/assets/enginesForwardBlock.png" alt="" data-size="original" />           | [Моторы вперед](blocks.md#motory-vpered)                                | Включить моторы по заданным портам с заданной мощностью.                                                                                                                                                                         |
-| <img src="/gitbook/assets/enginesBackwardBlock.png" alt="" data-size="original" />          | [Моторы назад](blocks.md#motory-nazad)                                  | Включить моторы в режиме реверса по заданным портам с заданной мощностью.                                                                                                                                                        |
-| <img src="/gitbook/assets/enginesStopBlock.png" alt="" data-size="original" />              | [Моторы стоп](blocks.md#motory-stop)                                    | Выключить моторы по заданным портам.                                                                                                                                                                                             |
-| <img src="/gitbook/assets/nullificationEncoderBlock.png" alt="" data-size="original" />     | [Сбросить показания энкодера](blocks.md#sbrosit-pokazaniya-enkodera)    | Сбросить показания количества оборотов моторов.                                                                                                                                                                                  |
-| <img src="/gitbook/assets/ledBlock.png" alt="" data-size="original" />                      | [Светодиод](blocks.md#svetodiod)                                        | Установить цвет светодиода на передней панели робота.                                                                                                                                                                            |
-| <img src="/gitbook/assets/sendMessageBlock.png" alt="" data-size="original" />              | [Отправить письмо роботу](blocks.md#otpravit-pismo-robotu)              | Отправить письмо другому роботу.                                                                                                                                                                                                 |
-| <img src="/gitbook/assets/calibrateGyroscopeBlock.png" alt="" data-size="original" />       | [Калибровка гироскопа](blocks.md#kalibrovka-giroskopa)                  | Устанавливает гироскоп в 0 в текущей позиции.                                                                                                                                                                                    |
-| <img src="/gitbook/assets/startCompassCalibrationBlock.png" alt="" data-size="original" />  | [Начать калибровку компаса](blocks.md#nachat-kalibrovku-kompasa)        | Начинает калибровку компаса программно.                                                                                                                                                                                          |
-| <img src="/gitbook/assets/stopCompassCalibrationBlock.png" alt="" data-size="original" />   | [Закончить калибровку компаса](blocks.md#zakonchit-kalibrovku-kompasa)  | Заканчивает калибровку компаса.                                                                                                                                                                                                  |
-| <img src="/gitbook/assets/readRGBBlock.png" alt="" data-size="original" />                  | [Считать цвета в переменные](blocks.md#schitat-cveta-v-peremennye)      | Читать RGB в переменной.                                                                                                                                                                                                         |
+| <img src="/gitbook/assets/sendMessageThreadsBlock.png" alt="" data-size="original" />       | [Отправить сообщение в задачу](#otpravit-soobshenie-v-zadachu) | Отправляет данное сообщение в параллельную задачу с заданным идентификатором (идентификатор должен быть указан при создании задачи в блоке «[Параллельные задачи](/docs/studio/programming-visual/blocks/#parallelnye-zadachi)»). |
+| <img src="/gitbook/assets/beepBlock.png" alt="" data-size="original" />                     | [Гудок](#gudok)                                                | Проиграть на роботе звук с фиксированной частотой.                                                                                                                                                                               |
+| <img src="/gitbook/assets/playToneBlock.png" alt="" data-size="original" />                 | [Играть звук](#igrat-zvuk)                                     | Проиграть на роботе звук с заданной частотой и длительностью.                                                                                                                                                                    |
+| <img src="/gitbook/assets/enginesForwardBlock.png" alt="" data-size="original" />           | [Моторы вперед](#motory-vpered)                                | Включить моторы по заданным портам с заданной мощностью.                                                                                                                                                                         |
+| <img src="/gitbook/assets/enginesBackwardBlock.png" alt="" data-size="original" />          | [Моторы назад](#motory-nazad)                                  | Включить моторы в режиме реверса по заданным портам с заданной мощностью.                                                                                                                                                        |
+| <img src="/gitbook/assets/enginesStopBlock.png" alt="" data-size="original" />              | [Моторы стоп](#motory-stop)                                    | Выключить моторы по заданным портам.                                                                                                                                                                                             |
+| <img src="/gitbook/assets/nullificationEncoderBlock.png" alt="" data-size="original" />     | [Сбросить показания энкодера](#sbrosit-pokazaniya-enkodera)    | Сбросить показания количества оборотов моторов.                                                                                                                                                                                  |
+| <img src="/gitbook/assets/ledBlock.png" alt="" data-size="original" />                      | [Светодиод](#svetodiod)                                        | Установить цвет светодиода на передней панели робота.                                                                                                                                                                            |
+| <img src="/gitbook/assets/sendMessageBlock.png" alt="" data-size="original" />              | [Отправить письмо роботу](#otpravit-pismo-robotu)              | Отправить письмо другому роботу.                                                                                                                                                                                                 |
+| <img src="/gitbook/assets/calibrateGyroscopeBlock.png" alt="" data-size="original" />       | [Калибровка гироскопа](#kalibrovka-giroskopa)                  | Устанавливает гироскоп в 0 в текущей позиции.                                                                                                                                                                                    |
+| <img src="/gitbook/assets/startCompassCalibrationBlock.png" alt="" data-size="original" />  | [Начать калибровку компаса](#nachat-kalibrovku-kompasa)        | Начинает калибровку компаса программно.                                                                                                                                                                                          |
+| <img src="/gitbook/assets/stopCompassCalibrationBlock.png" alt="" data-size="original" />   | [Закончить калибровку компаса](#zakonchit-kalibrovku-kompasa)  | Заканчивает калибровку компаса.                                                                                                                                                                                                  |
+| <img src="/gitbook/assets/readRGBBlock.png" alt="" data-size="original" />                  | [Считать цвета в переменные](#schitat-cveta-v-peremennye)      | Читать RGB в переменной.                                                                                                                                                                                                         |
 
 ###### ​ {#otpravit-soobshenie-v-zadachu}
 ### Отправить сообщение в задачу
 
 ![Отправить сообщение в задачу](/gitbook/assets/sendMessageThreadsBlock%20%281%29.png)
 
-Отправляет данное сообщение в параллельную задачу с заданным идентификатором (идентификатор должен быть указан при создании задачи в блоке «[Параллельные задачи](../studio/programming-visual/blocks.md#parallelnye-zadachi)»).
+Отправляет данное сообщение в параллельную задачу с заданным идентификатором (идентификатор должен быть указан при создании задачи в блоке «[Параллельные задачи](/docs/studio/programming-visual/blocks/#parallelnye-zadachi)»).
 
 В качестве сообщения может быть любое выражение.
 
@@ -58,7 +58,7 @@ title: "Блоки LEGO EV3"
 
 ![Играть звук](/gitbook/assets/playToneBlock%20%281%29.png)
 
-Проиграть на роботе звук с заданной частотой и длительностью. Аналогичен блоку «[Гудок](blocks.md#gudok)», но позволяет также задавать параметры звука.
+Проиграть на роботе звук с заданной частотой и длительностью. Аналогичен блоку «[Гудок](#gudok)», но позволяет также задавать параметры звука.
 
 Параметры:
 
@@ -83,7 +83,7 @@ title: "Блоки LEGO EV3"
 
 ![Моторы назад](/gitbook/assets/enginesBackwardBlock%20%281%29.png)
 
-Включить моторы в режиме реверса по заданным портам с заданной мощностью. Параметры аналогичны параметрам блока «[Моторы вперёд](blocks.md#motory-vpered)».
+Включить моторы в режиме реверса по заданным портам с заданной мощностью. Параметры аналогичны параметрам блока «[Моторы вперёд](#motory-vpered)».
 
 ###### ​ {#motory-stop}
 ### **Моторы стоп**
@@ -127,7 +127,7 @@ title: "Блоки LEGO EV3"
 
 Начинает калибровку компаса программно.\
 \
-Чтобы откалибровать компас, робот должен повернуться на месте больше чем на 540° в одну, а затем в обратную сторону. После поворотов необходимо добавить блок «[Закончить калибровку компаса](blocks.md#zakonchit-kalibrovku-kompasa)».
+Чтобы откалибровать компас, робот должен повернуться на месте больше чем на 540° в одну, а затем в обратную сторону. После поворотов необходимо добавить блок «[Закончить калибровку компаса](#zakonchit-kalibrovku-kompasa)».
 
 ###### ​ {#zakonchit-kalibrovku-kompasa}
 ### Закончить калибровку компаса
@@ -148,17 +148,17 @@ title: "Блоки LEGO EV3"
 
 | Вид                                                                                        | Название                                                                               | Описание                                                                                                                                  |
 | ------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| <img src="/gitbook/assets/receiveMessageThreadsBlock.png" alt="" data-size="original" />  | [Получить сообщение из другой задачи](blocks.md#poluchit-soobshenie-iz-drugoi-zadachi) | Ждать получения сообщения из другой параллельной задачи.                                                                                  |
-| <img src="/gitbook/assets/waitForTouchSensorBlock.png" alt="" data-size="original" />     | [Ждать датчик касания](blocks.md#zhdat-datchik-kasaniya)                               | Ждать, пока не сработает датчик касания.                                                                                                  |
-| <img src="/gitbook/assets/waitForEncoderBlock.png" alt="" data-size="original" />         | [Ждать энкодер](blocks.md#zhdat-enkoder)                                               | Ждать, пока показания счетчика количества оборотов на заданном моторе не достигнут указанного в значении параметра «Предел оборотов».     |
-| <img src="/gitbook/assets/waitForColorBlock.png" alt="" data-size="original" />           | [Ждать цвет](blocks.md#zhdat-cvet)                                                     | Ждать, пока сенсор цвета в режиме распознавания цветов не вернет указанный цвет.                                                          |
-| <img src="/gitbook/assets/waitForColorIntensityBlock.png" alt="" data-size="original" />  | [Ждать интенсивность цвета](blocks.md#zhdat-intensivnost-cveta)                        | Ждать, пока значение, возвращаемое сенсором цвета на указанном порту, не будет сравнимо с указанным в значении параметра «Интенсивность». |
-| <img src="/gitbook/assets/waitForLightBlock.png" alt="" data-size="original" />           | [Ждать свет](blocks.md#zhdat-svet)                                                     | Ждать, пока значение, возвращаемое сенсором света на указанном порту, не будет сравнимо с указанным в значении параметра «Проценты».      |
-| <img src="/gitbook/assets/waitForSonarDistanceBlock.png" alt="" data-size="original" />   | [Ждать датчик расстояния](blocks.md#zhdat-datchik-rasstoyaniya)                        | Ждать, пока расстояние, возвращаемое ультразвуковым сенсором расстояния, не будет сравнимо с указанным в значении параметра «Расстояние». |
-| <img src="/gitbook/assets/waitForButtonsBlock.png" alt="" data-size="original" />         | [Ждать нажатия кнопки](blocks.md#zhdat-nazhatiya-knopki)                               | Ждать нажатия на кнопку на корпусе робота.                                                                                                |
-| <img src="/gitbook/assets/waitForSoundSensorBlock.png" alt="" data-size="original" />     | [Ждать датчик звука](blocks.md#zhdat-datchik-zvuka)                                    | Ждать, пока громкость, считанная микрофоном на заданном порту, не будет выше или ниже заданного значения.                                 |
-| <img src="/gitbook/assets/waitForGyroscopeBlock.png" alt="" data-size="original" />       | [Ждать гиродатчик](blocks.md#zhdat-girodatchik)                                        | Ждать, пока значение, возвращаемое гироскопом на указанном порту, не будет сравнимо с указанным в значении параметра «Значение».          |
-| <img src="/gitbook/assets/waitForMessageBlock.png" alt="" data-size="original" />         | [Ждать приема сообщения](blocks.md#zhdat-priema-soobsheniya)                           | Сохраняет сообщение от другого робота в заданную переменную.                                                                              |
+| <img src="/gitbook/assets/receiveMessageThreadsBlock.png" alt="" data-size="original" />  | [Получить сообщение из другой задачи](#poluchit-soobshenie-iz-drugoi-zadachi) | Ждать получения сообщения из другой параллельной задачи.                                                                                  |
+| <img src="/gitbook/assets/waitForTouchSensorBlock.png" alt="" data-size="original" />     | [Ждать датчик касания](#zhdat-datchik-kasaniya)                               | Ждать, пока не сработает датчик касания.                                                                                                  |
+| <img src="/gitbook/assets/waitForEncoderBlock.png" alt="" data-size="original" />         | [Ждать энкодер](#zhdat-enkoder)                                               | Ждать, пока показания счетчика количества оборотов на заданном моторе не достигнут указанного в значении параметра «Предел оборотов».     |
+| <img src="/gitbook/assets/waitForColorBlock.png" alt="" data-size="original" />           | [Ждать цвет](#zhdat-cvet)                                                     | Ждать, пока сенсор цвета в режиме распознавания цветов не вернет указанный цвет.                                                          |
+| <img src="/gitbook/assets/waitForColorIntensityBlock.png" alt="" data-size="original" />  | [Ждать интенсивность цвета](#zhdat-intensivnost-cveta)                        | Ждать, пока значение, возвращаемое сенсором цвета на указанном порту, не будет сравнимо с указанным в значении параметра «Интенсивность». |
+| <img src="/gitbook/assets/waitForLightBlock.png" alt="" data-size="original" />           | [Ждать свет](#zhdat-svet)                                                     | Ждать, пока значение, возвращаемое сенсором света на указанном порту, не будет сравнимо с указанным в значении параметра «Проценты».      |
+| <img src="/gitbook/assets/waitForSonarDistanceBlock.png" alt="" data-size="original" />   | [Ждать датчик расстояния](#zhdat-datchik-rasstoyaniya)                        | Ждать, пока расстояние, возвращаемое ультразвуковым сенсором расстояния, не будет сравнимо с указанным в значении параметра «Расстояние». |
+| <img src="/gitbook/assets/waitForButtonsBlock.png" alt="" data-size="original" />         | [Ждать нажатия кнопки](#zhdat-nazhatiya-knopki)                               | Ждать нажатия на кнопку на корпусе робота.                                                                                                |
+| <img src="/gitbook/assets/waitForSoundSensorBlock.png" alt="" data-size="original" />     | [Ждать датчик звука](#zhdat-datchik-zvuka)                                    | Ждать, пока громкость, считанная микрофоном на заданном порту, не будет выше или ниже заданного значения.                                 |
+| <img src="/gitbook/assets/waitForGyroscopeBlock.png" alt="" data-size="original" />       | [Ждать гиродатчик](#zhdat-girodatchik)                                        | Ждать, пока значение, возвращаемое гироскопом на указанном порту, не будет сравнимо с указанным в значении параметра «Значение».          |
+| <img src="/gitbook/assets/waitForMessageBlock.png" alt="" data-size="original" />         | [Ждать приема сообщения](#zhdat-priema-soobsheniya)                           | Сохраняет сообщение от другого робота в заданную переменную.                                                                              |
 
 ###### ​ {#poluchit-soobshenie-iz-drugoi-zadachi}
 ### Получить сообщение из другой задачи
@@ -279,12 +279,12 @@ title: "Блоки LEGO EV3"
 
 | Вид                                                                              | Название                                                                                 | Описание                                                          |
 | -------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
-| <img src="/gitbook/assets/printTextBlock.png" alt="" data-size="original" />    | [Напечатать текст](blocks.md#napechatat-tekst)                                           | Печатает заданную строку в заданном месте на экране робота.       |
-| <img src="/gitbook/assets/clearScreenBlock.png" alt="" data-size="original" />  | [Очистить экран](blocks.md#ochistit-ekran)                                               | Стереть всё, что нарисовано на экране.                            |
-| <img src="/gitbook/assets/drawRectBlock.png" alt="" data-size="original" />     | [Нарисовать прямоугольник](../trik/programming-visual/blocks.md#narisovat-pryamougolnik) | Нарисовать на экране прямоугольник.                               |
-| <img src="/gitbook/assets/drawPixelBlock.png" alt="" data-size="original" />    | [Нарисовать точку](blocks.md#narisovat-tochku)                                           | Нарисовать на экране точку в указанных координатах.               |
-| <img src="/gitbook/assets/drawLineBlock.png" alt="" data-size="original" />     | [Нарисовать линию](blocks.md#narisovat-liniyu)                                           | Нарисовать на экране отрезок.                                     |
-| <img src="/gitbook/assets/drawCircleBlock.png" alt="" data-size="original" />   | [Нарисовать круг](blocks.md#narisovat-krug)                                              | Нарисовать на экране круг с заданным центром и заданным радиусом. |
+| <img src="/gitbook/assets/printTextBlock.png" alt="" data-size="original" />    | [Напечатать текст](#napechatat-tekst)                                           | Печатает заданную строку в заданном месте на экране робота.       |
+| <img src="/gitbook/assets/clearScreenBlock.png" alt="" data-size="original" />  | [Очистить экран](#ochistit-ekran)                                               | Стереть всё, что нарисовано на экране.                            |
+| <img src="/gitbook/assets/drawRectBlock.png" alt="" data-size="original" />     | [Нарисовать прямоугольник](/docs/trik/programming-visual/blocks/#narisovat-pryamougolnik) | Нарисовать на экране прямоугольник.                               |
+| <img src="/gitbook/assets/drawPixelBlock.png" alt="" data-size="original" />    | [Нарисовать точку](#narisovat-tochku)                                           | Нарисовать на экране точку в указанных координатах.               |
+| <img src="/gitbook/assets/drawLineBlock.png" alt="" data-size="original" />     | [Нарисовать линию](#narisovat-liniyu)                                           | Нарисовать на экране отрезок.                                     |
+| <img src="/gitbook/assets/drawCircleBlock.png" alt="" data-size="original" />   | [Нарисовать круг](#narisovat-krug)                                              | Нарисовать на экране круг с заданным центром и заданным радиусом. |
 
 ###### ​ {#napechatat-tekst}
 ### Напечатать текст
@@ -302,7 +302,6 @@ title: "Блоки LEGO EV3"
 
 Стереть всё, что нарисовано на экране.
 
-###### ​ {#narisovat-pryamougolnik}
 ### Нарисовать прямоугольник
 
 ![Нарисовать прямоугольник](/gitbook/assets/drawRectBlock%20%281%29.png)
@@ -354,14 +353,14 @@ title: "Блоки LEGO EV3"
 
 | Вид                                                                                    | Название                                                                                      | Описание                                          |
 | -------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | ------------------------------------------------- |
-| <img src="/gitbook/assets/calWhiteLineLeader.png" alt="" data-size="original" />      | [Калибровка белого](blocks.md#kalibrovka-belogo)                                              | Калибрует порог белого для сенсора.               |
-| <img src="/gitbook/assets/calBlackLineLeader.png" alt="" data-size="original" />      | [Калибровка черного](blocks.md#kalibrovka-chernogo)                                           | Калибрует порог черного для сенсора.              |
-| <img src="/gitbook/assets/calPIDLineLeader.png" alt="" data-size="original" />        | [Калибровка ПИД-регулятора](blocks.md#kalibrovka-pid-regulyatora)                             | Устанавливает уставку сенсора                     |
-| <img src="/gitbook/assets/sleepLineLeader.png" alt="" data-size="original" />         | [Датчик линии в спящий режим](blocks.md#datchik-linii-v-spyashii-rezhim)                      | Отправляет датчик линии в режим энергосбережения. |
-| <img src="/gitbook/assets/wakeUpLineLeader.png" alt="" data-size="original" />        | [Пробудить датчик линии](blocks.md#probudit-datchik-linii)                                    | Включает датчик линии для работы.                 |
-| <img src="/gitbook/assets/readAvrLineLeader.png" alt="" data-size="original" />       | [Средневзвешенное значение в переменную](blocks.md#srednevzveshennoe-znachenie-v-peremennuyu) | Считывает средневзвешенное значение в переменную. |
-| <img src="/gitbook/assets/readCalLineLeader.png" alt="" data-size="original" />       | [Считать сенсор в массив](blocks.md#schitat-sensor-v-massiv)                                  | Считать значения с сенсора (восемь значений).     |
-| <img src="/gitbook/assets/readSteeringLineLeader.png" alt="" data-size="original" />  | [Управляющее значение в переменную](blocks.md#upravlyayushee-znachenie-v-peremennuyu)         | Считывает управляющее значение в переменную.      |
+| <img src="/gitbook/assets/calWhiteLineLeader.png" alt="" data-size="original" />      | [Калибровка белого](#kalibrovka-belogo)                                              | Калибрует порог белого для сенсора.               |
+| <img src="/gitbook/assets/calBlackLineLeader.png" alt="" data-size="original" />      | [Калибровка черного](#kalibrovka-chernogo)                                           | Калибрует порог черного для сенсора.              |
+| <img src="/gitbook/assets/calPIDLineLeader.png" alt="" data-size="original" />        | [Калибровка ПИД-регулятора](#kalibrovka-pid-regulyatora)                             | Устанавливает уставку сенсора                     |
+| <img src="/gitbook/assets/sleepLineLeader.png" alt="" data-size="original" />         | [Датчик линии в спящий режим](#datchik-linii-v-spyashii-rezhim)                      | Отправляет датчик линии в режим энергосбережения. |
+| <img src="/gitbook/assets/wakeUpLineLeader.png" alt="" data-size="original" />        | [Пробудить датчик линии](#probudit-datchik-linii)                                    | Включает датчик линии для работы.                 |
+| <img src="/gitbook/assets/readAvrLineLeader.png" alt="" data-size="original" />       | [Средневзвешенное значение в переменную](#srednevzveshennoe-znachenie-v-peremennuyu) | Считывает средневзвешенное значение в переменную. |
+| <img src="/gitbook/assets/readCalLineLeader.png" alt="" data-size="original" />       | [Считать сенсор в массив](#schitat-sensor-v-massiv)                                  | Считать значения с сенсора (восемь значений).     |
+| <img src="/gitbook/assets/readSteeringLineLeader.png" alt="" data-size="original" />  | [Управляющее значение в переменную](#upravlyayushee-znachenie-v-peremennuyu)         | Считывает управляющее значение в переменную.      |
 
 ###### ​ {#kalibrovka-belogo}
 ### Калибровка белого
@@ -424,7 +423,3 @@ title: "Блоки LEGO EV3"
 Считывает управляющее значение в переменную. Значение высчитывается внутри сенсора и может быть использовано сразу для моторов.
 
 Ожидается значение от -100 до 100 (-101 — ошибка)
-
-
-{/* Compatibility anchors for old GitBook/Docusaurus links. */}
-###### ​ {#parallelnye-zadachi}

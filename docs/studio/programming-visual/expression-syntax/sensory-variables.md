@@ -4,7 +4,7 @@ title: "Сенсорные переменные"
 
 # Сенсорные переменные
 
-Кроме [констант](const.md), в TRIK Studio доступны зарезервированные переменные, которые хранят значения показаний сенсоров, подключенных к соответствующим портам.
+Кроме [констант](/docs/studio/programming-visual/expression-syntax/const/), в TRIK Studio доступны зарезервированные переменные, которые хранят значения показаний сенсоров, подключенных к соответствующим портам.
 
 Эти значения можно присваивать переменным и использовать в математических выражениях.
 
@@ -18,6 +18,6 @@ sensor<имя порта сенсора>
 
 Полный список сенсорных переменных приводится в разделах к конкретным платформам:
 
-* [ТРИК](../../../trik/programming-visual/sensory-variables.md).
-* [LEGO EV3](../../../ev3/sensory-variables.md).
-* [LEGO NXT](../../../nxt/sensory-variables.md).
+* [ТРИК](/docs/trik/programming-visual/sensory-variables/).
+* [LEGO EV3](/docs/ev3/sensory-variables/).
+* [LEGO NXT](/docs/nxt/sensory-variables/).

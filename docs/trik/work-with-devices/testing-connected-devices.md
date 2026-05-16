@@ -6,14 +6,14 @@ title: "Тестирование подключенных к контролле�
 
 На контроллере ТРИК вы можете протестировать подключенные к нему устройства:
 
-1. [Аналоговые датчики](testing-connected-devices.md#analogovye-datchiki).
-2. [Сервоприводы.](testing-connected-devices.md#servoprivody)
-3. [Силовые моторы](testing-connected-devices.md#silovye-motory).
-4. [Цифровые датчики](testing-connected-devices.md#cifrovye-datchiki).
-5. [Энкодеры](testing-connected-devices.md#enkodery).
-6. [Гироскоп](testing-connected-devices.md#gyroscope).
-7. [Акселерометр](testing-connected-devices.md#accelerometer).
-8. [Камера.](testing-connected-devices.md#camera)
+1. [Аналоговые датчики](#analogovye-datchiki).
+2. [Сервоприводы.](#servoprivody)
+3. [Силовые моторы](#silovye-motory).
+4. [Цифровые датчики](#cifrovye-datchiki).
+5. [Энкодеры](#enkodery).
+6. [Гироскоп](#gyroscope).
+7. [Акселерометр](#accelerometer).
+8. [Камера.](#camera)
 
 Для этого зайдите в меню «Тестирование».
 

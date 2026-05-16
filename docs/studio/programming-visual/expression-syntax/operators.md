@@ -4,11 +4,11 @@ title: "Операторы языка TRIK Studio"
 
 # Операторы языка TRIK Studio
 
-1. [Бинарные операторы](operators.md#binarnye-operatory).
-2. [Унарные операторы.](operators.md#unarnye-operatory)
-3. [Оператор присваивания](operators.md#operator-prisvaivaniya).
-4. [Оператор возврата значения](operators.md#operator-vozvrata-znacheniya).
-5. [Пустой оператор](operators.md#pustoi-operator).
+1. [Бинарные операторы](#binarnye-operatory).
+2. [Унарные операторы.](#unarnye-operatory)
+3. [Оператор присваивания](#operator-prisvaivaniya).
+4. [Оператор возврата значения](#operator-vozvrata-znacheniya).
+5. [Пустой оператор](#pustoi-operator).
 
 ###### ​ {#binarnye-operatory}
 ## Бинарные операторы &#123;#binarnye-operatory&#125;

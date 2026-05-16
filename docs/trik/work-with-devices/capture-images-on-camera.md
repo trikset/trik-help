@@ -39,11 +39,11 @@ title: "Съемка изображений на камеру ТРИК и исп
 
 1\. Подключите контроллер ТРИК к компьютеру.
 
-[Подключение контроллера ТРИК к компьютеру и смартфону](../wi-fi/network-connection.md)
+[Подключение контроллера ТРИК к компьютеру и смартфону](/docs/trik/wi-fi/network-connection/)
 
 2\. В адресной строке браузера введите IP-адрес контроллера. Откроется веб-интерфейс ТРИК.
 
-[Веб-интерфейс контроллера ТРИК](../web-interface.md)
+[Веб-интерфейс контроллера ТРИК](/docs/trik/web-interface/)
 
 3\. Перейдите на вкладку «Images» и нажмите «Download all», чтобы скачать архив с изображениями.
 
@@ -56,7 +56,7 @@ title: "Съемка изображений на камеру ТРИК и исп
 
 1\. Откройте в TRIK Studio настройки робота.
 
-[Как открыть настройки робота?](../../studio/interface/faq-robot-settings.md)
+[Как открыть настройки робота?](/docs/studio/interface/faq-robot-settings/)
 
 2\. В открывшемся окне выберите `Модель робота → 2D-модель` и пропишите путь к загруженным ранее изображениям.
 
@@ -64,10 +64,10 @@ title: "Съемка изображений на камеру ТРИК и исп
 
 3\. Теперь при вызове **getPhoto** будут последовательно подгружаться изображения из указанной папки. &#x20;
 
-[Функция getPhoto](../programming-code/function-getphoto.md)
+[Функция getPhoto](/docs/trik/programming-code/function-getphoto/)
 
 :::info
-Не забывайте пользоваться функциями для рисования графических примитивов ([drawRect](../programming-code/object-brick/class-display.md#drawrect), [drawLine](../programming-code/object-brick/class-display.md#drawline), [drawPoint](../programming-code/object-brick/class-display.md#drawpoint) и т.п) и функцией [show](../programming-code/object-brick/class-display.md#show) для ускорения процесса разработки и отладки алгоритмов обработки изображений.
+Не забывайте пользоваться функциями для рисования графических примитивов ([drawRect](/docs/trik/programming-code/object-brick/class-display/#drawrect), [drawLine](/docs/trik/programming-code/object-brick/class-display/#drawline), [drawPoint](/docs/trik/programming-code/object-brick/class-display/#drawpoint) и т.п) и функцией [show](/docs/trik/programming-code/object-brick/class-display/#show) для ускорения процесса разработки и отладки алгоритмов обработки изображений.
 :::
 
 ![](/gitbook/assets/screen_record_2.gif)
@@ -94,6 +94,6 @@ var main = function()
 }
 ```
 
-2\. Запустите код в режиме отладки, используя в качестве режима исполнения программы [двумерную модель](../../studio/2d-model/). На дисплее контроллера будут последовательно выводиться изображения.
+2\. Запустите код в режиме отладки, используя в качестве режима исполнения программы [двумерную модель](/docs/studio/2d-model/). На дисплее контроллера будут последовательно выводиться изображения.
 
 ![](/gitbook/assets/screen_record_1.gif)

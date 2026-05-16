@@ -14,6 +14,6 @@ TRIK Studio можно интегрировать с внешней средой
 
 О том, как интегрировать Sublime с TRIK Studio читайте в статьях:
 
-[Запуск 2D-модели в TRIK Studio из Sublime Text](run-2d-from-sublime.md)
+[Запуск 2D-модели в TRIK Studio из Sublime Text](/docs/integrations/sublime/run-2d-from-sublime/)
 
-[Загрузка программ на нескольких роботов ТРИК из Sublime Text](loading-programs-on-several-robots.md)
+[Загрузка программ на нескольких роботов ТРИК из Sublime Text](/docs/integrations/sublime/loading-programs-on-several-robots/)

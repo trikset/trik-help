@@ -6,16 +6,16 @@ title: "Подключение контроллера LEGO NXT к TRIK Studio"
 
 Контроллер LEGO NXT может быть подключен к TRIK Studio с помощью:
 
-1. [USB](connect-to-studio.md#usb).
-2. [Bluetooth](connect-to-studio.md#bluetooth).
+1. [USB](#usb).
+2. [Bluetooth](#bluetooth).
 
-В каждом из двух вариантов сначала необходимо в настройках TRIK Studio в разделе [«Роботы»](../studio/settings.md#robots) выбрать платформу LEGO NXT.
+В каждом из двух вариантов сначала необходимо в настройках TRIK Studio в разделе [«Роботы»](/docs/studio/settings/#robots) выбрать платформу LEGO NXT.
 
 ![](/gitbook/assets/robots-nxt.png)
 
 ## Подключение по USB
 
-1\. В настройках TRIK Studio в разделе «[Роботы](../studio/settings.md#robots)» выберите «Интерпретация (USB)» в окне «Модель робота».
+1\. В настройках TRIK Studio в разделе «[Роботы](/docs/studio/settings/#robots)» выберите «Интерпретация (USB)» в окне «Модель робота».
 
 ![](/gitbook/assets/NXT-connect%202%20usb.png)
 

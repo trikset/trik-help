@@ -15,7 +15,7 @@ title: "Лексемы языка TRIK Studio"
 * or
 * true​
 
-И следующие [операторы](operators.md):
+И следующие [операторы](/docs/studio/programming-visual/expression-syntax/operators/):
 
 ```lua
 + - * / % ^ # & ~ | << >> // == ~= <= >= < > = ( ) { } [ ] ; : , . .. && ||
@@ -54,4 +54,4 @@ a = 1; -- комментарий
 
 О синтаксисе выражений в блоках читайте в статье
 
-[Синтаксис выражений в блоках](./)
+[Синтаксис выражений в блоках](/docs/studio/programming-visual/expression-syntax/)

@@ -6,9 +6,9 @@ title: "Обновление встроенного программного о�
 
 Выберите операционную систему:
 
-* [Windows](./#windows)
-* [Linux](./#linux)
-* [Ubuntu](./#ubuntu)
+* [Windows](#windows)
+* [Linux](#linux)
+* [Ubuntu](#ubuntu)
 
 ###### ​ {#windows}
 ## Windows

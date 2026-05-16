@@ -18,7 +18,7 @@ title: "Приложение TRIK Gamepad"
 
 В приложении имеется возможность трансляции видео с камеры, подключенной к роботу.
 
-Для её запуска необходимо в [программу управления роботом с пульта](../remote-control.md) добавить блок «[Запустить видеотрансляцию](../../trik/programming-visual/blocks.md#camera-on)».
+Для её запуска необходимо в [программу управления роботом с пульта](/docs/gamepad/remote-control/) добавить блок «[Запустить видеотрансляцию](/docs/trik/programming-visual/blocks/#camera-on)».
 
 ## Принцип работы
 
@@ -30,5 +30,5 @@ title: "Приложение TRIK Gamepad"
 * gamepadConnected.
 
 :::info
-Подробнее с сенсорными переменными TRIK Gamepad вы можете ознакомиться в статье «[Сенсорные переменные для контроллера ТРИК](../../trik/programming-visual/sensory-variables.md)».
+Подробнее с сенсорными переменными TRIK Gamepad вы можете ознакомиться в статье «[Сенсорные переменные для контроллера ТРИК](/docs/trik/programming-visual/sensory-variables/)».
 :::

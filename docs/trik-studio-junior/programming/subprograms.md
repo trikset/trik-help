@@ -8,4 +8,4 @@ title: "Подпрограммы в TRIK Studio Junior"
 
 Работа с подпрограммами в TRIK Studio Junior аналогична работе с подпрограммами в TRIK Studio:
 
-[Подпрограммы](../../studio/programming-visual/subprograms.md)
+[Подпрограммы](/docs/studio/programming-visual/subprograms/)

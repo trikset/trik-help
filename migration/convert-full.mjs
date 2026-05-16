@@ -96,6 +96,29 @@ function outRelFor(rel){
 function docIdFor(rel){
   return outRelFor(rel).replace(/\.md$/, '');
 }
+function routeForSourceRel(rel) {
+  const outRel = outRelFor(rel);
+  let noExt = outRel.replace(/\.md$/, '');
+  if (noExt === 'intro') return '/docs/intro';
+  if (noExt.endsWith('/index')) noExt = noExt.slice(0, -('/index'.length));
+  return '/docs/' + noExt + (noExt.endsWith('/') ? '' : '/');
+}
+function normalizeDocHref(fromRel, href) {
+  if (/^(?:https?:|mailto:|tel:)/i.test(href) || href.startsWith('#') || href.startsWith('/gitbook/') || href.startsWith('/assets/') || href.startsWith('/img/')) return href;
+  const hashIndex = href.indexOf('#');
+  const queryIndex = href.indexOf('?');
+  const cutPoints = [hashIndex, queryIndex].filter(i => i >= 0);
+  const cut = cutPoints.length ? Math.min(...cutPoints) : href.length;
+  const suffix = href.slice(cut);
+  const raw = href.slice(0, cut);
+  if (raw.startsWith('/docs/')) return href;
+  const targetRel = raw ? resolveSourceRel(fromRel, raw) : fromRel;
+  if (!targetRel) return href;
+  // Preserve same-page anchor links compactly so Docusaurus can validate custom
+  // heading ids directly on the current document.
+  if (targetRel === fromRel && suffix.startsWith('#')) return suffix;
+  return `${routeForSourceRel(targetRel)}${suffix}`;
+}
 function sidebarIdForLink(link){
   let url = link.split('#')[0].replace(/^\.\//, '');
   if (!url || /^https?:/.test(url)) return null;
@@ -228,6 +251,9 @@ function convert(text, rel){
     return targetTitle && shouldHumanizeLinkLabel(label, href, targetTitle) ? `[${targetTitle}](${href})` : match;
   });
 
+  // Normalize all internal document links from GitBook source paths to Docusaurus routes.
+  text = text.replace(/(?<!!)\[([^\]\n]+)\]\(([^)]+)\)/g, (match, label, href) => `[${label}](${normalizeDocHref(rel, href)})`);
+
   // README links -> Docusaurus route-ish links.
   text = text.replace(/\]\(([^)]+)README\.md(#[^)]+)?\)/g, ']($1$2)');
 
@@ -247,10 +273,7 @@ function convert(text, rel){
 
 
 function docRouteForOutRel(outRel) {
-  let noExt = outRel.replace(/\.md$/, '');
-  if (noExt === 'intro') return '/docs/intro';
-  if (noExt.endsWith('/index')) noExt = noExt.slice(0, -('/index'.length));
-  return '/docs/' + noExt;
+  return routeForSourceRel(outRel).replace(/\/$/, '');
 }
 function resolveDocOutRel(fromOutRel, href) {
   const raw = href.split('#')[0];
@@ -306,7 +329,7 @@ function addCompatAnchorsForReferencedHashes() {
   for (const outRel of relMd.map(outRelFor)) {
     const file = path.join(docs, outRel);
     const text = readUtf(file);
-    const hrefs = [...text.matchAll(/\]\(([^)]+#[^)]+)\)/g)].map(m => m[1]);
+    const hrefs = [...text.matchAll(/\]\(([^)]*#[^)]+)\)/g)].map(m => m[1]);
     for (const href of hrefs) {
       const hash = href.split('#')[1]?.split(/[?&]/)[0];
       if (!hash) continue;
@@ -346,7 +369,7 @@ function addCompatAnchorsNearLinkedHeadings() {
   for (const outRel of relMd.map(outRelFor)) {
     const file = path.join(docs, outRel);
     const text = readUtf(file);
-    for (const m of text.matchAll(/\[([^\]\n]+)\]\(([^)]+#[^)]+)\)/g)) {
+    for (const m of text.matchAll(/\[([^\]\n]+)\]\(([^)]*#[^)]+)\)/g)) {
       const label = cleanTitle(m[1].replace(/[*_`\[\]]/g, ''));
       const href = m[2];
       const hash = href.split('#')[1]?.split(/[?&]/)[0];
@@ -387,11 +410,12 @@ function addLocalCompatAnchorsForSelfLinks() {
     if (outRel.endsWith('/index.md')) selfNames.add('README.md');
     const inserts = [];
     const append = [];
-    for (const m of text.matchAll(/\]\(([^)]+#[^)]+)\)/g)) {
+    for (const m of text.matchAll(/\]\(([^)]*#[^)]+)\)/g)) {
       const href = m[1];
-      const raw = href.split('#')[0].replace(/^\.\//, '');
+      const raw = href.split('#')[0].replace(/^\.\//, '').replace(/\/$/, '');
       if (/^https?:/.test(raw) || raw.startsWith('/gitbook/')) continue;
-      if (raw && !selfNames.has(raw) && !raw.endsWith('/' + path.posix.basename(outRel))) continue;
+      const currentRoute = docRouteForOutRel(outRel).replace(/\/$/, '').replace(/^\//, '');
+      if (raw && !selfNames.has(raw) && !raw.endsWith('/' + path.posix.basename(outRel)) && raw.replace(/^\//, '') !== currentRoute) continue;
       const hash = decodeURIComponent(href.split('#')[1]?.split(/[?&]/)[0] || '');
       const safe = hash.replace(/[^A-Za-z0-9А-Яа-я._~%:-]/g, '-');
       if (!safe || existing.has(safe)) continue;

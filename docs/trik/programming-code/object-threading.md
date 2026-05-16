@@ -11,11 +11,11 @@ import TabItem from '@theme/TabItem';
 
 | Метод                                                | Описание                                                              |
 | ---------------------------------------------------- | --------------------------------------------------------------------- |
-| [joinThread](object-threading.md#jointhread)         | Ожидает завершения указанного потока.                                 |
-| [killThread](object-threading.md#killthread)         | Заканчивает исполнение указанного потока.                             |
-| [receiveMessage](object-threading.md#receivemessage) | Запрашивает принятое сообщение.                                       |
-| [sendMessage](object-threading.md#sendmessage)       | Посылает сообщение указанному потоку.                                 |
-| [startThread](object-threading.md#startthread)       | Запускает переданную в качестве параметра функцию в отдельном потоке. |
+| [joinThread](#jointhread)         | Ожидает завершения указанного потока.                                 |
+| [killThread](#killthread)         | Заканчивает исполнение указанного потока.                             |
+| [receiveMessage](#receivemessage) | Запрашивает принятое сообщение.                                       |
+| [sendMessage](#sendmessage)       | Посылает сообщение указанному потоку.                                 |
+| [startThread](#startthread)       | Запускает переданную в качестве параметра функцию в отдельном потоке. |
 
 ###### ​ {#jointhread}
 ## joinThread

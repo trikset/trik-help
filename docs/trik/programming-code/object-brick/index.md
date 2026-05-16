@@ -11,30 +11,30 @@ import TabItem from '@theme/TabItem';
 
 | Метод                             | Описание                                                                                                      |
 | --------------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| [accelerometer](./#accelerometer) | Предоставляет доступ к акселерометру.                                                                         |
-| [battery](./#battery)             | Предоставляет доступ к информации об аккумуляторе.                                                            |
-| [colorSensor](./#colorsensor)     | Предоставляет доступ к датчику цвета по видеокамере.                                                          |
-| [display](./#display)             | Предоставляет доступ к дисплею робота.                                                                        |
-| [encoder](./#encoder)             | Предоставляет доступ к энкодеру на указанном порту.                                                           |
-| [getStillImage](./#getstillimage) | Получить фотографию с камеры в виде массива байт.                                                             |
-| [gyroscope](./#gyroscope)         | Предоставляет доступ к гироскопу.                                                                             |
-| [keys](./#keys)                   | Предоставляет доступ к кнопкам на корпусе робота.                                                             |
-| [playSound](./#playsound)         | Проиграть звуковой файл.                                                                                      |
-| [playTone](./#playtone)           | Проиграть звук с заданной частотой.                                                                           |
-| [led](./#led)                     | Предоставляет доступ к светодиоду на корпусе робота.                                                          |
-| [lineSensor](./#linesensor)       | Предоставляет доступ к датчику линии по видеокамере.                                                          |
-| [motor](./#motor)                 | Предоставляет доступ к мотору на указанном порту.                                                             |
-| [objectSensor](./#objectsensor)   | Предоставляет доступ к датчику объекта по видеокамере.                                                        |
-| [say](./#say)                     | Произнести переданную как параметр строку (на русском или английском языке).                                  |
-| [sensor](./#sensor)               | Предоставляет доступ к сенсору на указанном порту.                                                            |
-| [stop](./#stop)                   | Останавливает все моторы и активные датчики, убирает нарисованное на дисплее.                                 |
-| [marker](./#marker)               | Предоставляет доступ к рисованию маркером заданного цвета на полу. Доступен только в режиме двумерной модели. |
-| [irCamera](./#ircamera)           | Предоставляет доступ к инфракрасному датчику.                                                                 |
+| [accelerometer](#accelerometer) | Предоставляет доступ к акселерометру.                                                                         |
+| [battery](#battery)             | Предоставляет доступ к информации об аккумуляторе.                                                            |
+| [colorSensor](#colorsensor)     | Предоставляет доступ к датчику цвета по видеокамере.                                                          |
+| [display](#display)             | Предоставляет доступ к дисплею робота.                                                                        |
+| [encoder](#encoder)             | Предоставляет доступ к энкодеру на указанном порту.                                                           |
+| [getStillImage](#getstillimage) | Получить фотографию с камеры в виде массива байт.                                                             |
+| [gyroscope](#gyroscope)         | Предоставляет доступ к гироскопу.                                                                             |
+| [keys](#keys)                   | Предоставляет доступ к кнопкам на корпусе робота.                                                             |
+| [playSound](#playsound)         | Проиграть звуковой файл.                                                                                      |
+| [playTone](#playtone)           | Проиграть звук с заданной частотой.                                                                           |
+| [led](#led)                     | Предоставляет доступ к светодиоду на корпусе робота.                                                          |
+| [lineSensor](#linesensor)       | Предоставляет доступ к датчику линии по видеокамере.                                                          |
+| [motor](#motor)                 | Предоставляет доступ к мотору на указанном порту.                                                             |
+| [objectSensor](#objectsensor)   | Предоставляет доступ к датчику объекта по видеокамере.                                                        |
+| [say](#say)                     | Произнести переданную как параметр строку (на русском или английском языке).                                  |
+| [sensor](#sensor)               | Предоставляет доступ к сенсору на указанном порту.                                                            |
+| [stop](#stop)                   | Останавливает все моторы и активные датчики, убирает нарисованное на дисплее.                                 |
+| [marker](#marker)               | Предоставляет доступ к рисованию маркером заданного цвета на полу. Доступен только в режиме двумерной модели. |
+| [irCamera](#ircamera)           | Предоставляет доступ к инфракрасному датчику.                                                                 |
 
 ###### ​ {#accelerometer}
 ## accelerometer
 
-Предоставляет доступ к акселерометру (класс «[Accelerometer](class-accelerometer.md)»).
+Предоставляет доступ к акселерометру (класс «[Accelerometer](/docs/trik/programming-code/object-brick/class-accelerometer/)»).
 
 #### Синтаксис
 
@@ -55,7 +55,7 @@ brick.accelerometer();
 ###### ​ {#battery}
 ## battery
 
-Предоставляет доступ к информации об аккумуляторе.(класс «[Battery](class-battery.md)»).
+Предоставляет доступ к информации об аккумуляторе.(класс «[Battery](/docs/trik/programming-code/object-brick/class-battery/)»).
 
 #### Синтаксис
 
@@ -76,7 +76,7 @@ brick.battery();
 ###### ​ {#colorsensor}
 ## colorSensor
 
-Предоставляет доступ к датчику цвета по видеокамере (класс «[ColorSensor](class-colorsensor.md)»).
+Предоставляет доступ к датчику цвета по видеокамере (класс «[ColorSensor](/docs/trik/programming-code/object-brick/class-colorsensor/)»).
 
 #### Синтаксис
 
@@ -97,7 +97,7 @@ brick.colorSensor("video1");
 ###### ​ {#display}
 ## display
 
-Предоставляет доступ к дисплею робота (класс «[Display](class-display.md)»).
+Предоставляет доступ к дисплею робота (класс «[Display](/docs/trik/programming-code/object-brick/class-display/)»).
 
 #### Синтаксис
 
@@ -118,7 +118,7 @@ brick.display();
 ###### ​ {#encoder}
 ## encoder
 
-Предоставляет доступ к энкодеру на указанном порту (класс «[Encoder](class-encoder.md)»).
+Предоставляет доступ к энкодеру на указанном порту (класс «[Encoder](/docs/trik/programming-code/object-brick/class-encoder/)»).
 
 #### Синтаксис
 
@@ -182,7 +182,7 @@ brick.getStillImage();
 ###### ​ {#gyroscope}
 ## gyroscope
 
-Предоставляет доступ к гироскопу (класс «[Gyroscope](class-gyroscope.md)»).
+Предоставляет доступ к гироскопу (класс «[Gyroscope](/docs/trik/programming-code/object-brick/class-gyroscope/)»).
 
 #### Синтаксис
 
@@ -203,7 +203,7 @@ brick.gyroscope();
 ###### ​ {#keys}
 ## keys
 
-Предоставляет доступ к кнопкам на корпусе робота (класс «[Keys](class-keys.md)»).
+Предоставляет доступ к кнопкам на корпусе робота (класс «[Keys](/docs/trik/programming-code/object-brick/class-keys/)»).
 
 #### Синтаксис
 
@@ -224,7 +224,7 @@ brick.keys();
 ###### ​ {#led}
 ## led
 
-Предоставляет доступ к светодиоду на корпусе робота (класс «[Led](class-led.md)»).
+Предоставляет доступ к светодиоду на корпусе робота (класс «[Led](/docs/trik/programming-code/object-brick/class-led/)»).
 
 #### Синтаксис
 
@@ -245,7 +245,7 @@ brick.led();
 ###### ​ {#linesensor}
 ## lineSensor
 
-Предоставляет доступ к датчику линии по видеокамере (класс «[LineSensor](class-linesensor.md)»).
+Предоставляет доступ к датчику линии по видеокамере (класс «[LineSensor](/docs/trik/programming-code/object-brick/class-linesensor/)»).
 
 #### Синтаксис
 
@@ -266,7 +266,7 @@ brick.lineSensor("video1");
 ###### ​ {#motor}
 ## motor
 
-Предоставляет доступ к мотору (силовому или сервомотору) на указанном порту (класс «[Motor](class-motor.md)»).
+Предоставляет доступ к мотору (силовому или сервомотору) на указанном порту (класс «[Motor](/docs/trik/programming-code/object-brick/class-motor/)»).
 
 #### Синтаксис
 
@@ -309,7 +309,7 @@ brick.motor("M2") // вызов мотора на порту M2
 ###### ​ {#objectsensor}
 ## objectSensor
 
-Предоставляет доступ к датчику объекта по видеокамере (класс «[ObjectSensor](class-objectsensor.md)»).
+Предоставляет доступ к датчику объекта по видеокамере (класс «[ObjectSensor](/docs/trik/programming-code/object-brick/class-objectsensor/)»).
 
 #### Синтаксис
 
@@ -451,7 +451,7 @@ brick.say("Привет, я ТРИК");
 ###### ​ {#sensor}
 ## sensor
 
-Предоставляет доступ к сенсору на указанном порту (класс «[Sensor](class-sensor.md)»).
+Предоставляет доступ к сенсору на указанном порту (класс «[Sensor](/docs/trik/programming-code/object-brick/class-sensor/)»).
 
 #### Синтаксис
 
@@ -515,7 +515,7 @@ brick.stop();
 ###### ​ {#marker}
 ## marker
 
-Предоставляет доступ к рисованию маркером заданного цвета на полу. Доступен только в режиме двумерной модели (класс «[Marker](class-marker.md)»)
+Предоставляет доступ к рисованию маркером заданного цвета на полу. Доступен только в режиме двумерной модели (класс «[Marker](/docs/trik/programming-code/object-brick/class-marker/)»)
 
 #### Синтаксис
 
@@ -536,7 +536,7 @@ brick.marker();
 ###### ​ {#ircamera}
 ## irCamera
 
-Предоставляет доступ к инфракрасному датчику (класс «[IrCamera](class-ircamera.md)»).
+Предоставляет доступ к инфракрасному датчику (класс «[IrCamera](/docs/trik/programming-code/object-brick/class-ircamera/)»).
 
 #### Синтаксис
 

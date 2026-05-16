@@ -6,7 +6,7 @@ title: "Как изменить язык интерфейса TRIK Studio?"
 
 Изменить язык можно в настройках TRIK Studio.
 
-1\. Выберите в [главном меню](main-menu.md#menu-settings) `Настройки → Настройки...`.
+1\. Выберите в [главном меню](/docs/studio/interface/main-menu/#menu-settings) `Настройки → Настройки...`.
 
 ![](/gitbook/assets/08%201%20ru%20menu-settings%202.png)
 

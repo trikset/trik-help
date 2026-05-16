@@ -6,13 +6,13 @@ title: "Блоки LEGO NXT"
 
 Специализированные блоки для Lego NXT делятся на несколько категорий:
 
-1. [Действия](blocks.md#bloki-deistviya) — блоки, выполняющие какое-либо действие на роботе: включение моторов, проигрывание звука и т. д.
-2. [Ожидания](blocks.md#bloki-ozhidaniya) — блоки, ждущие наступления какого-либо события: определённых показаний датчиков, нажатия на кнопку и т. д.
-3. [Рисования на дисплее](blocks.md#risovanie-na-displee) — блоки, используемые для вывода графики и текста на экран.
+1. [Действия](#bloki-deistviya) — блоки, выполняющие какое-либо действие на роботе: включение моторов, проигрывание звука и т. д.
+2. [Ожидания](#bloki-ozhidaniya) — блоки, ждущие наступления какого-либо события: определённых показаний датчиков, нажатия на кнопку и т. д.
+3. [Рисования на дисплее](#risovanie-na-displee) — блоки, используемые для вывода графики и текста на экран.
 
 Блоки, доступные для всех платформ см. в статье
 
-[Общие блоки](../studio/programming-visual/blocks.md)
+[Общие блоки](/docs/studio/programming-visual/blocks/)
 
 
 
@@ -21,12 +21,12 @@ title: "Блоки LEGO NXT"
 
 |                                              Вид                                              |                               Название                               | Описание                                                                  |
 | :-------------------------------------------------------------------------------------------: | :------------------------------------------------------------------: | ------------------------------------------------------------------------- |
-|         <img src="/gitbook/assets/beepBlock%20%284%29.png" alt="" data-size="original" />          |                       [Гудок](blocks.md#gudok)                       | Проиграть на роботе звук с фиксированной частотой.                        |
-|       <img src="/gitbook/assets/playToneBlock%20%284%29.png" alt="" data-size="original" />        |                  [Играть звук](blocks.md#igrat-zvuk)                 | Проиграть на роботе звук с заданной частотой и длительностью.             |
-|    <img src="/gitbook/assets/enginesForwardBlock%20%284%29.png" alt="" data-size="original" />     |               [Моторы вперед](blocks.md#motory-vpered)               | Включить моторы по заданным портам с заданной мощностью.                  |
-|    <img src="/gitbook/assets/enginesBackwardBlock%20%284%29.png" alt="" data-size="original" />    |                [Моторы назад](blocks.md#motory-nazad)                | Включить моторы в режиме реверса по заданным портам с заданной мощностью. |
-|      <img src="/gitbook/assets/enginesStopBlock%20%284%29.png" alt="" data-size="original" />      |                 [Моторы стоп](blocks.md#motory-stop)                 | Выключить моторы по заданным портам.                                      |
-| <img src="/gitbook/assets/nullificationEncoderBlock%20%284%29.png" alt="" data-size="original" />  | [Сбросить показания энкодера](blocks.md#sbrosit-pokazaniya-enkodera) | Сбросить показания количества оборотов моторов.                           |
+|         <img src="/gitbook/assets/beepBlock%20%284%29.png" alt="" data-size="original" />          |                       [Гудок](#gudok)                       | Проиграть на роботе звук с фиксированной частотой.                        |
+|       <img src="/gitbook/assets/playToneBlock%20%284%29.png" alt="" data-size="original" />        |                  [Играть звук](#igrat-zvuk)                 | Проиграть на роботе звук с заданной частотой и длительностью.             |
+|    <img src="/gitbook/assets/enginesForwardBlock%20%284%29.png" alt="" data-size="original" />     |               [Моторы вперед](#motory-vpered)               | Включить моторы по заданным портам с заданной мощностью.                  |
+|    <img src="/gitbook/assets/enginesBackwardBlock%20%284%29.png" alt="" data-size="original" />    |                [Моторы назад](#motory-nazad)                | Включить моторы в режиме реверса по заданным портам с заданной мощностью. |
+|      <img src="/gitbook/assets/enginesStopBlock%20%284%29.png" alt="" data-size="original" />      |                 [Моторы стоп](#motory-stop)                 | Выключить моторы по заданным портам.                                      |
+| <img src="/gitbook/assets/nullificationEncoderBlock%20%284%29.png" alt="" data-size="original" />  | [Сбросить показания энкодера](#sbrosit-pokazaniya-enkodera) | Сбросить показания количества оборотов моторов.                           |
 
 ###### ​ {#gudok}
 ### Гудок &#123;#beep&#125;
@@ -43,7 +43,7 @@ title: "Блоки LEGO NXT"
 ### Играть звук &#123;#play-tone&#125;
 ![Играть звук](/gitbook/assets/playToneBlock%20%285%29.png)
 
-Проиграть на роботе звук с заданной частотой и длительностью. Аналогичен блоку «[Гудок](blocks.md#igrat-zvuk)», но позволяет также задавать параметры звука.\
+Проиграть на роботе звук с заданной частотой и длительностью. Аналогичен блоку «[Гудок](#igrat-zvuk)», но позволяет также задавать параметры звука.\
 \
 Параметры:
 
@@ -68,7 +68,7 @@ title: "Блоки LEGO NXT"
 
 Включить моторы в режиме реверса по заданным портам с заданной мощностью.\
 \
-Параметры аналогичны параметрам блока «[Моторы вперёд](blocks.md#motory-vpered)».
+Параметры аналогичны параметрам блока «[Моторы вперёд](#motory-vpered)».
 
 ###### ​ {#motory-stop}
 ### **Моторы стоп** &#123;#stop-motors&#125;
@@ -87,14 +87,14 @@ title: "Блоки LEGO NXT"
 
 |                                               Вид                                              |                             Название                            | Описание                                                                                                                                             |
 | :--------------------------------------------------------------------------------------------: | :-------------------------------------------------------------: | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
-|   <img src="/gitbook/assets/waitForTouchSensorBlock%20%284%29.png" alt="" data-size="original" />   |     [Ждать датчик касания](blocks.md#zhdat-datchik-kasaniya)    | Ждать, пока не сработает датчик касания.                                                                                                             |
-|  <img src="/gitbook/assets/waitForSonarDistanceBlock%20%286%29.png" alt="" data-size="original" />  |               [Ждать сонар](blocks.md#zhdat-sonar)              | <p>Ждать, пока расстояние, возвращаемое ультразвуковым сенсором расстояния, не будет сравнимо с указанным в значении параметра «Расстояние».<br /></p> |
-|      <img src="/gitbook/assets/waitForColorBlock%20%282%29.png" alt="" data-size="original" />      |                [Ждать цвет](blocks.md#zhdat-cvet)               | Ждать, пока сенсор цвета в режиме распознавания цветов не вернет указанный цвет.                                                                     |
-|     <img src="/gitbook/assets/waitForEncoderBlock%20%284%29.png" alt="" data-size="original" />     |             [Ждать энкодер](blocks.md#zhdat-enkoder)            | Ждать, пока показания счетчика количества оборотов на заданном моторе не достигнут указанного в значении параметра «Предел оборотов».                |
-| <img src="/gitbook/assets/waitForColorIntensityBlock%20%282%29.png" alt="" data-size="original" />  | [Ждать интенсивность цвета](blocks.md#zhdat-intensivnost-cveta) | Ждать, пока значение, возвращаемое сенсором цвета на указанном порту, не будет сравнимо с указанным в значении параметра «Интенсивность».            |
-|      <img src="/gitbook/assets/waitForLightBlock%20%284%29.png" alt="" data-size="original" />      |                [Ждать свет](blocks.md#zhdat-svet)               | Ждать, пока значение, возвращаемое сенсором света на указанном порту, не будет сравнимо с указанным в значении параметра «Проценты».                 |
-|   <img src="/gitbook/assets/waitForSoundSensorBlock%20%282%29.png" alt="" data-size="original" />   |       [Ждать датчик звука](blocks.md#zhdat-datchik-zvuka)       | Ждать, пока громкость, считанная микрофоном на заданном порту, не будет выше или ниже заданного значения.                                            |
-|     <img src="/gitbook/assets/waitForButtonsBlock%20%284%29.png" alt="" data-size="original" />     |     [Ждать нажатия кнопки](blocks.md#zhdat-nazhatiya-knopki)    | Ждать нажатия на кнопку на корпусе робота.                                                                                                           |
+|   <img src="/gitbook/assets/waitForTouchSensorBlock%20%284%29.png" alt="" data-size="original" />   |     [Ждать датчик касания](#zhdat-datchik-kasaniya)    | Ждать, пока не сработает датчик касания.                                                                                                             |
+|  <img src="/gitbook/assets/waitForSonarDistanceBlock%20%286%29.png" alt="" data-size="original" />  |               [Ждать сонар](#zhdat-sonar)              | <p>Ждать, пока расстояние, возвращаемое ультразвуковым сенсором расстояния, не будет сравнимо с указанным в значении параметра «Расстояние».<br /></p> |
+|      <img src="/gitbook/assets/waitForColorBlock%20%282%29.png" alt="" data-size="original" />      |                [Ждать цвет](#zhdat-cvet)               | Ждать, пока сенсор цвета в режиме распознавания цветов не вернет указанный цвет.                                                                     |
+|     <img src="/gitbook/assets/waitForEncoderBlock%20%284%29.png" alt="" data-size="original" />     |             [Ждать энкодер](#zhdat-enkoder)            | Ждать, пока показания счетчика количества оборотов на заданном моторе не достигнут указанного в значении параметра «Предел оборотов».                |
+| <img src="/gitbook/assets/waitForColorIntensityBlock%20%282%29.png" alt="" data-size="original" />  | [Ждать интенсивность цвета](#zhdat-intensivnost-cveta) | Ждать, пока значение, возвращаемое сенсором цвета на указанном порту, не будет сравнимо с указанным в значении параметра «Интенсивность».            |
+|      <img src="/gitbook/assets/waitForLightBlock%20%284%29.png" alt="" data-size="original" />      |                [Ждать свет](#zhdat-svet)               | Ждать, пока значение, возвращаемое сенсором света на указанном порту, не будет сравнимо с указанным в значении параметра «Проценты».                 |
+|   <img src="/gitbook/assets/waitForSoundSensorBlock%20%282%29.png" alt="" data-size="original" />   |       [Ждать датчик звука](#zhdat-datchik-zvuka)       | Ждать, пока громкость, считанная микрофоном на заданном порту, не будет выше или ниже заданного значения.                                            |
+|     <img src="/gitbook/assets/waitForButtonsBlock%20%284%29.png" alt="" data-size="original" />     |     [Ждать нажатия кнопки](#zhdat-nazhatiya-knopki)    | Ждать нажатия на кнопку на корпусе робота.                                                                                                           |
 
 ###### ​ {#zhdat-datchik-kasaniya}
 ### Ждать датчик касания &#123;#wait-for-touch-sensor&#125;
@@ -181,12 +181,12 @@ title: "Блоки LEGO NXT"
 
 |                                          Вид                                         |                            Название                           | Описание                                                          |
 | :----------------------------------------------------------------------------------: | :-----------------------------------------------------------: | ----------------------------------------------------------------- |
-|  <img src="/gitbook/assets/printTextBlock%20%284%29.png" alt="" data-size="original" />   |         [Напечатать текст](blocks.md#napechatat-tekst)        | Печатает заданную строку в заданном месте на экране робота.       |
-| <img src="/gitbook/assets/clearScreenBlock%20%284%29.png" alt="" data-size="original" />  |           [Очистить экран](blocks.md#ochistit-ekran)          | Стереть всё, что нарисовано на экране.                            |
-|   <img src="/gitbook/assets/drawRectBlock%20%284%29.png" alt="" data-size="original" />   | [Нарисовать прямоугольник](blocks.md#narisovat-pryamougolnik) | Нарисовать на экране прямоугольник.                               |
-|  <img src="/gitbook/assets/drawPixelBlock%20%284%29.png" alt="" data-size="original" />   |         [Нарисовать точку](blocks.md#narisovat-tochku)        | Нарисовать на экране точку в указанных координатах.               |
-|   <img src="/gitbook/assets/drawLineBlock%20%284%29.png" alt="" data-size="original" />   |         [Нарисовать линию](blocks.md#narisovat-liniyu)        | Нарисовать на экране отрезок.                                     |
-|  <img src="/gitbook/assets/drawCircleBlock%20%284%29.png" alt="" data-size="original" />  |          [Нарисовать круг](blocks.md#narisovat-krug)          | Нарисовать на экране круг с заданным центром и заданным радиусом. |
+|  <img src="/gitbook/assets/printTextBlock%20%284%29.png" alt="" data-size="original" />   |         [Напечатать текст](#napechatat-tekst)        | Печатает заданную строку в заданном месте на экране робота.       |
+| <img src="/gitbook/assets/clearScreenBlock%20%284%29.png" alt="" data-size="original" />  |           [Очистить экран](#ochistit-ekran)          | Стереть всё, что нарисовано на экране.                            |
+|   <img src="/gitbook/assets/drawRectBlock%20%284%29.png" alt="" data-size="original" />   | [Нарисовать прямоугольник](#narisovat-pryamougolnik) | Нарисовать на экране прямоугольник.                               |
+|  <img src="/gitbook/assets/drawPixelBlock%20%284%29.png" alt="" data-size="original" />   |         [Нарисовать точку](#narisovat-tochku)        | Нарисовать на экране точку в указанных координатах.               |
+|   <img src="/gitbook/assets/drawLineBlock%20%284%29.png" alt="" data-size="original" />   |         [Нарисовать линию](#narisovat-liniyu)        | Нарисовать на экране отрезок.                                     |
+|  <img src="/gitbook/assets/drawCircleBlock%20%284%29.png" alt="" data-size="original" />  |          [Нарисовать круг](#narisovat-krug)          | Нарисовать на экране круг с заданным центром и заданным радиусом. |
 
 ###### ​ {#napechatat-tekst}
 ### Напечатать текст &#123;#print-text&#125;

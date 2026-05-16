@@ -22,13 +22,13 @@ title: "Настройка работы USB-камеры с контроллер
 
 Это можно сделать с помощью любой из двух утилит:
 
-1. [PuTTY](usb-camera.md#putty).
-2. [WinSCP](usb-camera.md#winscp).
+1. [PuTTY](#putty).
+2. [WinSCP](#winscp).
 
 ###### ​ {#putty}
 ## **PuTTy**
 
-1\. [Подключитесь](../wi-fi/network-connection.md) к контроллеру с помощью режима «Wi-Fi точка доступа» или «Wi-Fi клиент».
+1\. [Подключитесь](/docs/trik/wi-fi/network-connection/) к контроллеру с помощью режима «Wi-Fi точка доступа» или «Wi-Fi клиент».
 
 2\. Откройте [TRIK Studio](https://trikset.com/products/trik-studio).
 
@@ -36,7 +36,7 @@ title: "Настройка работы USB-камеры с контроллер
 
 ![](/gitbook/assets/putty%20%281%29.png)
 
-4\. Введите [ip-адрес контроллера](../wi-fi/network-connection.md) (указан в параметрах сети контроллера) и нажмите «Open».&#x20;
+4\. Введите [ip-адрес контроллера](/docs/trik/wi-fi/network-connection/) (указан в параметрах сети контроллера) и нажмите «Open».&#x20;
 
 ![](/gitbook/assets/putty-connect-1.png)
 
@@ -78,7 +78,7 @@ Now writing PNG file (compression -1)
 2\. Заполните данные:
 
 * **File protocol:** SCP.
-* **Host name —** [ip-адрес контроллера](../wi-fi/network-connection.md).
+* **Host name —** [ip-адрес контроллера](/docs/trik/wi-fi/network-connection/).
 * **User name:** root.
 
 Поле «Password» оставьте пустым.&#x20;

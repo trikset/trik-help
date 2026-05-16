@@ -4,7 +4,7 @@ title: "Работа с графиками"
 
 # Работа с графиками
 
-Если программа запущена в режиме интерпретации на роботе или в двумерной модели, можно посмотреть показания сенсоров робота на графике в [специальном окне](./#panel-graphics).
+Если программа запущена в режиме интерпретации на роботе или в двумерной модели, можно посмотреть показания сенсоров робота на графике в [специальном окне](/docs/studio/interface/#panel-graphics).
 
 ![](/gitbook/assets/ts-graphics.gif)
 
@@ -25,7 +25,3 @@ title: "Работа с графиками"
 | <img src="https://thumb.tildacdn.com/tild3562-3134-4334-b733-656135373766/-/resize/130x/-/format/webp/lupa.png" alt="" data-size="line" />    | Изменение масштаба графика.                                                                                                             |
 | <img src="https://thumb.tildacdn.com/tild3137-3366-4161-a439-333565313762/-/resize/130x/-/format/webp/error.png" alt="" data-size="line" />   | Очистить график.                                                                                                                        |
 | <img src="https://thumb.tildacdn.com/tild3230-3336-4439-a336-336265386165/-/resize/130x/-/format/webp/save_as.png" alt="" data-size="line" /> | Экспорт показаний графика в формате `.csv` (comma-separated value). Экспортируются все показания выбранного датчика с начала их записи. |
-
-
-{/* Compatibility anchors for old GitBook/Docusaurus links. */}
-###### ​ {#panel-graphics}
