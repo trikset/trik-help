@@ -117,12 +117,19 @@
   }
 }
 
-/* GitBook migration polish: keep GitBook assets responsive.
-   Docusaurus imported markdown images get width/height attributes and can render
-   at intrinsic pixel size. Raw /gitbook/assets images are served directly, so we
-   set inline max-width in the MDX image component to avoid losing to attribute
-   precedence during hydration. */
-.theme-doc-markdown img[src^="/gitbook/assets/"] {
+/* GitBook migration polish: keep screenshots readable.
+   Docusaurus' default .markdown img { max-width: 100%; } makes wide app
+   screenshots fit the text column, which shrinks their UI details too much.
+   Show standalone migrated screenshots at their intrinsic size and let the
+   document area scroll horizontally when needed. Tables/inline icons are
+   constrained separately below. */
+.theme-doc-markdown {
+  overflow-x: auto;
+}
+
+.theme-doc-markdown img[src^="/gitbook/assets/"],
+.theme-doc-markdown img.trik-mdx-img {
+  max-width: none;
   height: auto;
 }
 
