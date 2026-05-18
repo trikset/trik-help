@@ -133,6 +133,19 @@
   height: auto;
 }
 
+/* Detail images of visual programming blocks are icons (usually 100x100),
+   not screenshots. Keep them near the text flow even if GitBook wrapped some
+   of them in <div align="center">. */
+.theme-doc-markdown img[src*="Block"],
+.theme-doc-markdown img[src*="block"] {
+  display: inline-block;
+}
+
+.theme-doc-markdown div[align="center"]:has(> img[src*="Block"]),
+.theme-doc-markdown div[align="center"]:has(> img[src*="block"]) {
+  text-align: left;
+}
+
 .theme-doc-markdown table img[src^="/gitbook/assets/"] {
   display: block;
   width: auto;
