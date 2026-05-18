@@ -117,9 +117,12 @@
   }
 }
 
-/* GitBook migration polish: keep block icons/tables visually stable. */
+/* GitBook migration polish: keep GitBook assets responsive.
+   Docusaurus imported markdown images get width/height attributes and can render
+   at intrinsic pixel size. Raw /gitbook/assets images are served directly, so we
+   set inline max-width in the MDX image component to avoid losing to attribute
+   precedence during hydration. */
 .theme-doc-markdown img[src^="/gitbook/assets/"] {
-  max-width: 100%;
   height: auto;
 }
 
