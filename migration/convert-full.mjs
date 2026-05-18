@@ -161,6 +161,29 @@ function normalizeGitbookAssetUrls(text) {
   return text;
 }
 
+function protectXmlLikeTags(text) {
+  const xmlName = String.raw`[A-Za-z_][A-Za-z0-9_.:-]*`;
+  const escapedPair = new RegExp(String.raw`\\?<(${xmlName})([^>\n]*)>\.\.\.\\?</\1>`, 'g');
+  const escapedSelfClosing = new RegExp(String.raw`\\?<(${xmlName})([^>\n]*?)/>`, 'g');
+  const escapedOpeningOnlyHeading = new RegExp(String.raw`^(#{1,6}\s+)\\?<(${xmlName})([^>\n]*)>\s*$`);
+  const entityPair = new RegExp(String.raw`&lt;(${xmlName})([^&\n]*)&gt;\.\.\.&lt;/\1&gt;`, 'g');
+  const entitySelfClosing = new RegExp(String.raw`&lt;(${xmlName})([^&\n]*?)/&gt;`, 'g');
+  const entityOpeningOnlyHeading = new RegExp(String.raw`^(#{1,6}\s+)&lt;(${xmlName})([^&\n]*)&gt;\s*$`);
+  let inFence = false;
+  return text.split('\n').map((line) => {
+    if (line.trim().startsWith('```')) { inFence = !inFence; return line; }
+    if (inFence) return line;
+    if (/^\s*\|/.test(line)) return line;
+    line = line.replace(escapedPair, '`<$1$2>...</$1>`');
+    line = line.replace(escapedSelfClosing, '`<$1$2/>`');
+    line = line.replace(escapedOpeningOnlyHeading, '$1`<$2$3>`');
+    line = line.replace(entityPair, '`<$1$2>...</$1>`');
+    line = line.replace(entitySelfClosing, '`<$1$2/>`');
+    line = line.replace(entityOpeningOnlyHeading, '$1`<$2$3>`');
+    return line;
+  }).join('\n');
+}
+
 function convert(text, rel){
   const needsTabs = /\{% tabs %\}/.test(text);
   const title = titleFrom(text, rel);
@@ -192,6 +215,10 @@ function convert(text, rel){
 
   // Drop any other unknown GitBook tags instead of breaking MDX; log-worthy later.
   text = text.replace(/\{%[^%]*%\}/g, '');
+
+  // GitBook uses escaped XML examples in headings/text (e.g. \<robots>...\</robots>).
+  // Protect them as inline code before the generic MDX angle-bracket escaping below.
+  text = protectXmlLikeTags(text);
 
   // Asset paths: relative climbs to GitBook assets -> site-absolute static path.
   text = text.replace(/(?:\.\.\/)*\.gitbook\/assets\//g, '/gitbook/assets/');
@@ -234,7 +261,7 @@ function convert(text, rel){
   text = text.replace(/&lt;span id="([^"]+)"&gt;&lt;\/span&gt;/g, '<span id="$1"></span>');
 
   // Drop leftover raw/escaped HTML tags that otherwise become bogus links to '/'.
-  text = text.replace(/&lt;\/?(?:p|div|span|a|br|img|table|thead|tbody|tr|td|th|ul|ol|li|strong|em|code|pre|figure|figcaption)[^>]*&gt;/g, '');
+  text = text.replace(/&lt;\/?(?:p|div|span|a|br|img|table|thead|tbody|tr|td|th|ul|ol|li|strong|em|code|pre|figure|figcaption)\b[^>]*&gt;/g, '');
 
   // Normalize GitBook asset image links wrapped in angle brackets, including escaped forms.
   text = text.replace(/!\[([^\]]*)\]\(&lt;([^)]*?\/gitbook\/assets\/[^)]*?)&gt;\)/g, '![$1]($2)');

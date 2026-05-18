@@ -192,7 +192,7 @@ title: "Примеры задания ограничений"
 
 Для этого давайте создадим событие, которое будет проверять находится робот в нужной зоне или нет. Атрибут `settedUpInitially="true"` означает, что событие будет запущено (взведено) сразу при старте программы.
 
-В теге [\&lt;condition&gt;](/docs/studio/2d-model/restrictions/#less-than-conditions-greater-than-less-than-conditions-greater-than) мы указываем какое именно условие необходимо проверить. В нашем случае условие аналогично описанным выше - мы проверяем, что робот находится в регионе с `id = "finish"`. В случае, если это условие выполнится, то пользователю будет показано сообщение об успешном выполнении программы. Для этого в теге [\](/docs/studio/2d-model/restrictions/#less-than-success-greater-than).
+В теге [\&lt;condition&gt;](/docs/studio/2d-model/restrictions/#less-than-conditions-greater-than-less-than-conditions-greater-than) мы указываем какое именно условие необходимо проверить. В нашем случае условие аналогично описанным выше - мы проверяем, что робот находится в регионе с `id = "finish"`. В случае, если это условие выполнится, то пользователю будет показано сообщение об успешном выполнении программы. Для этого в теге [\&lt;trigger&gt;](/docs/studio/2d-model/restrictions/#less-than-trigger-greater-than-less-than-trigger-greater-than) мы пишем дочерний тег [`&lt;success/&gt;`](/docs/studio/2d-model/restrictions/#less-than-success-greater-than).
 
 ```markup
 <event id="finish checker" settedUpInitially="true">

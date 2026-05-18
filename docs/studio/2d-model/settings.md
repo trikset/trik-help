@@ -101,7 +101,7 @@ XML-файл состоит из тегов и атрибутов.
 
 
 
-### \&lt;robots&gt;...\&lt;/robots&gt;
+### `&lt;robots&gt;...&lt;/robots&gt;`
 
 Определяет робота на сцене. Используется как контейнер, атрибутов не имеет.
 
@@ -113,7 +113,7 @@ XML-файл состоит из тегов и атрибутов.
 
 
 
-### \&lt;robot&gt;...\&lt;/robot&gt;
+### `&lt;robot&gt;...&lt;/robot&gt;`
 
 Добавляет робота на сцену. Может использоваться как контейнер.
 
@@ -139,7 +139,7 @@ XML-файл состоит из тегов и атрибутов.
 
 
 
-### \&lt;sensors&gt;...\&lt;/sensors&gt;
+### `&lt;sensors&gt;...&lt;/sensors&gt;`
 
 Определяет датчики на роботе. Используется как контейнер, атрибутов не имеет.
 
@@ -151,7 +151,7 @@ XML-файл состоит из тегов и атрибутов.
 
 
 
-### \&lt;sensor/&gt;
+### `&lt;sensor/&gt;`
 
 Конфигурация портов датчиков.
 
@@ -203,7 +203,7 @@ type="trik::robotModel::parts::TrikInfraredSensor"/>
 
 
 
-### \&lt;startPosition/&gt;
+### `&lt;startPosition/&gt;`
 
 Определяет стартовое положение робота.
 
@@ -226,7 +226,7 @@ type="trik::robotModel::parts::TrikInfraredSensor"/>
 
 
 
-### \&lt;wheels/&gt; &#123;#wheels&#125;
+### `&lt;wheels/&gt;` &#123;#wheels&#125;
 Конфигурация портов моторов.
 
 #### Атрибуты
@@ -277,7 +277,7 @@ type="trik::robotModel::parts::TrikInfraredSensor"/>
 
 ###
 
-### \&lt;wall&gt;
+### `&lt;wall&gt;`
 
 Добавляет на сцену стену.
 
@@ -299,7 +299,7 @@ type="trik::robotModel::parts::TrikInfraredSensor"/>
 
 
 
-### \&lt;skittle&gt;
+### `&lt;skittle&gt;`
 
 Добавляет банку на сцену.
 
@@ -324,7 +324,7 @@ markerX="220"/>
 
 
 
-### \&lt;ball&gt;
+### `&lt;ball&gt;`
 
 Добавляет мяч на сцену.
 
@@ -348,7 +348,7 @@ markerX="220"/>
 
 
 
-### \
+### `&lt;line&gt;`
 
 Добавляет линию на сцену.
 
@@ -376,7 +376,7 @@ fill="#ff000000" stroke="#ff000000" begin="50:-50"/>
 
 
 
-### \&lt;cubicBezier&gt;
+### `&lt;cubicBezier&gt;`
 
 Добавляет кривую Безье.
 
@@ -407,7 +407,7 @@ stroke="#ff000000" stroke-style="solid"/>
 
 ###
 
-### \&lt;rectangle&gt;
+### `&lt;rectangle&gt;`
 
 Добавляет прямоугольник.
 
@@ -435,7 +435,7 @@ stroke-style="solid" fill="#ff000000" stroke="#ff000000" begin="285:229"/>
 
 ###
 
-### \&lt;ellipse&gt;
+### `&lt;ellipse&gt;`
 
 Добавляет эллипс.
 
@@ -463,7 +463,7 @@ stroke-style="solid" fill="#ff000000" stroke="#ff000000" begin="-260:7"/>
 
 ###
 
-### \&lt;stylus&gt;
+### `&lt;stylus&gt;`
 
 Определяет стилус для рисования.
 
@@ -489,7 +489,7 @@ fill="#ff000000" stroke="#ff000000">
 
 
 
-### \&lt;stylusLine&gt;
+### `&lt;stylusLine&gt;`
 
 Позволяет рисовать произвольные фигуры с помощью стилуса. Этот блок кода состоит из множества отрезков.
 
@@ -519,7 +519,7 @@ fill="#ff000000" stroke="#ff000000" begin="-333:258"/>
 
 
 
-### \&lt;region&gt;
+### `&lt;region&gt;`
 
 Позволяет добавлять регионы на сцене. Существует 2 вида региональных ограничений:&#x20;
 
@@ -579,7 +579,7 @@ text="Finish" textY="0" x="1300" y="-200" visible="true" id="Start" color="#ff00
 
 ![](/gitbook/assets/context_save_worldmap.png)
 
-3\. Откройте получившийся XML-файл в любом удобном редакторе. Обратите внимание на блок кода с тегом ``.
+3\. Откройте получившийся XML-файл в любом удобном редакторе. Обратите внимание на блок кода с тегом `&lt;line...&gt;`.
 
 ![](https://thumb.tildacdn.com/tild6436-6631-4339-a436-313861333065/-/format/webp/image22.png)
 

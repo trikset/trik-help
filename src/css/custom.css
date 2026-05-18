@@ -181,29 +181,18 @@
   border-radius: 6px;
 }
 
-/* Block palette/detail icons: GitBook sometimes exported them with huge width attrs. */
-.theme-doc-markdown img[src*="Block"],
-.theme-doc-markdown img[src*="block"] {
+/* Block palette/detail icons: constrain only table icons. Standalone screenshots/GIFs
+   can also have "block(s)" in the filename and must stay full responsive size. */
+.theme-doc-markdown table img[src*="Block"],
+.theme-doc-markdown table img[src*="block"] {
   width: auto !important;
   height: auto !important;
-  max-width: 220px;
-  max-height: 92px;
+  max-width: 96px;
+  max-height: 56px;
   object-fit: contain;
 }
 
-.theme-doc-markdown table img[src*="Block"],
-.theme-doc-markdown table img[src*="block"] {
-  max-width: 96px;
-  max-height: 56px;
-}
-
 @media (max-width: 600px) {
-  .theme-doc-markdown img[src*="Block"],
-  .theme-doc-markdown img[src*="block"] {
-    max-width: 180px;
-    max-height: 80px;
-  }
-
   .theme-doc-markdown table img[src*="Block"],
   .theme-doc-markdown table img[src*="block"] {
     max-width: 78px;
