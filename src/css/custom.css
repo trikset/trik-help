@@ -129,7 +129,7 @@
 
 .theme-doc-markdown img[src^="/gitbook/assets/"],
 .theme-doc-markdown img.trik-mdx-img {
-  max-width: none;
+  max-width: 100%;
   height: auto;
 }
 
