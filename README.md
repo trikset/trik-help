@@ -1,12 +1,12 @@
-# TRIK Help Docusaurus Preview
+# Справочный центр ТРИК
 
-Temporary Docusaurus migration repository for TRIK Help.
+Docusaurus-версия справочного центра ТРИК.
 
 - Preview: https://help-new.trikset.com
-- Source GitBook repo: https://github.com/trikset/trik-help (`main-ru`)
-- Intended final home: `trikset/trik-help` or another TRIK org repository after access is available.
+- Рабочая ветка миграции: `trik-help-doc`
+- Основная ветка текущей GitBook-версии: `main-ru`
 
-## Development
+## Локальная разработка
 
 ```bash
 npm ci
@@ -14,16 +14,26 @@ npm run start
 npm run build
 ```
 
-## Deployment
+## Структура
 
-`.github/workflows/deploy-preview.yml` builds the site and deploys `build/` to Bender via rsync.
+- `docs/` — страницы справки.
+- `sidebars.ts` — левое меню справки.
+- `static/gitbook/assets/` — изображения и файлы, перенесённые из GitBook.
+- `static/admin/` — Decap CMS для редактирования через веб-интерфейс.
+- `migration/` — служебные материалы миграции и карта старых URL.
 
-Required GitHub Actions secrets:
+## URL
 
-- `BENDER_HOST`
-- `BENDER_USER`
-- `BENDER_SSH_KEY`
-- `BENDER_PATH`
-- `BENDER_PORT` (optional, defaults to 22 in workflow env if absent)
+Docusaurus настроен так, чтобы публичные пути совпадали со старой справкой, например:
 
-Production `help.trikset.com` is not switched by this repository.
+- `/studio/about/`
+- `/trik/menu/`
+- `/ev3/about/`
+
+Путь `/admin/` зарезервирован для Decap CMS и защищён basic auth.
+
+## Редактирование через Decap CMS
+
+Админка preview-сайта: https://help-new.trikset.com/admin/
+
+Decap CMS пишет изменения в ветку `trik-help-doc` репозитория `trikset/trik-help`.

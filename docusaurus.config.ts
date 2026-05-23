@@ -36,7 +36,7 @@ const config: Config = {
         indexDocs: true,
         indexBlog: false,
         indexPages: false,
-        docsRouteBasePath: '/docs',
+        docsRouteBasePath: '/',
         searchBarPosition: 'right',
       },
     ],
@@ -48,7 +48,7 @@ const config: Config = {
       {
         docs: {
           sidebarPath: './sidebars.ts',
-          routeBasePath: 'docs',
+          routeBasePath: '/',
         },
         blog: false,
         theme: {
