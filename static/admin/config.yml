@@ -1,7 +1,7 @@
 backend:
   name: github
-  repo: ilyashir/trik-help-docusaurus
-  branch: main
+  repo: trikset/trik-help
+  branch: docusaurus-migration
   base_url: https://help-new.trikset.com
   squash_merges: true
 
