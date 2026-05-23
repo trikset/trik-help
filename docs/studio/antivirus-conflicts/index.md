@@ -8,4 +8,4 @@ title: "Сбои из-за антивирусов"
 
 Ниже приведены инструкции для решения подобных проблем с антивирусами:
 
-* [Антивирус Avast блокирует TRIK Studio. Что делать?](/docs/studio/antivirus-conflicts/avast/)
+* [Антивирус Avast блокирует TRIK Studio. Что делать?](/studio/antivirus-conflicts/avast/)

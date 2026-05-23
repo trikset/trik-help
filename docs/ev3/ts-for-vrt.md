@@ -8,7 +8,7 @@ TRIK Studio можно использовать для написания про
 
 Для написания и загрузки программы в VRT необходимо:
 
-1. На визуальном языке [написать программу ](/docs/studio/programming-visual/)для [LEGO EV3](/docs/ev3/run-upload-programs/).
+1. На визуальном языке [написать программу ](/studio/programming-visual/)для [LEGO EV3](/ev3/run-upload-programs/).
 2. В любом из режимов робота LEGO EV3 («Автономный режим (USB)», «Автономный режим (Bluetooth)», «Интерпретатор (USB)», «Интерпретатор (Bluetooth)») нажать кнопку «Загрузить программу». В результате этого создастся исполняемый файл `.rbf` в папке `%APPDATA%\trik-studio\ev3-rbf`.
 3. Запустить VRT.
 4. Запустить [EV3 Explorer](https://sites.google.com/site/ev3basic/ev3-explorer) и подключиться к виртуальному роботу в VRT по Wi-Fi (IP-адрес: `127.0.0.1`).

@@ -4,7 +4,7 @@ title: "Программирование на визуальном языке"
 
 # Программирование на визуальном языке
 
-Программа в TRIK Studio представляется в виде последовательности [блоков](/docs/studio/programming-visual/blocks/), соединённых [связями](/docs/studio/programming-visual/connection-between-blocks/).&#x20;
+Программа в TRIK Studio представляется в виде последовательности [блоков](/studio/programming-visual/blocks/), соединённых [связями](/studio/programming-visual/connection-between-blocks/).&#x20;
 
 ![](/gitbook/assets/blocks%20%281%29.png)
 
@@ -13,20 +13,20 @@ title: "Программирование на визуальном языке"
 ![](/gitbook/assets/diagram.png)
 
 ## Главная диаграмма &#123;#main-diagramm&#125;
-Главная диаграмма создаётся при [создании проекта](/docs/studio/start/#new-project). Про добавление и удаление блоков на [сцену](/docs/studio/interface/#editor-window-1) читайте в статье:
+Главная диаграмма создаётся при [создании проекта](/studio/start/#new-project). Про добавление и удаление блоков на [сцену](/studio/interface/#editor-window-1) читайте в статье:
 
-[Добавление и удаление блоков](/docs/studio/programming-visual/blocks-add-delete/)
+[Добавление и удаление блоков](/studio/programming-visual/blocks-add-delete/)
 
 ###### ​ {#podprogrammy}
 ## Подпрограммы
 
-Диаграммы с подпрограммами создаются автоматически при добавлении блока [«Подпрограмма»](/docs/studio/programming-visual/blocks/#subprogram) на сцену. При этом отображение подпрограммы происходит при двойном клике на блок «Подпрограмма» на сцене.
+Диаграммы с подпрограммами создаются автоматически при добавлении блока [«Подпрограмма»](/studio/programming-visual/blocks/#subprogram) на сцену. При этом отображение подпрограммы происходит при двойном клике на блок «Подпрограмма» на сцене.
 
 ![](/gitbook/assets/subprogramm.gif)
 
 Подробнее о подпрограммах читайте в статье:
 
-[Подпрограммы](/docs/studio/programming-visual/subprograms/)
+[Подпрограммы](/studio/programming-visual/subprograms/)
 
 
 {/* Compatibility anchors for old GitBook/Docusaurus links. */}

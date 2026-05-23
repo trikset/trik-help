@@ -31,7 +31,7 @@ var pic = getPhoto();
 
 Рассмотрим пример преобразования кадра, снятого на камеру, в цветовые форматы «оттенок серого» и «черно-белый».
 
-Сделайте снимок и выведите результат на экран c помощью функции [**show**](/docs/trik/programming-code/object-brick/class-display/#show).
+Сделайте снимок и выведите результат на экран c помощью функции [**show**](/trik/programming-code/object-brick/class-display/#show).
 
 <Tabs>
 <TabItem value={"python"} label={"Python"}>

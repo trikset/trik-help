@@ -518,7 +518,7 @@ brick.display().show(array, width, height, format)
 
 #### Пример
 
-Примеры использования `show()` на изображении, снятом с использованием функции [`getPhoto()`](/docs/trik/programming-code/function-getphoto/).
+Примеры использования `show()` на изображении, снятом с использованием функции [`getPhoto()`](/trik/programming-code/function-getphoto/).
 
 <Tabs>
 <TabItem value={"python"} label={"Python"}>

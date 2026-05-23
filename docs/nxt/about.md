@@ -4,7 +4,7 @@ title: "О LEGO NXT"
 
 # О LEGO NXT
 
-**Lego NXT** — образовательная робототехническая платформа. TRIK Studio поддерживает данную платформу для [программирования](/docs/pioneer/about/#programming).
+**Lego NXT** — образовательная робототехническая платформа. TRIK Studio поддерживает данную платформу для [программирования](/pioneer/about/#programming).
 
 ![](/gitbook/assets/nxt.png)
 
@@ -13,12 +13,12 @@ title: "О LEGO NXT"
 :::
 
 ## Программирование LEGO NXT &#123;#programming&#125;
-Для программирования контроллера Lego NXT выберите «Lego NXT» в настройках TRIK Studio во вкладке [«Роботы»](/docs/studio/interface/faq-robot-settings/).
+Для программирования контроллера Lego NXT выберите «Lego NXT» в настройках TRIK Studio во вкладке [«Роботы»](/studio/interface/faq-robot-settings/).
 
 ![](/gitbook/assets/robots-nxt.png)
 
-Используйте [специализированные](/docs/nxt/blocks/) и [общие](/docs/studio/programming-visual/blocks/) блоки для написания программ.
+Используйте [специализированные](/nxt/blocks/) и [общие](/studio/programming-visual/blocks/) блоки для написания программ.
 
 Подробнее о визуальном программировании читайте в статье
 
-[Программирование на визуальном языке](/docs/studio/programming-visual/)
+[Программирование на визуальном языке](/studio/programming-visual/)

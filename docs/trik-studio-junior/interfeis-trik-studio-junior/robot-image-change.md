@@ -36,7 +36,7 @@ title: "Как заменить изображение «Исполнителя�
 * `_left` — для изображения, когда «Исполнитель» движется **налево**
 
 ## Замена изображения «Исполнителя» в настройках TRIK Studio Junior &#123;#settings&#125;
-1\. Выберите в [главном меню](/docs/studio/interface/main-menu/#menu-settings) `Настройки → Настройки...`.
+1\. Выберите в [главном меню](/studio/interface/main-menu/#menu-settings) `Настройки → Настройки...`.
 
 ![](/gitbook/assets/settings.png)
 

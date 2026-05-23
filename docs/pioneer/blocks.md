@@ -6,7 +6,7 @@ title: "Блоки квадрокоптера Геоскан Пионер"
 
 Блоки, доступные для всех платформ, смотрите в статье
 
-[Общие блоки](/docs/studio/programming-visual/blocks/)
+[Общие блоки](/studio/programming-visual/blocks/)
 
 
 

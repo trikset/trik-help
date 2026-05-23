@@ -1,0 +1,123 @@
+:root {
+  --ifm-font-family-base: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --ifm-color-primary: #2e8555;
+  --ifm-color-emphasis-100: #f5f6f7;
+  --ifm-color-emphasis-200: #ebedf0;
+  --ifm-color-emphasis-300: #dadde1;
+  --ifm-color-emphasis-700: #444950;
+  --ifm-color-emphasis-800: #393d42;
+  --ifm-code-background: #f6f8fa;
+}
+
+body {
+  margin: 0;
+  background: #fff;
+  color: #1c1e21;
+  font-family: var(--ifm-font-family-base);
+}
+
+.trik-preview-page {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 40px 64px;
+  line-height: 1.65;
+  font-size: 16px;
+}
+
+.trik-preview-page h1 {
+  font-size: 2.35rem;
+  line-height: 1.15;
+  margin: 0 0 1.3rem;
+}
+
+.trik-preview-page h2 {
+  font-size: 1.65rem;
+  margin: 2.2rem 0 1rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.trik-preview-page h3 { font-size: 1.28rem; margin: 1.7rem 0 0.7rem; }
+.trik-preview-page h4 { font-size: 1.1rem; margin: 1.4rem 0 0.6rem; }
+.trik-preview-page p { margin: 0 0 1rem; }
+.trik-preview-page a { color: #1d4ed8; text-decoration: none; }
+.trik-preview-page a:hover { text-decoration: underline; }
+.trik-preview-page ul, .trik-preview-page ol { padding-left: 1.5rem; margin: 0 0 1rem; }
+.trik-preview-page li { margin: 0.2rem 0; }
+.trik-preview-page blockquote {
+  margin: 1.2rem 0;
+  padding: 0.75rem 1rem;
+  border-left: 4px solid var(--ifm-color-primary);
+  background: #f6f8fa;
+  color: var(--ifm-color-emphasis-800);
+}
+.trik-preview-page hr { border: 0; border-top: 1px solid var(--ifm-color-emphasis-300); margin: 2rem 0; }
+.trik-preview-page code {
+  background: var(--ifm-code-background);
+  border-radius: 4px;
+  padding: 0.12rem 0.25rem;
+  font-size: 0.92em;
+}
+.trik-preview-page pre {
+  background: #f6f8fa;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 8px;
+  padding: 1rem;
+  overflow: auto;
+}
+.trik-preview-page pre code { background: transparent; padding: 0; }
+.trik-preview-page table {
+  display: block;
+  width: 100%;
+  overflow: auto;
+  border-collapse: collapse;
+  margin: 1rem 0;
+}
+.trik-preview-page th, .trik-preview-page td {
+  border: 1px solid var(--ifm-color-emphasis-300);
+  padding: 0.55rem 0.7rem;
+  vertical-align: top;
+}
+.trik-preview-page th { background: #f6f8fa; font-weight: 700; }
+.trik-preview-page img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 1rem auto;
+}
+.trik-preview-hint {
+  margin: 1.2rem 0;
+  padding: 0.9rem 1rem;
+  border-left: 4px solid #2563eb;
+  background: #eff6ff;
+  border-radius: 6px;
+}
+.trik-preview-warning {
+  border-left-color: #f59e0b;
+  background: #fffbeb;
+}
+.trik-preview-danger {
+  border-left-color: #dc2626;
+  background: #fef2f2;
+}
+.trik-preview-tabs {
+  margin: 1.2rem 0;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.trik-preview-tab-label {
+  background: #f6f8fa;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+  padding: 0.5rem 0.8rem;
+  font-weight: 700;
+}
+.trik-preview-tab-body { padding: 0.8rem; }
+.trik-preview-muted {
+  color: #6b7280;
+  font-size: 0.92rem;
+}
+@media (max-width: 720px) {
+  .trik-preview-page { padding: 24px 18px 56px; }
+  .trik-preview-page h1 { font-size: 2rem; }
+}

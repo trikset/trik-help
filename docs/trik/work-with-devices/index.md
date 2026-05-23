@@ -12,8 +12,8 @@ title: "Подключение устройств к ТРИК и работа с
 
 В данном разделе собрана информация о подключении к контроллеру ТРИК датчиков, моторов, камер — описан процесс тестирования подключенных устройств, их конфигурирования и эффективного использования вместе со средой программирования TRIK Studio.
 
-[Тестирование подключенных к контроллеру ТРИК устройств](/docs/trik/work-with-devices/testing-connected-devices/)
+[Тестирование подключенных к контроллеру ТРИК устройств](/trik/work-with-devices/testing-connected-devices/)
 
-[Настройка работы USB-камеры с контроллером ТРИК](/docs/trik/work-with-devices/usb-camera/)
+[Настройка работы USB-камеры с контроллером ТРИК](/trik/work-with-devices/usb-camera/)
 
-[Съемка изображений на камеру ТРИК и использование их в TRIK Studio](/docs/trik/work-with-devices/capture-images-on-camera/)
+[Съемка изображений на камеру ТРИК и использование их в TRIK Studio](/trik/work-with-devices/capture-images-on-camera/)

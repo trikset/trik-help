@@ -20,7 +20,7 @@ title: "Веб-интерфейс контроллера ТРИК"
 
 ‌Для запуска веб-интерфейса:
 
-1. Подключите контроллер ТРИК к компьютеру любым из [возможных способов](/docs/trik/wi-fi/network-connection/).
+1. Подключите контроллер ТРИК к компьютеру любым из [возможных способов](/trik/wi-fi/network-connection/).
 2. Введите в адресной строке браузера IP-адрес контроллера.
 
 ![Пример ввода IP-адреса](https://lh4.googleusercontent.com/8Dqrd13QCRPWKrIQoD8IPvgMdIYyI2vNabe8JDQxW1o5RGSkI6vM-CurBL5GtXbDzqdFODH-0uKFnYNJhIs4S8waXds6cDGJI5a0Z\_\_AYBy7knvWh8zh2V\_5-ouwGcgk-b3vQaoo)
@@ -46,9 +46,9 @@ IP-адрес контроллера отображается на экране 
 
 На вкладке «Сеть» можно:
 
-* ‌Задать параметры Wi-Fi-сети для контроллера в режиме точки доступа [Wi-Fi-клиента](/docs/trik/wi-fi/network-connection/#client).
-* Изменить имя точки доступа Wi-Fi для контроллера в режиме [точки доступа Wi-Fi](/docs/trik/wi-fi/network-connection/#accesspoint).
-* Задать бортномер контроллера и IP-адрес ведущего контроллера для [взаимодействия контроллеров](/docs/trik/wi-fi/interaction/).
+* ‌Задать параметры Wi-Fi-сети для контроллера в режиме точки доступа [Wi-Fi-клиента](/trik/wi-fi/network-connection/#client).
+* Изменить имя точки доступа Wi-Fi для контроллера в режиме [точки доступа Wi-Fi](/trik/wi-fi/network-connection/#accesspoint).
+* Задать бортномер контроллера и IP-адрес ведущего контроллера для [взаимодействия контроллеров](/trik/wi-fi/interaction/).
 * Включить или отключить PPP-демон (PPP-демон нужен для эмуляции сетевого подключения через последовательный порт).
 
 ![Вкладка «Сеть»](https://lh6.googleusercontent.com/pqcyQadVMo8y9EM1VVEHXJcLAwlGPeykZC4nmAYKohSX4mtFnmjGhJcrSxx7Rnv1tCmZ612-r1CMSKpg0iDBA9fxt7sXDPg0XxuplnDSDH3yu6fV5K2yHUgC1mNhgy3AnQZB8DTv)
@@ -127,12 +127,12 @@ IP-адрес контроллера отображается на экране 
 
 Вкладка «Видеотрансляция» позволяет смотреть видео с установленной на контроллере камеры.
 
-Для её запуска необходимо в [программу управления роботом с пульта](/docs/gamepad/remote-control/) добавить блок «[Запустить видеотрансляцию](/docs/trik/programming-visual/blocks/#camera-on)».
+Для её запуска необходимо в [программу управления роботом с пульта](/gamepad/remote-control/) добавить блок «[Запустить видеотрансляцию](/trik/programming-visual/blocks/#camera-on)».
 
 ###### ​ {#bortovoi-zhurnal}
 ## Бортовой журнал
 
-На вкладке «Бортовой журнал» отображаются логи контроллера, которые можно скачать [для последующей отправки их в службу поддержки](/docs/feedback/logging/#trik).
+На вкладке «Бортовой журнал» отображаются логи контроллера, которые можно скачать [для последующей отправки их в службу поддержки](/feedback/logging/#trik).
 
 ![](https://lh3.googleusercontent.com/gSw8G3IcE5WolWHUJSpZlaBou1jVur3MY12FkxpU6\_Zbl\_j49p3-XzsLa2TqG40IWm\_JunJeM7sYQ6UhxRY1s9ZlJWju84ZjKUyZXDaf0NFjuzxKGqQedqwm2ZwNJDn7EQ0iALz-)
 
@@ -156,7 +156,7 @@ IP-адрес контроллера отображается на экране 
 
 На вкладке вы можете:
 
-* [Сделать снимок экрана контроллера](/docs/trik/about/screenshot/).
+* [Сделать снимок экрана контроллера](/trik/about/screenshot/).
 * Просмотреть и скачать полученные с контроллера изображения как по отдельности, так и все вместе.
 * Удалить все имеющиеся изображения (выборочного удаления не предусмотрено).
 
@@ -164,4 +164,4 @@ IP-адрес контроллера отображается на экране 
 
 ## LOG
 
-Иконка <img src="/gitbook/assets/logs2%20%281%29.png" alt="" data-size="line" /> позволяет скачать лог-файлы. Подробнее читайте в статье «Действия при неправильной работе TRIK Studio или контроллера ТРИК» в разделе «[Сбор логов на контроллере ТРИК](/docs/feedback/logging/#trik)».
+Иконка <img src="/gitbook/assets/logs2%20%281%29.png" alt="" data-size="line" /> позволяет скачать лог-файлы. Подробнее читайте в статье «Действия при неправильной работе TRIK Studio или контроллера ТРИК» в разделе «[Сбор логов на контроллере ТРИК](/feedback/logging/#trik)».

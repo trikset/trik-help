@@ -6,7 +6,7 @@ title: "Начало работы и создание проекта в TRIK Stu
 
 ## Главное окно
 
-После запуска **TRIK Studio Junior** откроется стартовая страница, на которой будет отображена [версия](/docs/trik-studio-junior/about/version/) TRIK Studio Junior, быстрый доступ к недавним проектам, а также кнопки для [открытия существующего проекта](#new-project) и [создания нового](#open-project).
+После запуска **TRIK Studio Junior** откроется стартовая страница, на которой будет отображена [версия](/trik-studio-junior/about/version/) TRIK Studio Junior, быстрый доступ к недавним проектам, а также кнопки для [открытия существующего проекта](#new-project) и [создания нового](#open-project).
 
 ![](/gitbook/assets/main-window.png)
 
@@ -15,7 +15,7 @@ title: "Начало работы и создание проекта в TRIK Stu
 
 ![](/gitbook/assets/main-window-create.png)
 
-Или в [главном меню](/docs/studio/interface/main-menu/) выберите `Файл → Новый проект`.&#x20;
+Или в [главном меню](/studio/interface/main-menu/) выберите `Файл → Новый проект`.&#x20;
 
 ![](/gitbook/assets/main-window-menu-new-project.png)
 
@@ -28,7 +28,7 @@ title: "Начало работы и создание проекта в TRIK Stu
 
 ![](/gitbook/assets/main-window-open.png)
 
-Или в [главном меню](/docs/studio/interface/main-menu/) выберите `Файл → Открыть...`.&#x20;
+Или в [главном меню](/studio/interface/main-menu/) выберите `Файл → Открыть...`.&#x20;
 
 ![](/gitbook/assets/main-window-menu-open-project.png)
 

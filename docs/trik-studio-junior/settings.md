@@ -6,10 +6,10 @@ title: "Настройки TRIK Studio Junior"
 
 ## Окно настроек
 
-Окно настроек TRIK Studio Junior открывается выбором соответствующего пункта в [главном меню](/docs/studio/interface/main-menu/#menu-settings):`Настройки → Настройки...`.
+Окно настроек TRIK Studio Junior открывается выбором соответствующего пункта в [главном меню](/studio/interface/main-menu/#menu-settings):`Настройки → Настройки...`.
 
 ![](/gitbook/assets/settings.png)
 
 Интерфейс окна с настройками в TRIK Studio Junior совпадает с интерфейсом настроек в TRIK Studio:
 
-[Настройки TRIK Studio](/docs/studio/settings/)
+[Настройки TRIK Studio](/studio/settings/)

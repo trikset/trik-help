@@ -18,15 +18,15 @@ title: "Пример решения задачи по взаимодействи
 
 1. Написать [алгоритм передачи сообщения](#algoritm-peredachi-soobsheniya) для ведущего робота.
 2. Написать [алгоритм приема сообщения](#algoritm-priema-soobsheniya) для второго робота.
-3. [Подключить](/docs/trik/wi-fi/interaction/) роботов в единую сеть.
+3. [Подключить](/trik/wi-fi/interaction/) роботов в единую сеть.
 4. Запустить программы на роботах.
 
 ###### ​ {#algoritm-peredachi-soobsheniya}
 ### Алгоритм передачи сообщения
 
-1\. Перейдите в TRIK Studio в режим [реального робота](/docs/studio/interface/#panel-interpreter).
+1\. Перейдите в TRIK Studio в режим [реального робота](/studio/interface/#panel-interpreter).
 
-2\. Введите переменную для сообщения `message` и инициализируйте её, присвоив ей цифру `5` в блоке «[Выражение](/docs/studio/programming-visual/blocks/#expression)».
+2\. Введите переменную для сообщения `message` и инициализируйте её, присвоив ей цифру `5` в блоке «[Выражение](/studio/programming-visual/blocks/#expression)».
 
 ![](/gitbook/assets/sendMes1.png)
 
@@ -41,9 +41,9 @@ title: "Пример решения задачи по взаимодействи
 ###### ​ {#algoritm-priema-soobsheniya}
 ### Алгоритм приема сообщения
 
-1\. Перейдите в TRIK Studio в режим [реального робота](/docs/studio/interface/#panel-interpreter).
+1\. Перейдите в TRIK Studio в режим [реального робота](/studio/interface/#panel-interpreter).
 
-2\. Добавьте блок «[Получить сообщение](/docs/trik/programming-visual/blocks/#receive-message-from-thread)».\
+2\. Добавьте блок «[Получить сообщение](/trik/programming-visual/blocks/#receive-message-from-thread)».\
 \
 В свойствах блока укажите переменную, в которую хотите записать сообщение, отправленное с другого робота. Переменная может называться как угодно.\
 \
@@ -51,7 +51,7 @@ title: "Пример решения задачи по взаимодействи
 
 ![](/gitbook/assets/receiveMes1.png)
 
-3\. После того как сообщение пришло, выведите его на экран робота в течение 3 секунд, а затем закончите выполнение алгоритма. Для этого добавьте блоки «[Напечатать текст](/docs/trik/programming-visual/blocks/#print-text)», «[Таймер](/docs/studio/programming-visual/blocks/#timer)» и «[Конец](/docs/studio/programming-visual/blocks/#final)».\
+3\. После того как сообщение пришло, выведите его на экран робота в течение 3 секунд, а затем закончите выполнение алгоритма. Для этого добавьте блоки «[Напечатать текст](/trik/programming-visual/blocks/#print-text)», «[Таймер](/studio/programming-visual/blocks/#timer)» и «[Конец](/studio/programming-visual/blocks/#final)».\
 \
 В свойствах блока «Напечатать текст» поставьте флажок `Вычислять` и укажите значение `истина` в поле «Обновить картинку».
 

@@ -4,7 +4,7 @@ title: "Утилита TRIK Gamepad"
 
 # Утилита TRIK Gamepad
 
-Для запуска утилиты из TRIK Studio выберите в [главном меню ](/docs/studio/interface/main-menu/)TRIK Studio`Инструменты → Сторонние утилиты → TRIK Gamepad`.&#x20;
+Для запуска утилиты из TRIK Studio выберите в [главном меню ](/studio/interface/main-menu/)TRIK Studio`Инструменты → Сторонние утилиты → TRIK Gamepad`.&#x20;
 
 ![](https://thumb.tildacdn.com/tild6431-6464-4639-b232-323462376232/-/format/webp/gamepad-utility.png)
 
@@ -26,4 +26,4 @@ title: "Утилита TRIK Gamepad"
 
 ## Видеотрансляция
 
-В утилите имеется возможность трансляции видео с камеры, подключенной к роботу. Для её запуска необходимо в [программу управления роботом с пульта](/docs/gamepad/remote-control/) добавить блок «[Запустить видеотрансляцию](/docs/trik/programming-visual/blocks/#camera-on)».
+В утилите имеется возможность трансляции видео с камеры, подключенной к роботу. Для её запуска необходимо в [программу управления роботом с пульта](/gamepad/remote-control/) добавить блок «[Запустить видеотрансляцию](/trik/programming-visual/blocks/#camera-on)».

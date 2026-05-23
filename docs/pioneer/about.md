@@ -13,15 +13,15 @@ title: "О квадрокоптере Геоскан Пионер"
 :::
 
 ## Программирование квадрокоптера &#123;#programming&#125;
-Для программирования квадрокоптера Геоскан Пионер выберите «Квадрокоптер "Пионер"» в настройках TRIK Studio во вкладке [«Роботы»](/docs/studio/interface/faq-robot-settings/).
+Для программирования квадрокоптера Геоскан Пионер выберите «Квадрокоптер "Пионер"» в настройках TRIK Studio во вкладке [«Роботы»](/studio/interface/faq-robot-settings/).
 
 ![](/gitbook/assets/peoneer.png)
 
-Используйте [специализированные](/docs/pioneer/blocks/) и [общие](/docs/studio/programming-visual/blocks/) блоки для написания программ.
+Используйте [специализированные](/pioneer/blocks/) и [общие](/studio/programming-visual/blocks/) блоки для написания программ.
 
 Подробнее о визуальном программировании читайте в статье
 
-[Программирование на визуальном языке](/docs/studio/programming-visual/)
+[Программирование на визуальном языке](/studio/programming-visual/)
 
 
 {/* Compatibility anchors for old GitBook/Docusaurus links. */}
