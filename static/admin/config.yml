@@ -18,16 +18,50 @@ logo_url: "/img/logo.svg"
 collections:
   - name: "docs"
     label: "Страницы справки"
-    label_singular: "Страница"
+    label_singular: "Страница справки"
+    description: "Все статьи из папки docs/. Новые страницы можно создавать кнопкой «Новая Страница справки». Если страница должна появиться в левом меню сайта, добавьте её также в коллекции «Меню справки»."
     folder: "docs"
     create: true
     extension: "md"
     format: "frontmatter"
-    summary: "{{title}} — {{path}}"
+    identifier_field: "title"
+    summary: "{{title}}"
+    slug: "{{slug}}"
     nested:
       depth: 10
       summary: "{{title}}"
-      subfolders: false
+      subfolders: true
     fields:
-      - { name: "title", label: "Заголовок", widget: "string" }
-      - { name: "body", label: "Текст", widget: "markdown", modes: ["rich_text", "raw"] }
+      - { name: "title", label: "Заголовок страницы", widget: "string" }
+      - { name: "sidebar_label", label: "Короткое название в меню", widget: "string", required: false, hint: "Необязательно. Сейчас основное меню сайта задаётся в sidebars.ts." }
+      - { name: "description", label: "Описание для SEO", widget: "text", required: false }
+      - { name: "body", label: "Текст страницы", widget: "markdown", modes: ["rich_text", "raw"] }
+
+  - name: "navigation"
+    label: "Меню справки"
+    description: "Левое меню Docusaurus. Это технический файл sidebars.ts: меняйте названия, порядок и ссылки аккуратно."
+    files:
+      - name: "sidebars"
+        label: "Левое меню сайта"
+        file: "sidebars.ts"
+        fields:
+          - name: "body"
+            label: "sidebars.ts"
+            widget: "code"
+            default_language: "typescript"
+            allow_language_selection: false
+            hint: "Здесь задаётся левое меню справки. ID страницы — это путь внутри docs без .md, например docs/studio/about/index.md → studio/about/index."
+
+  - name: "site_settings"
+    label: "Настройки сайта"
+    description: "Базовые настройки Docusaurus."
+    files:
+      - name: "docusaurus_config"
+        label: "Название, ссылки и шапка сайта"
+        file: "docusaurus.config.ts"
+        fields:
+          - name: "body"
+            label: "docusaurus.config.ts"
+            widget: "code"
+            default_language: "typescript"
+            allow_language_selection: false
