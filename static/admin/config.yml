@@ -16,11 +16,22 @@ site_url: "https://help-new.trikset.com"
 logo_url: "/img/logo.svg"
 
 collections:
-  - name: "docs"
-    label: "Страницы справки"
-    label_singular: "Страница справки"
-    description: "Все статьи из папки docs/. Новые страницы можно создавать кнопкой «Новая Страница справки». Если страница должна появиться в левом меню сайта, добавьте её также в коллекции «Меню справки»."
-    folder: "docs"
+  - name: "docs_intro"
+    label: "Вводная страница"
+    description: "Главная страница справки docs/intro.md."
+    files:
+      - name: "intro"
+        label: "Справочный центр ТРИК"
+        file: "docs/intro.md"
+        fields:
+          - { name: "title", label: "Заголовок страницы", widget: "string" }
+          - { name: "body", label: "Текст страницы", widget: "markdown", modes: ["rich_text", "raw"] }
+
+  - name: "docs_ev3"
+    label: "Контроллер LEGO EV3"
+    label_singular: "Страница"
+    description: "Страницы раздела Контроллер LEGO EV3. Новые страницы можно создавать здесь; чтобы добавить страницу в левое меню сайта, обновите коллекцию «Меню справки»."
+    folder: "docs/ev3"
     create: true
     extension: "md"
     format: "frontmatter"
@@ -28,12 +39,180 @@ collections:
     summary: "{{title}}"
     slug: "{{slug}}"
     nested:
-      depth: 10
+      depth: 8
       summary: "{{title}}"
       subfolders: true
     fields:
       - { name: "title", label: "Заголовок страницы", widget: "string" }
-      - { name: "sidebar_label", label: "Короткое название в меню", widget: "string", required: false, hint: "Необязательно. Сейчас основное меню сайта задаётся в sidebars.ts." }
+      - { name: "sidebar_label", label: "Короткое название в меню", widget: "string", required: false, hint: "Необязательно. Главное левое меню задаётся в коллекции «Меню справки»." }
+      - { name: "description", label: "Описание для SEO", widget: "text", required: false }
+      - { name: "body", label: "Текст страницы", widget: "markdown", modes: ["rich_text", "raw"] }
+
+  - name: "docs_feedback"
+    label: "Обратная связь"
+    label_singular: "Страница"
+    description: "Страницы раздела Обратная связь. Новые страницы можно создавать здесь; чтобы добавить страницу в левое меню сайта, обновите коллекцию «Меню справки»."
+    folder: "docs/feedback"
+    create: true
+    extension: "md"
+    format: "frontmatter"
+    identifier_field: "title"
+    summary: "{{title}}"
+    slug: "{{slug}}"
+    nested:
+      depth: 8
+      summary: "{{title}}"
+      subfolders: true
+    fields:
+      - { name: "title", label: "Заголовок страницы", widget: "string" }
+      - { name: "sidebar_label", label: "Короткое название в меню", widget: "string", required: false, hint: "Необязательно. Главное левое меню задаётся в коллекции «Меню справки»." }
+      - { name: "description", label: "Описание для SEO", widget: "text", required: false }
+      - { name: "body", label: "Текст страницы", widget: "markdown", modes: ["rich_text", "raw"] }
+
+  - name: "docs_gamepad"
+    label: "TRIK Gamepad"
+    label_singular: "Страница"
+    description: "Страницы раздела TRIK Gamepad. Новые страницы можно создавать здесь; чтобы добавить страницу в левое меню сайта, обновите коллекцию «Меню справки»."
+    folder: "docs/gamepad"
+    create: true
+    extension: "md"
+    format: "frontmatter"
+    identifier_field: "title"
+    summary: "{{title}}"
+    slug: "{{slug}}"
+    nested:
+      depth: 8
+      summary: "{{title}}"
+      subfolders: true
+    fields:
+      - { name: "title", label: "Заголовок страницы", widget: "string" }
+      - { name: "sidebar_label", label: "Короткое название в меню", widget: "string", required: false, hint: "Необязательно. Главное левое меню задаётся в коллекции «Меню справки»." }
+      - { name: "description", label: "Описание для SEO", widget: "text", required: false }
+      - { name: "body", label: "Текст страницы", widget: "markdown", modes: ["rich_text", "raw"] }
+
+  - name: "docs_integrations"
+    label: "Интеграции"
+    label_singular: "Страница"
+    description: "Страницы раздела Интеграции. Новые страницы можно создавать здесь; чтобы добавить страницу в левое меню сайта, обновите коллекцию «Меню справки»."
+    folder: "docs/integrations"
+    create: true
+    extension: "md"
+    format: "frontmatter"
+    identifier_field: "title"
+    summary: "{{title}}"
+    slug: "{{slug}}"
+    nested:
+      depth: 8
+      summary: "{{title}}"
+      subfolders: true
+    fields:
+      - { name: "title", label: "Заголовок страницы", widget: "string" }
+      - { name: "sidebar_label", label: "Короткое название в меню", widget: "string", required: false, hint: "Необязательно. Главное левое меню задаётся в коллекции «Меню справки»." }
+      - { name: "description", label: "Описание для SEO", widget: "text", required: false }
+      - { name: "body", label: "Текст страницы", widget: "markdown", modes: ["rich_text", "raw"] }
+
+  - name: "docs_nxt"
+    label: "Контроллер LEGO NXT"
+    label_singular: "Страница"
+    description: "Страницы раздела Контроллер LEGO NXT. Новые страницы можно создавать здесь; чтобы добавить страницу в левое меню сайта, обновите коллекцию «Меню справки»."
+    folder: "docs/nxt"
+    create: true
+    extension: "md"
+    format: "frontmatter"
+    identifier_field: "title"
+    summary: "{{title}}"
+    slug: "{{slug}}"
+    nested:
+      depth: 8
+      summary: "{{title}}"
+      subfolders: true
+    fields:
+      - { name: "title", label: "Заголовок страницы", widget: "string" }
+      - { name: "sidebar_label", label: "Короткое название в меню", widget: "string", required: false, hint: "Необязательно. Главное левое меню задаётся в коллекции «Меню справки»." }
+      - { name: "description", label: "Описание для SEO", widget: "text", required: false }
+      - { name: "body", label: "Текст страницы", widget: "markdown", modes: ["rich_text", "raw"] }
+
+  - name: "docs_pioneer"
+    label: "Квадрокоптер Пионер"
+    label_singular: "Страница"
+    description: "Страницы раздела Квадрокоптер Пионер. Новые страницы можно создавать здесь; чтобы добавить страницу в левое меню сайта, обновите коллекцию «Меню справки»."
+    folder: "docs/pioneer"
+    create: true
+    extension: "md"
+    format: "frontmatter"
+    identifier_field: "title"
+    summary: "{{title}}"
+    slug: "{{slug}}"
+    nested:
+      depth: 8
+      summary: "{{title}}"
+      subfolders: true
+    fields:
+      - { name: "title", label: "Заголовок страницы", widget: "string" }
+      - { name: "sidebar_label", label: "Короткое название в меню", widget: "string", required: false, hint: "Необязательно. Главное левое меню задаётся в коллекции «Меню справки»." }
+      - { name: "description", label: "Описание для SEO", widget: "text", required: false }
+      - { name: "body", label: "Текст страницы", widget: "markdown", modes: ["rich_text", "raw"] }
+
+  - name: "docs_studio"
+    label: "TRIK Studio"
+    label_singular: "Страница"
+    description: "Страницы раздела TRIK Studio. Новые страницы можно создавать здесь; чтобы добавить страницу в левое меню сайта, обновите коллекцию «Меню справки»."
+    folder: "docs/studio"
+    create: true
+    extension: "md"
+    format: "frontmatter"
+    identifier_field: "title"
+    summary: "{{title}}"
+    slug: "{{slug}}"
+    nested:
+      depth: 8
+      summary: "{{title}}"
+      subfolders: true
+    fields:
+      - { name: "title", label: "Заголовок страницы", widget: "string" }
+      - { name: "sidebar_label", label: "Короткое название в меню", widget: "string", required: false, hint: "Необязательно. Главное левое меню задаётся в коллекции «Меню справки»." }
+      - { name: "description", label: "Описание для SEO", widget: "text", required: false }
+      - { name: "body", label: "Текст страницы", widget: "markdown", modes: ["rich_text", "raw"] }
+
+  - name: "docs_trik"
+    label: "Контроллер ТРИК"
+    label_singular: "Страница"
+    description: "Страницы раздела Контроллер ТРИК. Новые страницы можно создавать здесь; чтобы добавить страницу в левое меню сайта, обновите коллекцию «Меню справки»."
+    folder: "docs/trik"
+    create: true
+    extension: "md"
+    format: "frontmatter"
+    identifier_field: "title"
+    summary: "{{title}}"
+    slug: "{{slug}}"
+    nested:
+      depth: 8
+      summary: "{{title}}"
+      subfolders: true
+    fields:
+      - { name: "title", label: "Заголовок страницы", widget: "string" }
+      - { name: "sidebar_label", label: "Короткое название в меню", widget: "string", required: false, hint: "Необязательно. Главное левое меню задаётся в коллекции «Меню справки»." }
+      - { name: "description", label: "Описание для SEO", widget: "text", required: false }
+      - { name: "body", label: "Текст страницы", widget: "markdown", modes: ["rich_text", "raw"] }
+
+  - name: "docs_trik_studio_junior"
+    label: "TRIK Studio Junior"
+    label_singular: "Страница"
+    description: "Страницы раздела TRIK Studio Junior. Новые страницы можно создавать здесь; чтобы добавить страницу в левое меню сайта, обновите коллекцию «Меню справки»."
+    folder: "docs/trik-studio-junior"
+    create: true
+    extension: "md"
+    format: "frontmatter"
+    identifier_field: "title"
+    summary: "{{title}}"
+    slug: "{{slug}}"
+    nested:
+      depth: 8
+      summary: "{{title}}"
+      subfolders: true
+    fields:
+      - { name: "title", label: "Заголовок страницы", widget: "string" }
+      - { name: "sidebar_label", label: "Короткое название в меню", widget: "string", required: false, hint: "Необязательно. Главное левое меню задаётся в коллекции «Меню справки»." }
       - { name: "description", label: "Описание для SEO", widget: "text", required: false }
       - { name: "body", label: "Текст страницы", widget: "markdown", modes: ["rich_text", "raw"] }
 
