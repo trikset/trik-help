@@ -49,10 +49,11 @@
     text = text.replace(/^import\s+.*?;\s*$/gm, '');
     text = text.replace(/^export\s+.*?;\s*$/gm, '');
     text = text.replace(/^\s*\{\/\*.*?\*\/\}\s*$/gm, '');
-    text = text.replace(/&#123;/g, '{').replace(/&#125;/g, '}').replace(/&#x20;/g, ' ');
+    text = decodeEntities(text);
     text = text.replace(/^(#{1,6}\s+.*?)\s+\{#[^}]+\}\s*$/gm, '$1');
     text = text.replace(/^#{6}\s*\{#[^}]+\}\s*$/gm, '');
-    text = text.replace(/<div\s+align=["']center["']>([\s\S]*?)<\/div>/gi, '<div class="trik-preview-center">$1</div>');
+    text = text.replace(/^\s*\{#[^}]+\}\s*$/gm, '');
+    text = normalizeImages(text);
     text = normalizeTabs(text);
     text = normalizeAdmonitions(text);
     return text.trim();

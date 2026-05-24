@@ -81,25 +81,38 @@ body {
   line-height: 1.45;
 }
 .trik-preview-page pre code { background: transparent; padding: 0; }
-.trik-preview-page table {
-  display: block;
+.trik-preview-page table,
+.trik-preview-table {
   width: 100%;
-  overflow: auto;
   border-collapse: collapse;
   margin: 1rem 0;
+  border: 1px solid var(--ifm-color-emphasis-300);
 }
-.trik-preview-page th, .trik-preview-page td {
+.trik-preview-page th, .trik-preview-page td,
+.trik-preview-table th, .trik-preview-table td {
   border: 1px solid var(--ifm-color-emphasis-300);
   padding: 0.55rem 0.7rem;
   vertical-align: top;
 }
-.trik-preview-page th { background: #f6f8fa; font-weight: 700; }
+.trik-preview-page th,
+.trik-preview-table th {
+  background: #f6f8fa;
+  font-weight: 700;
+}
 
 .trik-preview-page img {
   max-width: 100%;
   height: auto;
   display: block;
   margin: 1rem auto;
+}
+
+.trik-preview-inline img,
+.trik-preview-page p > img,
+.trik-preview-image-block > img,
+.trik-preview-center > img {
+  max-width: 100%;
+  height: auto;
 }
 
 .trik-preview-center {
@@ -116,7 +129,8 @@ body {
 .trik-preview-page img[data-size='line'],
 .trik-preview-page p > img[data-size='line'],
 .trik-preview-page li img,
-.trik-preview-page td img {
+.trik-preview-page td img,
+.trik-preview-inline img {
   display: inline-block;
   width: auto;
   height: auto;
