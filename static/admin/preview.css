@@ -1,6 +1,7 @@
 :root {
   --ifm-font-family-base: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --ifm-color-primary: #2e8555;
+  --ifm-color-primary-dark: #29784c;
   --ifm-color-emphasis-100: #f5f6f7;
   --ifm-color-emphasis-200: #ebedf0;
   --ifm-color-emphasis-300: #dadde1;
@@ -19,9 +20,20 @@ body {
 .trik-preview-page {
   max-width: 860px;
   margin: 0 auto;
-  padding: 32px 40px 64px;
+  padding: 28px 40px 64px;
   line-height: 1.65;
   font-size: 16px;
+}
+
+.trik-preview-note {
+  margin: 0 0 1.2rem;
+  padding: 0.55rem 0.75rem;
+  border: 1px solid #bfdbfe;
+  border-radius: 8px;
+  background: #eff6ff;
+  color: #1e3a8a;
+  font-size: 13px;
+  line-height: 1.4;
 }
 
 .trik-preview-page h1 {
@@ -39,6 +51,8 @@ body {
 
 .trik-preview-page h3 { font-size: 1.28rem; margin: 1.7rem 0 0.7rem; }
 .trik-preview-page h4 { font-size: 1.1rem; margin: 1.4rem 0 0.6rem; }
+.trik-preview-page h5 { font-size: 1rem; margin: 1.2rem 0 0.5rem; }
+.trik-preview-page h6 { display: none; }
 .trik-preview-page p { margin: 0 0 1rem; }
 .trik-preview-page a { color: #1d4ed8; text-decoration: none; }
 .trik-preview-page a:hover { text-decoration: underline; }
@@ -64,6 +78,7 @@ body {
   border-radius: 8px;
   padding: 1rem;
   overflow: auto;
+  line-height: 1.45;
 }
 .trik-preview-page pre code { background: transparent; padding: 0; }
 .trik-preview-page table {
@@ -79,40 +94,111 @@ body {
   vertical-align: top;
 }
 .trik-preview-page th { background: #f6f8fa; font-weight: 700; }
+
 .trik-preview-page img {
   max-width: 100%;
   height: auto;
   display: block;
   margin: 1rem auto;
 }
-.trik-preview-hint {
+
+.trik-preview-center {
+  text-align: center;
+}
+
+.trik-preview-page p > img,
+.trik-preview-image-block > img,
+.trik-preview-center > img {
+  max-width: 100%;
+  height: auto;
+}
+
+.trik-preview-page img[data-size='line'],
+.trik-preview-page p > img[data-size='line'],
+.trik-preview-page li img,
+.trik-preview-page td img {
+  display: inline-block;
+  width: auto;
+  height: auto;
+  max-width: 170px;
+  max-height: 72px;
+  margin: 0 0.25rem;
+  vertical-align: middle;
+  object-fit: contain;
+}
+
+.trik-preview-page table td:first-child img,
+.trik-preview-page table th:first-child img {
+  max-width: 150px;
+  max-height: 64px;
+}
+
+.trik-preview-page img[src*='Block'],
+.trik-preview-page img[src*='block'] {
+  display: inline-block;
+}
+
+.trik-preview-page table img[src*='Block'],
+.trik-preview-page table img[src*='block'] {
+  max-width: 96px;
+  max-height: 56px;
+}
+
+.trik-preview-admonition {
   margin: 1.2rem 0;
   padding: 0.9rem 1rem;
   border-left: 4px solid #2563eb;
   background: #eff6ff;
   border-radius: 6px;
 }
-.trik-preview-warning {
-  border-left-color: #f59e0b;
-  background: #fffbeb;
+.trik-preview-admonition-title {
+  margin-bottom: 0.35rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
 }
-.trik-preview-danger {
-  border-left-color: #dc2626;
-  background: #fef2f2;
-}
+.trik-preview-admonition > :last-child { margin-bottom: 0; }
+.trik-preview-admonition-tip { border-left-color: var(--ifm-color-primary); background: #f0fdf4; }
+.trik-preview-admonition-note,
+.trik-preview-admonition-info { border-left-color: #2563eb; background: #eff6ff; }
+.trik-preview-admonition-warning { border-left-color: #f59e0b; background: #fffbeb; }
+.trik-preview-admonition-danger { border-left-color: #dc2626; background: #fef2f2; }
+
 .trik-preview-tabs {
   margin: 1.2rem 0;
   border: 1px solid var(--ifm-color-emphasis-200);
   border-radius: 8px;
   overflow: hidden;
+  background: #fff;
 }
-.trik-preview-tab-label {
-  background: #f6f8fa;
+.trik-preview-tab-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
   border-bottom: 1px solid var(--ifm-color-emphasis-200);
-  padding: 0.5rem 0.8rem;
-  font-weight: 700;
+  background: #f6f8fa;
 }
-.trik-preview-tab-body { padding: 0.8rem; }
+.trik-preview-tab {
+  padding: 0.65rem 0.9rem;
+  border-right: 1px solid var(--ifm-color-emphasis-200);
+  color: var(--ifm-color-emphasis-700);
+  font-weight: 600;
+  font-size: 0.94rem;
+}
+.trik-preview-tab-active {
+  background: #fff;
+  color: var(--ifm-color-primary-dark);
+  box-shadow: inset 0 -3px 0 var(--ifm-color-primary);
+}
+.trik-preview-tab-panel {
+  display: none;
+  padding: 1rem;
+}
+.trik-preview-tab-panel-active {
+  display: block;
+}
+.trik-preview-tab-panel > :last-child { margin-bottom: 0; }
 .trik-preview-muted {
   color: #6b7280;
   font-size: 0.92rem;

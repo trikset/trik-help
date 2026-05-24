@@ -9,32 +9,67 @@
     });
   }
 
+  function normalizeAdmonitions(text) {
+    return text.replace(/^:{3,4}(tip|note|info|warning|caution|danger)([^\n]*)\n([\s\S]*?)\n:{3,4}\s*$/gm, function (_, type, label, body) {
+      var cls = 'trik-preview-admonition trik-preview-admonition-' + (type === 'caution' ? 'warning' : type);
+      var defaultTitle = {
+        tip: 'Подсказка', note: 'Примечание', info: 'Информация',
+        warning: 'Внимание', caution: 'Внимание', danger: 'Важно'
+      }[type] || 'Примечание';
+      var title = String(label || '').trim() || defaultTitle;
+      return '<div class="' + cls + '"><div class="trik-preview-admonition-title">' + title + '</div>\n\n' + body + '\n\n</div>';
+    });
+  }
+
+  function normalizeTabs(text) {
+    text = text.replace(/<Tabs[^>]*>([\s\S]*?)<\/Tabs>/gi, function (_, inner) {
+      var labels = [];
+      var panels = [];
+      inner.replace(/<TabItem\b([^>]*)>([\s\S]*?)<\/TabItem>/gi, function (_m, attrs, content) {
+        var labelMatch = attrs.match(/\blabel=\{?["']([^"'}]+)["']\}?/i) || attrs.match(/\bvalue=\{?["']([^"'}]+)["']\}?/i);
+        labels.push(labelMatch ? labelMatch[1] : ('Вкладка ' + (labels.length + 1)));
+        panels.push(content.trim());
+        return '';
+      });
+      if (!panels.length) return inner;
+      var tabs = labels.map(function (label, i) {
+        return '<span class="trik-preview-tab' + (i === 0 ? ' trik-preview-tab-active' : '') + '">' + label + '</span>';
+      }).join('');
+      var bodies = panels.map(function (panel, i) {
+        return '<div class="trik-preview-tab-panel' + (i === 0 ? ' trik-preview-tab-panel-active' : '') + '">\n\n' + panel + '\n\n</div>';
+      }).join('\n');
+      return '<div class="trik-preview-tabs"><div class="trik-preview-tab-list">' + tabs + '</div>' + bodies + '</div>';
+    });
+    return text;
+  }
+
   function normalizeBody(input) {
     var text = input || '';
+    text = text.replace(/^---\n[\s\S]*?\n---\n?/, '');
     text = text.replace(/^import\s+.*?;\s*$/gm, '');
     text = text.replace(/^export\s+.*?;\s*$/gm, '');
     text = text.replace(/^\s*\{\/\*.*?\*\/\}\s*$/gm, '');
     text = text.replace(/&#123;/g, '{').replace(/&#125;/g, '}').replace(/&#x20;/g, ' ');
-    text = text.replace(/<div\s+align=["']center["']>([\s\S]*?)<\/div>/gi, '<div style="text-align:center">$1</div>');
-
-    text = text.replace(/<Tabs[^>]*>([\s\S]*?)<\/Tabs>/gi, function (_, inner) {
-      return '<div class="trik-preview-tabs">' + inner + '</div>';
-    });
-    text = text.replace(/<TabItem[^>]*label=\{?["']([^"'}]+)["']\}?[^>]*>([\s\S]*?)<\/TabItem>/gi, function (_, label, inner) {
-      return '<div class="trik-preview-tab-label">' + label + '</div><div class="trik-preview-tab-body">' + inner + '</div>';
-    });
-    text = text.replace(/<TabItem[^>]*value=\{?["']([^"'}]+)["']\}?[^>]*>([\s\S]*?)<\/TabItem>/gi, function (_, label, inner) {
-      return '<div class="trik-preview-tab-label">' + label + '</div><div class="trik-preview-tab-body">' + inner + '</div>';
-    });
-
-    text = text.replace(/:::(tip|note|info)([^\n]*)\n([\s\S]*?)\n:::/g, '<div class="trik-preview-hint">$3</div>');
-    text = text.replace(/:::(warning|caution)([^\n]*)\n([\s\S]*?)\n:::/g, '<div class="trik-preview-hint trik-preview-warning">$3</div>');
-    text = text.replace(/:::(danger)([^\n]*)\n([\s\S]*?)\n:::/g, '<div class="trik-preview-hint trik-preview-danger">$3</div>');
+    text = text.replace(/^(#{1,6}\s+.*?)\s+\{#[^}]+\}\s*$/gm, '$1');
+    text = text.replace(/^#{6}\s*\{#[^}]+\}\s*$/gm, '');
+    text = text.replace(/<div\s+align=["']center["']>([\s\S]*?)<\/div>/gi, '<div class="trik-preview-center">$1</div>');
+    text = normalizeTabs(text);
+    text = normalizeAdmonitions(text);
     return text.trim();
   }
 
   function absolutizeAssets(html) {
     return html.replace(/(src|href)="\/gitbook\/assets\//g, '$1="/gitbook/assets/');
+  }
+
+  function postProcessHtml(html) {
+    html = absolutizeAssets(html);
+    html = html.replace(/<a href="([^"]+\.(?:png|jpe?g|gif|webp|svg)(?:\?[^"]*)?)">([^<]*)<\/a>/gi, function (_, href, label) {
+      return '<img src="' + href + '" alt="' + String(label || '').replace(/"/g, '&quot;') + '" />';
+    });
+    html = html.replace(/<p>\s*(<img\b[^>]*>)\s*<\/p>/gi, '<p class="trik-preview-image-block">$1</p>');
+    html = html.replace(/<p>\s*(<img\b[^>]*data-size=["']line["'][^>]*>)\s*/gi, '<p>$1 ');
+    return html;
   }
 
   function decodeAttr(value) {
@@ -93,11 +128,28 @@
     });
   }
 
+  function configureMarked() {
+    if (!window.marked || !window.marked.use) return;
+    window.marked.use({
+      renderer: {
+        image: function (token) {
+          var href = typeof token === 'string' ? token : token.href;
+          var title = typeof token === 'string' ? '' : token.title;
+          var text = typeof token === 'string' ? '' : token.text;
+          var attrs = ' src="' + String(href || '').replace(/"/g, '&quot;') + '" alt="' + String(text || '').replace(/"/g, '&quot;') + '"';
+          if (title) attrs += ' title="' + String(title).replace(/"/g, '&quot;') + '"';
+          return '<img' + attrs + ' />';
+        }
+      }
+    });
+  }
+
   function makePreview() {
     var CMS = window.CMS;
     var React = window.React;
     if (!CMS || !React || !window.marked) return;
 
+    configureMarked();
     registerHtmlImageEditorComponent(CMS);
 
     var h = React.createElement;
@@ -108,11 +160,12 @@
       var body = entry.getIn(['data', 'body']) || '';
       var md = normalizeBody(body);
       var html = window.marked.parse(md, { gfm: true, breaks: false, mangle: false, headerIds: true });
-      html = absolutizeAssets(html);
+      html = postProcessHtml(html);
       return h('main', { className: 'trik-preview-page' },
+        h('div', { className: 'trik-preview-note' }, 'Приближённый предпросмотр Decap. Точный вид страницы — по ссылке «Предпросмотр» после сохранения.'),
         title ? h('h1', null, title) : null,
         !md ? h('p', { className: 'trik-preview-muted' }, 'Пока нет содержимого для предпросмотра.') : null,
-        h('div', { dangerouslySetInnerHTML: { __html: html } })
+        h('div', { className: 'trik-preview-markdown', dangerouslySetInnerHTML: { __html: html } })
       );
     }
 
