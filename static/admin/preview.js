@@ -174,7 +174,7 @@
       'docs_intro', 'docs_ev3', 'docs_feedback', 'docs_gamepad', 'docs_integrations',
       'docs_nxt', 'docs_pioneer', 'docs_studio', 'docs_trik', 'docs_trik_studio_junior'
     ];
-    CMS.registerPreviewStyle('/admin/preview.css?v=20260524T1117Z');
+    CMS.registerPreviewStyle('/admin/preview.css?v=20260524T1136Z');
     docCollections.forEach(function (name) {
       CMS.registerPreviewTemplate(name, DocsPreview);
     });
