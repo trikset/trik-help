@@ -25,7 +25,7 @@ collections:
         file: "docs/intro.md"
         fields:
           - { name: "title", label: "Заголовок страницы", widget: "string" }
-          - { name: "body", label: "Текст страницы", widget: "markdown", modes: ["rich_text", "raw"] }
+          - { name: "body", label: "Текст страницы", widget: "markdown", hint: "Обычный текст редактируется как Markdown/MDX. Якоря пишутся как &#123;#id&#125;, картинки могут быть в Markdown или HTML, Tabs/TabItem — это вкладки." }
   - name: "docs_studio"
     label: "TRIK Studio"
     label_singular: "Страница"
@@ -45,7 +45,7 @@ collections:
       - { name: "title", label: "Заголовок страницы", widget: "string" }
       - { name: "sidebar_label", label: "Короткое название в меню", widget: "string", required: false, hint: "Необязательно. Главное левое меню задаётся в коллекции «Меню справки»." }
       - { name: "description", label: "Описание для SEO", widget: "text", required: false }
-      - { name: "body", label: "Текст страницы", widget: "markdown", modes: ["rich_text", "raw"] }
+      - { name: "body", label: "Текст страницы", widget: "markdown" }
   - name: "docs_trik_studio_junior"
     label: "TRIK Studio Junior"
     label_singular: "Страница"
@@ -65,7 +65,7 @@ collections:
       - { name: "title", label: "Заголовок страницы", widget: "string" }
       - { name: "sidebar_label", label: "Короткое название в меню", widget: "string", required: false, hint: "Необязательно. Главное левое меню задаётся в коллекции «Меню справки»." }
       - { name: "description", label: "Описание для SEO", widget: "text", required: false }
-      - { name: "body", label: "Текст страницы", widget: "markdown", modes: ["rich_text", "raw"] }
+      - { name: "body", label: "Текст страницы", widget: "markdown" }
   - name: "docs_integrations"
     label: "Интеграции"
     label_singular: "Страница"
@@ -85,7 +85,7 @@ collections:
       - { name: "title", label: "Заголовок страницы", widget: "string" }
       - { name: "sidebar_label", label: "Короткое название в меню", widget: "string", required: false, hint: "Необязательно. Главное левое меню задаётся в коллекции «Меню справки»." }
       - { name: "description", label: "Описание для SEO", widget: "text", required: false }
-      - { name: "body", label: "Текст страницы", widget: "markdown", modes: ["rich_text", "raw"] }
+      - { name: "body", label: "Текст страницы", widget: "markdown" }
   - name: "docs_trik"
     label: "Контроллер ТРИК"
     label_singular: "Страница"
@@ -105,7 +105,7 @@ collections:
       - { name: "title", label: "Заголовок страницы", widget: "string" }
       - { name: "sidebar_label", label: "Короткое название в меню", widget: "string", required: false, hint: "Необязательно. Главное левое меню задаётся в коллекции «Меню справки»." }
       - { name: "description", label: "Описание для SEO", widget: "text", required: false }
-      - { name: "body", label: "Текст страницы", widget: "markdown", modes: ["rich_text", "raw"] }
+      - { name: "body", label: "Текст страницы", widget: "markdown" }
   - name: "docs_ev3"
     label: "Контроллер LEGO EV3"
     label_singular: "Страница"
@@ -125,7 +125,7 @@ collections:
       - { name: "title", label: "Заголовок страницы", widget: "string" }
       - { name: "sidebar_label", label: "Короткое название в меню", widget: "string", required: false, hint: "Необязательно. Главное левое меню задаётся в коллекции «Меню справки»." }
       - { name: "description", label: "Описание для SEO", widget: "text", required: false }
-      - { name: "body", label: "Текст страницы", widget: "markdown", modes: ["rich_text", "raw"] }
+      - { name: "body", label: "Текст страницы", widget: "markdown" }
   - name: "docs_nxt"
     label: "Контроллер LEGO NXT"
     label_singular: "Страница"
@@ -145,7 +145,7 @@ collections:
       - { name: "title", label: "Заголовок страницы", widget: "string" }
       - { name: "sidebar_label", label: "Короткое название в меню", widget: "string", required: false, hint: "Необязательно. Главное левое меню задаётся в коллекции «Меню справки»." }
       - { name: "description", label: "Описание для SEO", widget: "text", required: false }
-      - { name: "body", label: "Текст страницы", widget: "markdown", modes: ["rich_text", "raw"] }
+      - { name: "body", label: "Текст страницы", widget: "markdown" }
   - name: "docs_pioneer"
     label: "Квадрокоптер Пионер"
     label_singular: "Страница"
@@ -165,7 +165,7 @@ collections:
       - { name: "title", label: "Заголовок страницы", widget: "string" }
       - { name: "sidebar_label", label: "Короткое название в меню", widget: "string", required: false, hint: "Необязательно. Главное левое меню задаётся в коллекции «Меню справки»." }
       - { name: "description", label: "Описание для SEO", widget: "text", required: false }
-      - { name: "body", label: "Текст страницы", widget: "markdown", modes: ["rich_text", "raw"] }
+      - { name: "body", label: "Текст страницы", widget: "markdown" }
   - name: "docs_gamepad"
     label: "TRIK Gamepad"
     label_singular: "Страница"
@@ -185,7 +185,7 @@ collections:
       - { name: "title", label: "Заголовок страницы", widget: "string" }
       - { name: "sidebar_label", label: "Короткое название в меню", widget: "string", required: false, hint: "Необязательно. Главное левое меню задаётся в коллекции «Меню справки»." }
       - { name: "description", label: "Описание для SEO", widget: "text", required: false }
-      - { name: "body", label: "Текст страницы", widget: "markdown", modes: ["rich_text", "raw"] }
+      - { name: "body", label: "Текст страницы", widget: "markdown" }
   - name: "docs_feedback"
     label: "Обратная связь"
     label_singular: "Страница"
@@ -205,10 +205,10 @@ collections:
       - { name: "title", label: "Заголовок страницы", widget: "string" }
       - { name: "sidebar_label", label: "Короткое название в меню", widget: "string", required: false, hint: "Необязательно. Главное левое меню задаётся в коллекции «Меню справки»." }
       - { name: "description", label: "Описание для SEO", widget: "text", required: false }
-      - { name: "body", label: "Текст страницы", widget: "markdown", modes: ["rich_text", "raw"] }
+      - { name: "body", label: "Текст страницы", widget: "markdown" }
   - name: "navigation"
     label: "Техническое: левое меню"
-    description: "Левое меню сайта. Использовать только когда нужно изменить порядок разделов, вложенность или подписи в боковой навигации. Это технический файл sidebars.ts."
+    description: "Левое меню сайта. Использовать только когда нужно изменить порядок разделов, вложенность или подписи в боковой навигации. Это технический файл sidebars.ts. Внутри — служебная структура, не обычный текст страницы."
     files:
       - name: "sidebars"
         label: "Левое меню сайта"
@@ -219,10 +219,10 @@ collections:
             widget: "code"
             default_language: "typescript"
             allow_language_selection: false
-            hint: "Здесь задаётся левое меню справки. ID страницы — это путь внутри docs без .md, например docs/studio/about/index.md → studio/about/index."
+            hint: "Здесь задаётся левое меню справки. ID страницы — это путь внутри docs без .md, например docs/studio/about/index.md → studio/about/index. Якоря и MDX-импорты — это служебная разметка страниц, а не элементы меню."
   - name: "site_settings"
     label: "Техническое: настройки сайта"
-    description: "Глобальные настройки Docusaurus: название сайта, шапка, ссылки. Обычно редакторам страниц это не нужно."
+    description: "Глобальные настройки Docusaurus: название сайта, шапка, ссылки. Обычно редакторам страниц это не нужно. Для обычного редактирования страниц почти никогда не требуется."
     files:
       - name: "docusaurus_config"
         label: "Название, ссылки и шапка сайта"
@@ -233,3 +233,4 @@ collections:
             widget: "code"
             default_language: "typescript"
             allow_language_selection: false
+            hint: "Тут меняются только глобальные настройки сайта. Для страниц обычно не нужно."

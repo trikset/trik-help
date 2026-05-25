@@ -43,19 +43,76 @@
     return text;
   }
 
+
+
+  function decodeEntities(text) {
+    return String(text || '')
+      .replace(/&#123;/g, '{')
+      .replace(/&#125;/g, '}')
+      .replace(/&#x20;/g, ' ')
+      .replace(/&quot;/g, '"')
+      .replace(/&#34;/g, '"')
+      .replace(/&#39;/g, "'")
+      .replace(/&amp;/g, '&');
+  }
+
+  function stripYamlFrontmatter(text) {
+    return String(text || '').replace(/^---\n[\s\S]*?\n---\n?/, '');
+  }
+
+  function stripMdxImportsExports(text) {
+    return String(text || '')
+      .replace(/^\s*import\s+.*?;\s*$/gm, '')
+      .replace(/^\s*export\s+.*?;\s*$/gm, '');
+  }
+
+  function stripMdxComments(text) {
+    return String(text || '').replace(/^\s*\{\/\*.*?\*\/\}\s*$/gm, '');
+  }
+
+  function stripHeadingAnchors(text) {
+    return String(text || '')
+      .replace(/^\s*\{#[^}]+\}\s*$/gm, '')
+      .replace(/^(#{1,6}\s+.*?)\s+\{#[^}]+\}\s*$/gm, '$1')
+      .replace(/^#{6}\s*\{#[^}]+\}\s*$/gm, '');
+  }
+
+  function normalizeImages(text) {
+    text = String(text || '').replace(/&#x20;/g, ' ');
+    text = text.replace(/<div\s+align=["']center["']>([\s\S]*?)<\/div>/gi, function (_, inner) {
+      return '<div class="trik-preview-center">' + inner.replace(/<img\b[^>]*>/gi, function (tag) {
+        var data = parseImgTag(tag);
+        return data ? markdownImage(data) : tag;
+      }) + '</div>';
+    });
+    text = text.replace(/<img\b[^>]*>/gi, function (tag) {
+      var data = parseImgTag(tag);
+      return data ? markdownImage(data) : tag;
+    });
+    return text;
+  }
+
+  function ensureBlockSeparation(text) {
+    text = String(text || '');
+    text = text.replace(/^(#{1,6}\s+[^\n]+)\n(?=\S)/gm, '$1\n\n');
+    text = text.replace(/^(#{1,6}\s+[^\n]+)\s{2,}([^\n]+)$/gm, '$1\n\n$2');
+    return text;
+  }
+
   function normalizeBody(input) {
-    var text = input || '';
-    text = text.replace(/^---\n[\s\S]*?\n---\n?/, '');
-    text = text.replace(/^import\s+.*?;\s*$/gm, '');
-    text = text.replace(/^export\s+.*?;\s*$/gm, '');
-    text = text.replace(/^\s*\{\/\*.*?\*\/\}\s*$/gm, '');
+    var text = String(input || '');
+    text = text.replace(/\uFEFF/g, '');
+    text = text.replace(/\r\n?/g, '\n');
+    text = stripYamlFrontmatter(text);
+    text = stripMdxImportsExports(text);
+    text = stripMdxComments(text);
     text = decodeEntities(text);
-    text = text.replace(/^(#{1,6}\s+.*?)\s+\{#[^}]+\}\s*$/gm, '$1');
-    text = text.replace(/^#{6}\s*\{#[^}]+\}\s*$/gm, '');
-    text = text.replace(/^\s*\{#[^}]+\}\s*$/gm, '');
+    text = stripHeadingAnchors(text);
     text = normalizeImages(text);
     text = normalizeTabs(text);
     text = normalizeAdmonitions(text);
+    text = ensureBlockSeparation(text);
+    text = text.replace(/\n{3,}/g, '\n\n');
     return text.trim();
   }
 
@@ -129,6 +186,12 @@
     });
   }
 
+  function renderMarkdownHtml(value) {
+    var md = normalizeBody(fieldToString(value || ''));
+    var html = window.marked.parse(md, { gfm: true, breaks: false, mangle: false, headerIds: true });
+    return postProcessHtml(html);
+  }
+
   function configureMarked() {
     if (!window.marked || !window.marked.use) return;
     window.marked.use({
@@ -145,42 +208,80 @@
     });
   }
 
+
+
+  function fieldToString(value) {
+    if (value == null) return '';
+    if (typeof value === 'string') return value;
+    if (value && typeof value.toJS === 'function') value = value.toJS();
+    if (Array.isArray(value)) return value.join('\n');
+    return String(value);
+  }
+
+  function renderPreviewError(h, error) {
+    var message = error && (error.stack || error.message || String(error));
+    return h('main', { className: 'trik-preview-page' },
+      h('div', { className: 'trik-preview-error' },
+        h('strong', null, 'Ошибка Decap preview'),
+        h('pre', null, message || 'Unknown preview error')
+      )
+    );
+  }
+
   function makePreview() {
     var CMS = window.CMS;
-    var React = window.React;
-    if (!CMS || !React || !window.marked) return;
+    var h = window.h || (window.React && window.React.createElement);
+    if (!CMS || !window.marked) return;
+    if (!h && window.React && window.React.createElement) h = window.React.createElement;
+    if (!h) return;
 
     configureMarked();
     registerHtmlImageEditorComponent(CMS);
 
-    var h = React.createElement;
+    window.__TRIK_PREVIEW_LOADED = 'yes';
 
     function DocsPreview(props) {
-      var entry = props.entry;
-      var title = entry.getIn(['data', 'title']) || '';
-      var body = entry.getIn(['data', 'body']) || '';
-      var md = normalizeBody(body);
-      var html = window.marked.parse(md, { gfm: true, breaks: false, mangle: false, headerIds: true });
-      html = postProcessHtml(html);
-      return h('main', { className: 'trik-preview-page' },
-        h('div', { className: 'trik-preview-note' }, 'Приближённый предпросмотр Decap. Точный вид страницы — по ссылке «Предпросмотр» после сохранения.'),
-        title ? h('h1', null, title) : null,
-        !md ? h('p', { className: 'trik-preview-muted' }, 'Пока нет содержимого для предпросмотра.') : null,
-        h('div', { className: 'trik-preview-markdown', dangerouslySetInnerHTML: { __html: html } })
-      );
+      try {
+        var entry = props.entry;
+        var title = fieldToString(entry.getIn(['data', 'title']) || '');
+        var body = fieldToString(entry.getIn(['data', 'body']) || '');
+        var md = normalizeBody(body);
+        var html = renderMarkdownHtml(md);
+        return h('main', { className: 'trik-preview-page' },
+          h('div', { className: 'trik-preview-note' }, 'Приближённый предпросмотр Decap. Точный вид страницы — по ссылке «Предпросмотр» после сохранения.'),
+          title ? h('h1', null, title) : null,
+          !md ? h('p', { className: 'trik-preview-muted' }, 'Пока нет содержимого для предпросмотра.') : null,
+          h('div', { className: 'trik-preview-markdown', dangerouslySetInnerHTML: { __html: html } })
+        );
+      } catch (error) {
+        console.error('TRIK Decap preview error', error);
+        return renderPreviewError(h, error);
+      }
     }
 
     var docCollections = [
       'docs_intro', 'docs_ev3', 'docs_feedback', 'docs_gamepad', 'docs_integrations',
       'docs_nxt', 'docs_pioneer', 'docs_studio', 'docs_trik', 'docs_trik_studio_junior'
     ];
-    CMS.registerPreviewStyle('/admin/preview.css?v=20260524T1136Z');
+    CMS.registerPreviewStyle('/admin/preview.css?v=20260524T2018Z');
     docCollections.forEach(function (name) {
       CMS.registerPreviewTemplate(name, DocsPreview);
     });
   }
 
+  var previewRegistered = false;
+  function tryMakePreview(attempt) {
+    attempt = attempt || 0;
+    if (previewRegistered) return;
+    if (window.CMS && window.marked) {
+      makePreview();
+      previewRegistered = true;
+      return;
+    }
+    if (attempt < 120) setTimeout(function () { tryMakePreview(attempt + 1); }, 250);
+  }
+
   loadScript('https://unpkg.com/marked@12.0.2/marked.min.js')
-    .then(function () { setTimeout(makePreview, 0); })
-    .catch(function () { setTimeout(makePreview, 0); });
+    .then(function () { tryMakePreview(0); })
+    .catch(function () { tryMakePreview(0); });
 })();

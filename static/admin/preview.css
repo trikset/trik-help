@@ -221,3 +221,18 @@ body {
   .trik-preview-page { padding: 24px 18px 56px; }
   .trik-preview-page h1 { font-size: 2rem; }
 }
+
+.trik-preview-error {
+  border: 1px solid #fecaca;
+  border-left: 4px solid #dc2626;
+  background: #fef2f2;
+  color: #7f1d1d;
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 1rem 0;
+}
+.trik-preview-error pre {
+  margin: 0.75rem 0 0;
+  white-space: pre-wrap;
+  color: #7f1d1d;
+}
