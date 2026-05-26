@@ -15,7 +15,12 @@
         --border: #d9e1ee;
         --primary: #1b66d2;
         --primary-hover: #1554ae;
+        --danger: #b42318;
+        --success: #067647;
+        --warning: #b54708;
         --soft: #eef4ff;
+        --code-bg: #0b1220;
+        --code-text: #d8e4ff;
       }
       @media (prefers-color-scheme: dark) {
         :root {
@@ -26,7 +31,12 @@
           --border: #2a3850;
           --primary: #5a9cff;
           --primary-hover: #7db1ff;
+          --danger: #ff8a80;
+          --success: #7ee2a8;
+          --warning: #ffc27a;
           --soft: #182842;
+          --code-bg: #050814;
+          --code-text: #eaf1ff;
         }
       }
       * { box-sizing: border-box; }
@@ -38,13 +48,11 @@
         font: 16px/1.5 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       }
       main {
-        width: min(1040px, calc(100% - 32px));
+        width: min(1080px, calc(100% - 32px));
         margin: 0 auto;
         padding: 48px 0;
       }
-      .hero {
-        margin-bottom: 28px;
-      }
+      .hero { margin-bottom: 28px; }
       .eyebrow {
         color: var(--muted);
         font-size: 14px;
@@ -59,45 +67,31 @@
       }
       .lead {
         margin: 0;
-        max-width: 760px;
+        max-width: 790px;
         color: var(--muted);
         font-size: 18px;
       }
       .grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        grid-template-columns: minmax(0, 1.35fr) minmax(280px, .65fr);
         gap: 18px;
+        align-items: start;
       }
+      @media (max-width: 860px) { .grid { grid-template-columns: 1fr; } }
       .card {
         display: flex;
         flex-direction: column;
-        min-height: 260px;
         padding: 24px;
         border: 1px solid var(--border);
         border-radius: 18px;
         background: color-mix(in srgb, var(--card) 94%, transparent);
         box-shadow: 0 18px 45px rgba(12, 26, 48, .08);
       }
-      .card h2 {
-        margin: 0 0 10px;
-        font-size: 22px;
-      }
-      .card p {
-        margin: 0 0 18px;
-        color: var(--muted);
-      }
-      .card ul {
-        margin: 0 0 20px;
-        padding-left: 20px;
-        color: var(--muted);
-      }
-      .actions {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        margin-top: auto;
-      }
-      a.button {
+      .card h2 { margin: 0 0 10px; font-size: 22px; }
+      .card p { margin: 0 0 18px; color: var(--muted); }
+      .card ul { margin: 0 0 20px; padding-left: 20px; color: var(--muted); }
+      .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: auto; }
+      .button, button.button {
         display: inline-flex;
         align-items: center;
         justify-content: center;
@@ -107,16 +101,66 @@
         border: 1px solid transparent;
         background: var(--primary);
         color: white;
+        font: inherit;
         font-weight: 650;
         text-decoration: none;
+        cursor: pointer;
       }
-      a.button:hover { background: var(--primary-hover); }
-      a.button.secondary {
+      .button:hover, button.button:hover { background: var(--primary-hover); }
+      .button.secondary {
         background: transparent;
         border-color: var(--border);
         color: var(--text);
       }
-      a.button.secondary:hover { background: var(--soft); }
+      .button.secondary:hover { background: var(--soft); }
+      button.button:disabled { opacity: .62; cursor: not-allowed; }
+      code {
+        padding: 2px 5px;
+        border-radius: 6px;
+        background: var(--soft);
+        color: var(--text);
+      }
+      .status {
+        display: grid;
+        gap: 10px;
+        margin: 18px 0;
+        padding: 16px;
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        background: color-mix(in srgb, var(--soft) 38%, transparent);
+      }
+      .status-line { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; }
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        min-height: 28px;
+        padding: 4px 9px;
+        border-radius: 999px;
+        background: var(--soft);
+        border: 1px solid var(--border);
+        font-size: 13px;
+        font-weight: 650;
+      }
+      .badge.running { color: var(--warning); }
+      .badge.success { color: var(--success); }
+      .badge.failed { color: var(--danger); }
+      .meta {
+        display: grid;
+        gap: 4px;
+        color: var(--muted);
+        font-size: 14px;
+      }
+      .log {
+        overflow: auto;
+        max-height: 320px;
+        margin: 0;
+        padding: 14px;
+        border-radius: 12px;
+        background: var(--code-bg);
+        color: var(--code-text);
+        font: 12px/1.45 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        white-space: pre-wrap;
+      }
       .note {
         margin-top: 22px;
         padding: 14px 16px;
@@ -126,70 +170,115 @@
         color: var(--muted);
         font-size: 14px;
       }
-      code {
-        padding: 2px 5px;
-        border-radius: 6px;
-        background: var(--soft);
-        color: var(--text);
-      }
     </style>
   </head>
   <body>
     <main>
       <section class="hero">
         <p class="eyebrow">TRIK Help · admin</p>
-        <h1>Управление миграцией и редакторами</h1>
+        <h1>Обновление справки</h1>
         <p class="lead">
-          Здесь живёт промежуточная админка: можно обновить Docusaurus-версию из основной GitBook-ветки,
-          открыть текущий Decap CMS или перейти к заготовке нового редактора.
+          Кнопка запускает серверный publish-flow: берёт GitBook-ветку <code>main-ru</code> из
+          <code>trikset/trik-help</code>, прогоняет конвертер GitBook → Docusaurus, собирает сайт,
+          коммитит результат в <code>trik-help-doc</code> и публикует preview-сайт.
         </p>
       </section>
 
       <section class="grid" aria-label="Действия администратора">
         <article class="card">
-          <h2>Забрать из основной ветки и конвертировать</h2>
+          <h2>Опубликовать свежую версию GitBook</h2>
           <p>
-            Запускает GitHub Actions workflow: берёт <code>main-ru</code>, прогоняет конвертер GitBook → Docusaurus,
-            проверяет сборку и коммитит результат в <code>trik-help-doc</code>.
+            Используй эту кнопку, когда нужно подтянуть текущую русскую GitBook-справку и обновить
+            опубликованную Docusaurus-версию. Ветки <code>main-ru</code> и <code>main-en</code> не изменяются.
           </p>
           <div class="actions">
-            <a class="button" href="https://github.com/trikset/trik-help/actions/workflows/import-main-ru.yml" target="_blank" rel="noopener noreferrer">Открыть запуск импорта</a>
+            <button id="run" class="button" type="button">Обновить и опубликовать справку</button>
+            <button id="refresh" class="button secondary" type="button">Обновить статус</button>
           </div>
+
+          <div class="status" aria-live="polite">
+            <div class="status-line">
+              <span id="badge" class="badge">статус неизвестен</span>
+              <span id="message">Загружаю статус…</span>
+            </div>
+            <div class="meta" id="meta"></div>
+          </div>
+
+          <pre id="log" class="log">Лог появится после запуска.</pre>
         </article>
 
-        <article class="card">
-          <h2>Текущий редактор Decap</h2>
-          <p>
-            Рабочий прототип CMS для правки Markdown-страниц. Изменения идут в ветку <code>trik-help-doc</code>
-            через editorial workflow.
-          </p>
+        <aside class="card">
+          <h2>Редакторы</h2>
+          <p>Decap оставлен как запасной редактор. Новый редактор пока заготовка.</p>
           <div class="actions">
-            <a class="button" href="/admin/cms/">Открыть Decap CMS</a>
-            <a class="button secondary" href="/admin/cms/config.yml">config.yml</a>
-          </div>
-        </article>
-
-        <article class="card">
-          <h2>Новый редактор</h2>
-          <p>
-            Заготовка под будущий собственный редактор: список страниц, предпросмотр, работа с assets и более понятный
-            процесс публикации без Decap-ограничений.
-          </p>
-          <ul>
-            <li>роут и каркас страницы уже есть;</li>
-            <li>можно наращивать API/авторизацию отдельно;</li>
-            <li>Decap пока остаётся рабочим fallback.</li>
-          </ul>
-          <div class="actions">
+            <a class="button secondary" href="/admin/cms/">Открыть Decap CMS</a>
             <a class="button secondary" href="/admin/editor/">Открыть заготовку</a>
           </div>
-        </article>
+          <p style="margin-top: 18px">
+            Endpoint runner’а: <code>/admin-runner/run</code> и <code>/admin-runner/status</code>.
+          </p>
+        </aside>
       </section>
 
       <p class="note">
-        Production <code>help.trikset.com</code> не переключается отсюда. Это админка preview-сайта
-        <code>help-new.trikset.com</code>.
+        Сейчас кнопка публикует preview <code>help-new.trikset.com</code> и пушит результат в
+        <code>trikset/trik-help:trik-help-doc</code>. Production <code>help.trikset.com</code> этим экраном не переключается.
       </p>
     </main>
+
+    <script>
+      const runButton = document.querySelector('#run');
+      const refreshButton = document.querySelector('#refresh');
+      const badge = document.querySelector('#badge');
+      const message = document.querySelector('#message');
+      const meta = document.querySelector('#meta');
+      const log = document.querySelector('#log');
+      let timer = null;
+
+      function fmt(value) { return value || '—'; }
+      function setStatus(payload) {
+        const st = payload.status || payload || {};
+        const status = st.status || 'idle';
+        badge.textContent = st.running ? 'running' : status;
+        badge.className = `badge ${st.running ? 'running' : status}`;
+        message.textContent = st.message || payload.error || 'Нет сообщения';
+        runButton.disabled = Boolean(st.running) || status === 'starting';
+        meta.innerHTML = [
+          ['stage', st.stage],
+          ['source commit', st.source_commit],
+          ['before → after', st.before_commit && st.after_commit ? `${st.before_commit} → ${st.after_commit}` : ''],
+          ['docs/assets', st.docs && st.assets ? `${st.docs} / ${st.assets}` : ''],
+          ['changed', st.changed],
+          ['updated', st.updated_at],
+          ['release', st.release_dir],
+        ].filter(([, v]) => v !== undefined && v !== null && v !== '').map(([k, v]) => `<div><strong>${k}:</strong> ${fmt(v)}</div>`).join('');
+        if (payload.log_tail) log.textContent = payload.log_tail.trim() || 'Лог пока пуст.';
+        if (st.running && !timer) timer = setInterval(loadStatus, 3500);
+        if (!st.running && timer) { clearInterval(timer); timer = null; }
+      }
+      async function loadStatus() {
+        try {
+          const res = await fetch('/admin-runner/status?lines=180', { cache: 'no-store' });
+          setStatus(await res.json());
+        } catch (err) {
+          setStatus({ error: err.message, status: { status: 'failed', message: err.message }});
+        }
+      }
+      async function runUpdate() {
+        if (!confirm('Запустить обновление справки из main-ru и публикацию preview?')) return;
+        runButton.disabled = true;
+        try {
+          const res = await fetch('/admin-runner/run', { method: 'POST', cache: 'no-store' });
+          setStatus(await res.json());
+        } catch (err) {
+          setStatus({ error: err.message, status: { status: 'failed', message: err.message }});
+        } finally {
+          loadStatus();
+        }
+      }
+      runButton.addEventListener('click', runUpdate);
+      refreshButton.addEventListener('click', loadStatus);
+      loadStatus();
+    </script>
   </body>
 </html>
