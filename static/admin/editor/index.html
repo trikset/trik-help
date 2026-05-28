@@ -10,21 +10,27 @@
         color-scheme: light dark;
         --bg: #f5f7fb;
         --panel: #ffffff;
+        --panel-soft: #f8fbff;
         --text: #10213f;
         --muted: #5f6b7a;
         --border: #d9e1ee;
         --primary: #1b66d2;
+        --primary-hover: #1554ae;
         --soft: #eef4ff;
+        --shadow: 0 14px 35px rgba(12, 26, 48, .12);
       }
       @media (prefers-color-scheme: dark) {
         :root {
           --bg: #0b1220;
           --panel: #111b2e;
+          --panel-soft: #152238;
           --text: #eef4ff;
           --muted: #aab7c8;
           --border: #2a3850;
           --primary: #5a9cff;
+          --primary-hover: #7db1ff;
           --soft: #182842;
+          --shadow: 0 14px 35px rgba(0, 0, 0, .32);
         }
       }
       * { box-sizing: border-box; }
@@ -44,51 +50,216 @@
         border-bottom: 1px solid var(--border);
         background: color-mix(in srgb, var(--panel) 92%, transparent);
       }
-      h1 { margin: 0; font-size: 22px; }
+      h1, h2, h3 { margin: 0; }
+      h1 { font-size: 22px; }
+      h2 { font-size: 24px; line-height: 1.2; }
+      h3 { font-size: 16px; }
       a { color: var(--primary); }
+      button, input, textarea {
+        font: inherit;
+      }
       .layout {
         display: grid;
-        grid-template-columns: minmax(260px, 340px) 1fr;
+        grid-template-columns: minmax(300px, 420px) 1fr;
         min-height: calc(100vh - 69px);
       }
       aside {
+        display: flex;
+        min-height: 0;
+        flex-direction: column;
         border-right: 1px solid var(--border);
         background: color-mix(in srgb, var(--panel) 82%, transparent);
-        padding: 18px;
+      }
+      .sidebar-top {
+        display: grid;
+        gap: 12px;
+        padding: 16px;
+        border-bottom: 1px solid var(--border);
+      }
+      .sidebar-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
       }
       main { padding: 24px; }
-      .placeholder {
-        border: 1px dashed var(--border);
-        border-radius: 16px;
-        background: var(--panel);
-        padding: 24px;
-      }
-      .search, .tree-item, .toolbar button, textarea {
+      .search {
         width: 100%;
         border: 1px solid var(--border);
         border-radius: 10px;
         background: var(--panel);
         color: var(--text);
-      }
-      .search { padding: 10px 12px; margin-bottom: 14px; }
-      .tree-item {
-        display: block;
-        margin: 8px 0;
         padding: 10px 12px;
-        text-align: left;
       }
-      .tree-item.active { background: var(--soft); border-color: var(--primary); }
-      .toolbar { display: flex; gap: 10px; margin: 16px 0; }
-      .toolbar button { width: auto; padding: 10px 12px; cursor: not-allowed; opacity: .72; }
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 36px;
+        padding: 8px 11px;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        background: var(--panel);
+        color: var(--text);
+        text-decoration: none;
+        cursor: pointer;
+      }
+      .button.primary {
+        border-color: transparent;
+        background: var(--primary);
+        color: #fff;
+        font-weight: 650;
+      }
+      .button:hover { background: var(--soft); }
+      .button.primary:hover { background: var(--primary-hover); }
+      .tree {
+        overflow: auto;
+        min-height: 0;
+        padding: 10px 10px 18px;
+      }
+      .tree-group { margin: 1px 0; }
+      .tree-row {
+        position: relative;
+        display: grid;
+        grid-template-columns: 26px minmax(0, 1fr) 30px;
+        align-items: center;
+        min-height: 34px;
+        gap: 2px;
+        border-radius: 10px;
+        padding-right: 4px;
+      }
+      .tree-row:hover { background: color-mix(in srgb, var(--soft) 70%, transparent); }
+      .tree-row.active {
+        background: var(--soft);
+        outline: 1px solid color-mix(in srgb, var(--primary) 55%, transparent);
+      }
+      .tree-row.draft {
+        outline: 1px dashed color-mix(in srgb, var(--primary) 45%, transparent);
+      }
+      .twisty, .node-menu {
+        width: 28px;
+        height: 28px;
+        border: 0;
+        border-radius: 8px;
+        background: transparent;
+        color: var(--muted);
+        cursor: pointer;
+      }
+      .twisty:hover, .node-menu:hover { background: color-mix(in srgb, var(--panel) 70%, transparent); color: var(--text); }
+      .twisty.empty { cursor: default; opacity: .25; }
+      .node-main {
+        min-width: 0;
+        border: 0;
+        background: transparent;
+        color: var(--text);
+        text-align: left;
+        cursor: pointer;
+        padding: 7px 4px;
+      }
+      .node-title {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .node-meta {
+        color: var(--muted);
+        font-size: 12px;
+      }
+      .node-menu {
+        opacity: 0;
+        font-weight: 700;
+      }
+      .tree-row:hover .node-menu, .node-menu.open { opacity: 1; }
+      .tree-children {
+        margin-left: 18px;
+        padding-left: 8px;
+        border-left: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+      }
+      .tree-group.collapsed > .tree-children { display: none; }
+      .empty-state {
+        margin: 10px;
+        padding: 14px;
+        border: 1px dashed var(--border);
+        border-radius: 12px;
+        color: var(--muted);
+      }
+      .menu-popover {
+        position: fixed;
+        z-index: 20;
+        min-width: 220px;
+        padding: 6px;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        background: var(--panel);
+        box-shadow: var(--shadow);
+      }
+      .menu-popover[hidden] { display: none; }
+      .menu-popover button {
+        display: block;
+        width: 100%;
+        border: 0;
+        border-radius: 8px;
+        background: transparent;
+        color: var(--text);
+        padding: 9px 10px;
+        text-align: left;
+        cursor: pointer;
+      }
+      .menu-popover button:hover { background: var(--soft); }
+      .editor-card {
+        min-height: calc(100vh - 118px);
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        background: var(--panel);
+        box-shadow: 0 12px 30px rgba(12, 26, 48, .06);
+      }
+      .editor-head {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 24px;
+        border-bottom: 1px solid var(--border);
+      }
+      .editor-body {
+        display: grid;
+        gap: 16px;
+        padding: 24px;
+      }
+      .path-pill {
+        display: inline-flex;
+        align-items: center;
+        width: fit-content;
+        max-width: 100%;
+        margin-top: 10px;
+        padding: 5px 9px;
+        border-radius: 999px;
+        border: 1px solid var(--border);
+        background: var(--panel-soft);
+        color: var(--muted);
+        font: 12px/1.3 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      }
+      .notice {
+        padding: 14px 16px;
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        background: var(--panel-soft);
+        color: var(--muted);
+      }
       textarea {
+        width: 100%;
         min-height: 360px;
         padding: 14px;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        background: var(--panel-soft);
+        color: var(--text);
         font: 14px/1.55 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
       }
       .muted { color: var(--muted); }
-      @media (max-width: 760px) {
+      .dirty { color: var(--primary); font-weight: 650; }
+      @media (max-width: 860px) {
         .layout { grid-template-columns: 1fr; }
-        aside { border-right: 0; border-bottom: 1px solid var(--border); }
+        aside { border-right: 0; border-bottom: 1px solid var(--border); max-height: 55vh; }
+        .editor-head { flex-direction: column; }
       }
     </style>
   </head>
@@ -96,35 +267,289 @@
     <header>
       <div>
         <h1>Новый редактор TRIK Help</h1>
-        <div class="muted">Заготовка интерфейса. Пока без сохранения и без API.</div>
+        <div class="muted">Страницы выбираются из меню сайта. Сохранение в Git будет следующим слоем.</div>
       </div>
       <a href="/admin/">← Админка</a>
     </header>
+
     <div class="layout">
       <aside>
-        <input class="search" type="search" placeholder="Поиск по страницам…" disabled />
-        <button class="tree-item active" disabled>docs/intro.md</button>
-        <button class="tree-item" disabled>docs/studio/about/index.md</button>
-        <button class="tree-item" disabled>docs/trik/about/index.md</button>
-        <p class="muted">Здесь будет дерево <code>docs/</code> из репозитория и быстрый фильтр.</p>
-      </aside>
-      <main>
-        <section class="placeholder">
-          <h2>Каркас редактора</h2>
-          <p class="muted">
-            Следующий шаг — подключить API, который читает страницы из ветки <code>trik-help-doc</code>,
-            показывает Markdown/MDX, предпросмотр и создаёт pull request или коммит после сохранения.
-          </p>
-          <div class="toolbar" aria-label="Недоступные действия">
-            <button disabled>Сохранить черновик</button>
-            <button disabled>Предпросмотр</button>
-            <button disabled>Создать PR</button>
+        <div class="sidebar-top">
+          <input id="search" class="search" type="search" placeholder="Поиск по меню…" autocomplete="off" />
+          <div class="sidebar-actions">
+            <button id="add-page-root" class="button" type="button">+ Страница</button>
+            <button id="add-section-root" class="button" type="button">+ Раздел</button>
           </div>
-          <textarea disabled># Справочный центр ТРИК
+          <div class="muted">Добавление и переименование сейчас работают как безопасный UI-черновик, без записи в репозиторий.</div>
+        </div>
+        <div id="tree" class="tree" aria-label="Меню справки"></div>
+      </aside>
 
-Здесь будет содержимое выбранной страницы.</textarea>
+      <main>
+        <section class="editor-card">
+          <div class="editor-head">
+            <div>
+              <h2 id="page-title">Загрузка меню…</h2>
+              <div id="page-path" class="path-pill">sidebars.json</div>
+            </div>
+            <div class="sidebar-actions">
+              <a id="open-page" class="button" href="/" target="_blank" rel="noreferrer">Открыть страницу</a>
+              <button id="save" class="button primary" type="button" disabled>Сохранить изменения</button>
+            </div>
+          </div>
+          <div class="editor-body">
+            <div id="notice" class="notice">
+              Это первый слой редактора: реальное меню слева, выбор страниц и аккуратное меню действий. Следующий слой — backend/API сохранения через ветку/PR.
+            </div>
+            <textarea id="content" disabled># Выберите страницу в меню
+
+Здесь будет содержимое выбранной страницы и block editor.</textarea>
+          </div>
         </section>
       </main>
     </div>
+
+    <div id="popover" class="menu-popover" hidden></div>
+
+    <script>
+      const state = {
+        sidebar: null,
+        selectedKey: null,
+        selectedNode: null,
+        open: new Set(),
+        dirty: false,
+        filter: '',
+        popoverNode: null,
+      };
+
+      const treeEl = document.getElementById('tree');
+      const titleEl = document.getElementById('page-title');
+      const pathEl = document.getElementById('page-path');
+      const noticeEl = document.getElementById('notice');
+      const contentEl = document.getElementById('content');
+      const openPageEl = document.getElementById('open-page');
+      const saveEl = document.getElementById('save');
+      const searchEl = document.getElementById('search');
+      const popoverEl = document.getElementById('popover');
+
+      function nodeKey(node, path) {
+        if (node.type === 'doc') return `doc:${node.id}`;
+        if (node.link && node.link.id) return `cat:${node.link.id}`;
+        return `cat:${path.join('.')}:${node.label}`;
+      }
+
+      function nodeDocId(node) {
+        if (node.type === 'doc') return node.id;
+        return node.link && node.link.type === 'doc' ? node.link.id : '';
+      }
+
+      function publicUrlForDoc(id) {
+        if (!id || id === 'intro') return '/';
+        return `/${id.replace(/\/index$/, '')}/`;
+      }
+
+      function docsPathForDoc(id) {
+        return id ? `docs/${id}.md` : 'Раздел без собственной страницы';
+      }
+
+      function displayLabel(node) {
+        return node.label || node.id || 'Без названия';
+      }
+
+      function markDirty(message) {
+        state.dirty = true;
+        saveEl.disabled = true;
+        noticeEl.innerHTML = `<span class="dirty">Черновик интерфейса:</span> ${message} Сохранение в Git подключим следующим шагом.`;
+      }
+
+      function selectNode(node, key) {
+        const docId = nodeDocId(node);
+        state.selectedNode = node;
+        state.selectedKey = key;
+        titleEl.textContent = displayLabel(node);
+        pathEl.textContent = docsPathForDoc(docId);
+        openPageEl.href = publicUrlForDoc(docId);
+        contentEl.value = docId
+          ? `# ${displayLabel(node)}\n\nФайл: ${docsPathForDoc(docId)}\nПубличный URL: ${publicUrlForDoc(docId)}\n\nЗдесь будет содержимое страницы и block editor.`
+          : `# ${displayLabel(node)}\n\nЭто раздел меню без собственной страницы. Внутрь можно добавлять страницы и подразделы.`;
+        renderTree();
+      }
+
+      function addChild(parentNode, type) {
+        const baseLabel = type === 'doc' ? 'Новая страница' : 'Новый раздел';
+        const label = prompt(type === 'doc' ? 'Название новой страницы' : 'Название нового раздела', baseLabel);
+        if (!label) return;
+        const targetItems = parentNode ? (parentNode.items ||= []) : state.sidebar.docs;
+        if (type === 'doc') {
+          const slug = label.toLowerCase()
+            .trim()
+            .replace(/ё/g, 'e')
+            .replace(/[^a-z0-9а-я]+/gi, '-')
+            .replace(/^-|-$/g, '') || 'new-page';
+          targetItems.push({type: 'doc', id: `draft/${slug}`, label, draft: true});
+          markDirty(`Добавлена страница «${label}» в меню.`);
+        } else {
+          targetItems.push({type: 'category', label, collapsed: true, draft: true, items: []});
+          markDirty(`Добавлен раздел «${label}» в меню.`);
+        }
+        if (parentNode) state.open.add(nodeKey(parentNode, ['parent']));
+        renderTree();
+      }
+
+      function renameNode(node) {
+        const oldLabel = displayLabel(node);
+        const label = prompt('Новое название', oldLabel);
+        if (!label || label === oldLabel) return;
+        node.label = label;
+        if (node.type === 'category' && node.link) {
+          node.link.label = label;
+        }
+        markDirty(`Название изменено: «${oldLabel}» → «${label}».`);
+        if (state.selectedNode === node) selectNode(node, state.selectedKey);
+        renderTree();
+      }
+
+      function closePopover() {
+        popoverEl.hidden = true;
+        popoverEl.innerHTML = '';
+        state.popoverNode = null;
+      }
+
+      function openPopover(button, node) {
+        state.popoverNode = node;
+        const canAddInside = node.type === 'category';
+        popoverEl.innerHTML = `
+          <button type="button" data-action="rename">Изменить название</button>
+          ${canAddInside ? '<button type="button" data-action="add-page">Добавить страницу внутрь</button><button type="button" data-action="add-section">Добавить раздел внутрь</button>' : ''}
+        `;
+        const rect = button.getBoundingClientRect();
+        popoverEl.style.top = `${Math.min(rect.bottom + 6, window.innerHeight - 150)}px`;
+        popoverEl.style.left = `${Math.min(rect.left - 180, window.innerWidth - 240)}px`;
+        popoverEl.hidden = false;
+        button.classList.add('open');
+      }
+
+      function matchesFilter(node, childrenMatch) {
+        if (!state.filter) return true;
+        const haystack = `${displayLabel(node)} ${nodeDocId(node)}`.toLowerCase();
+        return haystack.includes(state.filter) || childrenMatch;
+      }
+
+      function renderNode(node, path = []) {
+        const key = nodeKey(node, path);
+        const hasChildren = Array.isArray(node.items) && node.items.length > 0;
+        const childElements = hasChildren ? node.items.map((child, index) => renderNode(child, [...path, index])).filter(Boolean) : [];
+        if (!matchesFilter(node, childElements.length > 0)) return null;
+
+        const group = document.createElement('div');
+        group.className = `tree-group ${state.open.has(key) || state.filter ? '' : 'collapsed'}`;
+        const row = document.createElement('div');
+        row.className = `tree-row ${state.selectedKey === key ? 'active' : ''} ${node.draft ? 'draft' : ''}`;
+        row.style.paddingLeft = `${Math.min(path.length * 4, 18)}px`;
+
+        const twisty = document.createElement('button');
+        twisty.type = 'button';
+        twisty.className = `twisty ${hasChildren ? '' : 'empty'}`;
+        twisty.textContent = hasChildren ? (state.open.has(key) || state.filter ? '▾' : '▸') : '•';
+        twisty.setAttribute('aria-label', hasChildren ? 'Свернуть или развернуть' : 'Нет вложенных страниц');
+        twisty.addEventListener('click', (event) => {
+          event.stopPropagation();
+          if (!hasChildren) return;
+          state.open.has(key) ? state.open.delete(key) : state.open.add(key);
+          renderTree();
+        });
+
+        const main = document.createElement('button');
+        main.type = 'button';
+        main.className = 'node-main';
+        main.innerHTML = `<div class="node-title"></div><div class="node-meta"></div>`;
+        main.querySelector('.node-title').textContent = displayLabel(node);
+        main.querySelector('.node-meta').textContent = node.type === 'category'
+          ? (nodeDocId(node) ? `раздел · ${nodeDocId(node)}` : 'раздел')
+          : node.id;
+        main.addEventListener('click', () => selectNode(node, key));
+
+        const menu = document.createElement('button');
+        menu.type = 'button';
+        menu.className = 'node-menu';
+        menu.textContent = '⋯';
+        menu.setAttribute('aria-label', `Действия для ${displayLabel(node)}`);
+        menu.addEventListener('click', (event) => {
+          event.stopPropagation();
+          closePopover();
+          openPopover(menu, node);
+        });
+
+        row.append(twisty, main, menu);
+        group.append(row);
+        if (hasChildren) {
+          const children = document.createElement('div');
+          children.className = 'tree-children';
+          childElements.forEach((child) => children.append(child));
+          group.append(children);
+        }
+        return group;
+      }
+
+      function renderTree() {
+        closePopover();
+        treeEl.innerHTML = '';
+        if (!state.sidebar) {
+          treeEl.innerHTML = '<div class="empty-state">Меню загружается…</div>';
+          return;
+        }
+        const items = state.sidebar.docs.map((item, index) => renderNode(item, [index])).filter(Boolean);
+        if (!items.length) {
+          treeEl.innerHTML = '<div class="empty-state">Ничего не найдено.</div>';
+          return;
+        }
+        items.forEach((item) => treeEl.append(item));
+      }
+
+      searchEl.addEventListener('input', () => {
+        state.filter = searchEl.value.trim().toLowerCase();
+        renderTree();
+      });
+
+      document.getElementById('add-page-root').addEventListener('click', () => addChild(null, 'doc'));
+      document.getElementById('add-section-root').addEventListener('click', () => addChild(null, 'category'));
+
+      popoverEl.addEventListener('click', (event) => {
+        const action = event.target.dataset.action;
+        if (!action || !state.popoverNode) return;
+        const node = state.popoverNode;
+        closePopover();
+        if (action === 'rename') renameNode(node);
+        if (action === 'add-page') addChild(node, 'doc');
+        if (action === 'add-section') addChild(node, 'category');
+      });
+
+      document.addEventListener('click', (event) => {
+        if (!popoverEl.contains(event.target)) closePopover();
+      });
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') closePopover();
+      });
+
+      async function boot() {
+        try {
+          const response = await fetch('./sidebars.json', {cache: 'no-store'});
+          if (!response.ok) throw new Error(`HTTP ${response.status}`);
+          state.sidebar = await response.json();
+          state.sidebar.docs.forEach((item, index) => {
+            const key = nodeKey(item, [index]);
+            if (index < 2) state.open.add(key);
+          });
+          renderTree();
+          const first = state.sidebar.docs[0];
+          if (first) selectNode(first, nodeKey(first, [0]));
+        } catch (error) {
+          treeEl.innerHTML = `<div class="empty-state">Не удалось загрузить sidebars.json: ${error.message}</div>`;
+          titleEl.textContent = 'Ошибка загрузки меню';
+        }
+      }
+
+      boot();
+    </script>
   </body>
 </html>

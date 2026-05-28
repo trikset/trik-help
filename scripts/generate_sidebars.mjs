@@ -6,6 +6,7 @@ import path from 'node:path';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const inputPath = path.join(root, 'sidebars.json');
 const outputPath = path.join(root, 'sidebars.ts');
+const editorSidebarPath = path.join(root, 'static/admin/editor/sidebars.json');
 
 async function main() {
   const raw = await readFile(inputPath, 'utf8');
@@ -25,7 +26,8 @@ async function main() {
 
   const source = `import type {SidebarsConfig} from '@docusaurus/plugin-content-docs';\n\nimport sidebarsData from './sidebars.json';\n\nconst sidebars = sidebarsData as SidebarsConfig;\n\nexport default sidebars;\n`;
   await writeFile(outputPath, source);
-  console.log(`Generated ${path.relative(root, outputPath)} from ${path.relative(root, inputPath)} (${parsed.docs.length} top-level items).`);
+  await writeFile(editorSidebarPath, `${JSON.stringify(parsed, null, 2)}\n`);
+  console.log(`Generated ${path.relative(root, outputPath)} and ${path.relative(root, editorSidebarPath)} from ${path.relative(root, inputPath)} (${parsed.docs.length} top-level items).`);
 }
 
 main().catch((error) => {
