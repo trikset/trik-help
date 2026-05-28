@@ -122,7 +122,7 @@
       .tree-row {
         position: relative;
         display: grid;
-        grid-template-columns: 26px minmax(0, 1fr) 30px;
+        grid-template-columns: 26px 22px minmax(0, 1fr) 30px;
         align-items: center;
         min-height: 38px;
         gap: 2px;
@@ -143,7 +143,11 @@
       .tree-row.draft {
         outline: 1px dashed color-mix(in srgb, var(--primary) 45%, transparent);
       }
-      .twisty, .node-menu {
+      .tree-row.dragging-source {
+        opacity: .45;
+        outline: 1px dashed var(--primary);
+      }
+      .twisty, .node-menu, .drag-handle {
         width: 28px;
         height: 28px;
         border: 0;
@@ -152,7 +156,19 @@
         color: var(--muted);
         cursor: pointer;
       }
-      .twisty:hover, .node-menu:hover { background: color-mix(in srgb, var(--panel) 70%, transparent); color: var(--text); }
+      .drag-handle {
+        width: 22px;
+        opacity: 0;
+        cursor: grab;
+        touch-action: none;
+        font-weight: 700;
+        letter-spacing: -3px;
+      }
+      .drag-handle:active { cursor: grabbing; }
+      .tree-row:hover .drag-handle,
+      .tree-row.dragging-source .drag-handle { opacity: 1; }
+      .tree.dragging .drag-handle { opacity: .45; }
+      .twisty:hover, .node-menu:hover, .drag-handle:hover { background: color-mix(in srgb, var(--panel) 70%, transparent); color: var(--text); }
       .twisty.empty { cursor: default; opacity: .25; }
       .node-main {
         min-width: 0;
@@ -221,8 +237,16 @@
         cursor: pointer;
         box-shadow: var(--shadow);
       }
-      .insert-line:hover::before { background: var(--primary); }
+      .insert-line:hover::before,
+      .insert-line.drop-target::before {
+        height: 2px;
+        background: var(--primary);
+      }
       .insert-line:hover .insert-plus { opacity: 1; transform: translateY(-50%) scale(1); }
+      .tree.dragging .insert-plus { display: none; }
+      .tree.dragging .insert-line { height: 16px; }
+      .tree.dragging .insert-line::before { left: 18px; right: 6px; }
+      .tree.dragging .insert-line.drop-forbidden::before { background: #d92d20; }
       .tree-group.collapsed > .tree-children { display: none; }
       .empty-state {
         margin: 10px;
@@ -372,6 +396,8 @@
         filter: '',
         popoverNode: null,
         draftCounter: 1,
+        dragging: null,
+        dropTarget: null,
       };
 
       const treeEl = document.getElementById('tree');
@@ -435,6 +461,84 @@
           items = node.items ||= [];
         }
         return items;
+      }
+
+      function samePath(a, b) {
+        return a.length === b.length && a.every((value, index) => value === b[index]);
+      }
+
+      function pathStartsWith(path, prefix) {
+        return prefix.length <= path.length && prefix.every((value, index) => value === path[index]);
+      }
+
+      function clearDropTarget() {
+        document.querySelectorAll('.insert-line.drop-target, .insert-line.drop-forbidden')
+          .forEach((line) => line.classList.remove('drop-target', 'drop-forbidden'));
+        state.dropTarget = null;
+      }
+
+      function isForbiddenDrop(parentPath, index) {
+        if (!state.dragging) return true;
+        const sourcePath = [...state.dragging.parentPath, state.dragging.index];
+        if (pathStartsWith(parentPath, sourcePath)) return true;
+        if (samePath(parentPath, state.dragging.parentPath) && (index === state.dragging.index || index === state.dragging.index + 1)) return true;
+        return false;
+      }
+
+      function setDropTarget(line, parentPath, index) {
+        if (!state.dragging) return;
+        clearDropTarget();
+        const forbidden = isForbiddenDrop(parentPath, index);
+        line.classList.add(forbidden ? 'drop-forbidden' : 'drop-target');
+        state.dropTarget = forbidden ? null : {parentPath: [...parentPath], index};
+      }
+
+      function moveDraggedToDropTarget() {
+        if (!state.dragging || !state.dropTarget) return false;
+        const {node, parentPath: fromParentPath, index: fromIndex} = state.dragging;
+        const {parentPath: toParentPath, index: originalToIndex} = state.dropTarget;
+        const fromItems = getItemsAtPath(fromParentPath);
+        const toItems = getItemsAtPath(toParentPath);
+        if (!fromItems || !toItems || fromItems[fromIndex] !== node) return false;
+        let toIndex = originalToIndex;
+        fromItems.splice(fromIndex, 1);
+        if (samePath(fromParentPath, toParentPath) && toIndex > fromIndex) toIndex -= 1;
+        toItems.splice(toIndex, 0, node);
+        markDirty(`Пункт «${displayLabel(node)}» перемещён в меню.`);
+        return true;
+      }
+
+      function startDrag(event, node, parentPath, index, row) {
+        if (state.filter) {
+          alert('Сначала очистите поиск: перетаскивание при фильтре отключено, чтобы не переставить скрытые пункты.');
+          return;
+        }
+        closePopover();
+        event.preventDefault();
+        state.dragging = {node, parentPath: [...parentPath], index, row};
+        treeEl.classList.add('dragging');
+        row.classList.add('dragging-source');
+        document.addEventListener('pointerup', finishDrag, {once: true});
+        document.addEventListener('keydown', cancelDragOnEscape);
+      }
+
+      function finishDrag() {
+        const moved = moveDraggedToDropTarget();
+        if (state.dragging?.row) state.dragging.row.classList.remove('dragging-source');
+        state.dragging = null;
+        clearDropTarget();
+        treeEl.classList.remove('dragging');
+        document.removeEventListener('keydown', cancelDragOnEscape);
+        if (moved) renderTree();
+      }
+
+      function cancelDragOnEscape(event) {
+        if (event.key !== 'Escape') return;
+        if (state.dragging?.row) state.dragging.row.classList.remove('dragging-source');
+        state.dragging = null;
+        clearDropTarget();
+        treeEl.classList.remove('dragging');
+        document.removeEventListener('keydown', cancelDragOnEscape);
       }
 
       function makeDraftDocId(label) {
@@ -559,6 +663,7 @@
           event.stopPropagation();
           askInsertAt(parentPath, index);
         });
+        line.addEventListener('pointerenter', () => setDropTarget(line, parentPath, index));
         line.append(plus);
         return line;
       }
@@ -587,6 +692,13 @@
           renderTree();
         });
 
+        const dragHandle = document.createElement('button');
+        dragHandle.type = 'button';
+        dragHandle.className = 'drag-handle';
+        dragHandle.textContent = '⋮⋮';
+        dragHandle.setAttribute('aria-label', `Перетащить ${displayLabel(node)}`);
+        dragHandle.addEventListener('pointerdown', (event) => startDrag(event, node, parentPath, indexInParent, row));
+
         const main = document.createElement('button');
         main.type = 'button';
         main.className = 'node-main';
@@ -608,7 +720,7 @@
           openPopover(menu, node, parentPath, indexInParent);
         });
 
-        row.append(twisty, main, menu);
+        row.append(twisty, dragHandle, main, menu);
         group.append(renderInsertLine(parentPath, indexInParent));
         group.append(row);
         if (hasChildren) {
