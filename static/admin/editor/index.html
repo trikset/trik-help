@@ -174,6 +174,41 @@
         padding-left: 8px;
         border-left: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
       }
+      .insert-line {
+        position: relative;
+        height: 11px;
+        margin: -2px 0;
+      }
+      .insert-line::before {
+        content: "";
+        position: absolute;
+        left: 28px;
+        right: 10px;
+        top: 5px;
+        height: 1px;
+        border-radius: 999px;
+        background: transparent;
+      }
+      .insert-plus {
+        position: absolute;
+        left: 4px;
+        top: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 22px;
+        height: 22px;
+        transform: translateY(-50%) scale(.92);
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        background: var(--panel);
+        color: var(--primary);
+        opacity: 0;
+        cursor: pointer;
+        box-shadow: var(--shadow);
+      }
+      .insert-line:hover::before { background: var(--primary); }
+      .insert-line:hover .insert-plus { opacity: 1; transform: translateY(-50%) scale(1); }
       .tree-group.collapsed > .tree-children { display: none; }
       .empty-state {
         margin: 10px;
@@ -205,6 +240,8 @@
         cursor: pointer;
       }
       .menu-popover button:hover { background: var(--soft); }
+      .menu-popover button.danger { color: #b42318; }
+      @media (prefers-color-scheme: dark) { .menu-popover button.danger { color: #ff9b92; } }
       .editor-card {
         min-height: calc(100vh - 118px);
         border: 1px solid var(--border);
@@ -320,6 +357,7 @@
         dirty: false,
         filter: '',
         popoverNode: null,
+        draftCounter: 1,
       };
 
       const treeEl = document.getElementById('tree');
@@ -375,24 +413,82 @@
         renderTree();
       }
 
+      function getItemsAtPath(parentPath) {
+        let items = state.sidebar.docs;
+        for (const index of parentPath) {
+          const node = items[index];
+          if (!node) return null;
+          items = node.items ||= [];
+        }
+        return items;
+      }
+
+      function makeDraftDocId(label) {
+        const slug = label.toLowerCase()
+          .trim()
+          .replace(/ё/g, 'e')
+          .replace(/[^a-z0-9а-я]+/gi, '-')
+          .replace(/^-|-$/g, '') || 'new-page';
+        return `draft/${slug}-${state.draftCounter++}`;
+      }
+
+      function createDraftNode(type, label) {
+        return type === 'doc'
+          ? {type: 'doc', id: makeDraftDocId(label), label, draft: true}
+          : {type: 'category', label, collapsed: true, draft: true, items: []};
+      }
+
       function addChild(parentNode, type) {
         const baseLabel = type === 'doc' ? 'Новая страница' : 'Новый раздел';
         const label = prompt(type === 'doc' ? 'Название новой страницы' : 'Название нового раздела', baseLabel);
         if (!label) return;
         const targetItems = parentNode ? (parentNode.items ||= []) : state.sidebar.docs;
-        if (type === 'doc') {
-          const slug = label.toLowerCase()
-            .trim()
-            .replace(/ё/g, 'e')
-            .replace(/[^a-z0-9а-я]+/gi, '-')
-            .replace(/^-|-$/g, '') || 'new-page';
-          targetItems.push({type: 'doc', id: `draft/${slug}`, label, draft: true});
-          markDirty(`Добавлена страница «${label}» в меню.`);
-        } else {
-          targetItems.push({type: 'category', label, collapsed: true, draft: true, items: []});
-          markDirty(`Добавлен раздел «${label}» в меню.`);
-        }
+        targetItems.push(createDraftNode(type, label));
+        markDirty(type === 'doc'
+          ? `Добавлена страница «${label}» в меню.`
+          : `Добавлен раздел «${label}» в меню.`);
         if (parentNode) state.open.add(nodeKey(parentNode, ['parent']));
+        renderTree();
+      }
+
+      function insertAt(parentPath, index, type) {
+        const baseLabel = type === 'doc' ? 'Новая страница' : 'Новый раздел';
+        const label = prompt(type === 'doc' ? 'Название новой страницы' : 'Название нового раздела', baseLabel);
+        if (!label) return;
+        const items = getItemsAtPath(parentPath);
+        if (!items) return;
+        items.splice(index, 0, createDraftNode(type, label));
+        markDirty(type === 'doc'
+          ? `Добавлена страница «${label}» между пунктами меню.`
+          : `Добавлен раздел «${label}» между пунктами меню.`);
+        renderTree();
+      }
+
+      function askInsertAt(parentPath, index) {
+        const choice = prompt('Что добавить в это место? Введите: страница или раздел', 'страница');
+        if (!choice) return;
+        const normalized = choice.trim().toLowerCase();
+        if (['страница', 'page', 'p', 'с'].includes(normalized)) return insertAt(parentPath, index, 'doc');
+        if (['раздел', 'section', 's', 'р'].includes(normalized)) return insertAt(parentPath, index, 'category');
+        alert('Не понял выбор. Введите «страница» или «раздел».');
+      }
+
+      function deleteNode(parentPath, index, node) {
+        const label = displayLabel(node);
+        const childCount = Array.isArray(node.items) ? node.items.length : 0;
+        const details = childCount ? ` и ${childCount} вложенн. пункт(ов)` : '';
+        if (!confirm(`Удалить из меню «${label}»${details}?\n\nПока это UI-черновик: файл страницы не удаляется, меняется только структура меню в интерфейсе.`)) return;
+        const items = getItemsAtPath(parentPath);
+        if (!items) return;
+        items.splice(index, 1);
+        if (state.selectedNode === node) {
+          state.selectedNode = null;
+          state.selectedKey = null;
+          titleEl.textContent = 'Выберите страницу';
+          pathEl.textContent = 'sidebars.json';
+          contentEl.value = '# Выберите страницу в меню';
+        }
+        markDirty(`Пункт «${label}» удалён из меню.`);
         renderTree();
       }
 
@@ -415,12 +511,13 @@
         state.popoverNode = null;
       }
 
-      function openPopover(button, node) {
-        state.popoverNode = node;
+      function openPopover(button, node, parentPath = [], indexInParent = 0) {
+        state.popoverNode = {node, parentPath, indexInParent};
         const canAddInside = node.type === 'category';
         popoverEl.innerHTML = `
           <button type="button" data-action="rename">Изменить название</button>
           ${canAddInside ? '<button type="button" data-action="add-page">Добавить страницу внутрь</button><button type="button" data-action="add-section">Добавить раздел внутрь</button>' : ''}
+          <button type="button" class="danger" data-action="delete">Удалить из меню</button>
         `;
         const rect = button.getBoundingClientRect();
         popoverEl.style.top = `${Math.min(rect.bottom + 6, window.innerHeight - 150)}px`;
@@ -435,10 +532,27 @@
         return haystack.includes(state.filter) || childrenMatch;
       }
 
-      function renderNode(node, path = []) {
+      function renderInsertLine(parentPath, index) {
+        const line = document.createElement('div');
+        line.className = 'insert-line';
+        line.style.marginLeft = `${Math.min(parentPath.length * 4, 18)}px`;
+        const plus = document.createElement('button');
+        plus.type = 'button';
+        plus.className = 'insert-plus';
+        plus.textContent = '+';
+        plus.setAttribute('aria-label', 'Добавить страницу или раздел здесь');
+        plus.addEventListener('click', (event) => {
+          event.stopPropagation();
+          askInsertAt(parentPath, index);
+        });
+        line.append(plus);
+        return line;
+      }
+
+      function renderNode(node, path = [], parentPath = [], indexInParent = 0) {
         const key = nodeKey(node, path);
         const hasChildren = Array.isArray(node.items) && node.items.length > 0;
-        const childElements = hasChildren ? node.items.map((child, index) => renderNode(child, [...path, index])).filter(Boolean) : [];
+        const childElements = hasChildren ? node.items.map((child, index) => renderNode(child, [...path, index], path, index)).filter(Boolean) : [];
         if (!matchesFilter(node, childElements.length > 0)) return null;
 
         const group = document.createElement('div');
@@ -477,15 +591,17 @@
         menu.addEventListener('click', (event) => {
           event.stopPropagation();
           closePopover();
-          openPopover(menu, node);
+          openPopover(menu, node, parentPath, indexInParent);
         });
 
         row.append(twisty, main, menu);
+        group.append(renderInsertLine(parentPath, indexInParent));
         group.append(row);
         if (hasChildren) {
           const children = document.createElement('div');
           children.className = 'tree-children';
-          childElements.forEach((child) => children.append(child));
+          childElements.forEach((child, childIndex) => children.append(child));
+          children.append(renderInsertLine(path, node.items.length));
           group.append(children);
         }
         return group;
@@ -498,12 +614,13 @@
           treeEl.innerHTML = '<div class="empty-state">Меню загружается…</div>';
           return;
         }
-        const items = state.sidebar.docs.map((item, index) => renderNode(item, [index])).filter(Boolean);
+        const items = state.sidebar.docs.map((item, index) => renderNode(item, [index], [], index)).filter(Boolean);
         if (!items.length) {
           treeEl.innerHTML = '<div class="empty-state">Ничего не найдено.</div>';
           return;
         }
         items.forEach((item) => treeEl.append(item));
+        treeEl.append(renderInsertLine([], state.sidebar.docs.length));
       }
 
       searchEl.addEventListener('input', () => {
@@ -517,11 +634,12 @@
       popoverEl.addEventListener('click', (event) => {
         const action = event.target.dataset.action;
         if (!action || !state.popoverNode) return;
-        const node = state.popoverNode;
+        const {node, parentPath, indexInParent} = state.popoverNode;
         closePopover();
         if (action === 'rename') renameNode(node);
         if (action === 'add-page') addChild(node, 'doc');
         if (action === 'add-section') addChild(node, 'category');
+        if (action === 'delete') deleteNode(parentPath, indexInParent, node);
       });
 
       document.addEventListener('click', (event) => {
