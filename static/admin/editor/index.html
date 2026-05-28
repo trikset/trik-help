@@ -345,8 +345,10 @@
         gap: 24px;
         padding: 24px;
       }
+      #notice { grid-column: 1 / -1; }
       .page-canvas {
         display: grid;
+        grid-column: 1;
         gap: 8px;
         min-width: 0;
       }
@@ -416,6 +418,7 @@
       .toc-panel {
         position: sticky;
         top: 0;
+        grid-column: 2;
         align-self: start;
         max-height: calc(100vh - 150px);
         overflow: auto;
@@ -521,6 +524,7 @@
         main { overflow: visible; }
         .editor-head { flex-direction: column; }
         .editor-body { grid-template-columns: 1fr; }
+        #notice, .page-canvas, .toc-panel { grid-column: 1; }
         .toc-panel { position: static; max-height: none; }
       }
     </style>
@@ -738,9 +742,15 @@
           pageTocEl.innerHTML = '<h3>На этой странице</h3><div class="muted">Нет заголовков.</div>';
           return;
         }
-        contentEl.innerHTML = page.blocks.map(renderBlock).join('');
-        const toc = page.toc.filter((item) => item.level <= 3);
-        pageTocEl.innerHTML = `<h3>На этой странице</h3>${toc.length ? toc.map((item) => `<a class="toc-level-${item.level}" href="#${escapeHtml(item.anchor || '')}">${escapeHtml(item.text)}</a>`).join('') : '<div class="muted">Нет заголовков.</div>'}`;
+        try {
+          contentEl.innerHTML = page.blocks.map(renderBlock).join('');
+          const toc = page.toc.filter((item) => item.level <= 3);
+          pageTocEl.innerHTML = `<h3>На этой странице</h3>${toc.length ? toc.map((item) => `<a class="toc-level-${item.level}" href="#${escapeHtml(item.anchor || '')}">${escapeHtml(item.text)}</a>`).join('') : '<div class="muted">Нет заголовков.</div>'}`;
+        } catch (error) {
+          console.error(error);
+          contentEl.innerHTML = `<div class="notice"><strong>Не удалось отрисовать страницу.</strong><br>${escapeHtml(error.message || error)}</div>`;
+          pageTocEl.innerHTML = '<h3>На этой странице</h3><div class="muted">Ошибка рендера.</div>';
+        }
       }
 
       function selectNode(node, key) {
