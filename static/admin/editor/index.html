@@ -14,9 +14,10 @@
         --text: #10213f;
         --muted: #5f6b7a;
         --border: #d9e1ee;
-        --primary: #1b66d2;
-        --primary-hover: #1554ae;
-        --soft: #eef4ff;
+        --primary: #009933;
+        --primary-hover: #007a29;
+        --trik-lime: #99cc00;
+        --soft: #e7f6e9;
         --shadow: 0 14px 35px rgba(12, 26, 48, .12);
       }
       @media (prefers-color-scheme: dark) {
@@ -27,9 +28,10 @@
           --text: #eef4ff;
           --muted: #aab7c8;
           --border: #2a3850;
-          --primary: #5a9cff;
-          --primary-hover: #7db1ff;
-          --soft: #182842;
+          --primary: #4fd37b;
+          --primary-hover: #74e596;
+          --trik-lime: #b6e34a;
+          --soft: #12351f;
           --shadow: 0 14px 35px rgba(0, 0, 0, .32);
         }
       }
@@ -39,7 +41,7 @@
         min-height: 100vh;
         background: var(--bg);
         color: var(--text);
-        font: 15px/1.5 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font: 15px/1.5 Montserrat, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       }
       header {
         display: flex;
@@ -122,15 +124,21 @@
         display: grid;
         grid-template-columns: 26px minmax(0, 1fr) 30px;
         align-items: center;
-        min-height: 34px;
+        min-height: 38px;
         gap: 2px;
-        border-radius: 10px;
+        border-radius: 8px;
         padding-right: 4px;
+        color: #666f79;
       }
-      .tree-row:hover { background: color-mix(in srgb, var(--soft) 70%, transparent); }
+      .tree-row:hover {
+        background: color-mix(in srgb, var(--soft) 82%, transparent);
+        color: var(--primary);
+      }
       .tree-row.active {
         background: var(--soft);
-        outline: 1px solid color-mix(in srgb, var(--primary) 55%, transparent);
+        color: var(--primary);
+        outline: 1px solid color-mix(in srgb, var(--primary) 28%, transparent);
+        box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--primary) 12%, transparent);
       }
       .tree-row.draft {
         outline: 1px dashed color-mix(in srgb, var(--primary) 45%, transparent);
@@ -150,19 +158,25 @@
         min-width: 0;
         border: 0;
         background: transparent;
-        color: var(--text);
+        color: inherit;
         text-align: left;
         cursor: pointer;
-        padding: 7px 4px;
+        padding: 8px 4px;
       }
       .node-title {
         overflow: hidden;
         text-overflow: ellipsis;
-        white-space: nowrap;
+        white-space: normal;
+      }
+      .tree-row.category-only .node-title {
+        font-weight: 700;
+      }
+      .tree-row.active .node-title,
+      .tree-row:hover .node-title {
+        color: var(--primary);
       }
       .node-meta {
-        color: var(--muted);
-        font-size: 12px;
+        display: none;
       }
       .node-menu {
         opacity: 0;
@@ -170,8 +184,8 @@
       }
       .tree-row:hover .node-menu, .node-menu.open { opacity: 1; }
       .tree-children {
-        margin-left: 18px;
-        padding-left: 8px;
+        margin-left: 24px;
+        padding-left: 10px;
         border-left: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
       }
       .insert-line {
@@ -558,7 +572,7 @@
         const group = document.createElement('div');
         group.className = `tree-group ${state.open.has(key) || state.filter ? '' : 'collapsed'}`;
         const row = document.createElement('div');
-        row.className = `tree-row ${state.selectedKey === key ? 'active' : ''} ${node.draft ? 'draft' : ''}`;
+        row.className = `tree-row ${state.selectedKey === key ? 'active' : ''} ${node.draft ? 'draft' : ''} ${node.type === 'category' && !nodeDocId(node) ? 'category-only' : ''}`;
         row.style.paddingLeft = `${Math.min(path.length * 4, 18)}px`;
 
         const twisty = document.createElement('button');
