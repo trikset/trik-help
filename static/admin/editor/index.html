@@ -760,9 +760,7 @@
         titleEl.textContent = displayLabel(node);
         pathEl.textContent = docsPathForDoc(docId);
         openPageEl.href = publicUrlForDoc(docId);
-        contentEl.value = docId
-          ? `# ${displayLabel(node)}\n\nФайл: ${docsPathForDoc(docId)}\nПубличный URL: ${publicUrlForDoc(docId)}\n\nЗдесь будет содержимое страницы и block editor.`
-          : `# ${displayLabel(node)}\n\nЭто раздел меню без собственной страницы. Внутрь можно добавлять страницы и подразделы.`;
+        renderPageContent(docId);
         renderTree();
       }
 
