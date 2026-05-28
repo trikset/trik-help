@@ -208,18 +208,18 @@ collections:
       - { name: "body", label: "Текст страницы", widget: "markdown" }
   - name: "navigation"
     label: "Техническое: левое меню"
-    description: "Левое меню сайта. Использовать только когда нужно изменить порядок разделов, вложенность или подписи в боковой навигации. Это технический файл sidebars.ts. Внутри — служебная структура, не обычный текст страницы."
+    description: "Левое меню сайта. Использовать только когда нужно изменить порядок разделов, вложенность или подписи в боковой навигации. Это структурный файл sidebars.json. Внутри — служебная структура меню, не обычный текст страницы."
     files:
       - name: "sidebars"
         label: "Левое меню сайта"
-        file: "sidebars.ts"
+        file: "sidebars.json"
         fields:
           - name: "body"
-            label: "sidebars.ts"
+            label: "sidebars.json"
             widget: "code"
-            default_language: "typescript"
+            default_language: "json"
             allow_language_selection: false
-            hint: "Здесь задаётся левое меню справки. ID страницы — это путь внутри docs без .md, например docs/studio/about/index.md → studio/about/index. Якоря и MDX-импорты — это служебная разметка страниц, а не элементы меню."
+            hint: "Здесь задаётся левое меню справки в JSON. ID страницы — это путь внутри docs без .md, например docs/studio/about/index.md → studio/about/index. После изменения меню publish-flow проверит JSON и пересоберёт sidebars.ts."
   - name: "site_settings"
     label: "Техническое: настройки сайта"
     description: "Глобальные настройки Docusaurus: название сайта, шапка, ссылки. Обычно редакторам страниц это не нужно. Для обычного редактирования страниц почти никогда не требуется."

@@ -16,6 +16,8 @@ git worktree add --detach "$WORKDIR/source" "${REMOTE}/${SOURCE_BRANCH}"
 TRIK_HELP_SOURCE="$WORKDIR/source" TRIK_HELP_SITE="$(pwd)" node migration/convert-full.mjs
 
 npm ci
+npm run generate-sidebars
+npm run validate-sidebars
 npm run build
 
 echo "=== Conversion complete ==="
