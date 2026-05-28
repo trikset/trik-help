@@ -17,6 +17,7 @@ TRIK_HELP_SOURCE="$WORKDIR/source" TRIK_HELP_SITE="$(pwd)" node migration/conver
 
 npm ci
 npm run generate-sidebars
+npm run generate-editor-content
 npm run validate-sidebars
 npm run build
 
