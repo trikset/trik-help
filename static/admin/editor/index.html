@@ -354,7 +354,7 @@
       }
       .page-block {
         position: relative;
-        padding: 6px 10px 6px 34px;
+        padding: 6px 10px 6px 58px;
         border-radius: 10px;
       }
       .page-block:hover {
@@ -362,25 +362,32 @@
       }
       .block-controls {
         position: absolute;
-        left: 2px;
+        left: 8px;
         top: 8px;
-        display: grid;
-        gap: 4px;
+        display: flex;
+        align-items: center;
+        gap: 2px;
         opacity: 0;
+        transition: opacity .12s ease;
       }
-      .page-block:hover .block-controls { opacity: 1; }
+      .page-block:hover .block-controls,
+      .block-controls:focus-within { opacity: 1; }
       .block-control {
         display: inline-grid;
         place-items: center;
-        width: 24px;
-        height: 24px;
-        border: 1px solid var(--border);
-        border-radius: 8px;
-        background: var(--panel);
+        width: 22px;
+        height: 22px;
+        border: 0;
+        border-radius: 7px;
+        background: transparent;
         color: var(--muted);
         cursor: pointer;
       }
-      .block-control:hover { color: var(--primary); background: var(--soft); }
+      .block-control:hover,
+      .block-control.open {
+        color: var(--primary);
+        background: color-mix(in srgb, var(--primary) 10%, transparent);
+      }
       .rendered-page {
         max-width: 820px;
         color: var(--text);
@@ -705,7 +712,7 @@
       }
 
       function renderBlock(block, index) {
-        const controls = '<div class="block-controls"><button class="block-control" type="button" title="Переместить блок">⋮⋮</button><button class="block-control" type="button" title="Добавить блок ниже">+</button></div>';
+        const controls = `<div class="block-controls"><button class="block-control" type="button" data-block-menu="actions" data-block-index="${index}" title="Действия с блоком">⋮⋮</button><button class="block-control" type="button" data-block-menu="add" data-block-index="${index}" title="Добавить блок ниже">+</button></div>`;
         let html = '';
         if (block.type === 'anchor') {
           return `<span id="${escapeHtml(block.anchor || '')}" class="anchor-block"></span>`;
@@ -743,7 +750,7 @@
           return;
         }
         try {
-          contentEl.innerHTML = page.blocks.map(renderBlock).join('');
+            contentEl.innerHTML = page.blocks.map(renderBlock).join('');
           const toc = page.toc.filter((item) => item.level <= 3);
           pageTocEl.innerHTML = `<h3>На этой странице</h3>${toc.length ? toc.map((item) => `<a class="toc-level-${item.level}" href="#${escapeHtml(item.anchor || '')}">${escapeHtml(item.text)}</a>`).join('') : '<div class="muted">Нет заголовков.</div>'}`;
         } catch (error) {
@@ -1007,6 +1014,8 @@
         popoverEl.hidden = true;
         popoverEl.innerHTML = '';
         state.popoverNode = null;
+        state.popoverBlock = null;
+        document.querySelectorAll('.block-control.open, .node-menu.open').forEach((button) => button.classList.remove('open'));
       }
 
       function openPopover(button, node, parentPath = [], indexInParent = 0) {
@@ -1022,6 +1031,37 @@
         popoverEl.style.left = `${Math.min(rect.left - 180, window.innerWidth - 240)}px`;
         popoverEl.hidden = false;
         button.classList.add('open');
+      }
+
+      function openBlockPopover(button, blockIndex, kind) {
+        const page = state.content[nodeDocId(state.selectedNode)];
+        const block = page?.blocks?.[blockIndex];
+        if (!block) return;
+        state.popoverBlock = {blockIndex, kind};
+        const typeLabel = block.type.replace('heading-', 'заголовок ');
+        popoverEl.innerHTML = kind === 'add'
+          ? `
+            <button type="button" data-block-action="add-heading-2">Заголовок 2</button>
+            <button type="button" data-block-action="add-paragraph">Параграф</button>
+            <button type="button" data-block-action="add-image">Картинка</button>
+            <button type="button" data-block-action="add-list">Список</button>
+            <button type="button" data-block-action="add-hint">Подсказка</button>
+            <button type="button" data-block-action="add-code">Код</button>
+          `
+          : `
+            <button type="button" data-block-action="move">Перетащить блок</button>
+            <button type="button" data-block-action="duplicate">Дублировать</button>
+            <button type="button" data-block-action="edit-raw">Редактировать Markdown</button>
+            <button type="button" class="danger" data-block-action="delete">Удалить</button>
+          `;
+        const rect = button.getBoundingClientRect();
+        popoverEl.style.top = `${Math.min(rect.bottom + 6, window.innerHeight - 220)}px`;
+        popoverEl.style.left = `${Math.min(rect.left, window.innerWidth - 250)}px`;
+        popoverEl.hidden = false;
+        button.classList.add('open');
+        noticeEl.innerHTML = kind === 'add'
+          ? `<span class="dirty">Черновик:</span> выбор типа блока ниже блока #${blockIndex + 1}. Сами операции добавления подключим следующим шагом.`
+          : `<span class="dirty">Блок #${blockIndex + 1}:</span> ${escapeHtml(typeLabel)}. Действия пока показаны как интерфейсный черновик.`;
       }
 
       function matchesFilter(node, childrenMatch) {
@@ -1138,6 +1178,13 @@
       document.getElementById('add-section-root').addEventListener('click', () => addChild(null, 'category'));
 
       popoverEl.addEventListener('click', (event) => {
+        const blockAction = event.target.dataset.blockAction;
+        if (blockAction && state.popoverBlock) {
+          const index = state.popoverBlock.blockIndex + 1;
+          noticeEl.innerHTML = `<span class="dirty">Черновик:</span> действие «${escapeHtml(event.target.textContent.trim())}» для блока #${index}. Сохранение и изменение блоков подключим следующим шагом.`;
+          closePopover();
+          return;
+        }
         const action = event.target.dataset.action;
         if (!action || !state.popoverNode) return;
         const {node, parentPath, indexInParent} = state.popoverNode;
@@ -1146,6 +1193,15 @@
         if (action === 'add-page') addChild(node, 'doc');
         if (action === 'add-section') addChild(node, 'category');
         if (action === 'delete') deleteNode(parentPath, indexInParent, node);
+      });
+
+      contentEl.addEventListener('click', (event) => {
+        const button = event.target.closest('[data-block-menu]');
+        if (!button) return;
+        event.preventDefault();
+        event.stopPropagation();
+        closePopover();
+        openBlockPopover(button, Number(button.dataset.blockIndex), button.dataset.blockMenu === 'add' ? 'add' : 'actions');
       });
 
       document.addEventListener('click', (event) => {
