@@ -413,6 +413,47 @@
         color: var(--primary);
         background: color-mix(in srgb, var(--primary) 10%, transparent);
       }
+      .page-block.block-drag-source {
+        opacity: .48;
+        background: color-mix(in srgb, var(--muted) 13%, transparent);
+      }
+      .page-block.block-drop-before::before,
+      .page-block.block-drop-after::after {
+        content: "";
+        position: absolute;
+        left: 28px;
+        right: 10px;
+        height: 3px;
+        border-radius: 999px;
+        background: var(--primary);
+      }
+      .page-block.block-drop-before::before { top: -5px; }
+      .page-block.block-drop-after::after { bottom: -5px; }
+      .drag-floating-label {
+        position: fixed;
+        z-index: 80;
+        pointer-events: none;
+        padding: 6px 10px;
+        border-radius: 999px;
+        background: color-mix(in srgb, var(--text) 82%, transparent);
+        color: var(--panel);
+        font-size: 12px;
+        font-weight: 650;
+        box-shadow: var(--shadow);
+      }
+      .tab-label.tab-drag-source { opacity: .48; background: color-mix(in srgb, var(--muted) 13%, transparent); }
+      .tab-label.tab-drop-before::before,
+      .tab-label.tab-drop-after::after {
+        content: "";
+        position: absolute;
+        top: 7px;
+        bottom: 7px;
+        width: 3px;
+        border-radius: 999px;
+        background: var(--primary);
+      }
+      .tab-label.tab-drop-before::before { left: -2px; }
+      .tab-label.tab-drop-after::after { right: -2px; }
       .rendered-page {
         max-width: 820px;
         color: var(--text);
@@ -743,6 +784,9 @@
         activeEditable: null,
         activeTabs: {},
         tabEditing: null,
+        blockDragging: null,
+        tabDragging: null,
+        holdTimer: null,
       };
 
       const treeEl = document.getElementById('tree');
@@ -887,7 +931,7 @@
           } else {
             html = `<div class="raw-block">${escapeHtml(block.raw)}</div>`;
           }
-          return `<section class="page-block nested-block" data-tab-index="${tabIndex}" data-nested-block-index="${nestedIndex}" data-block-type="${escapeHtml(block.type)}"><div class="block-controls"><button class="block-control" type="button" data-block-menu="add" data-nested-menu="true" data-tab-index="${tabIndex}" data-nested-block-index="${nestedIndex}" title="Добавить вложенный блок ниже">+</button><button class="block-control" type="button" data-block-menu="actions" data-nested-menu="true" data-tab-index="${tabIndex}" data-nested-block-index="${nestedIndex}" title="Действия с вложенным блоком">⋮⋮</button></div>${html}</section>`;
+          return `<section class="page-block nested-block" data-tab-index="${tabIndex}" data-nested-block-index="${nestedIndex}" data-block-type="${escapeHtml(block.type)}"><div class="block-controls"><button class="block-control" type="button" data-block-menu="add" data-nested-menu="true" data-tab-index="${tabIndex}" data-nested-block-index="${nestedIndex}" title="Добавить вложенный блок ниже">+</button><button class="block-control" type="button" data-block-menu="actions" data-block-drag="true" data-nested-menu="true" data-tab-index="${tabIndex}" data-nested-block-index="${nestedIndex}" title="Действия с вложенным блоком">⋮⋮</button></div>${html}</section>`;
         }).join('');
       }
 
@@ -910,7 +954,7 @@
           const title = tabIndex === activeIndex
             ? `<span class="tab-title-editable" contenteditable="true" spellcheck="true" data-tab-title-edit="${tabIndex}">${escapeHtml(tab.label)}</span>`
             : `<span class="tab-title-readonly">${escapeHtml(tab.label)}</span>`;
-          return `<button class="tab-insert" type="button" data-tab-insert="${tabIndex}" title="Добавить вкладку здесь"></button><button class="tab-label ${tabIndex === activeIndex ? 'active' : ''}" type="button" data-tab-switch="${tabIndex}"><span class="tab-drag" data-tab-menu="${tabIndex}" title="Действия вкладки">⋮⋮</span>${title}</button>`;
+          return `<button class="tab-insert" type="button" data-tab-insert="${tabIndex}" title="Добавить вкладку здесь"></button><button class="tab-label ${tabIndex === activeIndex ? 'active' : ''}" type="button" data-tab-switch="${tabIndex}"><span class="tab-drag" data-tab-menu="${tabIndex}" data-tab-drag="true" title="Действия вкладки">⋮⋮</span>${title}</button>`;
         }).join('') + `<button class="tab-insert" type="button" data-tab-insert="${tabs.length}" title="Добавить вкладку здесь"></button>`;
         const panels = tabs.map((tab, tabIndex) => `<div class="tab-panel" data-tab-panel="${tabIndex}" ${tabIndex !== activeIndex ? 'hidden' : ''}>${renderNestedBlocks(parseBlocks(tab.body), tabIndex)}</div>`).join('');
         return `<div class="tabs-block theme-tabs-container tabs-container" data-tabs-block="true"><div class="tabs-head tabs">${labels}</div><div class="margin-top--md">${panels}</div></div>`;
@@ -1092,7 +1136,7 @@
       }
 
       function renderBlock(block, index) {
-        const controls = `<div class="block-controls"><button class="block-control" type="button" data-block-menu="add" data-block-index="${index}" title="Добавить блок ниже">+</button><button class="block-control" type="button" data-block-menu="actions" data-block-index="${index}" title="Действия с блоком">⋮⋮</button></div>`;
+        const controls = `<div class="block-controls"><button class="block-control" type="button" data-block-menu="add" data-block-index="${index}" title="Добавить блок ниже">+</button><button class="block-control" type="button" data-block-menu="actions" data-block-drag="true" data-block-index="${index}" title="Действия с блоком">⋮⋮</button></div>`;
         let html = '';
         if (block.type === 'anchor') {
           return `<span id="${escapeHtml(block.anchor || '')}" class="anchor-block"></span>`;
@@ -1700,6 +1744,191 @@
         if (action === 'add-page') addChild(node, 'doc');
         if (action === 'add-section') addChild(node, 'category');
         if (action === 'delete') deleteNode(parentPath, indexInParent, node);
+      });
+
+      function blockTypeLabel(type) {
+        const labels = {'heading-1':'Заголовок 1','heading-2':'Заголовок 2','heading-3':'Заголовок 3', paragraph:'Параграф', image:'Картинка', table:'Таблица', 'bulleted-list':'Маркеры', 'numbered-list':'Нумерация', 'task-list':'Список задач', hint:'Подсказка', code:'Код', quote:'Цитата', tabs:'Табы'};
+        return labels[type] || type || 'Блок';
+      }
+
+      function clearBlockDropMarkers() {
+        document.querySelectorAll('.block-drop-before, .block-drop-after, .tab-drop-before, .tab-drop-after')
+          .forEach((item) => item.classList.remove('block-drop-before', 'block-drop-after', 'tab-drop-before', 'tab-drop-after'));
+      }
+
+      function makeDragLabel(text, x, y) {
+        const el = document.createElement('div');
+        el.className = 'drag-floating-label';
+        el.textContent = text;
+        document.body.append(el);
+        moveDragLabel(el, x, y);
+        return el;
+      }
+
+      function moveDragLabel(el, x, y) {
+        if (!el) return;
+        el.style.left = `${x + 12}px`;
+        el.style.top = `${y + 12}px`;
+      }
+
+      function blockSiblingsFor(ctx) {
+        if (ctx.nestedCtx) {
+          const block = contentEl.querySelector(`[data-block-index="${ctx.nestedCtx.blockIndex}"]`);
+          const panel = block?.querySelector(`[data-tab-panel="${ctx.nestedCtx.tabIndex}"]`);
+          return [...(panel?.querySelectorAll(':scope > .nested-block') || [])];
+        }
+        return [...contentEl.querySelectorAll(':scope > .page-block:not(.nested-block)')];
+      }
+
+      function startBlockDrag(button, event) {
+        const nestedCtx = nestedContextFromButton(button);
+        const blockEl = button.closest('.page-block');
+        const index = nestedCtx ? nestedCtx.nestedIndex : Number(button.dataset.blockIndex);
+        const type = blockEl?.dataset.blockType || 'block';
+        state.blockDragging = {nestedCtx, index, sourceEl: blockEl, dropIndex: null, after: false, label: makeDragLabel(blockTypeLabel(type), event.clientX, event.clientY)};
+        blockEl?.classList.add('block-drag-source');
+        document.addEventListener('pointermove', onBlockDragMove);
+        document.addEventListener('pointerup', finishBlockDrag, {once: true});
+      }
+
+      function onBlockDragMove(event) {
+        const drag = state.blockDragging;
+        if (!drag) return;
+        moveDragLabel(drag.label, event.clientX, event.clientY);
+        clearBlockDropMarkers();
+        const siblings = blockSiblingsFor(drag);
+        let target = siblings.find((el) => {
+          const r = el.getBoundingClientRect();
+          return event.clientY >= r.top && event.clientY <= r.bottom;
+        });
+        if (!target) target = siblings.at(-1);
+        if (!target) return;
+        const rect = target.getBoundingClientRect();
+        const after = event.clientY > rect.top + rect.height / 2;
+        let targetIndex = siblings.indexOf(target) + (after ? 1 : 0);
+        if (target === drag.sourceEl || targetIndex === drag.index || targetIndex === drag.index + 1) return;
+        target.classList.add(after ? 'block-drop-after' : 'block-drop-before');
+        drag.dropIndex = targetIndex;
+        drag.after = after;
+      }
+
+      function finishBlockDrag() {
+        const drag = state.blockDragging;
+        document.removeEventListener('pointermove', onBlockDragMove);
+        if (!drag) return;
+        drag.label?.remove();
+        drag.sourceEl?.classList.remove('block-drag-source');
+        clearBlockDropMarkers();
+        if (drag.dropIndex != null) moveBlockTo(drag);
+        state.blockDragging = null;
+      }
+
+      function moveBlockTo(drag) {
+        if (drag.nestedCtx) {
+          const model = getNestedBlocks(drag.nestedCtx);
+          if (!model) return;
+          let to = drag.dropIndex;
+          const [item] = model.blocks.splice(drag.index, 1);
+          if (to > drag.index) to -= 1;
+          model.blocks.splice(to, 0, item);
+          saveNestedBlocks(drag.nestedCtx, model);
+          markDirty('Вложенный блок перемещён.', null);
+          return;
+        }
+        const page = state.content[nodeDocId(state.selectedNode)];
+        if (!page) return;
+        let to = drag.dropIndex;
+        const [item] = page.blocks.splice(drag.index, 1);
+        if (to > drag.index) to -= 1;
+        page.blocks.splice(to, 0, item);
+        refreshPageToc(page);
+        renderPageContent(nodeDocId(state.selectedNode));
+        markDirty('Блок перемещён.', null);
+      }
+
+      function startHoldForBlockDrag(button, event) {
+        clearTimeout(state.holdTimer);
+        state.holdTimer = setTimeout(() => startBlockDrag(button, event), 360);
+        const cancel = () => clearTimeout(state.holdTimer);
+        document.addEventListener('pointerup', cancel, {once: true});
+        document.addEventListener('pointercancel', cancel, {once: true});
+      }
+
+      function tabLabelsFor(blockIndex) {
+        const block = contentEl.querySelector(`[data-block-index="${blockIndex}"]`);
+        return [...(block?.querySelectorAll('.tab-label') || [])];
+      }
+
+      function startTabDrag(handle, event) {
+        const blockEl = handle.closest('[data-block-index]');
+        const blockIndex = Number(blockEl?.dataset.blockIndex);
+        const tabIndex = Number(handle.dataset.tabMenu);
+        const label = handle.closest('.tab-label');
+        state.tabDragging = {blockIndex, tabIndex, sourceEl: label, dropIndex: null, label: makeDragLabel('Вкладка', event.clientX, event.clientY)};
+        label?.classList.add('tab-drag-source');
+        document.addEventListener('pointermove', onTabDragMove);
+        document.addEventListener('pointerup', finishTabDrag, {once: true});
+      }
+
+      function onTabDragMove(event) {
+        const drag = state.tabDragging;
+        if (!drag) return;
+        moveDragLabel(drag.label, event.clientX, event.clientY);
+        clearBlockDropMarkers();
+        const labels = tabLabelsFor(drag.blockIndex);
+        let target = labels.find((el) => {
+          const r = el.getBoundingClientRect();
+          return event.clientX >= r.left && event.clientX <= r.right;
+        });
+        if (!target) target = labels.at(-1);
+        if (!target) return;
+        const rect = target.getBoundingClientRect();
+        const after = event.clientX > rect.left + rect.width / 2;
+        const targetIndex = labels.indexOf(target) + (after ? 1 : 0);
+        if (target === drag.sourceEl || targetIndex === drag.tabIndex || targetIndex === drag.tabIndex + 1) return;
+        target.classList.add(after ? 'tab-drop-after' : 'tab-drop-before');
+        drag.dropIndex = targetIndex;
+      }
+
+      function finishTabDrag() {
+        const drag = state.tabDragging;
+        document.removeEventListener('pointermove', onTabDragMove);
+        if (!drag) return;
+        drag.label?.remove();
+        drag.sourceEl?.classList.remove('tab-drag-source');
+        clearBlockDropMarkers();
+        if (drag.dropIndex != null) moveTabTo(drag);
+        state.tabDragging = null;
+      }
+
+      function moveTabTo(drag) {
+        const page = state.content[nodeDocId(state.selectedNode)];
+        const block = page?.blocks?.[drag.blockIndex];
+        if (!block || block.type !== 'tabs') return;
+        const tabs = parseTabs(block.raw);
+        let to = drag.dropIndex;
+        const [tab] = tabs.splice(drag.tabIndex, 1);
+        if (to > drag.tabIndex) to -= 1;
+        tabs.splice(to, 0, tab);
+        block.raw = serializeTabs(tabs);
+        state.activeTabs[tabsKey(drag.blockIndex)] = to;
+        renderPageContent(nodeDocId(state.selectedNode));
+        markDirty('Вкладка перемещена.', null);
+      }
+
+      function startHoldForTabDrag(handle, event) {
+        clearTimeout(state.holdTimer);
+        state.holdTimer = setTimeout(() => startTabDrag(handle, event), 360);
+        const cancel = () => clearTimeout(state.holdTimer);
+        document.addEventListener('pointerup', cancel, {once: true});
+        document.addEventListener('pointercancel', cancel, {once: true});
+      }
+
+      contentEl.addEventListener('pointerdown', (event) => {
+        const tabHandle = event.target.closest('[data-tab-drag]');
+        if (tabHandle) return startHoldForTabDrag(tabHandle, event);
+        const blockHandle = event.target.closest('[data-block-drag]');
+        if (blockHandle) return startHoldForBlockDrag(blockHandle, event);
       });
 
       contentEl.addEventListener('click', (event) => {
