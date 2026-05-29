@@ -887,7 +887,7 @@
           } else {
             html = `<div class="raw-block">${escapeHtml(block.raw)}</div>`;
           }
-          return `<section class="page-block nested-block" data-tab-index="${tabIndex}" data-nested-block-index="${nestedIndex}" data-block-type="${escapeHtml(block.type)}"><div class="block-controls"><button class="block-control" type="button" title="Добавить вложенный блок ниже">+</button><button class="block-control" type="button" title="Действия с вложенным блоком">⋮⋮</button></div>${html}</section>`;
+          return `<section class="page-block nested-block" data-tab-index="${tabIndex}" data-nested-block-index="${nestedIndex}" data-block-type="${escapeHtml(block.type)}"><div class="block-controls"><button class="block-control" type="button" data-block-menu="add" data-nested-menu="true" data-tab-index="${tabIndex}" data-nested-block-index="${nestedIndex}" title="Добавить вложенный блок ниже">+</button><button class="block-control" type="button" data-block-menu="actions" data-nested-menu="true" data-tab-index="${tabIndex}" data-nested-block-index="${nestedIndex}" title="Действия с вложенным блоком">⋮⋮</button></div>${html}</section>`;
         }).join('');
       }
 
@@ -907,7 +907,9 @@
         const key = tabsKey(blockIndex);
         const activeIndex = Math.min(state.activeTabs[key] ?? 0, tabs.length - 1);
         const labels = tabs.map((tab, tabIndex) => {
-          const title = `<span class="tab-title-editable" contenteditable="true" spellcheck="true" data-tab-title-edit="${tabIndex}">${escapeHtml(tab.label)}</span>`;
+          const title = tabIndex === activeIndex
+            ? `<span class="tab-title-editable" contenteditable="true" spellcheck="true" data-tab-title-edit="${tabIndex}">${escapeHtml(tab.label)}</span>`
+            : `<span class="tab-title-readonly">${escapeHtml(tab.label)}</span>`;
           return `<button class="tab-insert" type="button" data-tab-insert="${tabIndex}" title="Добавить вкладку здесь"></button><button class="tab-label ${tabIndex === activeIndex ? 'active' : ''}" type="button" data-tab-switch="${tabIndex}"><span class="tab-drag" data-tab-menu="${tabIndex}" title="Действия вкладки">⋮⋮</span>${title}</button>`;
         }).join('') + `<button class="tab-insert" type="button" data-tab-insert="${tabs.length}" title="Добавить вкладку здесь"></button>`;
         const panels = tabs.map((tab, tabIndex) => `<div class="tab-panel" data-tab-panel="${tabIndex}" ${tabIndex !== activeIndex ? 'hidden' : ''}>${renderNestedBlocks(parseBlocks(tab.body), tabIndex)}</div>`).join('');
@@ -972,6 +974,53 @@
         refreshPageToc(page);
         renderPageContent(nodeDocId(state.selectedNode));
         markDirty(`Удалён блок #${index + 1} (${escapeHtml(removed.type)}).`, null);
+      }
+
+      function nestedContextFromButton(button) {
+        if (!button?.dataset?.nestedMenu) return null;
+        const nestedEl = button.closest('[data-nested-block-index]');
+        const tabBlockEl = button.closest('[data-block-index]');
+        return {
+          blockIndex: Number(tabBlockEl?.dataset.blockIndex),
+          tabIndex: Number(nestedEl?.dataset.tabIndex),
+          nestedIndex: Number(nestedEl?.dataset.nestedBlockIndex),
+        };
+      }
+
+      function getNestedBlocks(ctx) {
+        const page = state.content[nodeDocId(state.selectedNode)];
+        const tabBlock = page?.blocks?.[ctx.blockIndex];
+        if (!tabBlock || tabBlock.type !== 'tabs') return null;
+        const tabs = parseTabs(tabBlock.raw);
+        const blocks = parseBlocks(tabs[ctx.tabIndex]?.body || '');
+        return {page, tabBlock, tabs, blocks};
+      }
+
+      function saveNestedBlocks(ctx, model) {
+        model.tabs[ctx.tabIndex].body = model.blocks.map((item) => item.raw).join('\n\n');
+        model.tabBlock.raw = serializeTabs(model.tabs);
+        state.activeTabs[tabsKey(ctx.blockIndex)] = ctx.tabIndex;
+        renderPageContent(nodeDocId(state.selectedNode));
+      }
+
+      function addNestedBlockAfter(ctx, type) {
+        const model = getNestedBlocks(ctx);
+        if (!model) return;
+        model.blocks.splice(ctx.nestedIndex + 1, 0, defaultBlock(type));
+        saveNestedBlocks(ctx, model);
+        markDirty(`Добавлен вложенный блок во вкладке #${ctx.tabIndex + 1}.`, null);
+      }
+
+      function deleteNestedBlock(ctx) {
+        const model = getNestedBlocks(ctx);
+        if (!model) return;
+        if (model.blocks.length <= 1) {
+          noticeEl.innerHTML = '<span class="dirty">Нельзя удалить последний блок во вкладке.</span>';
+          return;
+        }
+        model.blocks.splice(ctx.nestedIndex, 1);
+        saveNestedBlocks(ctx, model);
+        markDirty(`Удалён вложенный блок во вкладке #${ctx.tabIndex + 1}.`, null);
       }
 
       function serializeTabs(tabs) {
@@ -1624,7 +1673,14 @@
         const blockAction = event.target.dataset.blockAction;
         if (blockAction && state.popoverBlock) {
           const index = state.popoverBlock.blockIndex;
+          const nestedCtx = state.popoverBlock.nestedCtx;
           closePopover();
+          if (nestedCtx) {
+            if (blockAction.startsWith('add-')) return addNestedBlockAfter(nestedCtx, blockAction.replace('add-', ''));
+            if (blockAction === 'delete') return deleteNestedBlock(nestedCtx);
+            noticeEl.innerHTML = `<span class="dirty">Черновик:</span> действие вложенного блока «${escapeHtml(event.target.textContent.trim())}» подключим следующим шагом.`;
+            return;
+          }
           if (blockAction.startsWith('add-')) {
             addBlockAfter(index, blockAction.replace('add-', ''));
             return;
@@ -1657,12 +1713,17 @@
           return;
         }
         const tabSwitch = event.target.closest('[data-tab-switch]');
-        if (tabSwitch && !event.target.closest('[data-tab-title-edit]')) {
-          event.preventDefault();
-          event.stopPropagation();
+        if (tabSwitch) {
           const blockEl = tabSwitch.closest('[data-block-index]');
-          switchTab(Number(blockEl?.dataset.blockIndex), Number(tabSwitch.dataset.tabSwitch));
-          return;
+          const blockIndex = Number(blockEl?.dataset.blockIndex);
+          const tabIndex = Number(tabSwitch.dataset.tabSwitch);
+          const active = (state.activeTabs[tabsKey(blockIndex)] ?? 0) === tabIndex;
+          if (!active || !event.target.closest('[data-tab-title-edit]')) {
+            event.preventDefault();
+            event.stopPropagation();
+            switchTab(blockIndex, tabIndex);
+            return;
+          }
         }
         const tabInsert = event.target.closest('[data-tab-insert]');
         if (tabInsert) {
@@ -1677,7 +1738,10 @@
         event.preventDefault();
         event.stopPropagation();
         closePopover();
-        openBlockPopover(button, Number(button.dataset.blockIndex), button.dataset.blockMenu === 'add' ? 'add' : 'actions');
+        const nestedCtx = nestedContextFromButton(button);
+        const index = nestedCtx ? nestedCtx.nestedIndex : Number(button.dataset.blockIndex);
+        openBlockPopover(button, index, button.dataset.blockMenu === 'add' ? 'add' : 'actions');
+        if (nestedCtx) state.popoverBlock.nestedCtx = nestedCtx;
       });
 
       contentEl.addEventListener('keydown', (event) => {
