@@ -374,12 +374,12 @@
       .page-canvas {
         display: grid;
         grid-column: 1;
-        gap: 8px;
+        gap: 4px;
         min-width: 0;
       }
       .page-block {
         position: relative;
-        padding: 6px 10px 6px 58px;
+        padding: 2px 10px 2px 58px;
         border-radius: 10px;
       }
       .page-block:hover {
@@ -461,7 +461,7 @@
       .rendered-page h1 { font-size: 34px; margin: 8px 0 16px; line-height: 1.14; }
       .rendered-page h2 { font-size: 25px; margin: 26px 0 12px; line-height: 1.22; }
       .rendered-page h3 { font-size: 20px; margin: 22px 0 10px; line-height: 1.28; }
-      .rendered-page p { margin: 0 0 12px; }
+      .rendered-page p { margin: 0 0 6px; }
       .rendered-page img { max-width: 100%; border-radius: 8px; }
       .rendered-page pre {
         overflow: auto;
@@ -1221,6 +1221,73 @@
         markDirty(`Изменён вложенный блок #${nestedIndex + 1} во вкладке #${tabIndex + 1}.`, null);
       }
 
+      function placeCaretAtStart(el) {
+        const range = document.createRange();
+        const selection = window.getSelection();
+        range.selectNodeContents(el);
+        range.collapse(true);
+        selection.removeAllRanges();
+        selection.addRange(range);
+        el.focus();
+      }
+
+      function splitEditableAtCaret(editable) {
+        const selection = window.getSelection();
+        if (!selection || !selection.rangeCount) return {before: editable.innerText, after: ''};
+        const range = selection.getRangeAt(0);
+        const beforeRange = range.cloneRange();
+        beforeRange.selectNodeContents(editable);
+        beforeRange.setEnd(range.startContainer, range.startOffset);
+        const afterRange = range.cloneRange();
+        afterRange.selectNodeContents(editable);
+        afterRange.setStart(range.endContainer, range.endOffset);
+        return {
+          before: beforeRange.toString().trim() || 'Новый текст',
+          after: afterRange.toString().trim() || 'Новый параграф.',
+        };
+      }
+
+      function insertParagraphAfterEditable(editable) {
+        const {before, after} = splitEditableAtCaret(editable);
+        if (editable.dataset.nestedEditable) {
+          const ctx = {
+            blockIndex: Number(editable.closest('[data-block-index]')?.dataset.blockIndex),
+            tabIndex: Number(editable.dataset.tabIndex),
+            nestedIndex: Number(editable.dataset.nestedBlockIndex),
+          };
+          const model = getNestedBlocks(ctx);
+          if (!model) return;
+          const current = model.blocks[ctx.nestedIndex];
+          current.raw = before;
+          current.type = 'paragraph';
+          model.blocks.splice(ctx.nestedIndex + 1, 0, {type: 'paragraph', raw: after});
+          saveNestedBlocks(ctx, model);
+          markDirty('Параграф разделён внутри вкладки.', null);
+          setTimeout(() => {
+            const next = contentEl.querySelector(`[data-tab-index="${ctx.tabIndex}"][data-nested-block-index="${ctx.nestedIndex + 1}"] [data-nested-editable]`);
+            if (next) placeCaretAtStart(next);
+          }, 0);
+          return;
+        }
+        const page = state.content[nodeDocId(state.selectedNode)];
+        const index = Number(editable.dataset.editableBlock);
+        const block = page?.blocks?.[index];
+        if (!block) return;
+        block.raw = before;
+        block.type = 'paragraph';
+        page.blocks.splice(index + 1, 0, {type: 'paragraph', raw: after});
+        renderPageContent(nodeDocId(state.selectedNode));
+        markDirty('Параграф разделён.', null);
+        setTimeout(() => {
+          const next = contentEl.querySelector(`[data-editable-block="${index + 1}"]`);
+          if (next) placeCaretAtStart(next);
+        }, 0);
+      }
+
+      function insertSoftBreak() {
+        document.execCommand('insertLineBreak');
+      }
+
       function showFormatToolbar() {
         const selection = window.getSelection();
         if (!selection || selection.isCollapsed || !contentEl.contains(selection.anchorNode)) {
@@ -1974,6 +2041,13 @@
       });
 
       contentEl.addEventListener('keydown', (event) => {
+        const editable = event.target.closest('[data-editable-block], [data-nested-editable]');
+        if (editable && event.key === 'Enter') {
+          event.preventDefault();
+          if (event.shiftKey) insertSoftBreak();
+          else insertParagraphAfterEditable(editable);
+          return;
+        }
         const title = event.target.closest('[data-tab-title-edit]');
         if (!title) return;
         if (event.key === 'Enter') {
