@@ -464,7 +464,11 @@
         width: 0;
         flex: 0 0 0;
         overflow: visible;
+        border: 0;
+        padding: 0;
+        background: transparent;
         color: transparent;
+        cursor: pointer;
         z-index: 2;
       }
       .tab-insert::before {
@@ -852,6 +856,23 @@
         }).join('');
       }
 
+      function renderNestedBlocks(blocks, tabIndex) {
+        return blocks.map((block, nestedIndex) => {
+          let html = '';
+          if (block.type === 'image') {
+            const src = imageSrc(block.raw);
+            html = src ? `<p><img src="${escapeHtml(src)}" alt="" /></p>` : `<div class="raw-block">${escapeHtml(block.raw)}</div>`;
+          } else if (block.type.startsWith('heading-')) {
+            html = `<strong>${inlineMarkdown(block.text || block.raw)}</strong>`;
+          } else if (block.type === 'paragraph' || block.type === 'bulleted-list' || block.type === 'numbered-list' || block.type === 'task-list') {
+            html = renderMarkdownBlock(block.raw);
+          } else {
+            html = `<div class="raw-block">${escapeHtml(block.raw)}</div>`;
+          }
+          return `<section class="page-block nested-block" data-tab-index="${tabIndex}" data-nested-block-index="${nestedIndex}" data-block-type="${escapeHtml(block.type)}"><div class="block-controls"><button class="block-control" type="button" title="Добавить вложенный блок ниже">+</button><button class="block-control" type="button" title="Действия с вложенным блоком">⋮⋮</button></div>${html}</section>`;
+        }).join('');
+      }
+
       function imageSrc(raw) {
         const md = raw.match(/^!\[[^\]]*\]\(([^)]+)\)$/);
         const img = raw.match(/<img[^>]*src=["']([^"']+)["'][^>]*>/i);
@@ -861,9 +882,9 @@
       function renderTabs(raw) {
         const tabs = parseTabs(raw);
         if (!tabs.length) return `<div class="tabs-block"><div class="tab-panel"><pre>${escapeHtml(raw)}</pre></div></div>`;
-        const labels = tabs.map((tab, index) => `<span class="tab-insert" title="Добавить вкладку здесь"></span><span class="tab-label ${index === 0 ? 'active' : ''}"><button class="tab-drag" type="button" title="Действия вкладки">⋮⋮</button>${escapeHtml(tab.label)}</span>`).join('') + '<span class="tab-insert" title="Добавить вкладку здесь"></span>';
-        const panels = tabs.map((tab, index) => `<div class="tab-panel" ${index > 0 ? 'hidden' : ''}>${renderMarkdownFragment(tab.body)}</div>`).join('');
-        return `<div class="tabs-block theme-tabs-container tabs-container"><div class="tabs-head tabs">${labels}</div><div class="margin-top--md">${panels}</div></div>`;
+        const labels = tabs.map((tab, tabIndex) => `<button class="tab-insert" type="button" data-tab-insert="${tabIndex}" title="Добавить вкладку здесь"></button><span class="tab-label ${tabIndex === 0 ? 'active' : ''}"><button class="tab-drag" type="button" title="Действия вкладки">⋮⋮</button>${escapeHtml(tab.label)}</span>`).join('') + `<button class="tab-insert" type="button" data-tab-insert="${tabs.length}" title="Добавить вкладку здесь"></button>`;
+        const panels = tabs.map((tab, tabIndex) => `<div class="tab-panel" data-tab-panel="${tabIndex}" ${tabIndex > 0 ? 'hidden' : ''}>${renderNestedBlocks(parseBlocks(tab.body), tabIndex)}</div>`).join('');
+        return `<div class="tabs-block theme-tabs-container tabs-container" data-tabs-block="true"><div class="tabs-head tabs">${labels}</div><div class="margin-top--md">${panels}</div></div>`;
       }
 
       function parseBlocks(raw) {
@@ -911,6 +932,30 @@
         refreshPageToc(page);
         renderPageContent(nodeDocId(state.selectedNode));
         markDirty(`Добавлен блок после #${index + 1}.`, null);
+      }
+
+      function deleteBlock(index) {
+        const page = state.content[nodeDocId(state.selectedNode)];
+        if (!page || !page.blocks[index]) return;
+        if (page.blocks.length <= 1) {
+          noticeEl.innerHTML = '<span class="dirty">Нельзя удалить последний блок страницы.</span>';
+          return;
+        }
+        const [removed] = page.blocks.splice(index, 1);
+        refreshPageToc(page);
+        renderPageContent(nodeDocId(state.selectedNode));
+        markDirty(`Удалён блок #${index + 1} (${escapeHtml(removed.type)}).`, null);
+      }
+
+      function addTabAt(blockIndex, tabIndex) {
+        const page = state.content[nodeDocId(state.selectedNode)];
+        const block = page?.blocks?.[blockIndex];
+        if (!block || block.type !== 'tabs') return;
+        const tabs = parseTabs(block.raw);
+        tabs.splice(tabIndex, 0, {label: `Вкладка ${tabs.length + 1}`, body: 'Новая вкладка.'});
+        block.raw = `<Tabs>\n${tabs.map((tab, index) => `<TabItem value={"tab-${index + 1}"} label={"${tab.label}"}>\n${tab.body}\n</TabItem>`).join('\n\n')}\n</Tabs>`;
+        renderPageContent(nodeDocId(state.selectedNode));
+        markDirty(`Добавлена вкладка в блок #${blockIndex + 1}.`, null);
       }
 
       function renderBlock(block, index) {
@@ -1465,6 +1510,10 @@
             addBlockAfter(index, blockAction.replace('add-', ''));
             return;
           }
+          if (blockAction === 'delete') {
+            deleteBlock(index);
+            return;
+          }
           noticeEl.innerHTML = `<span class="dirty">Черновик:</span> действие «${escapeHtml(event.target.textContent.trim())}» для блока #${index + 1}. Сохранение этих операций подключим следующим шагом.`;
           return;
         }
@@ -1479,6 +1528,14 @@
       });
 
       contentEl.addEventListener('click', (event) => {
+        const tabInsert = event.target.closest('[data-tab-insert]');
+        if (tabInsert) {
+          event.preventDefault();
+          event.stopPropagation();
+          const blockEl = tabInsert.closest('[data-block-index]');
+          addTabAt(Number(blockEl?.dataset.blockIndex), Number(tabInsert.dataset.tabInsert));
+          return;
+        }
         const button = event.target.closest('[data-block-menu]');
         if (!button) return;
         event.preventDefault();
