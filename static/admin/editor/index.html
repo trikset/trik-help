@@ -349,7 +349,11 @@
         cursor: pointer;
       }
       .format-toolbar select { border: 1px solid var(--border); background: var(--panel-soft); }
-      .format-toolbar button:hover { background: var(--soft); color: var(--primary); }
+      .format-toolbar button:hover,
+      .format-toolbar button.active {
+        background: var(--soft);
+        color: var(--primary);
+      }
       .editor-card {
         min-height: calc(100vh - 118px);
         border: 1px solid var(--border);
@@ -751,7 +755,7 @@
       <button type="button" data-format="strikeThrough" title="Перечеркнутый"><s>S</s></button>
       <button type="button" data-format="superscript" title="Верхний индекс">x²</button>
       <button type="button" data-format="subscript" title="Нижний индекс">x₂</button>
-      <button type="button" data-format="createLink" title="Ссылка">↗</button>
+      <button type="button" data-format="createLink" title="Ссылка">🔗</button>
     </div>
     <div id="popover" class="menu-popover" hidden></div>
     <div id="modal-backdrop" class="modal-backdrop" hidden>
@@ -907,6 +911,10 @@
             return src ? `<p><img src="${escapeHtml(src)}" alt="" /></p>` : `<div class="raw-block">${escapeHtml(block.raw)}</div>`;
           }
           if (block.type === 'paragraph') return renderMarkdownBlock(block.raw);
+          if (block.type === 'code') return `<pre><code>${escapeHtml(block.raw.replace(/^```\w*\n?/, '').replace(/```$/, ''))}</code></pre>`;
+          if (block.type === 'quote') return `<blockquote>${inlineMarkdown(block.raw.replace(/^>\s?/gm, '')).replace(/\n/g, '<br />')}</blockquote>`;
+          if (block.type === 'hint') return `<div class="hint-block">${inlineMarkdown(block.raw.replace(/^:::\w*\n?/, '').replace(/:::$/, '').trim()).replace(/\n/g, '<br />')}</div>`;
+          if (block.type === 'table') return renderTable(block.raw);
           if (block.type.startsWith('heading-')) return `<strong>${inlineMarkdown(block.text || block.raw)}</strong>`;
           if (block.type === 'bulleted-list' || block.type === 'numbered-list' || block.type === 'task-list') return renderMarkdownBlock(block.raw);
           return `<div class="raw-block">${escapeHtml(block.raw)}</div>`;
@@ -926,6 +934,12 @@
             html = `<p ${nestedAttrs}>${inlineMarkdown(block.raw).replace(/\n/g, '<br />')}</p>`;
           } else if (block.type === 'quote') {
             html = `<blockquote ${nestedAttrs}>${inlineMarkdown(block.raw.replace(/^>\s?/gm, '')).replace(/\n/g, '<br />')}</blockquote>`;
+          } else if (block.type === 'code') {
+            html = `<pre><code>${escapeHtml(block.raw.replace(/^```\w*\n?/, '').replace(/```$/, ''))}</code></pre>`;
+          } else if (block.type === 'hint') {
+            html = `<div class="hint-block">${inlineMarkdown(block.raw.replace(/^:::\w*\n?/, '').replace(/:::$/, '').trim()).replace(/\n/g, '<br />')}</div>`;
+          } else if (block.type === 'table') {
+            html = renderTable(block.raw);
           } else if (block.type === 'bulleted-list' || block.type === 'numbered-list' || block.type === 'task-list') {
             html = renderMarkdownBlock(block.raw);
           } else {
@@ -961,17 +975,41 @@
       }
 
       function parseBlocks(raw) {
-        return raw.split(/\n{2,}/).map((part) => {
-          const text = part.trim();
-          if (!text) return null;
-          if (/^!\[[^\]]*\]\([^)]+\)$/.test(text) || /^<div[^>]*>\s*<img[\s\S]*<\/div>$/.test(text) || /^<img[\s\S]*>$/.test(text)) return {type: 'image', raw: text};
-          if (/^\s*[-*+]\s+\[[ xX]\]/m.test(text)) return {type: 'task-list', raw: text};
-          if (/^\s*\d+\.\s+/m.test(text)) return {type: 'numbered-list', raw: text};
-          if (/^\s*[-*+]\s+/m.test(text)) return {type: 'bulleted-list', raw: text};
+        const blocks = [];
+        let current = [];
+        let inFence = false;
+        function flush() {
+          const text = current.join('\n').trim();
+          current = [];
+          if (!text) return;
+          if (/^```/.test(text)) return blocks.push({type: 'code', raw: text});
+          if (/^!\[[^\]]*\]\([^)]+\)$/.test(text) || /^<div[^>]*>\s*<img[\s\S]*<\/div>$/.test(text) || /^<img[\s\S]*>$/.test(text)) return blocks.push({type: 'image', raw: text});
+          if (/^:::/m.test(text)) return blocks.push({type: 'hint', raw: text});
+          if (/^>\s/.test(text)) return blocks.push({type: 'quote', raw: text});
+          if (/^\|.+\|\n\|[-:|\s]+\|/.test(text)) return blocks.push({type: 'table', raw: text});
+          if (/^\s*[-*+]\s+\[[ xX]\]/m.test(text)) return blocks.push({type: 'task-list', raw: text});
+          if (/^\s*\d+\.\s+/m.test(text)) return blocks.push({type: 'numbered-list', raw: text});
+          if (/^\s*[-*+]\s+/m.test(text)) return blocks.push({type: 'bulleted-list', raw: text});
           const h = text.match(/^(#{1,6})\s+(.+)$/);
-          if (h) return {type: `heading-${h[1].length}`, raw: text, level: h[1].length, text: h[2]};
-          return {type: 'paragraph', raw: text};
-        }).filter(Boolean);
+          if (h) return blocks.push({type: `heading-${h[1].length}`, raw: text, level: h[1].length, text: h[2]});
+          blocks.push({type: 'paragraph', raw: text});
+        }
+        for (const line of raw.split(/\r?\n/)) {
+          if (line.startsWith('```')) {
+            current.push(line);
+            inFence = !inFence;
+            if (!inFence) flush();
+            continue;
+          }
+          if (inFence) {
+            current.push(line);
+            continue;
+          }
+          if (!line.trim()) flush();
+          else current.push(line);
+        }
+        flush();
+        return blocks;
       }
 
       function defaultBlock(type) {
@@ -1288,6 +1326,24 @@
         document.execCommand('insertLineBreak');
       }
 
+      function updateFormatToolbarState() {
+        const commands = ['bold', 'italic', 'strikeThrough', 'superscript', 'subscript'];
+        commands.forEach((command) => {
+          const button = formatToolbarEl.querySelector(`[data-format="${command}"]`);
+          if (!button) return;
+          let active = false;
+          try { active = document.queryCommandState(command); } catch {}
+          button.classList.toggle('active', active);
+          button.setAttribute('aria-pressed', active ? 'true' : 'false');
+        });
+        const linkButton = formatToolbarEl.querySelector('[data-format="createLink"]');
+        const selection = window.getSelection();
+        const node = selection?.anchorNode?.nodeType === Node.TEXT_NODE ? selection.anchorNode.parentElement : selection?.anchorNode;
+        const linkActive = Boolean(node?.closest?.('a'));
+        linkButton?.classList.toggle('active', linkActive);
+        linkButton?.setAttribute('aria-pressed', linkActive ? 'true' : 'false');
+      }
+
       function showFormatToolbar() {
         const selection = window.getSelection();
         if (!selection || selection.isCollapsed || !contentEl.contains(selection.anchorNode)) {
@@ -1305,6 +1361,7 @@
         formatTypeEl.value = block?.type?.startsWith('heading-') ? block.type : (block?.type || 'paragraph');
         formatToolbarEl.style.left = `${Math.min(rect.left, window.innerWidth - 420)}px`;
         formatToolbarEl.style.top = `${Math.max(8, rect.top - 48)}px`;
+        updateFormatToolbarState();
         formatToolbarEl.hidden = false;
       }
 
