@@ -5352,15 +5352,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"для-trik\"} label={\"Для TRIK\"}>\n```markup\n<wheels left=\"M4###output###М4###\" right=\"M3###output###М3###\"/>\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"для-lego-ev3\"} label={\"Для LEGO EV3\"}>\n```markup\n<wheels left=\"B###output###В###\" right=\"C###output###С###\"/>\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"для-trik\"} label={\"Для TRIK\"}>\n```markup\n<wheels left=\"M4###output###М4###\" right=\"M3###output###М3###\"/>\n```\n</TabItem>\n\n<TabItem value={\"для-lego-ev3\"} label={\"Для LEGO EV3\"}>\n```markup\n<wheels left=\"B###output###В###\" right=\"C###output###С###\"/>\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-2",
@@ -10296,15 +10288,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\npic = getPhoto()\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nvar pic = getPhoto();\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\npic = getPhoto()\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nvar pic = getPhoto();\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-2",
@@ -10323,15 +10307,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\n# взять кадр в формате rgb32\npic = getPhoto()\nbrick.display().show(pic, total_height, total_width, \"rgb32\")\nscript.wait(2000)\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\n// взять кадр в формате rgb32\nvar pic = getPhoto();\nbrick.display().show(pic, total_height, total_width, \"rgb32\");\nscript.wait(2000);\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\n# взять кадр в формате rgb32\npic = getPhoto()\nbrick.display().show(pic, total_height, total_width, \"rgb32\")\nscript.wait(2000)\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\n// взять кадр в формате rgb32\nvar pic = getPhoto();\nbrick.display().show(pic, total_height, total_width, \"rgb32\");\nscript.wait(2000);\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "paragraph",
@@ -10350,15 +10326,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\ndef grayScale(sPic):\n\tbufPic = []\n\tfor i in range(total_height):\n\t\tfor j in range(total_width):\n\t\t\tx = i * total_width + j\n\t\t\tp = sPic[x]\n\t\t\tr = (p & 0xff0000) >> 16\t# взять значение компоненты красного\n\t\t\tg = (p & 0xff00) >> 8 # взять значение компоненты зеленого\n\t\t\tb = (p & 0xff) # взять значение компоненты синего\n\t\t\tp = r * 0.299 + g * 0.587 + b * 0.114; # компонента Y из YUV\n\t\t\tbufPic.append(p)\n\treturn bufPic\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nfunction grayScale(sPic){\n\tbufPic = [];\n\tfor(var i = 0; i < total_height; i++)\n\t\tfor(var j = 0; j < total_width; j++){\n\t\t\tvar x = i * total_width + j;\n\t\t\tvar p = sPic[x];\n\t\t\tvar r = (p & 0xff0000) >> 16;\t// взять значение компоненты красного\n\t\t\tvar g = (p & 0xff00) >> 8;\t// взять значение компоненты зеленого\n\t\t\tvar b = (p & 0xff);\t\t// взять значение компоненты синего\n\t\t\tp = r * 0.299 + g * 0.587 + b * 0.114; // компонента Y из YUV\n\t\t\tbufPic[x] = p; \n\t\t}\n\treturn bufPic;\n}\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\ndef grayScale(sPic):\n\tbufPic = []\n\tfor i in range(total_height):\n\t\tfor j in range(total_width):\n\t\t\tx = i * total_width + j\n\t\t\tp = sPic[x]\n\t\t\tr = (p & 0xff0000) >> 16\t# взять значение компоненты красного\n\t\t\tg = (p & 0xff00) >> 8 # взять значение компоненты зеленого\n\t\t\tb = (p & 0xff) # взять значение компоненты синего\n\t\t\tp = r * 0.299 + g * 0.587 + b * 0.114; # компонента Y из YUV\n\t\t\tbufPic.append(p)\n\treturn bufPic\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nfunction grayScale(sPic){\n\tbufPic = [];\n\tfor(var i = 0; i < total_height; i++)\n\t\tfor(var j = 0; j < total_width; j++){\n\t\t\tvar x = i * total_width + j;\n\t\t\tvar p = sPic[x];\n\t\t\tvar r = (p & 0xff0000) >> 16;\t// взять значение компоненты красного\n\t\t\tvar g = (p & 0xff00) >> 8;\t// взять значение компоненты зеленого\n\t\t\tvar b = (p & 0xff);\t\t// взять значение компоненты синего\n\t\t\tp = r * 0.299 + g * 0.587 + b * 0.114; // компонента Y из YUV\n\t\t\tbufPic[x] = p; \n\t\t}\n\treturn bufPic;\n}\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "paragraph",
@@ -10366,15 +10334,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\npic = grayScale(pic)\n\nbrick.display().show(pic, total_height, total_width, \"grayscale8\")\nscript.wait(2000)\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nvar pic = grayScale(pic);\n\nbrick.display().show(pic, total_height, total_width, \"grayscale8\");\nscript.wait(2000);\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\npic = grayScale(pic)\n\nbrick.display().show(pic, total_height, total_width, \"grayscale8\")\nscript.wait(2000)\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nvar pic = grayScale(pic);\n\nbrick.display().show(pic, total_height, total_width, \"grayscale8\");\nscript.wait(2000);\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "paragraph",
@@ -10393,15 +10353,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\n# Бинаризация -- перевод изображения в ЧБ\ndef binarization(treshold, sPic):\n\tbufPic = []\n\tfor i in range(len(sPic)):\n\t\tbufPic.append(255 if sPic[i] > treshold else 0)\n\treturn bufPic\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\n// Бинаризация -- перевод изображения в ЧБ\nfunction binarization(treshold, sPic){\n\tbufPic = []\n\tfor(var i = 0; i < sPic.length; i++){\n\t\tbufPic[i] = sPic[i] > treshold ? 255 : 0;\n\t}\n\treturn bufPic;\n}\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\n# Бинаризация -- перевод изображения в ЧБ\ndef binarization(treshold, sPic):\n\tbufPic = []\n\tfor i in range(len(sPic)):\n\t\tbufPic.append(255 if sPic[i] > treshold else 0)\n\treturn bufPic\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\n// Бинаризация -- перевод изображения в ЧБ\nfunction binarization(treshold, sPic){\n\tbufPic = []\n\tfor(var i = 0; i < sPic.length; i++){\n\t\tbufPic[i] = sPic[i] > treshold ? 255 : 0;\n\t}\n\treturn bufPic;\n}\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "paragraph",
@@ -10409,15 +10361,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\npic = binarization(80, pic)\nbrick.display().show(pic, total_height, total_width, \"grayscale8\")\nscript.wait(2000)\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nvar pic = binarization(80, pic);\nbrick.display().show(pic, total_height, total_width, \"grayscale8\");\nscript.wait(2000);\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\npic = binarization(80, pic)\nbrick.display().show(pic, total_height, total_width, \"grayscale8\")\nscript.wait(2000)\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nvar pic = binarization(80, pic);\nbrick.display().show(pic, total_height, total_width, \"grayscale8\");\nscript.wait(2000);\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "paragraph",
@@ -10504,15 +10448,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"other-file-js\"} label={\"other_file.js\"}>\n\n```javascript\n// Функции должны быть объявлены как глобальные переменные\nsum = function(a, b) {\n    return a + b\n}\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"my-file-js\"} label={\"my_file.js\"}>\n```javascript\ninclude(\"other_file.js\");\nprint(sum(1, 2));\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"other-file-js\"} label={\"other_file.js\"}>\n\n```javascript\n// Функции должны быть объявлены как глобальные переменные\nsum = function(a, b) {\n    return a + b\n}\n```\n\n</TabItem>\n\n<TabItem value={\"my-file-js\"} label={\"my_file.js\"}>\n```javascript\ninclude(\"other_file.js\");\nprint(sum(1, 2));\n```\n</TabItem>\n</Tabs>"
       }
     ],
     "toc": [
@@ -10661,15 +10597,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nbrick.accelerometer().read()\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.accelerometer().read();\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nbrick.accelerometer().read()\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.accelerometer().read();\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -10728,15 +10656,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nbrick.battery().readVoltage()\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.battery().readVoltage();\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nbrick.battery().readVoltage()\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.battery().readVoltage();\n```\n</TabItem>\n</Tabs>"
       }
     ],
     "toc": [
@@ -10793,15 +10713,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.colorSensor(\"video1\").init(True)\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.colorSensor(\"video1\").init(true);\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.colorSensor(\"video1\").init(True)\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.colorSensor(\"video1\").init(true);\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "paragraph",
@@ -10836,15 +10748,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.colorSensor(\"video1\").read(x, y)\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.colorSensor(\"video1\").read(x, y);\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.colorSensor(\"video1\").read(x, y)\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.colorSensor(\"video1\").read(x, y);\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "paragraph",
@@ -10867,15 +10771,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.colorSensor(\"video1\").stop()\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.colorSensor(\"video1\").stop();\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.colorSensor(\"video1\").stop()\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.colorSensor(\"video1\").stop();\n```\n</TabItem>\n</Tabs>"
       }
     ],
     "toc": [
@@ -10938,15 +10834,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.display().addLabel(\"text\", x, y, size)\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.display().addLabel(\"text\", x, y, size);\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.display().addLabel(\"text\", x, y, size)\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.display().addLabel(\"text\", x, y, size);\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "paragraph",
@@ -10965,15 +10853,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.display().addLabel('Привет, мир!', 1, 1, 20)\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.display().addLabel('Привет, мир!', 1, 1);\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.display().addLabel('Привет, мир!', 1, 1, 20)\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.display().addLabel('Привет, мир!', 1, 1);\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -10985,15 +10865,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.display().clear()\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.display().clear();\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.display().clear()\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.display().clear();\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -11005,15 +10877,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.display().drawArc(x, y, l, h, from, to)\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```\nbrick.display().drawArc(x, y, l, h, from, to);\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.display().drawArc(x, y, l, h, from, to)\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```\nbrick.display().drawArc(x, y, l, h, from, to);\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "paragraph",
@@ -11032,15 +10896,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.display().drawArc(0, 0, 10, 10, 20, 50)\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.display().drawArc(0, 0, 10, 10, 20, 50);\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.display().drawArc(0, 0, 10, 10, 20, 50)\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.display().drawArc(0, 0, 10, 10, 20, 50);\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -11052,15 +10908,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.display().drawEllipse(x, y, l, h, filled)\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.display().drawEllipse(x, y, l, h, filled);\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.display().drawEllipse(x, y, l, h, filled)\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.display().drawEllipse(x, y, l, h, filled);\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "paragraph",
@@ -11083,15 +10931,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.display().drawEllipse(0, 0, 10, 10, True)\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.display().drawEllipse(0, 0, 10, 10, true);\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.display().drawEllipse(0, 0, 10, 10, True)\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.display().drawEllipse(0, 0, 10, 10, true);\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -11103,15 +10943,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.display().drawLine(x0, y0, x1, y1)\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.display().drawLine(x0, y0, x1, y1);\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.display().drawLine(x0, y0, x1, y1)\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.display().drawLine(x0, y0, x1, y1);\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "paragraph",
@@ -11130,15 +10962,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.display().drawLine(0, 0, 10, 10)\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.display().drawLine(0, 0, 10, 10);\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.display().drawLine(0, 0, 10, 10)\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.display().drawLine(0, 0, 10, 10);\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -11150,15 +10974,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.display().drawPoint(x, y)\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.display().drawPoint(x, y);\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.display().drawPoint(x, y)\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.display().drawPoint(x, y);\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "paragraph",
@@ -11173,15 +10989,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.display().drawPoint(10, 10)\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```\nbrick.display().drawPoint(10, 10);\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.display().drawPoint(10, 10)\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```\nbrick.display().drawPoint(10, 10);\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -11193,15 +11001,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nbrick.display().drawRect(x, y, l, h, filled)\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```\nbrick.display().drawRect(x, y, l, h, filled);\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nbrick.display().drawRect(x, y, l, h, filled)\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```\nbrick.display().drawRect(x, y, l, h, filled);\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "paragraph",
@@ -11220,15 +11020,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.display().drawRect(0, 0, 10, 10, True)\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.display().drawRect(0, 0, 10, 10, true);\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.display().drawRect(0, 0, 10, 10, True)\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.display().drawRect(0, 0, 10, 10, true);\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -11240,15 +11032,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nbrick.display().hide()\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.display().hide();\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nbrick.display().hide()\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.display().hide();\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -11260,15 +11044,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nbrick.display().redraw()\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.display().redraw();\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nbrick.display().redraw()\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.display().redraw();\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -11280,15 +11056,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nbrick.display().removeLabels()\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.display().removeLabels();\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nbrick.display().removeLabels()\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.display().removeLabels();\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -11308,15 +11076,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.display().setBackground(\"color\")\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.display().setBackground(\"color\");\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.display().setBackground(\"color\")\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.display().setBackground(\"color\");\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "paragraph",
@@ -11331,15 +11091,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.display().setBackground(\"red\")\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.display().setBackground(\"red\");\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.display().setBackground(\"red\")\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.display().setBackground(\"red\");\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -11359,15 +11111,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.display().setPainterColor(\"color\")\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.display().setPainterColor(\"color\");\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.display().setPainterColor(\"color\")\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.display().setPainterColor(\"color\");\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "paragraph",
@@ -11382,15 +11126,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.display().setPainterColor(\"red\")\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.display().setPainterColor(\"red\");\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.display().setPainterColor(\"red\")\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.display().setPainterColor(\"red\");\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -11402,15 +11138,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.display().setPainterWidth(d)\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.display().setPainterWidth(d);\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.display().setPainterWidth(d)\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.display().setPainterWidth(d);\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "paragraph",
@@ -11425,15 +11153,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.display().setPainterWidth(5)\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.display().setPainterWidth(5);\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.display().setPainterWidth(5)\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.display().setPainterWidth(5);\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -11445,15 +11165,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.display().show(array, width, height, format)\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.display().show(array, width, height, format)\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.display().show(array, width, height, format)\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.display().show(array, width, height, format)\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "paragraph",
@@ -11476,15 +11188,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\n#rgb32\nphoto = getPhoto()\nbrick.display().show(photo, 160, 120, \"rgb32\")\nscript.wait(5000)\n\n#rgb888\npic = []\nphoto = getPhoto()\nl = len(photo)\nfor i in range(l):\n    p = photo[i]\n    pic.append((p&0xff0000)>>16)\n    pic.append((p&0xff00)>>8)\n    pic.append((p&0xff))\n\nbrick.display().show(pic, 160, 120, \"rgb888\")\nscript.wait(5000);                           \n\n#grayscale8                                   \npic = []                                      \nphoto = getPhoto()\nl = len(photo)                        \nfor i in range(l):                    \n    p = photo[i]                  \n    pic.append(((p&0xff0000)>>18) + ((p&0xff00)>>10) + ((p&0xff)>>2))               \n                                         \n                                              \nbrick.display().show(pic, 160, 120, \"grayscale8\")\nscript.wait(5000)\n\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\n//rgb32\nvar photo = getPhoto();\nbrick.display().show(photo, 160, 120, \"rgb32\");\nscript.wait(5000);\n\n//rgb888\npic = []\nphoto = getPhoto();\nl = photo.length;\nfor (i = 0; i < l; i++) {\n    var p = photo[i];\n    pic.push((p&0xff0000)>>16);\n    pic.push((p&0xff00)>>8);\n    pic.push((p&0xff));\n}\nbrick.display().show(pic, 160, 120, \"rgb888\");\nscript.wait(5000);                            \n\n//grayscale8                                   \npic = []                                      \nphoto = getPhoto();\nl = photo.length;                             \nfor (i = 0; i < l; i++) {                     \n        var p = photo[i];                     \n        pic.push(((p&0xff0000)>>18) + ((p&0xff00)>>10) + ((p&0xff)>>2));                \n}                                             \n                                              \nbrick.display().show(pic, 160, 120, \"grayscale8\");\nscript.wait(5000);\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\n#rgb32\nphoto = getPhoto()\nbrick.display().show(photo, 160, 120, \"rgb32\")\nscript.wait(5000)\n\n#rgb888\npic = []\nphoto = getPhoto()\nl = len(photo)\nfor i in range(l):\n    p = photo[i]\n    pic.append((p&0xff0000)>>16)\n    pic.append((p&0xff00)>>8)\n    pic.append((p&0xff))\n\nbrick.display().show(pic, 160, 120, \"rgb888\")\nscript.wait(5000);                           \n\n#grayscale8                                   \npic = []                                      \nphoto = getPhoto()\nl = len(photo)                        \nfor i in range(l):                    \n    p = photo[i]                  \n    pic.append(((p&0xff0000)>>18) + ((p&0xff00)>>10) + ((p&0xff)>>2))               \n                                         \n                                              \nbrick.display().show(pic, 160, 120, \"grayscale8\")\nscript.wait(5000)\n\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\n//rgb32\nvar photo = getPhoto();\nbrick.display().show(photo, 160, 120, \"rgb32\");\nscript.wait(5000);\n\n//rgb888\npic = []\nphoto = getPhoto();\nl = photo.length;\nfor (i = 0; i < l; i++) {\n    var p = photo[i];\n    pic.push((p&0xff0000)>>16);\n    pic.push((p&0xff00)>>8);\n    pic.push((p&0xff));\n}\nbrick.display().show(pic, 160, 120, \"rgb888\");\nscript.wait(5000);                            \n\n//grayscale8                                   \npic = []                                      \nphoto = getPhoto();\nl = photo.length;                             \nfor (i = 0; i < l; i++) {                     \n        var p = photo[i];                     \n        pic.push(((p&0xff0000)>>18) + ((p&0xff00)>>10) + ((p&0xff)>>2));                \n}                                             \n                                              \nbrick.display().show(pic, 160, 120, \"grayscale8\");\nscript.wait(5000);\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -11496,15 +11200,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.display().showImage(\"imagePath\")\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.display().showImage(\"imagePath\");\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.display().showImage(\"imagePath\")\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.display().showImage(\"imagePath\");\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "paragraph",
@@ -11519,15 +11215,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.display().showImage(\"media/trik_smile_sad.png\")\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.display().showImage(\"media/trik_smile_sad.png\");\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.display().showImage(\"media/trik_smile_sad.png\")\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.display().showImage(\"media/trik_smile_sad.png\");\n```\n</TabItem>\n</Tabs>"
       }
     ],
     "toc": [
@@ -11629,15 +11317,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.encoder(portName).read()\nbrick.encoder(\"portName\").read()\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.encoder(portName).read();\nbrick.encoder(\"portName\").read();\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.encoder(portName).read()\nbrick.encoder(\"portName\").read()\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.encoder(portName).read();\nbrick.encoder(\"portName\").read();\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "paragraph",
@@ -11652,15 +11332,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.encoder(E1).read()\nbrick.encoder(\"E2\").read()\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.encoder(E1).read();\nbrick.encoder(\"E2\").read();\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.encoder(E1).read()\nbrick.encoder(\"E2\").read()\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.encoder(E1).read();\nbrick.encoder(\"E2\").read();\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -11679,15 +11351,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.encoder(portName).reset()\nbrick.encoder(\"portName\").reset()\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.encoder(portName).reset();\nbrick.encoder(\"portName\").reset();\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.encoder(portName).reset()\nbrick.encoder(\"portName\").reset()\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.encoder(portName).reset();\nbrick.encoder(\"portName\").reset();\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "paragraph",
@@ -11702,15 +11366,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.encoder(E1).reset()\nbrick.encoder(\"E2\").reset()\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.encoder(E1).reset();\nbrick.encoder(\"E2\").reset();\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.encoder(E1).reset()\nbrick.encoder(\"E2\").reset()\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.encoder(E1).reset();\nbrick.encoder(\"E2\").reset();\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -11729,15 +11385,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.encoder(portName).readRawData()\nbrick.encoder(\"portName\").readRawData()\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.encoder(portName).readRawData();\nbrick.encoder(\"portName\").readRawData();\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.encoder(portName).readRawData()\nbrick.encoder(\"portName\").readRawData()\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.encoder(portName).readRawData();\nbrick.encoder(\"portName\").readRawData();\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-4",
@@ -11748,15 +11396,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.encoder(E1).readRawData()\nbrick.encoder(\"E2\").readRawData()\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.encoder(E1).readRawData();\nbrick.encoder(\"E2\").readRawData();\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.encoder(E1).readRawData()\nbrick.encoder(\"E2\").readRawData()\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.encoder(E1).readRawData();\nbrick.encoder(\"E2\").readRawData();\n```\n</TabItem>\n</Tabs>"
       }
     ],
     "toc": [
@@ -11849,15 +11489,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nbrick.gyroscope().calibrate(msec)\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.gyroscope().calibrate(msec);\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nbrick.gyroscope().calibrate(msec)\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.gyroscope().calibrate(msec);\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "paragraph",
@@ -11892,15 +11524,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nbrick.gyroscope().getCalibrationValues()\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.gyroscope().getCalibrationValues();\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nbrick.gyroscope().getCalibrationValues()\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.gyroscope().getCalibrationValues();\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -11919,15 +11543,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nbrick.gyroscope().isCalibrated()\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.gyroscope().isCalibrated();\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nbrick.gyroscope().isCalibrated()\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.gyroscope().isCalibrated();\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -11958,15 +11574,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nbrick.gyroscope().read()\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.gyroscope().read();\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nbrick.gyroscope().read()\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.gyroscope().read();\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -11985,15 +11593,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nbrick.gyroscope().readRawData()\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.gyroscope().readRawData();\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nbrick.gyroscope().readRawData()\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.gyroscope().readRawData();\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -12016,15 +11616,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nbrick.gyroscope().setCalibrationValues(values)\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.gyroscope().setCalibrationValues(values);\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nbrick.gyroscope().setCalibrationValues(values)\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.gyroscope().setCalibrationValues(values);\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "paragraph",
@@ -12109,15 +11701,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.irCamera().init()\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.irCamera().init();\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.irCamera().init()\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.irCamera().init();\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-2",
@@ -12139,15 +11723,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nimage = brick.irCamera().getImage()\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nvar image = brick.irCamera().getImage();\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nimage = brick.irCamera().getImage()\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nvar image = brick.irCamera().getImage();\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-4",
@@ -12162,15 +11738,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nimage = brick.irCamera().getImage()\nbrik.display().show(image, 32, 24, \"rgb32\")\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nvar image = brick.irCamera().getImage();\nbrik.display().show(image, 32, 24, \"rgb32\");\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nimage = brick.irCamera().getImage()\nbrik.display().show(image, 32, 24, \"rgb32\")\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nvar image = brick.irCamera().getImage();\nbrik.display().show(image, 32, 24, \"rgb32\");\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-2",
@@ -12204,15 +11772,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\ntemp = brick.irCamera().readSensor(x, y)\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nvar temp = brick.irCamera().readSensor(x, y);\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\ntemp = brick.irCamera().readSensor(x, y)\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nvar temp = brick.irCamera().readSensor(x, y);\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "paragraph",
@@ -12235,15 +11795,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.irCamera().stop()\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.irCamera().stop();\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.irCamera().stop()\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.irCamera().stop();\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "paragraph",
@@ -12329,15 +11881,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.keys().buttonPressed.connect(lambda code, value: brick.stop() if code == KeysEnum.Up else print(code))\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.keys().buttonPressed.connect(function(code, value){if (code==KeysEnum.Up)brick.stop() ; });\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.keys().buttonPressed.connect(lambda code, value: brick.stop() if code == KeysEnum.Up else print(code))\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.keys().buttonPressed.connect(function(code, value){if (code==KeysEnum.Up)brick.stop() ; });\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "paragraph",
@@ -12364,15 +11908,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.keys().isPressed(KeysEnum.Up)\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.keys().isPressed(KeysEnum.Up);\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.keys().isPressed(KeysEnum.Up)\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.keys().isPressed(KeysEnum.Up);\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -12391,15 +11927,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nbrick.keys().reset()\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.keys().reset();\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nbrick.keys().reset()\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.keys().reset();\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -12422,15 +11950,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nbrick.keys().wasPressed(KeysEnum.Up)\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.keys().wasPressed(KeysEnum.Up);\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nbrick.keys().wasPressed(KeysEnum.Up)\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.keys().wasPressed(KeysEnum.Up);\n```\n</TabItem>\n</Tabs>"
       }
     ],
     "toc": [
@@ -12497,15 +12017,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nbrick.led().red()\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.led().red();\t\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nbrick.led().red()\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.led().red();\t\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -12524,15 +12036,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nbrick.led().green()\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.led().green();\t\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nbrick.led().green()\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.led().green();\t\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -12551,15 +12055,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nbrick.led().orange()\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.led().orange();\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nbrick.led().orange()\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.led().orange();\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -12578,15 +12074,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nbrick.led().off()\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.led().off();\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nbrick.led().off()\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.led().off();\n```\n</TabItem>\n</Tabs>"
       }
     ],
     "toc": [
@@ -12653,15 +12141,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nbrick.lineSensor(\"video1\").detect()\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.lineSensor(\"video1\").detect();\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nbrick.lineSensor(\"video1\").detect()\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.lineSensor(\"video1\").detect();\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -12680,15 +12160,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.lineSensor(\"video1\").init(True)\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.lineSensor(\"video1\").init(true);\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.lineSensor(\"video1\").init(True)\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.lineSensor(\"video1\").init(true);\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "paragraph",
@@ -12719,15 +12191,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nbrick.lineSensor(\"video1\").read()\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.lineSensor(\"video1\").read();\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nbrick.lineSensor(\"video1\").read()\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.lineSensor(\"video1\").read();\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -12746,15 +12210,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nbrick.lineSensor(\"video1\").stop()\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.lineSensor(\"video1\").stop();\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nbrick.lineSensor(\"video1\").stop()\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.lineSensor(\"video1\").stop();\n```\n</TabItem>\n</Tabs>"
       }
     ],
     "toc": [
@@ -12821,15 +12277,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.marker().down(color)\nbrick.marker().down(\"color\")\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.marker().down(color)\nbrick.marker().down(\"color\")\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.marker().down(color)\nbrick.marker().down(\"color\")\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.marker().down(color)\nbrick.marker().down(\"color\")\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-4",
@@ -12840,15 +12288,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.marker().down(\"blue\")\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.marker().down(\"blue\")\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.marker().down(\"blue\")\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.marker().down(\"blue\")\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -12867,15 +12307,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.marker().up()\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.marker().up()\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.marker().up()\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.marker().up()\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -12894,15 +12326,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.marker().isDown()\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.marker().isDown();\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.marker().isDown()\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.marker().isDown();\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -12921,15 +12345,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.marker().setDown(True) # Вызывает brick.marker().down(\"black\")\nbrick.marker().setDown(False) # Вызывает brick.marker().up()\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.marker().setDown(true) // Вызывает brick.marker().down(\"black\")\nbrick.marker().setDown(false) // Вызывает brick.marker().up()\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.marker().setDown(True) # Вызывает brick.marker().down(\"black\")\nbrick.marker().setDown(False) # Вызывает brick.marker().up()\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.marker().setDown(true) // Вызывает brick.marker().down(\"black\")\nbrick.marker().setDown(false) // Вызывает brick.marker().up()\n```\n</TabItem>\n</Tabs>"
       }
     ],
     "toc": [
@@ -13001,15 +12417,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.motor(motorName).brake(durationMs)\nbrick.motor(\"motorName\").brake(durationMs)\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.motor(motorName).brake(durationMs);\nbrick.motor(\"motorName\").brake(durationMs);\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.motor(motorName).brake(durationMs)\nbrick.motor(\"motorName\").brake(durationMs)\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.motor(motorName).brake(durationMs);\nbrick.motor(\"motorName\").brake(durationMs);\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "paragraph",
@@ -13036,15 +12444,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\npow1 = brick.motor(motorName).power()\npow2 = brick.motor(\"motorName\").power()\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nvar pow1 = brick.motor(motorName).power();\nvar pow2 = brick.motor(\"motorName\").power();\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\npow1 = brick.motor(motorName).power()\npow2 = brick.motor(\"motorName\").power()\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nvar pow1 = brick.motor(motorName).power();\nvar pow2 = brick.motor(\"motorName\").power();\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -13063,15 +12463,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.motor(motorName).powerOff()\nbrick.motor(\"motorName\").powerOff()\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.motor(motorName).powerOff();\nbrick.motor(\"motorName\").powerOff();\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.motor(motorName).powerOff()\nbrick.motor(\"motorName\").powerOff()\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.motor(motorName).powerOff();\nbrick.motor(\"motorName\").powerOff();\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -13090,15 +12482,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.motor(motorName).setPower(power)\nbrick.motor(\"motorName\").setPower(power)\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.motor(motorName).setPower(power);\nbrick.motor(\"motorName\").setPower(power);\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.motor(motorName).setPower(power)\nbrick.motor(\"motorName\").setPower(power)\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.motor(motorName).setPower(power);\nbrick.motor(\"motorName\").setPower(power);\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "paragraph",
@@ -13169,15 +12553,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nbrick.objectSensor().detect()\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.objectSensor().detect();\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nbrick.objectSensor().detect()\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.objectSensor().detect();\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -13196,15 +12572,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.objectSensor().init(True)\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.objectSensor().init(true);\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.objectSensor().init(True)\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.objectSensor().init(true);\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "paragraph",
@@ -13235,15 +12603,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nbrick.objectSensor().read()\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.objectSensor().read();\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nbrick.objectSensor().read()\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.objectSensor().read();\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -13262,15 +12622,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nbrick.objectSensor().stop()\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.objectSensor().stop();\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nbrick.objectSensor().stop()\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.objectSensor().stop();\n```\n</TabItem>\n</Tabs>"
       }
     ],
     "toc": [
@@ -13341,15 +12693,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\ndata1 = brick.sensor(sensorName).read()\ndata2 = brick.sensor(\"sensorName\").read()\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nvar data1 = brick.sensor(sensorName).read();\nvar data2 = brick.sensor(\"sensorName\").read();\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\ndata1 = brick.sensor(sensorName).read()\ndata2 = brick.sensor(\"sensorName\").read()\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nvar data1 = brick.sensor(sensorName).read();\nvar data2 = brick.sensor(\"sensorName\").read();\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -13368,15 +12712,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\ndata1 = brick.sensor(sensorName).readRawData()\ndata2 = brick.sensor(\"sensorName\").readRawData()\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nvar data1 = brick.sensor(sensorName).readRawData();\nvar data2 = brick.sensor(\"sensorName\").readRawData();\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\ndata1 = brick.sensor(sensorName).readRawData()\ndata2 = brick.sensor(\"sensorName\").readRawData()\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nvar data1 = brick.sensor(sensorName).readRawData();\nvar data2 = brick.sensor(\"sensorName\").readRawData();\n```\n</TabItem>\n</Tabs>"
       }
     ],
     "toc": [
@@ -13433,15 +12769,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.accelerometer();\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript \"}>\n```javascript\nbrick.accelerometer();\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.accelerometer();\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript \"}>\n```javascript\nbrick.accelerometer();\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -13460,15 +12788,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.battery();\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.battery();\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.battery();\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.battery();\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -13487,15 +12807,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.colorSensor(\"video1\")\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.colorSensor(\"video1\");\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.colorSensor(\"video1\")\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.colorSensor(\"video1\");\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -13514,15 +12826,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nbrick.display()\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.display();\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nbrick.display()\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.display();\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -13541,15 +12845,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.encoder(portName)\nbrick.encoder(\"portName\")\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.encoder(portName);\nbrick.encoder(\"portName\");\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.encoder(portName)\nbrick.encoder(\"portName\")\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.encoder(portName);\nbrick.encoder(\"portName\");\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "paragraph",
@@ -13564,15 +12860,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.encoder(E1) # вызов энкодера на порту E1\nbrick.encoder(\"E2\") # вызов энкодера на порту E2\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.encoder(E1); // вызов энкодера на порту E1\nbrick.encoder(\"E2\"); // вызов энкодера на порту E2\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.encoder(E1) # вызов энкодера на порту E1\nbrick.encoder(\"E2\") # вызов энкодера на порту E2\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.encoder(E1); // вызов энкодера на порту E1\nbrick.encoder(\"E2\"); // вызов энкодера на порту E2\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -13591,15 +12879,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nbrick.getStillImage()\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```\nbrick.getStillImage();\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nbrick.getStillImage()\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```\nbrick.getStillImage();\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -13618,15 +12898,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nbrick.gyroscope()\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```\nbrick.gyroscope();\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nbrick.gyroscope()\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```\nbrick.gyroscope();\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -13645,15 +12917,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nbrick.keys()\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```\nbrick.keys();\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nbrick.keys()\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```\nbrick.keys();\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -13672,15 +12936,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nbrick.led()\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```\nbrick.led();\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nbrick.led()\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```\nbrick.led();\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -13699,15 +12955,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nbrick.lineSensor(\"video1\")\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```\nbrick.lineSensor(\"video1\");\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nbrick.lineSensor(\"video1\")\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```\nbrick.lineSensor(\"video1\");\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -13726,15 +12974,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.motor(motorName)\nbrick.motor(\"motorName\")\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.motor(motorName);\nbrick.motor(\"motorName\");\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.motor(motorName)\nbrick.motor(\"motorName\")\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.motor(motorName);\nbrick.motor(\"motorName\");\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "paragraph",
@@ -13749,15 +12989,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.motor(M1) # вызов мотора на порту M1\nbrick.motor(\"M2\") # вызов мотора на порту M2\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.motor(M1) // вызов мотора на порту M1\nbrick.motor(\"M2\") // вызов мотора на порту M2\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.motor(M1) # вызов мотора на порту M1\nbrick.motor(\"M2\") # вызов мотора на порту M2\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.motor(M1) // вызов мотора на порту M1\nbrick.motor(\"M2\") // вызов мотора на порту M2\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -13776,15 +13008,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.objectSensor()\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.objectSensor();\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.objectSensor()\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.objectSensor();\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -13803,15 +13027,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.playSound(\"filename\")\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.playSound(\"filename\");\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.playSound(\"filename\")\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.playSound(\"filename\");\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "paragraph",
@@ -13830,15 +13046,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.playSound(\"media/sound.mp3\") # проиграть файл sound.mp3 из папки media\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.playSound(\"media/sound.mp3\"); // проиграть файл sound.mp3 из папки media\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.playSound(\"media/sound.mp3\") # проиграть файл sound.mp3 из папки media\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.playSound(\"media/sound.mp3\"); // проиграть файл sound.mp3 из папки media\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -13857,15 +13065,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.playTone(frequency, time)\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.playSound(frequency, time);\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.playTone(frequency, time)\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.playSound(frequency, time);\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "paragraph",
@@ -13880,15 +13080,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.playTone(1000, 1000)\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.playTone(1000, 1000);\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.playTone(1000, 1000)\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.playTone(1000, 1000);\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -13907,15 +13099,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.say(string)\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.say(string);\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.say(string)\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.say(string);\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "paragraph",
@@ -13930,15 +13114,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.say(\"Привет, я ТРИК\")\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.say(\"Привет, я ТРИК\");\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.say(\"Привет, я ТРИК\")\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.say(\"Привет, я ТРИК\");\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -13957,15 +13133,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.sensor(portName)\nbrick.sensor(\"portName\")\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.sensor(portName);\nbrick.sensor(\"portName\");\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.sensor(portName)\nbrick.sensor(\"portName\")\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.sensor(portName);\nbrick.sensor(\"portName\");\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "paragraph",
@@ -13980,15 +13148,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.sensor(A1) # вызов сенсора на порту A1\nbrick.sensor(\"A2\") # вызов сенсора на порту A2\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.sensor(A1) // вызов сенсора на порту A1\nbrick.sensor(\"A2\") // вызов сенсора на порту A2\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.sensor(A1) # вызов сенсора на порту A1\nbrick.sensor(\"A2\") # вызов сенсора на порту A2\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.sensor(A1) // вызов сенсора на порту A1\nbrick.sensor(\"A2\") // вызов сенсора на порту A2\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -14007,15 +13167,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.stop()\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.stop();\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.stop()\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.stop();\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -14034,15 +13186,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.marker()\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.marker();\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.marker()\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.marker();\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -14061,15 +13205,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.irCamera()\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.irCamera();\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nbrick.irCamera()\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nbrick.irCamera();\n```\n</TabItem>\n</Tabs>"
       }
     ],
     "toc": [
@@ -14253,15 +13389,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\ngamepad.buttonWasPressed(buttonNumber)\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\ngamepad.buttonWasPressed(buttonNumber);\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\ngamepad.buttonWasPressed(buttonNumber)\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\ngamepad.buttonWasPressed(buttonNumber);\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "paragraph",
@@ -14276,15 +13404,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\ngamepad.buttonWasPressed(5)\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\ngamepad.buttonWasPressed(5);\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\ngamepad.buttonWasPressed(5)\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\ngamepad.buttonWasPressed(5);\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -14319,15 +13439,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\ngamepad.isPadPressed(padId)\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\ngamepad.isPadPressed(padId);\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\ngamepad.isPadPressed(padId)\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\ngamepad.isPadPressed(padId);\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "paragraph",
@@ -14342,15 +13454,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\ngamepad.isPadPressed(1)\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\ngamepad.isPadPressed(1);\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\ngamepad.isPadPressed(1)\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\ngamepad.isPadPressed(1);\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -14377,15 +13481,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\ngamepad.padX(padId)\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```\ngamepad.padX(padId);\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\ngamepad.padX(padId)\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```\ngamepad.padX(padId);\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "paragraph",
@@ -14408,15 +13504,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\ngamepad.padY(padId)\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```\ngamepad.padY(padId);\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\ngamepad.padY(padId)\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```\ngamepad.padY(padId);\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "paragraph",
@@ -14439,15 +13527,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\ngamepad.padUp.connect(lambda padId, x, y: brick.stop())\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\ngamepad.padUp.connect( function(padId, x, y) { brick.stop(); });\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\ngamepad.padUp.connect(lambda padId, x, y: brick.stop())\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\ngamepad.padUp.connect( function(padId, x, y) { brick.stop(); });\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "paragraph",
@@ -14474,15 +13554,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\ngamepad.reset()\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\ngamepad.reset();\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\ngamepad.reset()\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\ngamepad.reset();\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -14505,15 +13577,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\ngamepad.wheel()\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```\ngamepad.wheel();\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\ngamepad.wheel()\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```\ngamepad.wheel();\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -14532,15 +13596,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\ngamepad.wheelEvent.connect(lambda percent: brick.motor(\"E1\").setPower(percent))\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\ngamepad.wheelEvent.connect(function(percent) { brick.motor(\"E1\").setPower(percent); });\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\ngamepad.wheelEvent.connect(lambda percent: brick.motor(\"E1\").setPower(percent))\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\ngamepad.wheelEvent.connect(function(percent) { brick.motor(\"E1\").setPower(percent); });\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "paragraph",
@@ -14641,15 +13697,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nmailbox.joinNetwork(\"ip\", port, hullNumber)\nmailbox.joinNetwork(\"\", port, hullNumber)\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nmailbox.joinNetwork(\"ip\", port, hullNumber);\nmailbox.joinNetwork(\"\", port, hullNumber);\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nmailbox.joinNetwork(\"ip\", port, hullNumber)\nmailbox.joinNetwork(\"\", port, hullNumber)\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nmailbox.joinNetwork(\"ip\", port, hullNumber);\nmailbox.joinNetwork(\"\", port, hullNumber);\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "paragraph",
@@ -14664,15 +13712,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nmailbox.joinNetwork(\"192.168.77.1\", -1, 1)\n//Подключение к 192.168.77.1, порту 8889 без смены бортномера\nmailbox.joinNetwork(\"192.168.77.1\", -1, 2)\n//Подключение к 192.168.77.1, порту 8889 со сменой бортномера на 2\nmailbox.joinNetwork(\"\", -1, 2)\n//Смена бортномера без подключения\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nmailbox.joinNetwork(\"192.168.77.1\", -1, 1);\n//Подключение к 192.168.77.1, порту 8889 без смены бортномера\nmailbox.joinNetwork(\"192.168.77.1\", -1, 2);\n//Подключение к 192.168.77.1, порту 8889 со сменой бортномера на 2\nmailbox.joinNetwork(\"\", -1, 2);\n//Смена бортномера без подключения\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nmailbox.joinNetwork(\"192.168.77.1\", -1, 1)\n//Подключение к 192.168.77.1, порту 8889 без смены бортномера\nmailbox.joinNetwork(\"192.168.77.1\", -1, 2)\n//Подключение к 192.168.77.1, порту 8889 со сменой бортномера на 2\nmailbox.joinNetwork(\"\", -1, 2)\n//Смена бортномера без подключения\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nmailbox.joinNetwork(\"192.168.77.1\", -1, 1);\n//Подключение к 192.168.77.1, порту 8889 без смены бортномера\nmailbox.joinNetwork(\"192.168.77.1\", -1, 2);\n//Подключение к 192.168.77.1, порту 8889 со сменой бортномера на 2\nmailbox.joinNetwork(\"\", -1, 2);\n//Смена бортномера без подключения\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -14691,15 +13731,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nmailbox.hasMessages()\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nmailbox.hasMessages();\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nmailbox.hasMessages()\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nmailbox.hasMessages();\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -14718,15 +13750,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nx = mailbox.myHullNumber()\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nvar x = mailbox.myHullNumber();\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nx = mailbox.myHullNumber()\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nvar x = mailbox.myHullNumber();\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -14745,15 +13769,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nmailbox.newMessage.connect(lambda sender, message: print(message))\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nmailbox.newMessage.connect(function(sender, message) { print(message); });\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nmailbox.newMessage.connect(lambda sender, message: print(message))\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nmailbox.newMessage.connect(function(sender, message) { print(message); });\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "paragraph",
@@ -14776,15 +13792,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nmessage = mailbox.receive()\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nvar message = mailbox.receive();\t\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nmessage = mailbox.receive()\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nvar message = mailbox.receive();\t\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -14803,15 +13811,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nmailbox.send(\"message\")\nmailbox.send(hullNumber, \"message\")\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nmailbox.send(\"message\");\nmailbox.send(boardNumber, \"message\");\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nmailbox.send(\"message\")\nmailbox.send(hullNumber, \"message\")\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nmailbox.send(\"message\");\nmailbox.send(boardNumber, \"message\");\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "paragraph",
@@ -14826,15 +13826,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nmailbox.send(1, \"Hello\") # отправка сообщения роботу с бортовым номер 1\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nmailbox.send(1, \"Hello\"); // отправка сообщения роботу с бортовым номер 1\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nmailbox.send(1, \"Hello\") # отправка сообщения роботу с бортовым номер 1\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nmailbox.send(1, \"Hello\"); // отправка сообщения роботу с бортовым номер 1\n```\n</TabItem>\n</Tabs>"
       }
     ],
     "toc": [
@@ -14921,15 +13913,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nscript.quit()\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nscript.quit();\t\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nscript.quit()\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nscript.quit();\t\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -14948,15 +13932,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nscript.random(min, max)\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nscript.random(min, max);\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nscript.random(min, max)\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nscript.random(min, max);\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "paragraph",
@@ -14971,15 +13947,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\na = script.random(0, 10) # случайное число от 0 до 10\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nvar a = script.random(0, 10); // случайное число от 0 до 10\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\na = script.random(0, 10) # случайное число от 0 до 10\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nvar a = script.random(0, 10); // случайное число от 0 до 10\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -14998,15 +13966,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nscript.readAll(\"fileName\")\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nscript.readAll(\"fileName\");\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nscript.readAll(\"fileName\")\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nscript.readAll(\"fileName\");\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "paragraph",
@@ -15021,15 +13981,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nlines = script.readAll(\"input.txt\") # считывает текстовый файл input.txt\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nvar lines = script.readAll(\"input.txt\"); // считывает текстовый файл input.txt\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nlines = script.readAll(\"input.txt\") # считывает текстовый файл input.txt\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nvar lines = script.readAll(\"input.txt\"); // считывает текстовый файл input.txt\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -15048,15 +14000,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nscript.removeFile(\"fileName\")\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nscript.removeFile(\"fileName\");\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nscript.removeFile(\"fileName\")\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nscript.removeFile(\"fileName\");\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "paragraph",
@@ -15071,15 +14015,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nscript.removeFile(\"file.txt\"); # удалить файл file.txt\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nscript.removeFile(\"file.txt\"); // удалить файл file.txt\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nscript.removeFile(\"file.txt\"); # удалить файл file.txt\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nscript.removeFile(\"file.txt\"); // удалить файл file.txt\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -15098,15 +14034,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nscript.run()\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nscript.run();\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nscript.run()\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nscript.run();\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -15125,15 +14053,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nript.system()\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```\nscript.system();\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nript.system()\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```\nscript.system();\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "paragraph",
@@ -15148,15 +14068,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nscript.system(\"reboot\")\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nscript.system(\"reboot\");\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nscript.system(\"reboot\")\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nscript.system(\"reboot\");\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -15175,15 +14087,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nscript.time()\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```\nscript.time();\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nscript.time()\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```\nscript.time();\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -15202,15 +14106,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nscript.timer(n)\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nscript.timer(n);\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nscript.timer(n)\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nscript.timer(n);\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "paragraph",
@@ -15225,15 +14121,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\ndef foo():\n  print(\"It's Alive!!!\")\ntim = script.timer(500) # таймер на 500 мс\ntim.timeout.connect(foo) # подписываем функцию foo на срабатывание по таймеру tim\nscript.wait(5000)\ntim.stop()\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nfunction foo(){\n  print(\"It's Alive!!!\")\n}\ntim = script.timer(500) // таймер на 500 мс\ntim.timeout.connect(foo) // подписываем функцию foo на срабатывание по таймеру tim\nscript.wait(5000)\ntim.stop()\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\ndef foo():\n  print(\"It's Alive!!!\")\ntim = script.timer(500) # таймер на 500 мс\ntim.timeout.connect(foo) # подписываем функцию foo на срабатывание по таймеру tim\nscript.wait(5000)\ntim.stop()\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nfunction foo(){\n  print(\"It's Alive!!!\")\n}\ntim = script.timer(500) // таймер на 500 мс\ntim.timeout.connect(foo) // подписываем функцию foo на срабатывание по таймеру tim\nscript.wait(5000)\ntim.stop()\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -15252,15 +14140,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nscript.wait(msCount)\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nscript.wait(msCount);\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```\nscript.wait(msCount)\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nscript.wait(msCount);\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "paragraph",
@@ -15275,15 +14155,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nscript.wait(1000) # остановить выполнение скрипта на одну секунду\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nscript.wait(1000); // остановить выполнение скрипта на одну секунду\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nscript.wait(1000) # остановить выполнение скрипта на одну секунду\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nscript.wait(1000); // остановить выполнение скрипта на одну секунду\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "heading-6",
@@ -15302,15 +14174,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nscript.writeToFile(\"fileName\", \"text\")\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nscript.writeToFile(\"fileName\", \"text\");\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nscript.writeToFile(\"fileName\", \"text\")\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nscript.writeToFile(\"fileName\", \"text\");\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "paragraph",
@@ -15325,15 +14189,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nscript.writeToFile(\"output.txt\", \"Hello, world\") # записать «Hello, world» в файл output.t\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nscript.writeToFile(\"output.txt\", \"Hello, world\"); // записать «Hello, world» в файл output.t\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"python\"} label={\"Python\"}>\n```python\nscript.writeToFile(\"output.txt\", \"Hello, world\") # записать «Hello, world» в файл output.t\n```\n</TabItem>\n\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nscript.writeToFile(\"output.txt\", \"Hello, world\"); // записать «Hello, world» в файл output.t\n```\n</TabItem>\n</Tabs>"
       }
     ],
     "toc": [
@@ -15465,11 +14321,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nThreading.joinThread(\"threadId\")\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nThreading.joinThread(\"threadId\")\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "paragraph",
@@ -15492,11 +14344,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nThreading.killThread(\"threadId\")\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nThreading.killThread(\"threadId\")\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "paragraph",
@@ -15519,11 +14367,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nThreading.receiveMessage(wait)\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nThreading.receiveMessage(wait)\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "paragraph",
@@ -15546,11 +14390,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nThreading.sendMessage(\"threadId\", \"message\")\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nThreading.sendMessage(\"threadId\", \"message\")\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "paragraph",
@@ -15577,11 +14417,7 @@
       },
       {
         "type": "tabs",
-        "raw": "<Tabs>\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nThreading.startThread(\"newThreadId\", \"functionName\")\n```"
-      },
-      {
-        "type": "paragraph",
-        "raw": "</TabItem>\n</Tabs>"
+        "raw": "<Tabs>\n<TabItem value={\"javascript\"} label={\"JavaScript\"}>\n```javascript\nThreading.startThread(\"newThreadId\", \"functionName\")\n```\n</TabItem>\n</Tabs>"
       },
       {
         "type": "paragraph",

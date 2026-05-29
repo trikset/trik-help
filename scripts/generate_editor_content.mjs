@@ -93,6 +93,13 @@ function parseBlocks(source) {
   }
 
   for (const line of lines) {
+    if (/^<Tabs[\s>]/.test(line)) inTabs = true;
+    if (inTabs) {
+      current.push(line);
+      if (/^<\/Tabs>/.test(line)) { inTabs = false; flush(); }
+      continue;
+    }
+
     if (line.startsWith('```')) {
       current.push(line);
       inFence = !inFence;
@@ -100,13 +107,6 @@ function parseBlocks(source) {
       continue;
     }
     if (inFence) { current.push(line); continue; }
-
-    if (/^<Tabs[\s>]/.test(line)) inTabs = true;
-    if (inTabs) {
-      current.push(line);
-      if (/^<\/Tabs>/.test(line)) { inTabs = false; flush(); }
-      continue;
-    }
 
     if (/^:::/m.test(line)) {
       current.push(line);

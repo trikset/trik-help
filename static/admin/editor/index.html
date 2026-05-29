@@ -469,11 +469,17 @@
       .rendered-page img { max-width: 100%; border-radius: 8px; }
       .rendered-page pre {
         overflow: auto;
-        padding: 14px;
-        border-radius: 12px;
-        background: #0b1220;
-        color: #d8e4ff;
+        margin: 0;
+        padding: 12px 14px;
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        background: var(--panel-soft);
+        color: var(--text);
       }
+      .rendered-page code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+      .code-line .token-object { color: #a85d00; }
+      .code-line .token-method { color: var(--primary); }
+      .code-line .token-punctuation { color: var(--text); }
       .rendered-page blockquote {
         margin: 0;
         padding: 10px 14px;
@@ -572,7 +578,12 @@
         background: var(--panel);
         box-shadow: 0 0 0 2px color-mix(in srgb, var(--primary) 18%, transparent);
       }
-      .tab-panel { padding: 0; }
+      .tab-panel {
+        padding: 32px;
+        border: 1px solid var(--border);
+        border-top: 0;
+        background: var(--panel);
+      }
       .tab-panel img { max-width: 100%; }
       .toc-panel {
         position: sticky;
@@ -904,6 +915,12 @@
         return tabs;
       }
 
+      function renderCode(raw) {
+        const code = raw.replace(/^```\w*\n?/, '').replace(/```$/, '').trimEnd();
+        const escaped = escapeHtml(code).replace(/\b(brick|script|Threading|mailbox|gamepad)\b/g, '<span class="token-object">$1</span>').replace(/\.(\w+)/g, '.<span class="token-method">$1</span>');
+        return `<pre><code class="code-line">${escaped}</code></pre>`;
+      }
+
       function renderMarkdownFragment(raw) {
         return parseBlocks(raw).map((block, index) => {
           if (block.type === 'image') {
@@ -911,7 +928,7 @@
             return src ? `<p><img src="${escapeHtml(src)}" alt="" /></p>` : `<div class="raw-block">${escapeHtml(block.raw)}</div>`;
           }
           if (block.type === 'paragraph') return renderMarkdownBlock(block.raw);
-          if (block.type === 'code') return `<pre><code>${escapeHtml(block.raw.replace(/^```\w*\n?/, '').replace(/```$/, ''))}</code></pre>`;
+          if (block.type === 'code') return renderCode(block.raw);
           if (block.type === 'quote') return `<blockquote>${inlineMarkdown(block.raw.replace(/^>\s?/gm, '')).replace(/\n/g, '<br />')}</blockquote>`;
           if (block.type === 'hint') return `<div class="hint-block">${inlineMarkdown(block.raw.replace(/^:::\w*\n?/, '').replace(/:::$/, '').trim()).replace(/\n/g, '<br />')}</div>`;
           if (block.type === 'table') return renderTable(block.raw);
@@ -935,7 +952,7 @@
           } else if (block.type === 'quote') {
             html = `<blockquote ${nestedAttrs}>${inlineMarkdown(block.raw.replace(/^>\s?/gm, '')).replace(/\n/g, '<br />')}</blockquote>`;
           } else if (block.type === 'code') {
-            html = `<pre><code>${escapeHtml(block.raw.replace(/^```\w*\n?/, '').replace(/```$/, ''))}</code></pre>`;
+            html = renderCode(block.raw);
           } else if (block.type === 'hint') {
             html = `<div class="hint-block">${inlineMarkdown(block.raw.replace(/^:::\w*\n?/, '').replace(/:::$/, '').trim()).replace(/\n/g, '<br />')}</div>`;
           } else if (block.type === 'table') {
@@ -1187,7 +1204,7 @@
           const alt = block.raw.match(/^!\[([^\]]*)\]/)?.[1] || '';
           html = src ? `<p><img src="${escapeHtml(src)}" alt="${escapeHtml(alt)}" /></p>` : `<div class="raw-block">${escapeHtml(block.raw)}</div>`;
         } else if (block.type === 'code') {
-          html = `<pre><code>${escapeHtml(block.raw.replace(/^```\w*\n?/, '').replace(/```$/, ''))}</code></pre>`;
+          html = renderCode(block.raw);
         } else if (block.type === 'quote') {
           html = `<blockquote>${inlineMarkdown(block.raw.replace(/^>\s?/gm, '')).replace(/\n/g, '<br />')}</blockquote>`;
         } else if (block.type === 'hint') {
