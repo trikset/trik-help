@@ -517,13 +517,15 @@
       .tab-label .tab-drag { opacity: 0; border: 0; background: transparent; color: var(--muted); cursor: pointer; padding: 0; }
       .tab-label:hover .tab-drag { opacity: 1; }
       .tab-label .tab-drag:hover { color: var(--primary); }
-      .tab-title-input {
-        width: 170px;
-        border: 1px solid var(--border);
-        border-radius: 8px;
+      .tab-title-editable {
+        min-width: 24px;
+        border-radius: 7px;
+        padding: 2px 4px;
+        outline: none;
+      }
+      .tab-title-editable:focus {
         background: var(--panel);
-        color: var(--text);
-        padding: 6px 8px;
+        box-shadow: 0 0 0 2px color-mix(in srgb, var(--primary) 18%, transparent);
       }
       .tab-panel { padding: 0; }
       .tab-panel img { max-width: 100%; }
@@ -870,12 +872,17 @@
       function renderNestedBlocks(blocks, tabIndex) {
         return blocks.map((block, nestedIndex) => {
           let html = '';
+          const nestedAttrs = `contenteditable="true" spellcheck="true" class="editable-block" data-nested-editable="true" data-tab-index="${tabIndex}" data-nested-block-index="${nestedIndex}"`;
           if (block.type === 'image') {
             const src = imageSrc(block.raw);
             html = src ? `<p><img src="${escapeHtml(src)}" alt="" /></p>` : `<div class="raw-block">${escapeHtml(block.raw)}</div>`;
           } else if (block.type.startsWith('heading-')) {
-            html = `<strong>${inlineMarkdown(block.text || block.raw)}</strong>`;
-          } else if (block.type === 'paragraph' || block.type === 'bulleted-list' || block.type === 'numbered-list' || block.type === 'task-list') {
+            html = `<div ${nestedAttrs}>${inlineMarkdown(block.text || block.raw.replace(/^#+\s*/, ''))}</div>`;
+          } else if (block.type === 'paragraph') {
+            html = `<p ${nestedAttrs}>${inlineMarkdown(block.raw).replace(/\n/g, '<br />')}</p>`;
+          } else if (block.type === 'quote') {
+            html = `<blockquote ${nestedAttrs}>${inlineMarkdown(block.raw.replace(/^>\s?/gm, '')).replace(/\n/g, '<br />')}</blockquote>`;
+          } else if (block.type === 'bulleted-list' || block.type === 'numbered-list' || block.type === 'task-list') {
             html = renderMarkdownBlock(block.raw);
           } else {
             html = `<div class="raw-block">${escapeHtml(block.raw)}</div>`;
@@ -899,11 +906,8 @@
         if (!tabs.length) return `<div class="tabs-block"><div class="tab-panel"><pre>${escapeHtml(raw)}</pre></div></div>`;
         const key = tabsKey(blockIndex);
         const activeIndex = Math.min(state.activeTabs[key] ?? 0, tabs.length - 1);
-        const editing = state.tabEditing && state.tabEditing.blockIndex === blockIndex ? state.tabEditing.tabIndex : -1;
         const labels = tabs.map((tab, tabIndex) => {
-          const title = editing === tabIndex
-            ? `<input class="tab-title-input" data-tab-title-input="${tabIndex}" value="${escapeHtml(tab.label)}" />`
-            : escapeHtml(tab.label);
+          const title = `<span class="tab-title-editable" contenteditable="true" spellcheck="true" data-tab-title-edit="${tabIndex}">${escapeHtml(tab.label)}</span>`;
           return `<button class="tab-insert" type="button" data-tab-insert="${tabIndex}" title="Добавить вкладку здесь"></button><button class="tab-label ${tabIndex === activeIndex ? 'active' : ''}" type="button" data-tab-switch="${tabIndex}"><span class="tab-drag" data-tab-menu="${tabIndex}" title="Действия вкладки">⋮⋮</span>${title}</button>`;
         }).join('') + `<button class="tab-insert" type="button" data-tab-insert="${tabs.length}" title="Добавить вкладку здесь"></button>`;
         const panels = tabs.map((tab, tabIndex) => `<div class="tab-panel" data-tab-panel="${tabIndex}" ${tabIndex !== activeIndex ? 'hidden' : ''}>${renderNestedBlocks(parseBlocks(tab.body), tabIndex)}</div>`).join('');
@@ -984,7 +988,7 @@
         state.activeTabs[tabsKey(blockIndex)] = tabIndex;
         state.tabEditing = {blockIndex, tabIndex};
         renderPageContent(nodeDocId(state.selectedNode));
-        setTimeout(() => contentEl.querySelector(`[data-tab-title-input="${tabIndex}"]`)?.focus(), 0);
+        setTimeout(() => contentEl.querySelector(`[data-tab-title-edit="${tabIndex}"]`)?.focus(), 0);
         markDirty(`Добавлена вкладка в блок #${blockIndex + 1}.`, null);
       }
 
@@ -1104,6 +1108,26 @@
         markDirty(`Изменён блок #${index + 1}.`, null);
       }
 
+      function updateNestedBlockFromEditable(editable) {
+        const blockEl = editable.closest('[data-block-index]');
+        const page = state.content[nodeDocId(state.selectedNode)];
+        const tabBlock = page?.blocks?.[Number(blockEl?.dataset.blockIndex)];
+        if (!tabBlock || tabBlock.type !== 'tabs') return;
+        const tabIndex = Number(editable.dataset.tabIndex);
+        const nestedIndex = Number(editable.dataset.nestedBlockIndex);
+        const tabs = parseTabs(tabBlock.raw);
+        const blocks = parseBlocks(tabs[tabIndex]?.body || '');
+        const block = blocks[nestedIndex];
+        if (!block) return;
+        const text = editable.innerText.trim() || 'Новый параграф.';
+        if (block.type.startsWith('heading-')) block.raw = `${'#'.repeat(block.level || 2)} ${text}`;
+        else if (block.type === 'quote') block.raw = text.split('\n').map((line) => `> ${line}`).join('\n');
+        else block.raw = text;
+        tabs[tabIndex].body = blocks.map((item) => item.raw).join('\n\n');
+        tabBlock.raw = serializeTabs(tabs);
+        markDirty(`Изменён вложенный блок #${nestedIndex + 1} во вкладке #${tabIndex + 1}.`, null);
+      }
+
       function showFormatToolbar() {
         const selection = window.getSelection();
         if (!selection || selection.isCollapsed || !contentEl.contains(selection.anchorNode)) {
@@ -1114,10 +1138,10 @@
         const rect = range.getBoundingClientRect();
         if (!rect.width && !rect.height) return;
         const editable = selection.anchorNode.nodeType === Node.TEXT_NODE
-          ? selection.anchorNode.parentElement.closest('[data-editable-block]')
-          : selection.anchorNode.closest?.('[data-editable-block]');
+          ? selection.anchorNode.parentElement.closest('[data-editable-block], [data-nested-editable]')
+          : selection.anchorNode.closest?.('[data-editable-block], [data-nested-editable]');
         state.activeEditable = editable || null;
-        const block = editable ? state.content[nodeDocId(state.selectedNode)]?.blocks?.[Number(editable.dataset.editableBlock)] : null;
+        const block = editable?.dataset.nestedEditable ? {type: 'paragraph'} : (editable ? state.content[nodeDocId(state.selectedNode)]?.blocks?.[Number(editable.dataset.editableBlock)] : null);
         formatTypeEl.value = block?.type?.startsWith('heading-') ? block.type : (block?.type || 'paragraph');
         formatToolbarEl.style.left = `${Math.min(rect.left, window.innerWidth - 420)}px`;
         formatToolbarEl.style.top = `${Math.max(8, rect.top - 48)}px`;
@@ -1591,7 +1615,7 @@
           if (tabAction === 'rename') {
             state.tabEditing = {blockIndex, tabIndex};
             renderPageContent(nodeDocId(state.selectedNode));
-            setTimeout(() => contentEl.querySelector(`[data-tab-title-input="${tabIndex}"]`)?.focus(), 0);
+            setTimeout(() => contentEl.querySelector(`[data-tab-title-edit="${tabIndex}"]`)?.focus(), 0);
             return;
           }
           noticeEl.innerHTML = `<span class="dirty">Черновик:</span> действие вкладки «${escapeHtml(event.target.textContent.trim())}» подключим позже.`;
@@ -1633,7 +1657,7 @@
           return;
         }
         const tabSwitch = event.target.closest('[data-tab-switch]');
-        if (tabSwitch && !event.target.closest('[data-tab-title-input]')) {
+        if (tabSwitch && !event.target.closest('[data-tab-title-edit]')) {
           event.preventDefault();
           event.stopPropagation();
           const blockEl = tabSwitch.closest('[data-block-index]');
@@ -1657,32 +1681,33 @@
       });
 
       contentEl.addEventListener('keydown', (event) => {
-        const input = event.target.closest('[data-tab-title-input]');
-        if (!input) return;
+        const title = event.target.closest('[data-tab-title-edit]');
+        if (!title) return;
         if (event.key === 'Enter') {
           event.preventDefault();
-          const blockEl = input.closest('[data-block-index]');
-          renameTab(Number(blockEl?.dataset.blockIndex), Number(input.dataset.tabTitleInput), input.value);
+          title.blur();
         }
         if (event.key === 'Escape') {
-          state.tabEditing = null;
+          event.preventDefault();
           renderPageContent(nodeDocId(state.selectedNode));
         }
       });
       contentEl.addEventListener('blur', (event) => {
-        const input = event.target.closest('[data-tab-title-input]');
-        if (!input) return;
-        const blockEl = input.closest('[data-block-index]');
-        renameTab(Number(blockEl?.dataset.blockIndex), Number(input.dataset.tabTitleInput), input.value);
+        const title = event.target.closest('[data-tab-title-edit]');
+        if (!title) return;
+        const blockEl = title.closest('[data-block-index]');
+        renameTab(Number(blockEl?.dataset.blockIndex), Number(title.dataset.tabTitleEdit), title.innerText);
       }, true);
 
       contentEl.addEventListener('focusin', (event) => {
-        const editable = event.target.closest('[data-editable-block]');
+        const editable = event.target.closest('[data-editable-block], [data-nested-editable]');
         if (editable) state.activeEditable = editable;
       });
       contentEl.addEventListener('input', (event) => {
-        const editable = event.target.closest('[data-editable-block]');
-        if (editable) updateDraftBlockFromEditable(editable);
+        const editable = event.target.closest('[data-editable-block], [data-nested-editable]');
+        if (!editable) return;
+        if (editable.dataset.nestedEditable) updateNestedBlockFromEditable(editable);
+        else updateDraftBlockFromEditable(editable);
       });
       document.addEventListener('selectionchange', showFormatToolbar);
       contentEl.addEventListener('keyup', showFormatToolbar);
@@ -1707,11 +1732,14 @@
         } else {
           document.execCommand(command, false, null);
         }
-        if (state.activeEditable) updateDraftBlockFromEditable(state.activeEditable);
+        if (state.activeEditable) {
+          if (state.activeEditable.dataset.nestedEditable) updateNestedBlockFromEditable(state.activeEditable);
+          else updateDraftBlockFromEditable(state.activeEditable);
+        }
       });
       formatTypeEl.addEventListener('change', () => {
         const editable = state.activeEditable;
-        if (!editable) return;
+        if (!editable || editable.dataset.nestedEditable) return;
         const page = state.content[nodeDocId(state.selectedNode)];
         const index = Number(editable.dataset.editableBlock);
         const block = page?.blocks?.[index];
