@@ -511,11 +511,20 @@
         background: transparent;
         color: var(--muted);
         font-weight: 650;
+        cursor: pointer;
       }
       .tab-label.active { color: var(--primary); border-bottom-color: var(--primary); }
       .tab-label .tab-drag { opacity: 0; border: 0; background: transparent; color: var(--muted); cursor: pointer; padding: 0; }
       .tab-label:hover .tab-drag { opacity: 1; }
       .tab-label .tab-drag:hover { color: var(--primary); }
+      .tab-title-input {
+        width: 170px;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        background: var(--panel);
+        color: var(--text);
+        padding: 6px 8px;
+      }
       .tab-panel { padding: 0; }
       .tab-panel img { max-width: 100%; }
       .toc-panel {
@@ -730,6 +739,8 @@
         modalResolve: null,
         content: {},
         activeEditable: null,
+        activeTabs: {},
+        tabEditing: null,
       };
 
       const treeEl = document.getElementById('tree');
@@ -879,11 +890,23 @@
         return md?.[1] || img?.[1] || '';
       }
 
-      function renderTabs(raw) {
+      function tabsKey(blockIndex) {
+        return `${nodeDocId(state.selectedNode)}:${blockIndex}`;
+      }
+
+      function renderTabs(raw, blockIndex) {
         const tabs = parseTabs(raw);
         if (!tabs.length) return `<div class="tabs-block"><div class="tab-panel"><pre>${escapeHtml(raw)}</pre></div></div>`;
-        const labels = tabs.map((tab, tabIndex) => `<button class="tab-insert" type="button" data-tab-insert="${tabIndex}" title="Добавить вкладку здесь"></button><span class="tab-label ${tabIndex === 0 ? 'active' : ''}"><button class="tab-drag" type="button" title="Действия вкладки">⋮⋮</button>${escapeHtml(tab.label)}</span>`).join('') + `<button class="tab-insert" type="button" data-tab-insert="${tabs.length}" title="Добавить вкладку здесь"></button>`;
-        const panels = tabs.map((tab, tabIndex) => `<div class="tab-panel" data-tab-panel="${tabIndex}" ${tabIndex > 0 ? 'hidden' : ''}>${renderNestedBlocks(parseBlocks(tab.body), tabIndex)}</div>`).join('');
+        const key = tabsKey(blockIndex);
+        const activeIndex = Math.min(state.activeTabs[key] ?? 0, tabs.length - 1);
+        const editing = state.tabEditing && state.tabEditing.blockIndex === blockIndex ? state.tabEditing.tabIndex : -1;
+        const labels = tabs.map((tab, tabIndex) => {
+          const title = editing === tabIndex
+            ? `<input class="tab-title-input" data-tab-title-input="${tabIndex}" value="${escapeHtml(tab.label)}" />`
+            : escapeHtml(tab.label);
+          return `<button class="tab-insert" type="button" data-tab-insert="${tabIndex}" title="Добавить вкладку здесь"></button><button class="tab-label ${tabIndex === activeIndex ? 'active' : ''}" type="button" data-tab-switch="${tabIndex}"><span class="tab-drag" data-tab-menu="${tabIndex}" title="Действия вкладки">⋮⋮</span>${title}</button>`;
+        }).join('') + `<button class="tab-insert" type="button" data-tab-insert="${tabs.length}" title="Добавить вкладку здесь"></button>`;
+        const panels = tabs.map((tab, tabIndex) => `<div class="tab-panel" data-tab-panel="${tabIndex}" ${tabIndex !== activeIndex ? 'hidden' : ''}>${renderNestedBlocks(parseBlocks(tab.body), tabIndex)}</div>`).join('');
         return `<div class="tabs-block theme-tabs-container tabs-container" data-tabs-block="true"><div class="tabs-head tabs">${labels}</div><div class="margin-top--md">${panels}</div></div>`;
       }
 
@@ -947,15 +970,72 @@
         markDirty(`Удалён блок #${index + 1} (${escapeHtml(removed.type)}).`, null);
       }
 
+      function serializeTabs(tabs) {
+        return `<Tabs>\n${tabs.map((tab, index) => `<TabItem value={"tab-${index + 1}"} label={"${tab.label}"}>\n${tab.body}\n</TabItem>`).join('\n\n')}\n</Tabs>`;
+      }
+
       function addTabAt(blockIndex, tabIndex) {
         const page = state.content[nodeDocId(state.selectedNode)];
         const block = page?.blocks?.[blockIndex];
         if (!block || block.type !== 'tabs') return;
         const tabs = parseTabs(block.raw);
-        tabs.splice(tabIndex, 0, {label: `Вкладка ${tabs.length + 1}`, body: 'Новая вкладка.'});
-        block.raw = `<Tabs>\n${tabs.map((tab, index) => `<TabItem value={"tab-${index + 1}"} label={"${tab.label}"}>\n${tab.body}\n</TabItem>`).join('\n\n')}\n</Tabs>`;
+        tabs.splice(tabIndex, 0, {label: `Вкладка ${tabs.length + 1}`, body: 'Новый параграф.'});
+        block.raw = serializeTabs(tabs);
+        state.activeTabs[tabsKey(blockIndex)] = tabIndex;
+        state.tabEditing = {blockIndex, tabIndex};
         renderPageContent(nodeDocId(state.selectedNode));
+        setTimeout(() => contentEl.querySelector(`[data-tab-title-input="${tabIndex}"]`)?.focus(), 0);
         markDirty(`Добавлена вкладка в блок #${blockIndex + 1}.`, null);
+      }
+
+      function switchTab(blockIndex, tabIndex) {
+        state.activeTabs[tabsKey(blockIndex)] = tabIndex;
+        state.tabEditing = null;
+        renderPageContent(nodeDocId(state.selectedNode));
+      }
+
+      function renameTab(blockIndex, tabIndex, label) {
+        const page = state.content[nodeDocId(state.selectedNode)];
+        const block = page?.blocks?.[blockIndex];
+        if (!block || block.type !== 'tabs') return;
+        const tabs = parseTabs(block.raw);
+        if (!tabs[tabIndex]) return;
+        tabs[tabIndex].label = label.trim() || `Вкладка ${tabIndex + 1}`;
+        block.raw = serializeTabs(tabs);
+        state.tabEditing = null;
+        renderPageContent(nodeDocId(state.selectedNode));
+        markDirty(`Переименована вкладка #${tabIndex + 1}.`, null);
+      }
+
+      function deleteTab(blockIndex, tabIndex) {
+        const page = state.content[nodeDocId(state.selectedNode)];
+        const block = page?.blocks?.[blockIndex];
+        if (!block || block.type !== 'tabs') return;
+        const tabs = parseTabs(block.raw);
+        if (tabs.length <= 1) {
+          noticeEl.innerHTML = '<span class="dirty">Нельзя удалить последнюю вкладку.</span>';
+          return;
+        }
+        tabs.splice(tabIndex, 1);
+        block.raw = serializeTabs(tabs);
+        state.activeTabs[tabsKey(blockIndex)] = Math.max(0, Math.min(tabIndex, tabs.length - 1));
+        renderPageContent(nodeDocId(state.selectedNode));
+        markDirty(`Удалена вкладка #${tabIndex + 1}.`, null);
+      }
+
+      function openTabPopover(button, blockIndex, tabIndex) {
+        state.popoverTab = {blockIndex, tabIndex};
+        popoverEl.innerHTML = `
+          <button type="button" data-tab-action="set-icon">Задать иконку</button>
+          <button type="button" data-tab-action="copy-url">Скопировать URL</button>
+          <button type="button" data-tab-action="rename">Переименовать</button>
+          <button type="button" class="danger" data-tab-action="delete">Удалить</button>
+        `;
+        const rect = button.getBoundingClientRect();
+        popoverEl.style.top = `${Math.min(rect.bottom + 6, window.innerHeight - 180)}px`;
+        popoverEl.style.left = `${Math.min(rect.left, window.innerWidth - 250)}px`;
+        popoverEl.hidden = false;
+        button.classList.add('open');
       }
 
       function renderBlock(block, index) {
@@ -978,7 +1058,7 @@
         } else if (block.type === 'hint') {
           html = `<div class="hint-block">${inlineMarkdown(block.raw.replace(/^:::\w*\n?/, '').replace(/:::$/, '').trim()).replace(/\n/g, '<br />')}</div>`;
         } else if (block.type === 'tabs') {
-          html = renderTabs(block.raw);
+          html = renderTabs(block.raw, index);
         } else if (block.type === 'table') {
           html = renderTable(block.raw);
         } else {
@@ -1331,7 +1411,8 @@
         popoverEl.innerHTML = '';
         state.popoverNode = null;
         state.popoverBlock = null;
-        document.querySelectorAll('.block-control.open, .node-menu.open').forEach((button) => button.classList.remove('open'));
+        state.popoverTab = null;
+        document.querySelectorAll('.block-control.open, .node-menu.open, .tab-drag.open').forEach((button) => button.classList.remove('open'));
       }
 
       function openPopover(button, node, parentPath = [], indexInParent = 0) {
@@ -1502,6 +1583,20 @@
       document.getElementById('add-section-root').addEventListener('click', () => addChild(null, 'category'));
 
       popoverEl.addEventListener('click', (event) => {
+        const tabAction = event.target.dataset.tabAction;
+        if (tabAction && state.popoverTab) {
+          const {blockIndex, tabIndex} = state.popoverTab;
+          closePopover();
+          if (tabAction === 'delete') return deleteTab(blockIndex, tabIndex);
+          if (tabAction === 'rename') {
+            state.tabEditing = {blockIndex, tabIndex};
+            renderPageContent(nodeDocId(state.selectedNode));
+            setTimeout(() => contentEl.querySelector(`[data-tab-title-input="${tabIndex}"]`)?.focus(), 0);
+            return;
+          }
+          noticeEl.innerHTML = `<span class="dirty">Черновик:</span> действие вкладки «${escapeHtml(event.target.textContent.trim())}» подключим позже.`;
+          return;
+        }
         const blockAction = event.target.dataset.blockAction;
         if (blockAction && state.popoverBlock) {
           const index = state.popoverBlock.blockIndex;
@@ -1528,6 +1623,23 @@
       });
 
       contentEl.addEventListener('click', (event) => {
+        const tabMenu = event.target.closest('[data-tab-menu]');
+        if (tabMenu) {
+          event.preventDefault();
+          event.stopPropagation();
+          closePopover();
+          const blockEl = tabMenu.closest('[data-block-index]');
+          openTabPopover(tabMenu, Number(blockEl?.dataset.blockIndex), Number(tabMenu.dataset.tabMenu));
+          return;
+        }
+        const tabSwitch = event.target.closest('[data-tab-switch]');
+        if (tabSwitch && !event.target.closest('[data-tab-title-input]')) {
+          event.preventDefault();
+          event.stopPropagation();
+          const blockEl = tabSwitch.closest('[data-block-index]');
+          switchTab(Number(blockEl?.dataset.blockIndex), Number(tabSwitch.dataset.tabSwitch));
+          return;
+        }
         const tabInsert = event.target.closest('[data-tab-insert]');
         if (tabInsert) {
           event.preventDefault();
@@ -1543,6 +1655,26 @@
         closePopover();
         openBlockPopover(button, Number(button.dataset.blockIndex), button.dataset.blockMenu === 'add' ? 'add' : 'actions');
       });
+
+      contentEl.addEventListener('keydown', (event) => {
+        const input = event.target.closest('[data-tab-title-input]');
+        if (!input) return;
+        if (event.key === 'Enter') {
+          event.preventDefault();
+          const blockEl = input.closest('[data-block-index]');
+          renameTab(Number(blockEl?.dataset.blockIndex), Number(input.dataset.tabTitleInput), input.value);
+        }
+        if (event.key === 'Escape') {
+          state.tabEditing = null;
+          renderPageContent(nodeDocId(state.selectedNode));
+        }
+      });
+      contentEl.addEventListener('blur', (event) => {
+        const input = event.target.closest('[data-tab-title-input]');
+        if (!input) return;
+        const blockEl = input.closest('[data-block-index]');
+        renameTab(Number(blockEl?.dataset.blockIndex), Number(input.dataset.tabTitleInput), input.value);
+      }, true);
 
       contentEl.addEventListener('focusin', (event) => {
         const editable = event.target.closest('[data-editable-block]');
