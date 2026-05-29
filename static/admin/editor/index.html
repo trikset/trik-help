@@ -52,12 +52,12 @@
         align-items: center;
         justify-content: space-between;
         gap: 16px;
-        padding: 18px 24px;
+        padding: 14px 22px;
         border-bottom: 1px solid var(--border);
         background: color-mix(in srgb, var(--panel) 92%, transparent);
       }
       h1, h2, h3 { margin: 0; }
-      h1 { font-size: 22px; }
+      h1 { font-size: 20px; }
       h2 { font-size: 24px; line-height: 1.2; }
       h3 { font-size: 16px; }
       a { color: var(--primary); }
@@ -67,7 +67,7 @@
       .layout {
         display: grid;
         grid-template-columns: minmax(300px, 420px) 1fr;
-        height: calc(100vh - 69px);
+        height: calc(100vh - 61px);
         min-height: 0;
         overflow: hidden;
       }
@@ -80,9 +80,27 @@
       }
       .sidebar-top {
         display: grid;
-        gap: 12px;
-        padding: 16px;
+        gap: 0;
         border-bottom: 1px solid var(--border);
+      }
+      .sidebar-strip {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        min-height: 46px;
+        padding: 8px 12px;
+        border-bottom: 1px solid var(--border);
+      }
+      .sidebar-strip:last-child { border-bottom: 0; }
+      .sidebar-title { font-weight: 750; color: var(--text); }
+      .icon-button {
+        width: 32px;
+        min-height: 32px;
+        padding: 0;
+        border-radius: 9px;
+        font-size: 20px;
+        line-height: 1;
       }
       .sidebar-actions {
         display: flex;
@@ -668,6 +686,13 @@
         background: var(--panel-soft);
         color: var(--text);
       }
+      .field-label { display: grid; gap: 6px; margin-top: 12px; font-weight: 650; }
+      .path-field { display: grid; grid-template-columns: auto 1fr; align-items: center; }
+      .path-field span { min-height: 42px; margin: 8px 0 14px; padding: 9px 11px; border: 1px solid var(--border); border-right: 0; border-radius: 10px 0 0 10px; background: var(--panel-soft); color: var(--muted); }
+      .path-field input { border-radius: 0 10px 10px 0; }
+      .choice-list { display: grid; gap: 6px; }
+      .choice-list button { width: 100%; min-height: 38px; border: 0; border-radius: 9px; background: transparent; color: var(--text); text-align: left; padding: 8px 10px; cursor: pointer; }
+      .choice-list button:hover { background: var(--soft); color: var(--primary); }
       .modal-actions {
         display: flex;
         justify-content: flex-end;
@@ -711,12 +736,13 @@
     <div class="layout">
       <aside>
         <div class="sidebar-top">
-          <input id="search" class="search" type="search" placeholder="Поиск по меню…" autocomplete="off" />
-          <div class="sidebar-actions">
-            <button id="add-page-root" class="button" type="button">+ Страница</button>
-            <button id="add-section-root" class="button" type="button">+ Раздел</button>
+          <div class="sidebar-strip">
+            <div class="sidebar-title">Страницы</div>
+            <button id="add-root" class="button icon-button" type="button" aria-label="Добавить в меню">+</button>
           </div>
-          <div class="muted">Добавляйте страницы и разделы прямо в структуру меню.</div>
+          <div class="sidebar-strip">
+            <input id="search" class="search" type="search" placeholder="Поиск" autocomplete="off" />
+          </div>
         </div>
         <div id="tree" class="tree" aria-label="Меню справки"></div>
       </aside>
@@ -826,6 +852,7 @@
 
       function nodeKey(node, path) {
         if (node.type === 'doc') return `doc:${node.id}`;
+        if (node.type === 'link') return `link:${node.href || path.join('.')}:${node.label}`;
         if (node.link && node.link.id) return `cat:${node.link.id}`;
         return `cat:${path.join('.')}:${node.label}`;
       }
@@ -840,12 +867,72 @@
         return `/${id.replace(/\/index$/, '')}/`;
       }
 
+      function nodePublicUrl(node) {
+        if (node.type === 'link') return node.href || '#';
+        return publicUrlForDoc(nodeDocId(node));
+      }
+
       function docsPathForDoc(id) {
         return id ? `docs/${id}.md` : 'Раздел без собственной страницы';
       }
 
       function displayLabel(node) {
-        return node.label || node.id || 'Без названия';
+        return node.label || node.id || node.href || 'Без названия';
+      }
+
+      function slugify(value, fallback = 'page') {
+        const slug = String(value || '').toLowerCase().trim()
+          .replace(/ё/g, 'e')
+          .replace(/[а-я]/g, (char) => ({а:'a',б:'b',в:'v',г:'g',д:'d',е:'e',ж:'zh',з:'z',и:'i',й:'y',к:'k',л:'l',м:'m',н:'n',о:'o',п:'p',р:'r',с:'s',т:'t',у:'u',ф:'f',х:'h',ц:'ts',ч:'ch',ш:'sh',щ:'sch',ы:'y',э:'e',ю:'yu',я:'ya'}[char] || char))
+          .replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').replace(/-+/g, '-');
+        return slug || fallback;
+      }
+
+      function getNodeAtPath(path) {
+        let items = state.sidebar.docs;
+        let node = null;
+        for (const index of path) {
+          node = items?.[index];
+          if (!node) return null;
+          items = node.items;
+        }
+        return node;
+      }
+
+      function baseDocPrefix(parentPath) {
+        const parentNode = parentPath.length ? getNodeAtPath(parentPath) : null;
+        const parentId = parentNode ? nodeDocId(parentNode) : '';
+        return parentId ? parentId.replace(/\/index$/, '') : '';
+      }
+
+      function collectDocIds(items = state.sidebar?.docs || [], set = new Set()) {
+        items.forEach((item) => {
+          const id = nodeDocId(item);
+          if (id) set.add(id);
+          if (Array.isArray(item.items)) collectDocIds(item.items, set);
+        });
+        return set;
+      }
+
+      function nextFreeDocId(parentPath, stem = 'page') {
+        const prefix = baseDocPrefix(parentPath);
+        const used = collectDocIds();
+        for (let i = 1; i < 1000; i += 1) {
+          const id = `${prefix ? `${prefix}/` : ''}${stem}-${i}`;
+          if (!used.has(id)) return id;
+        }
+        return `${prefix ? `${prefix}/` : ''}${stem}-${Date.now()}`;
+      }
+
+      function nextFreeSlug(parentPath, stem = 'group') {
+        const prefix = baseDocPrefix(parentPath);
+        const used = collectDocIds();
+        for (let i = 1; i < 1000; i += 1) {
+          const slug = `${stem}-${i}`;
+          const id = `${prefix ? `${prefix}/` : ''}${slug}/index`;
+          if (!used.has(id)) return slug;
+        }
+        return `${stem}-${Date.now()}`;
       }
 
       function cloneSidebar() {
@@ -1043,6 +1130,7 @@
           hint: {type: 'hint', raw: ':::info\nНовая подсказка.\n:::'},
           code: {type: 'code', raw: '```js\n// Новый код\n```'},
           quote: {type: 'quote', raw: '> Новая цитата'},
+          link: {type: 'paragraph', raw: '[Задать вопрос](https://trikset.com)'},
           tabs: {type: 'tabs', raw: '<Tabs>\n<TabItem value={"tab-1"} label={"Вкладка 1"}>\nНовая вкладка.\n</TabItem>\n\n<TabItem value={"tab-2"} label={"Вкладка 2"}>\nВторая вкладка.\n</TabItem>\n</Tabs>'},
           columns: {type: 'paragraph', raw: '<div class="row">\n<div class="col">Колонка 1</div>\n<div class="col">Колонка 2</div>\n</div>'},
         };
@@ -1245,14 +1333,17 @@
         const block = page?.blocks?.[index];
         if (!block) return;
         const text = editable.innerText.trim();
+        const markdown = markdownFromEditable(editable);
         if (block.type.startsWith('heading-')) {
           block.text = text || 'Заголовок';
           block.raw = `${'#'.repeat(block.level || 2)} ${block.text}`;
+          if (index === 0) syncSelectedNodeTitleAndPath(block.text);
         } else if (block.type === 'quote') {
           block.raw = text.split('\n').map((line) => `> ${line}`).join('\n');
         } else {
-          block.raw = text || 'Новый текст';
+          block.raw = markdown || 'Новый текст';
         }
+        refreshPageToc(page);
         markDirty(`Изменён блок #${index + 1}.`, null);
       }
 
@@ -1407,13 +1498,70 @@
         return text.toLowerCase().replace(/ё/g, 'е').replace(/[^a-zа-я0-9\s-]/gi, '').trim().replace(/\s+/g, '-').replace(/-+/g, '-');
       }
 
+      function findNodePath(target, items = state.sidebar?.docs || [], path = []) {
+        for (let index = 0; index < items.length; index += 1) {
+          const node = items[index];
+          if (node === target) return [...path, index];
+          if (Array.isArray(node.items)) {
+            const found = findNodePath(target, node.items, [...path, index]);
+            if (found) return found;
+          }
+        }
+        return null;
+      }
+
+      function markdownFromEditable(editable) {
+        const clone = editable.cloneNode(true);
+        clone.querySelectorAll('a').forEach((link) => {
+          const text = link.textContent.trim() || link.href;
+          const href = link.getAttribute('href') || link.href || '';
+          link.replaceWith(document.createTextNode(`[${text}](${href})`));
+        });
+        clone.querySelectorAll('br').forEach((br) => br.replaceWith(document.createTextNode('\n')));
+        return clone.innerText.trim();
+      }
+
+      function syncSelectedNodeTitleAndPath(titleText) {
+        const node = state.selectedNode;
+        if (!node || node.type === 'link' || !titleText) return;
+        const oldId = nodeDocId(node);
+        if (!oldId) return;
+        const path = findNodePath(node) || [];
+        const parentPath = path.slice(0, -1);
+        const prefix = baseDocPrefix(parentPath);
+        const slug = slugify(titleText, 'page');
+        const newId = node.type === 'category' ? `${prefix ? `${prefix}/` : ''}${slug}/index` : `${prefix ? `${prefix}/` : ''}${slug}`;
+        node.label = titleText;
+        if (node.type === 'doc' && newId !== oldId) {
+          node.id = newId;
+          if (state.content[oldId]) {
+            state.content[newId] = {...state.content[oldId], id: newId, file: docsPathForDoc(newId)};
+            delete state.content[oldId];
+          }
+        }
+        if (node.type === 'category' && node.link) {
+          node.link.label = titleText;
+          if (newId !== oldId) {
+            node.link.id = newId;
+            if (state.content[oldId]) {
+              state.content[newId] = {...state.content[oldId], id: newId, file: docsPathForDoc(newId)};
+              delete state.content[oldId];
+            }
+          }
+        }
+        state.selectedKey = nodeKey(node, path);
+        titleEl.textContent = displayLabel(node);
+        pathEl.textContent = docsPathForDoc(nodeDocId(node));
+        openPageEl.href = nodePublicUrl(node);
+      }
+
       function selectNode(node, key) {
         const docId = nodeDocId(node);
         state.selectedNode = node;
         state.selectedKey = key;
         titleEl.textContent = displayLabel(node);
         pathEl.textContent = docsPathForDoc(docId);
-        openPageEl.href = publicUrlForDoc(docId);
+        openPageEl.href = nodePublicUrl(node);
         renderPageContent(docId);
         renderTree();
       }
@@ -1423,6 +1571,7 @@
         modalMessageEl.textContent = message;
         modalFieldsEl.innerHTML = fields;
         modalSubmitEl.textContent = submitText;
+        modalSubmitEl.hidden = !submitText;
         modalSubmitEl.classList.toggle('primary', !danger);
         modalSubmitEl.classList.toggle('modal-danger', danger);
         modalBackdropEl.hidden = false;
@@ -1447,7 +1596,9 @@
       });
       modalEl.addEventListener('submit', (event) => {
         event.preventDefault();
+        const submitter = event.submitter;
         const formData = new FormData(modalEl);
+        if (submitter?.name) formData.set(submitter.name, submitter.value);
         closeModal(Object.fromEntries(formData.entries()));
       });
 
@@ -1460,12 +1611,36 @@
         return name || null;
       }
 
-      async function askInsertKind() {
+      async function askPathDialog({title, label, prefix = '/', slug = '', labelTitle = 'Название', submitText = 'Готово'}) {
         const result = await openModal({
-          title: 'Добавить в меню',
+          title,
+          fields: `<label class="field-label">${escapeHtml(labelTitle)}<input name="label" value="${escapeHtml(label)}" autocomplete="off" required /></label><label class="field-label">Путь<div class="path-field"><span>${escapeHtml(prefix || '/')}</span><input name="slug" value="${escapeHtml(slug)}" autocomplete="off" required /></div></label>`,
+          submitText,
+        });
+        if (!result) return null;
+        const cleanLabel = result.label?.trim();
+        const cleanSlug = slugify(result.slug, slug || 'page');
+        return cleanLabel ? {label: cleanLabel, slug: cleanSlug} : null;
+      }
+
+      async function askLinkDialog(defaultLabel = 'Задать вопрос', defaultHref = 'https://trikset.com') {
+        const result = await openModal({
+          title: 'Ссылка',
+          fields: `<label class="field-label">Название<input name="label" value="${escapeHtml(defaultLabel)}" autocomplete="off" required /></label><label class="field-label">Адрес<input name="href" value="${escapeHtml(defaultHref)}" autocomplete="off" required /></label>`,
+          submitText: 'Добавить',
+        });
+        const label = result?.label?.trim();
+        const href = result?.href?.trim();
+        return label && href ? {label, href} : null;
+      }
+
+      async function askInsertKind(canAddGroup = true) {
+        const groupOption = canAddGroup ? '<button type="submit" name="kind" value="category">Группа</button>' : '';
+        const result = await openModal({
+          title: 'Добавить',
           message: 'Выберите, что добавить в это место.',
-          fields: '<select name="kind"><option value="doc">Страница</option><option value="category">Раздел</option></select>',
-          submitText: 'Продолжить',
+          fields: `<div class="choice-list"><button type="submit" name="kind" value="doc">Страница</button>${groupOption}<button type="submit" name="kind" value="link">Ссылка</button></div>`,
+          submitText: '',
         });
         return result?.kind || null;
       }
@@ -1574,60 +1749,87 @@
         document.removeEventListener('keydown', cancelDragOnEscape);
       }
 
-      function makeDraftDocId(label) {
-        const slug = label.toLowerCase()
-          .trim()
-          .replace(/ё/g, 'e')
-          .replace(/[^a-z0-9а-я]+/gi, '-')
-          .replace(/^-|-$/g, '') || 'new-page';
-        return `draft/${slug}-${state.draftCounter++}`;
-      }
-
-      function createDraftNode(type, label) {
+      function createDraftNode(type, label, options = {}) {
         if (type === 'doc') {
-          const id = makeDraftDocId(label);
-          createDraftPageContent(id, label);
-          return {type: 'doc', id, label, draft: true};
+          const id = options.id || nextFreeDocId(options.parentPath || []);
+          createDraftPageContent(id, label || 'Новая страница');
+          return {type: 'doc', id, label: label || 'Новая страница', draft: true};
         }
-        return {type: 'category', label, collapsed: true, draft: true, items: []};
+        if (type === 'link') return {type: 'link', label, href: options.href || '#', draft: true};
+        const linkId = options.id || '';
+        return linkId
+          ? {type: 'category', label, collapsed: true, draft: true, link: {type: 'doc', id: linkId, label}, items: []}
+          : {type: 'category', label, collapsed: true, draft: true, items: []};
       }
 
-      async function addChild(parentNode, type) {
-        const baseLabel = type === 'doc' ? 'Новая страница' : 'Новый раздел';
-        const label = await askName(type === 'doc' ? 'Название новой страницы' : 'Название нового раздела', baseLabel);
-        if (!label) return;
+      function focusSelectedTitle() {
+        setTimeout(() => {
+          const heading = contentEl.querySelector('[data-editable-block="0"]');
+          if (heading) {
+            heading.focus();
+            document.getSelection()?.selectAllChildren(heading);
+          }
+        }, 0);
+      }
+
+      async function addItem(parentNode, parentPath, type, index = null) {
+        const items = parentNode ? (parentNode.items ||= []) : state.sidebar.docs;
+        const insertIndex = index == null ? items.length : index;
+        let node = null;
+        if (type === 'doc') {
+          const id = nextFreeDocId(parentPath);
+          const number = id.match(/page-(\d+)$/)?.[1] || '';
+          node = createDraftNode('doc', `Page ${number}`.trim() || 'Page', {id, parentPath});
+        } else if (type === 'category') {
+          const slug = nextFreeSlug(parentPath, 'group');
+          const number = slug.match(/group-(\d+)/)?.[1] || '1';
+          const prefix = baseDocPrefix(parentPath) ? `${baseDocPrefix(parentPath)}/` : '/';
+          const result = await askPathDialog({title: 'Новая группа', label: `Группа-${number}`, prefix, slug, submitText: 'Добавить'});
+          if (!result) return;
+          const id = `${baseDocPrefix(parentPath) ? `${baseDocPrefix(parentPath)}/` : ''}${result.slug}/index`;
+          node = createDraftNode('category', result.label, {id, parentPath});
+          createDraftPageContent(id, result.label);
+        } else if (type === 'link') {
+          const result = await askLinkDialog();
+          if (!result) return;
+          node = createDraftNode('link', result.label, {href: result.href});
+        }
+        if (!node) return;
         const undoSnapshot = cloneSidebar();
-        const targetItems = parentNode ? (parentNode.items ||= []) : state.sidebar.docs;
-        const node = createDraftNode(type, label);
-        targetItems.push(node);
-        markDirty(type === 'doc'
-          ? `Добавлена страница «${label}» в меню.`
-          : `Добавлен раздел «${label}» в меню.`, undoSnapshot);
-        if (parentNode) state.open.add(nodeKey(parentNode, ['parent']));
+        items.splice(insertIndex, 0, node);
+        markDirty(`Добавлен пункт «${displayLabel(node)}» в меню.`, undoSnapshot);
+        if (parentNode) state.open.add(nodeKey(parentNode, parentPath));
         renderTree();
-        if (type === 'doc') selectNode(node, nodeKey(node, []));
+        if (type === 'doc' || type === 'category') {
+          selectNode(node, nodeKey(node, [...parentPath, insertIndex]));
+          if (type === 'doc') focusSelectedTitle();
+        }
+      }
+
+      async function addChild(parentNode, type, parentPath = []) {
+        return addItem(parentNode, parentPath, type);
       }
 
       async function insertAt(parentPath, index, type) {
-        const baseLabel = type === 'doc' ? 'Новая страница' : 'Новый раздел';
-        const label = await askName(type === 'doc' ? 'Название новой страницы' : 'Название нового раздела', baseLabel);
-        if (!label) return;
-        const items = getItemsAtPath(parentPath);
-        if (!items) return;
-        const undoSnapshot = cloneSidebar();
-        const node = createDraftNode(type, label);
-        items.splice(index, 0, node);
-        markDirty(type === 'doc'
-          ? `Добавлена страница «${label}» между пунктами меню.`
-          : `Добавлен раздел «${label}» между пунктами меню.`, undoSnapshot);
-        renderTree();
-        if (type === 'doc') selectNode(node, nodeKey(node, []));
+        const parentNode = parentPath.length ? getNodeAtPath(parentPath) : null;
+        return addItem(parentNode, parentPath, type, index);
+      }
+
+      function canCreateGroupInside(node) {
+        return !node || (node.type === 'category' && Array.isArray(node.items));
       }
 
       async function askInsertAt(parentPath, index) {
-        const kind = await askInsertKind();
+        const parentNode = parentPath.length ? getNodeAtPath(parentPath) : null;
+        const kind = await askInsertKind(canCreateGroupInside(parentNode));
         if (!kind) return;
         return insertAt(parentPath, index, kind);
+      }
+
+      async function askAddRoot() {
+        const kind = await askInsertKind(true);
+        if (!kind) return;
+        return addItem(null, [], kind);
       }
 
       async function deleteNode(parentPath, index, node) {
@@ -1652,14 +1854,39 @@
 
       async function renameNode(node) {
         const oldLabel = displayLabel(node);
-        const label = await askName('Новое название', oldLabel);
-        if (!label || label === oldLabel) return;
-        const undoSnapshot = cloneSidebar();
-        node.label = label;
-        if (node.type === 'category' && node.link) {
-          node.link.label = label;
+        if (node.type === 'link') {
+          const result = await askLinkDialog(oldLabel, node.href || '');
+          if (!result) return;
+          const undoSnapshot = cloneSidebar();
+          node.label = result.label;
+          node.href = result.href;
+          markDirty(`Ссылка изменена: «${oldLabel}».`, undoSnapshot);
+          if (state.selectedNode === node) selectNode(node, state.selectedKey);
+          renderTree();
+          return;
         }
-        markDirty(`Название изменено: «${oldLabel}» → «${label}».`, undoSnapshot);
+        const oldId = nodeDocId(node);
+        const base = oldId ? oldId.replace(/\/index$/, '').split('/') : [];
+        const oldSlug = base.at(-1) || slugify(oldLabel);
+        const prefix = base.length > 1 ? `${base.slice(0, -1).join('/')}/` : '/';
+        const result = await askPathDialog({title: 'Изменить название и путь', label: oldLabel, prefix, slug: oldSlug, submitText: 'Сохранить'});
+        if (!result || (result.label === oldLabel && result.slug === oldSlug)) return;
+        const undoSnapshot = cloneSidebar();
+        node.label = result.label;
+        if (node.type === 'doc') {
+          const parentPrefix = prefix === '/' ? '' : prefix;
+          node.id = `${parentPrefix}${result.slug}`;
+          if (state.content[oldId]) {
+            state.content[node.id] = {...state.content[oldId], id: node.id, file: docsPathForDoc(node.id)};
+            delete state.content[oldId];
+          }
+        }
+        if (node.type === 'category' && node.link) {
+          node.link.label = result.label;
+          const parentPrefix = prefix === '/' ? '' : prefix;
+          node.link.id = `${parentPrefix}${result.slug}/index`;
+        }
+        markDirty(`Название и путь изменены: «${oldLabel}» → «${result.label}».`, undoSnapshot);
         if (state.selectedNode === node) selectNode(node, state.selectedKey);
         renderTree();
       }
@@ -1677,8 +1904,8 @@
         state.popoverNode = {node, parentPath, indexInParent};
         const canAddInside = node.type === 'category';
         popoverEl.innerHTML = `
-          <button type="button" data-action="rename">Изменить название</button>
-          ${canAddInside ? '<button type="button" data-action="add-page">Добавить страницу внутрь</button><button type="button" data-action="add-section">Добавить раздел внутрь</button>' : ''}
+          <button type="button" data-action="rename">${node.type === 'link' ? 'Изменить ссылку' : 'Изменить название и путь'}</button>
+          ${canAddInside ? '<button type="button" data-action="add-page">Добавить страницу внутрь</button><button type="button" data-action="add-section">Добавить группу внутрь</button><button type="button" data-action="add-link">Добавить ссылку внутрь</button>' : ''}
           <button type="button" class="danger" data-action="delete">Удалить из меню</button>
         `;
         const rect = button.getBoundingClientRect();
@@ -1708,6 +1935,7 @@
             <button type="button" data-block-action="add-hint">Подсказка</button>
             <button type="button" data-block-action="add-code">Код</button>
             <button type="button" data-block-action="add-quote">Цитата</button>
+            <button type="button" data-block-action="add-link">Ссылка</button>
             <button type="button" data-block-action="add-tabs">Табы</button>
             <button type="button" data-block-action="add-columns">Колонки</button>
           `
@@ -1787,9 +2015,9 @@
         main.className = 'node-main';
         main.innerHTML = `<div class="node-title"></div><div class="node-meta"></div>`;
         main.querySelector('.node-title').textContent = displayLabel(node);
-        main.querySelector('.node-meta').textContent = node.type === 'category'
-          ? (nodeDocId(node) ? `раздел · ${nodeDocId(node)}` : 'раздел')
-          : node.id;
+        main.querySelector('.node-meta').textContent = node.type === 'link'
+          ? node.href
+          : (node.type === 'category' ? (nodeDocId(node) ? `группа · ${nodeDocId(node)}` : 'группа') : node.id);
         main.addEventListener('click', () => selectNode(node, key));
 
         const menu = document.createElement('button');
@@ -1837,8 +2065,7 @@
         renderTree();
       });
 
-      document.getElementById('add-page-root').addEventListener('click', () => addChild(null, 'doc'));
-      document.getElementById('add-section-root').addEventListener('click', () => addChild(null, 'category'));
+      document.getElementById('add-root').addEventListener('click', () => askAddRoot());
 
       popoverEl.addEventListener('click', (event) => {
         const tabAction = event.target.dataset.tabAction;
@@ -1882,13 +2109,15 @@
         const {node, parentPath, indexInParent} = state.popoverNode;
         closePopover();
         if (action === 'rename') renameNode(node);
-        if (action === 'add-page') addChild(node, 'doc');
-        if (action === 'add-section') addChild(node, 'category');
+        const childPath = [...parentPath, indexInParent];
+        if (action === 'add-page') addChild(node, 'doc', childPath);
+        if (action === 'add-section') addChild(node, 'category', childPath);
+        if (action === 'add-link') addChild(node, 'link', childPath);
         if (action === 'delete') deleteNode(parentPath, indexInParent, node);
       });
 
       function blockTypeLabel(type) {
-        const labels = {'heading-1':'Заголовок 1','heading-2':'Заголовок 2','heading-3':'Заголовок 3', paragraph:'Параграф', image:'Картинка', table:'Таблица', 'bulleted-list':'Маркеры', 'numbered-list':'Нумерация', 'task-list':'Список задач', hint:'Подсказка', code:'Код', quote:'Цитата', tabs:'Табы'};
+        const labels = {'heading-1':'Заголовок 1','heading-2':'Заголовок 2','heading-3':'Заголовок 3', paragraph:'Параграф', image:'Картинка', table:'Таблица', 'bulleted-list':'Маркеры', 'numbered-list':'Нумерация', 'task-list':'Список задач', hint:'Подсказка', code:'Код', quote:'Цитата', link:'Ссылка', tabs:'Табы'};
         return labels[type] || type || 'Блок';
       }
 
@@ -2169,7 +2398,7 @@
             submitText: 'Добавить ссылку',
           });
           if (!result?.url) return;
-          document.execCommand(command, false, result.url);
+          document.execCommand(command, false, result.url.trim());
         } else {
           document.execCommand(command, false, null);
         }
