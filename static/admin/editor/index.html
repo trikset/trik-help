@@ -94,7 +94,7 @@
       }
       .sidebar-strip:last-child { border-bottom: 0; }
       .sidebar-title { font-weight: 750; color: var(--text); }
-      .icon-button {
+      .button.icon-button {
         width: 34px;
         height: 34px;
         min-height: 34px;
@@ -107,8 +107,8 @@
         line-height: 1;
         aspect-ratio: 1;
       }
-      .icon-button:hover,
-      .icon-button.open {
+      .button.icon-button:hover,
+      .button.icon-button.open {
         background: color-mix(in srgb, var(--muted) 16%, transparent);
         color: var(--text);
       }
@@ -2102,7 +2102,10 @@
         renderTree();
       });
 
-      document.getElementById('add-root').addEventListener('click', (event) => showAddNearSelectedMenu(event.currentTarget));
+      document.getElementById('add-root').addEventListener('click', (event) => {
+        event.stopPropagation();
+        showAddNearSelectedMenu(event.currentTarget);
+      });
 
       popoverEl.addEventListener('click', (event) => {
         const addButton = event.target.closest('[data-add-kind]');
