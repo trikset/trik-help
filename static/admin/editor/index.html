@@ -325,6 +325,31 @@
       .menu-popover button:hover { background: var(--soft); }
       .menu-popover button.danger { color: #b42318; }
       @media (prefers-color-scheme: dark) { .menu-popover button.danger { color: #ff9b92; } }
+      .format-toolbar {
+        position: fixed;
+        z-index: 30;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        padding: 6px;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        background: var(--panel);
+        box-shadow: var(--shadow);
+      }
+      .format-toolbar[hidden] { display: none; }
+      .format-toolbar select,
+      .format-toolbar button {
+        min-height: 30px;
+        border: 0;
+        border-radius: 8px;
+        background: transparent;
+        color: var(--text);
+        padding: 4px 8px;
+        cursor: pointer;
+      }
+      .format-toolbar select { border: 1px solid var(--border); background: var(--panel-soft); }
+      .format-toolbar button:hover { background: var(--soft); color: var(--primary); }
       .editor-card {
         min-height: calc(100vh - 118px);
         border: 1px solid var(--border);
@@ -421,7 +446,38 @@
         border-radius: 12px;
         background: var(--panel-soft);
       }
-      .tabs-block::before { content: "Табы"; display: block; margin-bottom: 6px; color: var(--primary); font-weight: 700; }
+      .editable-block { outline: none; border-radius: 8px; }
+      .editable-block:focus { box-shadow: 0 0 0 2px color-mix(in srgb, var(--primary) 18%, transparent); }
+      .tabs-block::before { content: none; }
+      .tabs-block { padding: 0; overflow: hidden; }
+      .tabs-head {
+        display: flex;
+        align-items: stretch;
+        gap: 0;
+        padding: 8px 10px 0;
+        border-bottom: 1px solid var(--border);
+        background: color-mix(in srgb, var(--panel-soft) 62%, transparent);
+      }
+      .tab-insert { display: grid; place-items: center; width: 16px; margin: 2px 0 8px; color: transparent; border-left: 1px solid transparent; }
+      .tabs-head:hover .tab-insert { border-left-color: var(--border); color: var(--muted); }
+      .tab-insert:hover { color: var(--primary); border-left-color: var(--primary); }
+      .tab-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        margin: 0 2px;
+        padding: 8px 12px;
+        border: 1px solid var(--border);
+        border-bottom: 0;
+        border-radius: 10px 10px 0 0;
+        background: var(--panel);
+        font-weight: 650;
+      }
+      .tab-label .tab-drag { opacity: 0; border: 0; background: transparent; color: var(--muted); cursor: pointer; }
+      .tab-label:hover .tab-drag { opacity: 1; }
+      .tab-label .tab-drag:hover { color: var(--primary); }
+      .tab-panel { padding: 14px; }
+      .tab-panel + .tab-panel { border-top: 1px solid var(--border); }
       .toc-panel {
         position: sticky;
         top: 0;
@@ -586,6 +642,25 @@
       </main>
     </div>
 
+    <div id="format-toolbar" class="format-toolbar" hidden>
+      <select id="format-type" aria-label="Тип блока">
+        <option value="paragraph">Параграф</option>
+        <option value="heading-1">H1</option>
+        <option value="heading-2">H2</option>
+        <option value="heading-3">H3</option>
+        <option value="numbered-list">Нумерация</option>
+        <option value="bulleted-list">Маркеры</option>
+        <option value="task-list">Чеклист</option>
+        <option value="code">Блок кода</option>
+        <option value="quote">Цитата</option>
+      </select>
+      <button type="button" data-format="bold" title="Жирный">B</button>
+      <button type="button" data-format="italic" title="Курсив"><i>I</i></button>
+      <button type="button" data-format="strikeThrough" title="Перечеркнутый"><s>S</s></button>
+      <button type="button" data-format="superscript" title="Верхний индекс">x²</button>
+      <button type="button" data-format="subscript" title="Нижний индекс">x₂</button>
+      <button type="button" data-format="createLink" title="Ссылка">↗</button>
+    </div>
     <div id="popover" class="menu-popover" hidden></div>
     <div id="modal-backdrop" class="modal-backdrop" hidden>
       <form id="modal" class="modal">
@@ -614,6 +689,7 @@
         lastUndo: null,
         modalResolve: null,
         content: {},
+        activeEditable: null,
       };
 
       const treeEl = document.getElementById('tree');
@@ -626,6 +702,8 @@
       const saveEl = document.getElementById('save');
       const searchEl = document.getElementById('search');
       const popoverEl = document.getElementById('popover');
+      const formatToolbarEl = document.getElementById('format-toolbar');
+      const formatTypeEl = document.getElementById('format-type');
       const modalBackdropEl = document.getElementById('modal-backdrop');
       const modalEl = document.getElementById('modal');
       const modalTitleEl = document.getElementById('modal-title');
@@ -711,15 +789,37 @@
         return `<table><thead><tr>${head.map((cell) => `<th>${inlineMarkdown(cell)}</th>`).join('')}</tr></thead><tbody>${body.map((row) => `<tr>${row.map((cell) => `<td>${inlineMarkdown(cell)}</td>`).join('')}</tr>`).join('')}</tbody></table>`;
       }
 
+      function editableAttrs(index) {
+        return `contenteditable="true" spellcheck="true" class="editable-block" data-editable-block="${index}"`;
+      }
+
+      function parseTabs(raw) {
+        const tabs = [];
+        const re = /<TabItem[^>]*label=\{?['"]?\{?['"]?([^'"}]+)['"]?\}?[^>]*>([\s\S]*?)<\/TabItem>/g;
+        let match;
+        while ((match = re.exec(raw))) {
+          tabs.push({label: match[1], body: match[2].trim()});
+        }
+        return tabs;
+      }
+
+      function renderTabs(raw) {
+        const tabs = parseTabs(raw);
+        if (!tabs.length) return `<div class="tabs-block"><div class="tab-panel"><pre>${escapeHtml(raw)}</pre></div></div>`;
+        const labels = tabs.map((tab) => `<span class="tab-insert" title="Добавить вкладку здесь">+</span><span class="tab-label"><button class="tab-drag" type="button" title="Действия вкладки">⋮⋮</button>${escapeHtml(tab.label)}</span>`).join('') + '<span class="tab-insert" title="Добавить вкладку здесь">+</span>';
+        const panels = tabs.map((tab, index) => `<div class="tab-panel" ${index > 0 ? 'hidden' : ''}>${renderMarkdownBlock(tab.body)}</div>`).join('');
+        return `<div class="tabs-block"><div class="tabs-head">${labels}</div>${panels}</div>`;
+      }
+
       function renderBlock(block, index) {
-        const controls = `<div class="block-controls"><button class="block-control" type="button" data-block-menu="actions" data-block-index="${index}" title="Действия с блоком">⋮⋮</button><button class="block-control" type="button" data-block-menu="add" data-block-index="${index}" title="Добавить блок ниже">+</button></div>`;
+        const controls = `<div class="block-controls"><button class="block-control" type="button" data-block-menu="add" data-block-index="${index}" title="Добавить блок ниже">+</button><button class="block-control" type="button" data-block-menu="actions" data-block-index="${index}" title="Действия с блоком">⋮⋮</button></div>`;
         let html = '';
         if (block.type === 'anchor') {
           return `<span id="${escapeHtml(block.anchor || '')}" class="anchor-block"></span>`;
         }
         if (block.type.startsWith('heading-')) {
           const level = Math.min(Math.max(block.level || 2, 1), 3);
-          html = `<h${level} id="${escapeHtml(block.anchor || '')}">${inlineMarkdown(block.text || block.raw)}</h${level}>`;
+          html = `<h${level} id="${escapeHtml(block.anchor || '')}" ${editableAttrs(index)}>${inlineMarkdown(block.text || block.raw)}</h${level}>`;
         } else if (block.type === 'image') {
           const md = block.raw.match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
           const img = block.raw.match(/<img[^>]*src=["']([^"']+)["'][^>]*>/i);
@@ -733,11 +833,13 @@
         } else if (block.type === 'hint') {
           html = `<div class="hint-block">${inlineMarkdown(block.raw.replace(/^:::\w*\n?/, '').replace(/:::$/, '').trim()).replace(/\n/g, '<br />')}</div>`;
         } else if (block.type === 'tabs') {
-          html = `<div class="tabs-block"><pre>${escapeHtml(block.raw)}</pre></div>`;
+          html = renderTabs(block.raw);
         } else if (block.type === 'table') {
           html = renderTable(block.raw);
         } else {
-          html = renderMarkdownBlock(block.raw);
+          html = block.type === 'paragraph'
+            ? `<p ${editableAttrs(index)}>${inlineMarkdown(block.raw).replace(/\n/g, '<br />')}</p>`
+            : renderMarkdownBlock(block.raw);
         }
         return `<section class="page-block" data-block-index="${index}" data-block-type="${escapeHtml(block.type)}">${controls}${html}</section>`;
       }
@@ -750,7 +852,7 @@
           return;
         }
         try {
-            contentEl.innerHTML = page.blocks.map(renderBlock).join('');
+          contentEl.innerHTML = page.blocks.map(renderBlock).join('');
           const toc = page.toc.filter((item) => item.level <= 3);
           pageTocEl.innerHTML = `<h3>На этой странице</h3>${toc.length ? toc.map((item) => `<a class="toc-level-${item.level}" href="#${escapeHtml(item.anchor || '')}">${escapeHtml(item.text)}</a>`).join('') : '<div class="muted">Нет заголовков.</div>'}`;
         } catch (error) {
@@ -758,6 +860,68 @@
           contentEl.innerHTML = `<div class="notice"><strong>Не удалось отрисовать страницу.</strong><br>${escapeHtml(error.message || error)}</div>`;
           pageTocEl.innerHTML = '<h3>На этой странице</h3><div class="muted">Ошибка рендера.</div>';
         }
+      }
+
+      function updateDraftBlockFromEditable(editable) {
+        const page = state.content[nodeDocId(state.selectedNode)];
+        const index = Number(editable.dataset.editableBlock);
+        const block = page?.blocks?.[index];
+        if (!block) return;
+        const text = editable.innerText.trim();
+        if (block.type.startsWith('heading-')) {
+          block.text = text || 'Заголовок';
+          block.raw = `${'#'.repeat(block.level || 2)} ${block.text}`;
+        } else if (block.type === 'quote') {
+          block.raw = text.split('\n').map((line) => `> ${line}`).join('\n');
+        } else {
+          block.raw = text || 'Новый текст';
+        }
+        markDirty(`Изменён блок #${index + 1}.`, null);
+      }
+
+      function showFormatToolbar() {
+        const selection = window.getSelection();
+        if (!selection || selection.isCollapsed || !contentEl.contains(selection.anchorNode)) {
+          formatToolbarEl.hidden = true;
+          return;
+        }
+        const range = selection.getRangeAt(0);
+        const rect = range.getBoundingClientRect();
+        if (!rect.width && !rect.height) return;
+        const editable = selection.anchorNode.nodeType === Node.TEXT_NODE
+          ? selection.anchorNode.parentElement.closest('[data-editable-block]')
+          : selection.anchorNode.closest?.('[data-editable-block]');
+        state.activeEditable = editable || null;
+        const block = editable ? state.content[nodeDocId(state.selectedNode)]?.blocks?.[Number(editable.dataset.editableBlock)] : null;
+        formatTypeEl.value = block?.type?.startsWith('heading-') ? block.type : (block?.type || 'paragraph');
+        formatToolbarEl.style.left = `${Math.min(rect.left, window.innerWidth - 420)}px`;
+        formatToolbarEl.style.top = `${Math.max(8, rect.top - 48)}px`;
+        formatToolbarEl.hidden = false;
+      }
+
+      function hideFormatToolbarSoon() {
+        setTimeout(() => {
+          const selection = window.getSelection();
+          if (!selection || selection.isCollapsed) formatToolbarEl.hidden = true;
+        }, 120);
+      }
+
+      function createDraftPageContent(docId, label) {
+        const title = label || 'Новая страница';
+        state.content[docId] = {
+          id: docId,
+          file: docsPathForDoc(docId),
+          blocks: [
+            {type: 'heading-1', raw: `# ${title}`, level: 1, text: title, anchor: makeAnchor(title)},
+            {type: 'paragraph', raw: 'Начните писать текст страницы здесь.'},
+          ],
+          toc: [{level: 1, text: title, anchor: makeAnchor(title)}],
+          draft: true,
+        };
+      }
+
+      function makeAnchor(text) {
+        return text.toLowerCase().replace(/ё/g, 'е').replace(/[^a-zа-я0-9\s-]/gi, '').trim().replace(/\s+/g, '-').replace(/-+/g, '-');
       }
 
       function selectNode(node, key) {
@@ -937,9 +1101,12 @@
       }
 
       function createDraftNode(type, label) {
-        return type === 'doc'
-          ? {type: 'doc', id: makeDraftDocId(label), label, draft: true}
-          : {type: 'category', label, collapsed: true, draft: true, items: []};
+        if (type === 'doc') {
+          const id = makeDraftDocId(label);
+          createDraftPageContent(id, label);
+          return {type: 'doc', id, label, draft: true};
+        }
+        return {type: 'category', label, collapsed: true, draft: true, items: []};
       }
 
       async function addChild(parentNode, type) {
@@ -948,12 +1115,14 @@
         if (!label) return;
         const undoSnapshot = cloneSidebar();
         const targetItems = parentNode ? (parentNode.items ||= []) : state.sidebar.docs;
-        targetItems.push(createDraftNode(type, label));
+        const node = createDraftNode(type, label);
+        targetItems.push(node);
         markDirty(type === 'doc'
           ? `Добавлена страница «${label}» в меню.`
           : `Добавлен раздел «${label}» в меню.`, undoSnapshot);
         if (parentNode) state.open.add(nodeKey(parentNode, ['parent']));
         renderTree();
+        if (type === 'doc') selectNode(node, nodeKey(node, []));
       }
 
       async function insertAt(parentPath, index, type) {
@@ -963,11 +1132,13 @@
         const items = getItemsAtPath(parentPath);
         if (!items) return;
         const undoSnapshot = cloneSidebar();
-        items.splice(index, 0, createDraftNode(type, label));
+        const node = createDraftNode(type, label);
+        items.splice(index, 0, node);
         markDirty(type === 'doc'
           ? `Добавлена страница «${label}» между пунктами меню.`
           : `Добавлен раздел «${label}» между пунктами меню.`, undoSnapshot);
         renderTree();
+        if (type === 'doc') selectNode(node, nodeKey(node, []));
       }
 
       async function askInsertAt(parentPath, index) {
@@ -1202,6 +1373,57 @@
         event.stopPropagation();
         closePopover();
         openBlockPopover(button, Number(button.dataset.blockIndex), button.dataset.blockMenu === 'add' ? 'add' : 'actions');
+      });
+
+      contentEl.addEventListener('focusin', (event) => {
+        const editable = event.target.closest('[data-editable-block]');
+        if (editable) state.activeEditable = editable;
+      });
+      contentEl.addEventListener('input', (event) => {
+        const editable = event.target.closest('[data-editable-block]');
+        if (editable) updateDraftBlockFromEditable(editable);
+      });
+      document.addEventListener('selectionchange', showFormatToolbar);
+      contentEl.addEventListener('keyup', showFormatToolbar);
+      contentEl.addEventListener('mouseup', showFormatToolbar);
+      contentEl.addEventListener('blur', hideFormatToolbarSoon, true);
+      formatToolbarEl.addEventListener('mousedown', (event) => event.preventDefault());
+      formatToolbarEl.addEventListener('click', async (event) => {
+        const button = event.target.closest('[data-format]');
+        if (!button) return;
+        const command = button.dataset.format;
+        if (command === 'createLink') {
+          const result = await openModal({
+            title: 'Ссылка',
+            message: 'Введите URL для выделенного текста.',
+            fields: '<input name="url" placeholder="https://example.com" autocomplete="off" required />',
+            submitText: 'Добавить ссылку',
+          });
+          if (!result?.url) return;
+          document.execCommand(command, false, result.url);
+        } else {
+          document.execCommand(command, false, null);
+        }
+        if (state.activeEditable) updateDraftBlockFromEditable(state.activeEditable);
+      });
+      formatTypeEl.addEventListener('change', () => {
+        const editable = state.activeEditable;
+        if (!editable) return;
+        const page = state.content[nodeDocId(state.selectedNode)];
+        const index = Number(editable.dataset.editableBlock);
+        const block = page?.blocks?.[index];
+        if (!block) return;
+        block.type = formatTypeEl.value;
+        if (block.type.startsWith('heading-')) {
+          block.level = Number(block.type.replace('heading-', ''));
+          block.text = editable.innerText.trim() || 'Заголовок';
+          block.raw = `${'#'.repeat(block.level)} ${block.text}`;
+        } else {
+          block.raw = editable.innerText.trim() || 'Новый текст';
+        }
+        page.toc = page.blocks.filter((item) => item.type.startsWith('heading-') && item.text).map(({level, text, anchor}) => ({level, text, anchor: anchor || makeAnchor(text)}));
+        renderPageContent(nodeDocId(state.selectedNode));
+        markDirty(`Тип блока #${index + 1} изменён.`, null);
       });
 
       document.addEventListener('click', (event) => {
