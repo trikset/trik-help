@@ -95,14 +95,22 @@
       .sidebar-strip:last-child { border-bottom: 0; }
       .sidebar-title { font-weight: 750; color: var(--text); }
       .icon-button {
-        width: 32px;
-        min-height: 32px;
+        width: 34px;
+        height: 34px;
+        min-height: 34px;
         padding: 0;
         border: 0;
         border-radius: 9px;
-        background: transparent;
+        background: color-mix(in srgb, var(--muted) 10%, transparent);
+        color: var(--text);
         font-size: 20px;
         line-height: 1;
+        aspect-ratio: 1;
+      }
+      .icon-button:hover,
+      .icon-button.open {
+        background: color-mix(in srgb, var(--muted) 16%, transparent);
+        color: var(--text);
       }
       .sidebar-actions {
         display: flex;
@@ -295,13 +303,13 @@
         width: 22px;
         height: 22px;
         transform: translateY(-50%) scale(.92);
-        border: 1px solid var(--border);
-        border-radius: 999px;
-        background: var(--panel);
-        color: var(--primary);
+        border: 0;
+        border-radius: 8px;
+        background: color-mix(in srgb, var(--muted) 10%, var(--panel));
+        color: var(--text);
         opacity: 0;
         cursor: pointer;
-        box-shadow: var(--shadow);
+        box-shadow: 0 4px 12px rgba(12, 26, 48, .12);
       }
       .insert-line:hover::before,
       .insert-line.drop-target::before {
@@ -323,13 +331,14 @@
       .menu-popover {
         position: fixed;
         z-index: 20;
-        min-width: 220px;
+        min-width: 240px;
         padding: 6px;
-        border: 1px solid var(--border);
-        border-radius: 12px;
+        border: 1px solid color-mix(in srgb, var(--border) 78%, transparent);
+        border-radius: 10px;
         background: var(--panel);
-        box-shadow: var(--shadow);
+        box-shadow: 0 10px 30px rgba(12, 26, 48, .18);
       }
+      .menu-popover.add-popover { min-width: 220px; }
       .menu-popover[hidden] { display: none; }
       .menu-popover button {
         display: block;
@@ -338,11 +347,13 @@
         border-radius: 8px;
         background: transparent;
         color: var(--text);
-        padding: 9px 10px;
+        padding: 10px 12px;
         text-align: left;
         cursor: pointer;
       }
-      .menu-popover button:hover { background: var(--soft); }
+      .menu-popover button:hover { background: color-mix(in srgb, var(--soft) 74%, transparent); }
+      .menu-popover .menu-separator { height: 1px; margin: 5px -6px; background: var(--border); }
+      .menu-popover .menu-icon { display: inline-flex; width: 24px; margin-right: 6px; color: var(--muted); }
       .menu-popover button.danger { color: #b42318; }
       @media (prefers-color-scheme: dark) { .menu-popover button.danger { color: #ff9b92; } }
       .format-toolbar {
@@ -1652,15 +1663,24 @@
         return label && href ? {label, href} : null;
       }
 
-      async function askInsertKind(canAddGroup = true) {
-        const groupOption = canAddGroup ? '<button type="submit" name="kind" value="category">Группа</button>' : '';
-        const result = await openModal({
-          title: 'Добавить',
-          message: 'Выберите, что добавить в это место.',
-          fields: `<div class="choice-list"><button type="submit" name="kind" value="doc">Страница</button>${groupOption}<button type="submit" name="kind" value="link">Ссылка</button></div>`,
-          submitText: '',
-        });
-        return result?.kind || null;
+      function addMenuHtml(canAddGroup = true) {
+        return `
+          <button type="button" data-add-kind="doc"><span class="menu-icon">▧</span>Страница</button>
+          ${canAddGroup ? '<button type="button" data-add-kind="category"><span class="menu-icon">▧</span>Группа</button>' : ''}
+          <button type="button" data-add-kind="link"><span class="menu-icon">↗</span>Ссылка</button>
+        `;
+      }
+
+      function openAddPopover(button, canAddGroup, onPick) {
+        closePopover();
+        state.popoverAdd = {onPick};
+        popoverEl.className = 'menu-popover add-popover';
+        popoverEl.innerHTML = addMenuHtml(canAddGroup);
+        const rect = button.getBoundingClientRect();
+        popoverEl.style.top = `${Math.min(rect.bottom + 6, window.innerHeight - 160)}px`;
+        popoverEl.style.left = `${Math.min(rect.left, window.innerWidth - 230)}px`;
+        popoverEl.hidden = false;
+        button.classList.add('open');
       }
 
       async function askDelete(label, childCount) {
@@ -1837,18 +1857,14 @@
         return !node || (node.type === 'category' && Array.isArray(node.items) && node.items.length === 0);
       }
 
-      async function askInsertAt(parentPath, index) {
+      function showInsertAtMenu(button, parentPath, index) {
         const parentNode = parentPath.length ? getNodeAtPath(parentPath) : null;
-        const kind = await askInsertKind(canCreateGroupInside(parentNode));
-        if (!kind) return;
-        return insertAt(parentPath, index, kind);
+        openAddPopover(button, canCreateGroupInside(parentNode), (kind) => insertAt(parentPath, index, kind));
       }
 
-      async function askAddNearSelected() {
+      function showAddNearSelectedMenu(button) {
         const ctx = selectedInsertionContext();
-        const kind = await askInsertKind(currentCanAddGroup());
-        if (!kind) return;
-        return insertAt(ctx.parentPath, ctx.index, kind);
+        openAddPopover(button, currentCanAddGroup(), (kind) => insertAt(ctx.parentPath, ctx.index, kind));
       }
 
       async function deleteNode(parentPath, index, node) {
@@ -1913,10 +1929,12 @@
       function closePopover() {
         popoverEl.hidden = true;
         popoverEl.innerHTML = '';
+        popoverEl.className = 'menu-popover';
         state.popoverNode = null;
+        state.popoverAdd = null;
         state.popoverBlock = null;
         state.popoverTab = null;
-        document.querySelectorAll('.block-control.open, .node-menu.open, .tab-drag.open').forEach((button) => button.classList.remove('open'));
+        document.querySelectorAll('.block-control.open, .node-menu.open, .tab-drag.open, .icon-button.open, .insert-plus.open').forEach((button) => button.classList.remove('open'));
       }
 
       function openPopover(button, node, parentPath = [], indexInParent = 0) {
@@ -1991,7 +2009,7 @@
         plus.setAttribute('aria-label', 'Добавить страницу или раздел здесь');
         plus.addEventListener('click', (event) => {
           event.stopPropagation();
-          askInsertAt(parentPath, index);
+          showInsertAtMenu(plus, parentPath, index);
         });
         line.addEventListener('pointerenter', () => setDropTarget(line, parentPath, index));
         line.append(plus);
@@ -2084,9 +2102,17 @@
         renderTree();
       });
 
-      document.getElementById('add-root').addEventListener('click', () => askAddNearSelected());
+      document.getElementById('add-root').addEventListener('click', (event) => showAddNearSelectedMenu(event.currentTarget));
 
       popoverEl.addEventListener('click', (event) => {
+        const addButton = event.target.closest('[data-add-kind]');
+        if (addButton && state.popoverAdd) {
+          const {onPick} = state.popoverAdd;
+          const kind = addButton.dataset.addKind;
+          closePopover();
+          onPick?.(kind);
+          return;
+        }
         const tabAction = event.target.dataset.tabAction;
         if (tabAction && state.popoverTab) {
           const {blockIndex, tabIndex} = state.popoverTab;
