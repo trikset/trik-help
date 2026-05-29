@@ -833,6 +833,16 @@
           "type": "doc",
           "id": "feedback/logging",
           "label": "Действия при неправильной работе TRIK Studio или контроллера ТРИК"
+        },
+        {
+          "type": "link",
+          "label": "Задать вопрос",
+          "href": "https://trikset.com/support#feedback"
+        },
+        {
+          "type": "link",
+          "label": "trikset.com",
+          "href": "https://trikset.com"
         }
       ]
     }

@@ -98,7 +98,9 @@
         width: 32px;
         min-height: 32px;
         padding: 0;
+        border: 0;
         border-radius: 9px;
+        background: transparent;
         font-size: 20px;
         line-height: 1;
       }
@@ -903,6 +905,22 @@
         const parentNode = parentPath.length ? getNodeAtPath(parentPath) : null;
         const parentId = parentNode ? nodeDocId(parentNode) : '';
         return parentId ? parentId.replace(/\/index$/, '') : '';
+      }
+
+      function selectedInsertionContext() {
+        const path = state.selectedNode ? findNodePath(state.selectedNode) : null;
+        if (!path) return {parentNode: null, parentPath: [], index: state.sidebar?.docs?.length || 0, afterNode: null};
+        const parentPath = path.slice(0, -1);
+        const parentNode = parentPath.length ? getNodeAtPath(parentPath) : null;
+        return {parentNode, parentPath, index: path.at(-1) + 1, afterNode: state.selectedNode};
+      }
+
+      function currentCanAddGroup() {
+        const ctx = selectedInsertionContext();
+        if (!ctx.afterNode) return true;
+        if (ctx.parentPath.length > 0) return false;
+        if (Array.isArray(ctx.afterNode.items) && ctx.afterNode.items.length > 0) return false;
+        return true;
       }
 
       function collectDocIds(items = state.sidebar?.docs || [], set = new Set()) {
@@ -1816,7 +1834,7 @@
       }
 
       function canCreateGroupInside(node) {
-        return !node || (node.type === 'category' && Array.isArray(node.items));
+        return !node || (node.type === 'category' && Array.isArray(node.items) && node.items.length === 0);
       }
 
       async function askInsertAt(parentPath, index) {
@@ -1826,10 +1844,11 @@
         return insertAt(parentPath, index, kind);
       }
 
-      async function askAddRoot() {
-        const kind = await askInsertKind(true);
+      async function askAddNearSelected() {
+        const ctx = selectedInsertionContext();
+        const kind = await askInsertKind(currentCanAddGroup());
         if (!kind) return;
-        return addItem(null, [], kind);
+        return insertAt(ctx.parentPath, ctx.index, kind);
       }
 
       async function deleteNode(parentPath, index, node) {
@@ -2065,7 +2084,7 @@
         renderTree();
       });
 
-      document.getElementById('add-root').addEventListener('click', () => askAddRoot());
+      document.getElementById('add-root').addEventListener('click', () => askAddNearSelected());
 
       popoverEl.addEventListener('click', (event) => {
         const tabAction = event.target.dataset.tabAction;

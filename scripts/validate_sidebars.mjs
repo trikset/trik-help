@@ -36,9 +36,17 @@ async function validateItem(item, trail = []) {
   }
   const label = item.label || item.id || item.type || '<без названия>';
   const nextTrail = [...trail, label];
-  if (item.type !== 'doc' && item.type !== 'category') {
+  if (item.type !== 'doc' && item.type !== 'category' && item.type !== 'link') {
     fail(`${nextTrail.join(' / ')}: неизвестный type=${JSON.stringify(item.type)}`);
     return;
+  }
+  if (item.type === 'link') {
+    if (!item.label || typeof item.label !== 'string') {
+      fail(`${nextTrail.join(' / ')}: link без label`);
+    }
+    if (!item.href || typeof item.href !== 'string') {
+      fail(`${nextTrail.join(' / ')}: link без строкового href`);
+    }
   }
   if (item.type === 'doc') {
     docsSeen += 1;
