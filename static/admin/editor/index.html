@@ -842,6 +842,8 @@
         blockDragging: null,
         tabDragging: null,
         holdTimer: null,
+        dirtyDocs: new Set(),
+        sidebarDirty: false,
       };
 
       const treeEl = document.getElementById('tree');
@@ -969,9 +971,13 @@
         return JSON.parse(JSON.stringify(state.sidebar));
       }
 
-      function markDirty(message, undoSnapshot = null) {
+      function markDirty(message, undoSnapshot = null, options = {}) {
         state.dirty = true;
-        saveEl.disabled = true;
+        saveEl.disabled = false;
+        if (options.scope === 'sidebar') state.sidebarDirty = true;
+        const docId = options.docId || nodeDocId(state.selectedNode);
+        if (docId && options.scope !== 'sidebar') state.dirtyDocs.add(docId);
+        if (!docId && options.scope !== 'sidebar') state.sidebarDirty = true;
         state.lastUndo = undoSnapshot;
         noticeEl.innerHTML = `<span class="dirty">Изменения не сохранены:</span> ${message}${undoSnapshot ? ' <button type="button" id="undo-last">Отменить</button>' : ''}`;
         document.getElementById('undo-last')?.addEventListener('click', undoLastAction);
@@ -1170,6 +1176,57 @@
       function refreshPageToc(page) {
         page.toc = page.blocks.filter((block) => block.type.startsWith('heading-') && (block.text || block.raw)).map((block) => ({level: block.level || Number(block.type.replace('heading-', '')), text: block.text || block.raw.replace(/^#+\s*/, ''), anchor: block.anchor || makeAnchor(block.text || block.raw)}));
       }
+
+      function markdownHeading(block) {
+        const level = Math.min(Math.max(block.level || Number(block.type.replace('heading-', '')) || 2, 1), 6);
+        const text = block.text || block.raw.replace(/^#+\s*/, '').trim() || 'Заголовок';
+        const anchor = block.anchor && block.anchor !== makeAnchor(text) ? ` {#${block.anchor}}` : '';
+        return `${'#'.repeat(level)} ${text}${anchor}`;
+      }
+
+      function blockToMarkdown(block) {
+        if (!block) return '';
+        if (block.type === 'anchor') return block.raw || (block.anchor ? `######  {#${block.anchor}}` : '');
+        if (block.type?.startsWith('heading-')) return markdownHeading(block);
+        return block.raw || '';
+      }
+
+      function pageToMarkdown(page) {
+        return (page?.blocks || []).map(blockToMarkdown).filter(Boolean).join('\n\n').trim() + '\n';
+      }
+
+      function downloadText(filename, text, type = 'text/plain;charset=utf-8') {
+        const blob = new Blob([text], {type});
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = filename;
+        document.body.append(link);
+        link.click();
+        link.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+      }
+
+      function exportEditorChanges() {
+        const docId = nodeDocId(state.selectedNode);
+        const docs = {};
+        const changedDocIds = state.dirtyDocs.size ? [...state.dirtyDocs] : (docId ? [docId] : []);
+        changedDocIds.forEach((id) => {
+          if (state.content[id]) docs[id] = {file: docsPathForDoc(id), markdown: pageToMarkdown(state.content[id])};
+        });
+        const bundle = {
+          generatedAt: new Date().toISOString(),
+          note: 'Черновой экспорт из статического редактора TRIK Help. Следующий этап — серверное сохранение в branch/PR.',
+          sidebar: state.sidebar,
+          docs,
+        };
+        const stem = docId ? slugify(docId.replace(/\/index$/, '').split('/').pop(), 'trik-help-edit') : 'trik-help-edit';
+        downloadText(`${stem}-editor-export.json`, `${JSON.stringify(bundle, null, 2)}\n`, 'application/json;charset=utf-8');
+        if (docId && state.content[docId]) downloadText(`${stem}.md`, pageToMarkdown(state.content[docId]));
+        noticeEl.textContent = 'Экспорт подготовлен: JSON-bundle изменений и Markdown текущей страницы скачаны. Серверное сохранение/PR-flow подключим следующим шагом.';
+      }
+
+      saveEl.addEventListener('click', exportEditorChanges);
 
       function addBlockAfter(index, type) {
         const page = state.content[nodeDocId(state.selectedNode)];
@@ -1751,7 +1808,7 @@
         fromItems.splice(fromIndex, 1);
         if (samePath(fromParentPath, toParentPath) && toIndex > fromIndex) toIndex -= 1;
         toItems.splice(toIndex, 0, node);
-        markDirty(`Пункт «${displayLabel(node)}» перемещён в меню.`, undoSnapshot);
+        markDirty(`Пункт «${displayLabel(node)}» перемещён в меню.`, undoSnapshot, {scope: 'sidebar'});
         return true;
       }
 
@@ -1836,7 +1893,7 @@
         if (!node) return;
         const undoSnapshot = cloneSidebar();
         items.splice(insertIndex, 0, node);
-        markDirty(`Добавлен пункт «${displayLabel(node)}» в меню.`, undoSnapshot);
+        markDirty(`Добавлен пункт «${displayLabel(node)}» в меню.`, undoSnapshot, {scope: 'sidebar'});
         if (parentNode) state.open.add(nodeKey(parentNode, parentPath));
         renderTree();
         if (type === 'doc' || type === 'category') {
@@ -1884,7 +1941,7 @@
           contentEl.innerHTML = '<div class="notice">Выберите страницу в меню.</div>';
           pageTocEl.innerHTML = '<h3>На этой странице</h3><div class="muted">Нет заголовков.</div>'; 
         }
-        markDirty(`Пункт «${label}» удалён из меню.`, undoSnapshot);
+        markDirty(`Пункт «${label}» удалён из меню.`, undoSnapshot, {scope: 'sidebar'});
         renderTree();
       }
 
@@ -1896,7 +1953,7 @@
           const undoSnapshot = cloneSidebar();
           node.label = result.label;
           node.href = result.href;
-          markDirty(`Ссылка изменена: «${oldLabel}».`, undoSnapshot);
+          markDirty(`Ссылка изменена: «${oldLabel}».`, undoSnapshot, {scope: 'sidebar'});
           if (state.selectedNode === node) selectNode(node, state.selectedKey);
           renderTree();
           return;
@@ -1922,7 +1979,7 @@
           const parentPrefix = prefix === '/' ? '' : prefix;
           node.link.id = `${parentPrefix}${result.slug}/index`;
         }
-        markDirty(`Название и путь изменены: «${oldLabel}» → «${result.label}».`, undoSnapshot);
+        markDirty(`Название и путь изменены: «${oldLabel}» → «${result.label}».`, undoSnapshot, {scope: 'sidebar'});
         if (state.selectedNode === node) selectNode(node, state.selectedKey);
         renderTree();
       }
