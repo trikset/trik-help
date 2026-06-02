@@ -418,6 +418,9 @@
         border-top: 1px solid var(--border);
         padding-top: 6px;
       }
+      .table-popover { min-width: 260px; }
+      .table-popover .table-popover-title { padding: 8px 10px; color: var(--muted); font-size: 12px; }
+      .table-popover .table-actions-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
       .format-toolbar {
         position: fixed;
         z-index: 30;
@@ -582,6 +585,8 @@
       }
       .rendered-page table { width: 100%; border-collapse: collapse; margin: 10px 0; }
       .rendered-page th, .rendered-page td { border: 1px solid var(--border); padding: 8px 10px; }
+      .rendered-page [data-table-cell] { outline: none; border-radius: 4px; cursor: text; }
+      .rendered-page [data-table-cell]:focus { box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--primary) 26%, transparent); }
       .rendered-page input[type="checkbox"] { margin-right: 8px; }
       .anchor-block { height: 0; min-height: 0; padding: 0; overflow: hidden; }
       .hint-block, .tabs-block, .raw-block {
@@ -905,6 +910,7 @@
         holdTimer: null,
         activeLink: null,
         activeImage: null,
+        activeTableCell: null,
         dirtyDocs: new Set(),
         sidebarDirty: false,
       };
@@ -1078,13 +1084,36 @@
         return `<p>${inlineMarkdown(raw).replace(/\n/g, '<br />')}</p>`;
       }
 
-      function renderTable(raw) {
-        const rows = raw.split('\n').filter(Boolean);
-        if (rows.length < 2) return `<div class="raw-block"><pre>${escapeHtml(raw)}</pre></div>`;
-        const cells = (line) => line.replace(/^\||\|$/g, '').split('|').map((cell) => cell.trim());
+      function parseMarkdownTable(raw) {
+        const rows = raw.split('\n').filter((line) => line.trim());
+        if (rows.length < 2) return null;
+        const cells = (line) => line.replace(/^\s*\||\|\s*$/g, '').split('|').map((cell) => cell.trim());
         const head = cells(rows[0]);
+        const separator = cells(rows[1]);
         const body = rows.slice(2).map(cells);
-        return `<table><thead><tr>${head.map((cell) => `<th>${inlineMarkdown(cell)}</th>`).join('')}</tr></thead><tbody>${body.map((row) => `<tr>${row.map((cell) => `<td>${inlineMarkdown(cell)}</td>`).join('')}</tr>`).join('')}</tbody></table>`;
+        const colCount = Math.max(head.length, separator.length, ...body.map((row) => row.length));
+        const pad = (row) => Array.from({length: colCount}, (_, index) => row[index] || '');
+        return {head: pad(head), separator: pad(separator), body: body.map(pad), colCount};
+      }
+
+      function serializeMarkdownTable(model) {
+        const separator = model.separator?.length === model.colCount ? model.separator : Array(model.colCount).fill('---');
+        const row = (cells) => `| ${cells.map((cell) => String(cell || '').trim()).join(' | ')} |`;
+        return [row(model.head), row(separator.map((cell) => /^:?-+:?$/.test(cell) ? cell : '---')), ...model.body.map(row)].join('\n');
+      }
+
+      function tableCellAttrs(options, row, col, header = false) {
+        if (!options?.editable) return '';
+        const nested = options.nestedCtx ? ` data-nested-table="true" data-tab-index="${options.nestedCtx.tabIndex}" data-nested-block-index="${options.nestedCtx.nestedIndex}"` : '';
+        return ` contenteditable="true" spellcheck="true" data-table-cell="true" data-block-index="${options.blockIndex}"${nested} data-table-row="${row}" data-table-col="${col}" data-table-header="${header ? 'true' : 'false'}"`;
+      }
+
+      function renderTable(raw, options = {}) {
+        const model = parseMarkdownTable(raw);
+        if (!model) return `<div class="raw-block"><pre>${escapeHtml(raw)}</pre></div>`;
+        const head = model.head.map((cell, col) => `<th${tableCellAttrs(options, -1, col, true)}>${inlineMarkdown(cell)}</th>`).join('');
+        const body = model.body.map((row, rowIndex) => `<tr>${row.map((cell, col) => `<td${tableCellAttrs(options, rowIndex, col, false)}>${inlineMarkdown(cell)}</td>`).join('')}</tr>`).join('');
+        return `<table data-table-edit="${options.editable ? 'true' : 'false'}"><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table>`;
       }
 
       function editableAttrs(index) {
@@ -1125,7 +1154,7 @@
         }).join('');
       }
 
-      function renderNestedBlocks(blocks, tabIndex) {
+      function renderNestedBlocks(blocks, tabIndex, parentBlockIndex) {
         return blocks.map((block, nestedIndex) => {
           let html = '';
           const nestedAttrs = `contenteditable="true" spellcheck="true" class="editable-block" data-nested-editable="true" data-tab-index="${tabIndex}" data-nested-block-index="${nestedIndex}"`;
@@ -1144,7 +1173,7 @@
           } else if (block.type === 'hint') {
             html = `<div class="hint-block">${inlineMarkdown(block.raw.replace(/^:::\w*\n?/, '').replace(/:::$/, '').trim()).replace(/\n/g, '<br />')}</div>`;
           } else if (block.type === 'table') {
-            html = renderTable(block.raw);
+            html = renderTable(block.raw, {editable: true, blockIndex: parentBlockIndex, nestedCtx: {blockIndex: parentBlockIndex, tabIndex, nestedIndex}});
           } else if (block.type === 'bulleted-list' || block.type === 'numbered-list' || block.type === 'task-list') {
             html = renderMarkdownBlock(block.raw);
           } else {
@@ -1194,7 +1223,7 @@
             : `<span class="tab-title-readonly">${escapeHtml(tab.label)}</span>`;
           return `<button class="tab-insert" type="button" data-tab-insert="${tabIndex}" title="Добавить вкладку здесь"></button><button class="tab-label ${tabIndex === activeIndex ? 'active' : ''}" type="button" data-tab-switch="${tabIndex}"><span class="tab-drag" data-tab-menu="${tabIndex}" data-tab-drag="true" title="Действия вкладки">⋮⋮</span>${title}</button>`;
         }).join('') + `<button class="tab-insert" type="button" data-tab-insert="${tabs.length}" title="Добавить вкладку здесь"></button>`;
-        const panels = tabs.map((tab, tabIndex) => `<div class="tab-panel" data-tab-panel="${tabIndex}" ${tabIndex !== activeIndex ? 'hidden' : ''}>${renderNestedBlocks(parseBlocks(tab.body), tabIndex)}</div>`).join('');
+        const panels = tabs.map((tab, tabIndex) => `<div class="tab-panel" data-tab-panel="${tabIndex}" ${tabIndex !== activeIndex ? 'hidden' : ''}>${renderNestedBlocks(parseBlocks(tab.body), tabIndex, blockIndex)}</div>`).join('');
         return `<div class="tabs-block theme-tabs-container tabs-container" data-tabs-block="true"><div class="tabs-head tabs">${labels}</div><div class="margin-top--md">${panels}</div></div>`;
       }
 
@@ -1471,7 +1500,7 @@
         } else if (block.type === 'tabs') {
           html = renderTabs(block.raw, index);
         } else if (block.type === 'table') {
-          html = renderTable(block.raw);
+          html = renderTable(block.raw, {editable: true, blockIndex: index});
         } else {
           html = block.type === 'paragraph'
             ? `<p ${editableAttrs(index)}>${inlineMarkdown(block.raw).replace(/\n/g, '<br />')}</p>`
@@ -1682,6 +1711,8 @@
       }
 
       function syncEditableAfterLinkChange(link) {
+        const tableCell = link?.closest?.('[data-table-cell]');
+        if (tableCell) return updateTableCellFromElement(tableCell);
         const editable = link?.closest?.('[data-editable-block], [data-nested-editable]');
         if (!editable) return;
         if (editable.dataset.nestedEditable) updateNestedBlockFromEditable(editable);
@@ -1720,9 +1751,11 @@
       function unlinkActiveLink() {
         const link = state.activeLink;
         if (!link || !document.contains(link)) return;
+        const tableCell = link.closest('[data-table-cell]');
         const editable = link.closest('[data-editable-block], [data-nested-editable]');
         link.replaceWith(document.createTextNode(link.textContent));
-        if (editable?.dataset.nestedEditable) updateNestedBlockFromEditable(editable);
+        if (tableCell) updateTableCellFromElement(tableCell);
+        else if (editable?.dataset.nestedEditable) updateNestedBlockFromEditable(editable);
         else if (editable) updateDraftBlockFromEditable(editable);
         closePopover();
       }
@@ -1831,6 +1864,108 @@
         if (!active) return;
         if (active.ctx.nestedCtx) deleteNestedBlock(active.ctx.nestedCtx);
         else deleteBlock(active.ctx.blockIndex);
+        closePopover();
+      }
+
+      function tableContextFromCell(cell) {
+        const blockIndex = Number(cell.dataset.blockIndex);
+        if (cell.dataset.nestedTable) {
+          return {
+            nestedCtx: {
+              blockIndex,
+              tabIndex: Number(cell.dataset.tabIndex),
+              nestedIndex: Number(cell.dataset.nestedBlockIndex),
+            },
+            row: Number(cell.dataset.tableRow),
+            col: Number(cell.dataset.tableCol),
+            header: cell.dataset.tableHeader === 'true',
+          };
+        }
+        return {blockIndex, row: Number(cell.dataset.tableRow), col: Number(cell.dataset.tableCol), header: cell.dataset.tableHeader === 'true'};
+      }
+
+      function getTableBlock(ctx) {
+        if (ctx?.nestedCtx) {
+          const model = getNestedBlocks(ctx.nestedCtx);
+          return {model, block: model?.blocks?.[ctx.nestedCtx.nestedIndex]};
+        }
+        const page = state.content[nodeDocId(state.selectedNode)];
+        return {page, block: page?.blocks?.[ctx?.blockIndex]};
+      }
+
+      function saveTableModel(ctx, model) {
+        const {page, block, model: nestedModel} = getTableBlock(ctx);
+        if (!block) return;
+        block.raw = serializeMarkdownTable(model);
+        if (ctx.nestedCtx && nestedModel) {
+          saveNestedBlocks(ctx.nestedCtx, nestedModel);
+          markDirty(`Изменена таблица во вкладке #${ctx.nestedCtx.tabIndex + 1}.`, null);
+          return;
+        }
+        refreshPageToc(page);
+        renderPageContent(nodeDocId(state.selectedNode));
+        markDirty(`Изменена таблица #${ctx.blockIndex + 1}.`, null);
+      }
+
+      function updateTableCellFromElement(cell) {
+        const ctx = tableContextFromCell(cell);
+        const {block} = getTableBlock(ctx);
+        const model = block ? parseMarkdownTable(block.raw) : null;
+        if (!model) return;
+        const value = markdownFromEditable(cell);
+        if (ctx.header) model.head[ctx.col] = value;
+        else if (model.body[ctx.row]) model.body[ctx.row][ctx.col] = value;
+        saveTableModel(ctx, model);
+      }
+
+      function showTablePopover(cell) {
+        const ctx = tableContextFromCell(cell);
+        state.activeTableCell = {cell, ctx};
+        closePopover();
+        state.activeTableCell = {cell, ctx};
+        popoverEl.className = 'menu-popover table-popover';
+        popoverEl.innerHTML = `
+          <div class="table-popover-title">Таблица · ${ctx.header ? 'заголовок' : `строка ${ctx.row + 1}`}, колонка ${ctx.col + 1}</div>
+          <div class="table-actions-grid">
+            <button type="button" data-table-action="row-above">Строка выше</button>
+            <button type="button" data-table-action="row-below">Строка ниже</button>
+            <button type="button" data-table-action="col-left">Колонка слева</button>
+            <button type="button" data-table-action="col-right">Колонка справа</button>
+            <button type="button" class="danger" data-table-action="delete-row">Удалить строку</button>
+            <button type="button" class="danger" data-table-action="delete-col">Удалить колонку</button>
+          </div>
+        `;
+        const rect = cell.getBoundingClientRect();
+        popoverEl.style.top = `${Math.min(rect.bottom + 8, window.innerHeight - 210)}px`;
+        popoverEl.style.left = `${Math.max(8, Math.min(rect.left, window.innerWidth - 280))}px`;
+        popoverEl.hidden = false;
+      }
+
+      function mutateActiveTable(action) {
+        const active = state.activeTableCell;
+        if (!active) return;
+        const ctx = active.ctx;
+        const {block} = getTableBlock(ctx);
+        const model = block ? parseMarkdownTable(block.raw) : null;
+        if (!model) return;
+        const blankRow = () => Array(model.colCount).fill('');
+        if (action === 'row-above') model.body.splice(Math.max(ctx.row, 0), 0, blankRow());
+        if (action === 'row-below') model.body.splice(ctx.header ? 0 : ctx.row + 1, 0, blankRow());
+        if (action === 'delete-row' && !ctx.header && model.body.length > 1) model.body.splice(ctx.row, 1);
+        if (action === 'col-left' || action === 'col-right') {
+          const at = ctx.col + (action === 'col-right' ? 1 : 0);
+          model.head.splice(at, 0, '');
+          model.separator.splice(at, 0, '---');
+          model.body.forEach((row) => row.splice(at, 0, ''));
+          model.colCount += 1;
+        }
+        if (action === 'delete-col' && model.colCount > 1) {
+          model.head.splice(ctx.col, 1);
+          model.separator.splice(ctx.col, 1);
+          model.body.forEach((row) => row.splice(ctx.col, 1));
+          model.colCount -= 1;
+        }
+        saveTableModel(ctx, model);
         closePopover();
       }
 
@@ -2261,6 +2396,7 @@
         state.popoverTab = null;
         state.activeLink = null;
         state.activeImage = null;
+        state.activeTableCell = null;
         document.querySelectorAll('.block-control.open, .node-menu.open, .tab-drag.open, .icon-button.open, .insert-plus.open').forEach((button) => button.classList.remove('open'));
       }
 
@@ -2454,6 +2590,13 @@
           if (action === 'edit') editActiveImage();
           if (action === 'copy') copyActiveImageSrc();
           if (action === 'delete') deleteActiveImage();
+          return;
+        }
+        const tableAction = event.target.closest('[data-table-action]');
+        if (tableAction) {
+          event.preventDefault();
+          event.stopPropagation();
+          mutateActiveTable(tableAction.dataset.tableAction);
           return;
         }
         const addButton = event.target.closest('[data-add-kind]');
@@ -2705,11 +2848,17 @@
           showImagePopover(editableImage);
           return;
         }
-        const editableLink = event.target.closest('[data-editable-block] a, [data-nested-editable] a');
+        const editableLink = event.target.closest('[data-editable-block] a, [data-nested-editable] a, [data-table-cell] a');
         if (editableLink) {
           event.preventDefault();
           event.stopPropagation();
           showLinkPopover(editableLink);
+          return;
+        }
+        const tableCell = event.target.closest('[data-table-cell]');
+        if (tableCell) {
+          event.stopPropagation();
+          showTablePopover(tableCell);
           return;
         }
         const tabMenu = event.target.closest('[data-tab-menu]');
@@ -2754,6 +2903,12 @@
       });
 
       contentEl.addEventListener('keydown', (event) => {
+        const tableCell = event.target.closest('[data-table-cell]');
+        if (tableCell && event.key === 'Enter') {
+          event.preventDefault();
+          tableCell.blur();
+          return;
+        }
         const editable = event.target.closest('[data-editable-block], [data-nested-editable]');
         if (editable && event.key === 'Enter') {
           event.preventDefault();
@@ -2783,6 +2938,10 @@
         const editable = event.target.closest('[data-editable-block], [data-nested-editable]');
         if (editable) state.activeEditable = editable;
       });
+      contentEl.addEventListener('blur', (event) => {
+        const tableCell = event.target.closest('[data-table-cell]');
+        if (tableCell) updateTableCellFromElement(tableCell);
+      }, true);
       contentEl.addEventListener('input', (event) => {
         const editable = event.target.closest('[data-editable-block], [data-nested-editable]');
         if (!editable) return;
