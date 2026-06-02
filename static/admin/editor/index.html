@@ -357,6 +357,35 @@
       .menu-popover .menu-icon { display: inline-flex; width: 24px; margin-right: 6px; color: var(--muted); }
       .menu-popover button.danger { color: #b42318; }
       @media (prefers-color-scheme: dark) { .menu-popover button.danger { color: #ff9b92; } }
+      .link-popover { min-width: 320px; max-width: min(460px, calc(100vw - 24px)); padding: 10px; }
+      .link-popover .link-url-row {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 8px;
+        align-items: center;
+        padding: 6px 6px 10px;
+      }
+      .link-popover .link-url {
+        overflow: hidden;
+        color: var(--primary);
+        font-size: 13px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .link-popover .link-actions {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 4px;
+        border-top: 1px solid var(--border);
+        padding-top: 6px;
+      }
+      .link-popover .link-action-button {
+        display: inline-flex;
+        justify-content: center;
+        gap: 6px;
+        padding: 8px;
+        text-align: center;
+      }
       .format-toolbar {
         position: fixed;
         z-index: 30;
@@ -842,6 +871,7 @@
         blockDragging: null,
         tabDragging: null,
         holdTimer: null,
+        activeLink: null,
         dirtyDocs: new Set(),
         sidebarDirty: false,
       };
@@ -1567,6 +1597,82 @@
         }, 120);
       }
 
+      function absoluteLinkHref(link) {
+        const href = link?.getAttribute('href') || '';
+        try { return new URL(href, window.location.origin).href; }
+        catch { return href; }
+      }
+
+      function showLinkPopover(link) {
+        if (!link) return;
+        closePopover();
+        state.activeLink = link;
+        const href = link.getAttribute('href') || '';
+        const absoluteHref = absoluteLinkHref(link);
+        popoverEl.className = 'menu-popover link-popover';
+        popoverEl.innerHTML = `
+          <div class="link-url-row">
+            <a class="link-url" href="${escapeHtml(absoluteHref)}" target="_blank" rel="noreferrer" title="${escapeHtml(absoluteHref)}">${escapeHtml(href)}</a>
+            <button type="button" class="link-action-button" data-link-action="open" title="Открыть ссылку">↗</button>
+          </div>
+          <div class="link-actions">
+            <button type="button" class="link-action-button" data-link-action="edit">✎ Изменить</button>
+            <button type="button" class="link-action-button" data-link-action="copy">⧉ Копировать</button>
+            <button type="button" class="link-action-button danger" data-link-action="unlink">⌫ Убрать</button>
+          </div>
+        `;
+        const rect = link.getBoundingClientRect();
+        popoverEl.style.top = `${Math.min(rect.bottom + 8, window.innerHeight - 150)}px`;
+        popoverEl.style.left = `${Math.max(8, Math.min(rect.left, window.innerWidth - 470))}px`;
+        popoverEl.hidden = false;
+      }
+
+      function syncEditableAfterLinkChange(link) {
+        const editable = link?.closest?.('[data-editable-block], [data-nested-editable]');
+        if (!editable) return;
+        if (editable.dataset.nestedEditable) updateNestedBlockFromEditable(editable);
+        else updateDraftBlockFromEditable(editable);
+      }
+
+      async function editActiveLink() {
+        const link = state.activeLink;
+        if (!link || !document.contains(link)) return;
+        const result = await openModal({
+          title: 'Изменить ссылку',
+          fields: `<label class="field-label">Текст<input name="text" value="${escapeHtml(link.textContent.trim())}" autocomplete="off" required /></label><label class="field-label">Адрес<input name="href" value="${escapeHtml(link.getAttribute('href') || '')}" autocomplete="off" required /></label>`,
+          submitText: 'Сохранить',
+        });
+        if (!result) return;
+        const text = result.text?.trim();
+        const href = result.href?.trim();
+        if (!text || !href) return;
+        link.textContent = text;
+        link.setAttribute('href', href);
+        syncEditableAfterLinkChange(link);
+        showLinkPopover(link);
+      }
+
+      async function copyActiveLink() {
+        const href = state.activeLink?.getAttribute('href') || '';
+        if (!href) return;
+        try {
+          await navigator.clipboard.writeText(href);
+          noticeEl.textContent = 'Ссылка скопирована.';
+        } catch {
+          noticeEl.textContent = href;
+        }
+      }
+
+      function unlinkActiveLink() {
+        const link = state.activeLink;
+        if (!link || !document.contains(link)) return;
+        const editable = link.closest('[data-editable-block], [data-nested-editable]');
+        link.replaceWith(document.createTextNode(link.textContent));
+        if (editable?.dataset.nestedEditable) updateNestedBlockFromEditable(editable);
+        else if (editable) updateDraftBlockFromEditable(editable);
+        closePopover();
+      }
+
       function createDraftPageContent(docId, label) {
         const title = label || 'Новая страница';
         state.content[docId] = {
@@ -1992,6 +2098,7 @@
         state.popoverAdd = null;
         state.popoverBlock = null;
         state.popoverTab = null;
+        state.activeLink = null;
         document.querySelectorAll('.block-control.open, .node-menu.open, .tab-drag.open, .icon-button.open, .insert-plus.open').forEach((button) => button.classList.remove('open'));
       }
 
@@ -2166,6 +2273,17 @@
       });
 
       popoverEl.addEventListener('click', (event) => {
+        const linkAction = event.target.closest('[data-link-action]');
+        if (linkAction) {
+          event.preventDefault();
+          event.stopPropagation();
+          const action = linkAction.dataset.linkAction;
+          if (action === 'open') window.open(absoluteLinkHref(state.activeLink), '_blank', 'noreferrer');
+          if (action === 'edit') editActiveLink();
+          if (action === 'copy') copyActiveLink();
+          if (action === 'unlink') unlinkActiveLink();
+          return;
+        }
         const addButton = event.target.closest('[data-add-kind]');
         if (addButton && state.popoverAdd) {
           const {onPick} = state.popoverAdd;
@@ -2408,6 +2526,13 @@
       });
 
       contentEl.addEventListener('click', (event) => {
+        const editableLink = event.target.closest('[data-editable-block] a, [data-nested-editable] a');
+        if (editableLink) {
+          event.preventDefault();
+          event.stopPropagation();
+          showLinkPopover(editableLink);
+          return;
+        }
         const tabMenu = event.target.closest('[data-tab-menu]');
         if (tabMenu) {
           event.preventDefault();
