@@ -386,6 +386,38 @@
         padding: 8px;
         text-align: center;
       }
+      .image-popover { min-width: 340px; max-width: min(500px, calc(100vw - 24px)); padding: 10px; }
+      .image-popover .image-preview {
+        display: grid;
+        grid-template-columns: 72px minmax(0, 1fr);
+        gap: 10px;
+        align-items: center;
+        padding: 6px 6px 10px;
+      }
+      .image-popover img {
+        width: 72px;
+        height: 54px;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        object-fit: contain;
+        background: var(--panel-soft);
+      }
+      .image-popover .image-meta { min-width: 0; }
+      .image-popover .image-src,
+      .image-popover .image-alt {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .image-popover .image-src { color: var(--primary); font-size: 13px; }
+      .image-popover .image-alt { color: var(--muted); font-size: 12px; margin-top: 3px; }
+      .image-popover .image-actions {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 4px;
+        border-top: 1px solid var(--border);
+        padding-top: 6px;
+      }
       .format-toolbar {
         position: fixed;
         z-index: 30;
@@ -872,6 +904,7 @@
         tabDragging: null,
         holdTimer: null,
         activeLink: null,
+        activeImage: null,
         dirtyDocs: new Set(),
         sidebarDirty: false,
       };
@@ -1078,7 +1111,8 @@
         return parseBlocks(raw).map((block, index) => {
           if (block.type === 'image') {
             const src = imageSrc(block.raw);
-            return src ? `<p><img src="${escapeHtml(src)}" alt="" /></p>` : `<div class="raw-block">${escapeHtml(block.raw)}</div>`;
+            const alt = imageAlt(block.raw);
+            return src ? `<p><img src="${escapeHtml(src)}" alt="${escapeHtml(alt)}" /></p>` : `<div class="raw-block">${escapeHtml(block.raw)}</div>`;
           }
           if (block.type === 'paragraph') return renderMarkdownBlock(block.raw);
           if (block.type === 'code') return renderCode(block.raw);
@@ -1097,7 +1131,8 @@
           const nestedAttrs = `contenteditable="true" spellcheck="true" class="editable-block" data-nested-editable="true" data-tab-index="${tabIndex}" data-nested-block-index="${nestedIndex}"`;
           if (block.type === 'image') {
             const src = imageSrc(block.raw);
-            html = src ? `<p><img src="${escapeHtml(src)}" alt="" /></p>` : `<div class="raw-block">${escapeHtml(block.raw)}</div>`;
+            const alt = imageAlt(block.raw);
+            html = src ? `<p><img data-image-edit="true" src="${escapeHtml(src)}" alt="${escapeHtml(alt)}" /></p>` : `<div class="raw-block">${escapeHtml(block.raw)}</div>`;
           } else if (block.type.startsWith('heading-')) {
             html = `<div ${nestedAttrs}>${inlineMarkdown(block.text || block.raw.replace(/^#+\s*/, ''))}</div>`;
           } else if (block.type === 'paragraph') {
@@ -1123,6 +1158,25 @@
         const md = raw.match(/^!\[[^\]]*\]\(([^)]+)\)$/);
         const img = raw.match(/<img[^>]*src=["']([^"']+)["'][^>]*>/i);
         return md?.[1] || img?.[1] || '';
+      }
+
+      function imageAlt(raw) {
+        const md = raw.match(/^!\[([^\]]*)\]\([^)]+\)$/);
+        const img = raw.match(/<img[^>]*alt=["']([^"']*)["'][^>]*>/i);
+        return md?.[1] || img?.[1] || '';
+      }
+
+      function setHtmlImageAttribute(raw, name, value) {
+        const escaped = escapeHtml(value);
+        const attr = new RegExp(`(<img[^>]*\\s${name}=)["'][^"']*["']`, 'i');
+        if (attr.test(raw)) return raw.replace(attr, `$1"${escaped}"`);
+        return raw.replace(/<img\b/i, `<img ${name}="${escaped}"`);
+      }
+
+      function updateImageRaw(raw, src, alt) {
+        if (/^!\[[^\]]*\]\([^)]+\)$/.test(raw.trim())) return `![${alt || ''}](${src})`;
+        if (/<img/i.test(raw)) return setHtmlImageAttribute(setHtmlImageAttribute(raw, 'src', src), 'alt', alt || '');
+        return `![${alt || ''}](${src})`;
       }
 
       function tabsKey(blockIndex) {
@@ -1406,8 +1460,8 @@
           html = `<h${level} id="${escapeHtml(block.anchor || '')}" ${editableAttrs(index)}>${inlineMarkdown(block.text || block.raw)}</h${level}>`;
         } else if (block.type === 'image') {
           const src = imageSrc(block.raw);
-          const alt = block.raw.match(/^!\[([^\]]*)\]/)?.[1] || '';
-          html = src ? `<p><img src="${escapeHtml(src)}" alt="${escapeHtml(alt)}" /></p>` : `<div class="raw-block">${escapeHtml(block.raw)}</div>`;
+          const alt = imageAlt(block.raw);
+          html = src ? `<p><img data-image-edit="true" src="${escapeHtml(src)}" alt="${escapeHtml(alt)}" /></p>` : `<div class="raw-block">${escapeHtml(block.raw)}</div>`;
         } else if (block.type === 'code') {
           html = renderCode(block.raw);
         } else if (block.type === 'quote') {
@@ -1670,6 +1724,113 @@
         link.replaceWith(document.createTextNode(link.textContent));
         if (editable?.dataset.nestedEditable) updateNestedBlockFromEditable(editable);
         else if (editable) updateDraftBlockFromEditable(editable);
+        closePopover();
+      }
+
+      function imageContextFromElement(img) {
+        const blockEl = img.closest('[data-block-index]');
+        const nestedEl = img.closest('[data-nested-block-index]');
+        if (nestedEl?.classList.contains('nested-block')) {
+          return {
+            nestedCtx: {
+              blockIndex: Number(blockEl?.dataset.blockIndex),
+              tabIndex: Number(nestedEl.dataset.tabIndex),
+              nestedIndex: Number(nestedEl.dataset.nestedBlockIndex),
+            },
+          };
+        }
+        return {blockIndex: Number(blockEl?.dataset.blockIndex)};
+      }
+
+      function getImageBlock(ctx) {
+        if (ctx?.nestedCtx) {
+          const model = getNestedBlocks(ctx.nestedCtx);
+          return {model, block: model?.blocks?.[ctx.nestedCtx.nestedIndex]};
+        }
+        const page = state.content[nodeDocId(state.selectedNode)];
+        return {page, block: page?.blocks?.[ctx?.blockIndex]};
+      }
+
+      function showImagePopover(img) {
+        if (!img) return;
+        closePopover();
+        const ctx = imageContextFromElement(img);
+        const {block} = getImageBlock(ctx);
+        if (!block || block.type !== 'image') return;
+        state.activeImage = {img, ctx};
+        const src = imageSrc(block.raw) || img.getAttribute('src') || '';
+        const alt = imageAlt(block.raw) || img.getAttribute('alt') || '';
+        popoverEl.className = 'menu-popover image-popover';
+        popoverEl.innerHTML = `
+          <div class="image-preview">
+            <img src="${escapeHtml(src)}" alt="${escapeHtml(alt)}" />
+            <div class="image-meta">
+              <div class="image-src" title="${escapeHtml(src)}">${escapeHtml(src)}</div>
+              <div class="image-alt" title="${escapeHtml(alt)}">alt: ${escapeHtml(alt || 'не задан')}</div>
+            </div>
+          </div>
+          <div class="image-actions">
+            <button type="button" class="link-action-button" data-image-action="edit">✎ Изменить</button>
+            <button type="button" class="link-action-button" data-image-action="copy">⧉ Копировать</button>
+            <button type="button" class="link-action-button danger" data-image-action="delete">⌫ Удалить</button>
+          </div>
+        `;
+        const rect = img.getBoundingClientRect();
+        popoverEl.style.top = `${Math.min(rect.bottom + 8, window.innerHeight - 160)}px`;
+        popoverEl.style.left = `${Math.max(8, Math.min(rect.left, window.innerWidth - 510))}px`;
+        popoverEl.hidden = false;
+      }
+
+      function updateActiveImage(src, alt) {
+        const active = state.activeImage;
+        if (!active) return;
+        if (active.ctx.nestedCtx) {
+          const {model, block} = getImageBlock(active.ctx);
+          if (!model || !block) return;
+          block.raw = updateImageRaw(block.raw, src, alt);
+          saveNestedBlocks(active.ctx.nestedCtx, model);
+          markDirty(`Изменена картинка во вкладке #${active.ctx.nestedCtx.tabIndex + 1}.`, null);
+          return;
+        }
+        const {page, block} = getImageBlock(active.ctx);
+        if (!page || !block) return;
+        block.raw = updateImageRaw(block.raw, src, alt);
+        renderPageContent(nodeDocId(state.selectedNode));
+        markDirty(`Изменена картинка #${active.ctx.blockIndex + 1}.`, null);
+      }
+
+      async function editActiveImage() {
+        const active = state.activeImage;
+        if (!active) return;
+        const {block} = getImageBlock(active.ctx);
+        if (!block) return;
+        const result = await openModal({
+          title: 'Изменить картинку',
+          fields: `<label class="field-label">Путь к файлу<input name="src" value="${escapeHtml(imageSrc(block.raw))}" autocomplete="off" required /></label><label class="field-label">Alt text<input name="alt" value="${escapeHtml(imageAlt(block.raw))}" autocomplete="off" /></label>`,
+          submitText: 'Сохранить',
+        });
+        if (!result?.src?.trim()) return;
+        updateActiveImage(result.src.trim(), result.alt?.trim() || '');
+        closePopover();
+      }
+
+      async function copyActiveImageSrc() {
+        const {block} = getImageBlock(state.activeImage?.ctx || {});
+        const src = block ? imageSrc(block.raw) : '';
+        if (!src) return;
+        try {
+          await navigator.clipboard.writeText(src);
+          noticeEl.textContent = 'Путь к картинке скопирован.';
+        } catch {
+          noticeEl.textContent = src;
+        }
+      }
+
+      function deleteActiveImage() {
+        const active = state.activeImage;
+        if (!active) return;
+        if (active.ctx.nestedCtx) deleteNestedBlock(active.ctx.nestedCtx);
+        else deleteBlock(active.ctx.blockIndex);
         closePopover();
       }
 
@@ -2099,6 +2260,7 @@
         state.popoverBlock = null;
         state.popoverTab = null;
         state.activeLink = null;
+        state.activeImage = null;
         document.querySelectorAll('.block-control.open, .node-menu.open, .tab-drag.open, .icon-button.open, .insert-plus.open').forEach((button) => button.classList.remove('open'));
       }
 
@@ -2282,6 +2444,16 @@
           if (action === 'edit') editActiveLink();
           if (action === 'copy') copyActiveLink();
           if (action === 'unlink') unlinkActiveLink();
+          return;
+        }
+        const imageAction = event.target.closest('[data-image-action]');
+        if (imageAction) {
+          event.preventDefault();
+          event.stopPropagation();
+          const action = imageAction.dataset.imageAction;
+          if (action === 'edit') editActiveImage();
+          if (action === 'copy') copyActiveImageSrc();
+          if (action === 'delete') deleteActiveImage();
           return;
         }
         const addButton = event.target.closest('[data-add-kind]');
@@ -2526,6 +2698,13 @@
       });
 
       contentEl.addEventListener('click', (event) => {
+        const editableImage = event.target.closest('[data-image-edit]');
+        if (editableImage) {
+          event.preventDefault();
+          event.stopPropagation();
+          showImagePopover(editableImage);
+          return;
+        }
         const editableLink = event.target.closest('[data-editable-block] a, [data-nested-editable] a');
         if (editableLink) {
           event.preventDefault();
