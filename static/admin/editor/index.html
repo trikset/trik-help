@@ -2296,6 +2296,10 @@
         return {top: fallback.top, left: Math.min(fallback.left + (278 * level), window.innerWidth - 282)};
       }
 
+      function panelMaxHeightForTop(top) {
+        return Math.max(160, Math.min(520, window.innerHeight - top - 8));
+      }
+
       function articleNodeForPath(path) {
         let items = state.sidebar?.docs || [];
         let node = null;
@@ -2333,7 +2337,7 @@
             : '';
           const items = articleItemsForLevel(level).filter((item) => articleItemMatches(item, query));
           const origin = panelOriginForLevel(level);
-          return `<div class="article-picker-panel" data-article-level="${level}" style="top:${origin.top}px;left:${origin.left}px">
+          return `<div class="article-picker-panel" data-article-level="${level}" style="top:${origin.top}px;left:${origin.left}px;max-height:${panelMaxHeightForTop(origin.top)}px">
             <input class="article-picker-search" data-article-search="${level}" placeholder="Поиск" value="${escapeHtml(query)}" />
             ${parentLink}
             ${items.length ? items.map((item) => {
@@ -3409,7 +3413,8 @@
         const panel = event.target.closest('.article-picker-panel');
         if (!panel) return;
         event.preventDefault();
-        panel.scrollTop += event.deltaY;
+        event.stopPropagation();
+        panel.scrollBy({top: event.deltaY, left: 0, behavior: 'auto'});
       }, {passive: false});
 
       articlePickerEl.addEventListener('input', (event) => {
@@ -3426,7 +3431,10 @@
         const level = Number(item.closest('[data-article-level]')?.dataset.articleLevel || 0);
         const index = Number(item.dataset.articleIndex);
         const hasChildren = item.dataset.articleHasChildren === 'true';
-        state.articlePicker.path = hasChildren ? [...state.articlePicker.path.slice(0, level), index] : state.articlePicker.path.slice(0, level);
+        const nextPath = hasChildren ? [...state.articlePicker.path.slice(0, level), index] : state.articlePicker.path.slice(0, level);
+        const samePath = JSON.stringify(nextPath) === JSON.stringify(state.articlePicker.path);
+        if (samePath) return;
+        state.articlePicker.path = nextPath;
         if (hasChildren) {
           const rect = item.getBoundingClientRect();
           const currentOrigin = panelOriginForLevel(level);
