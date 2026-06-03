@@ -28,6 +28,7 @@ title: "Настройки TRIK Studio"
 
 ###
 
+###### ​ {#behavior}
 ### Поведение &#123;#behavior&#125;
 ![Вкладка «Поведение»](/gitbook/assets/ts-settings.png)
 
@@ -52,6 +53,7 @@ title: "Настройки TRIK Studio"
 
 
 
+###### ​ {#vkladka-raznoe}
 ### Разное
 
 ![Вкладка «Разное»](/gitbook/assets/ts-settings-miscellanious.png)
@@ -75,6 +77,7 @@ title: "Настройки TRIK Studio"
 
 
 
+###### ​ {#editor}
 ### Редактор &#123;#editor&#125;
 ![Вкладка «Редактор»](/gitbook/assets/ts-settings-editor.png)
 
@@ -115,6 +118,7 @@ title: "Настройки TRIK Studio"
 
 
 
+###### ​ {#robots}
 ### Роботы &#123;#robots&#125;
 Состав этой вкладки зависит от установленных подключаемых модулей поддержки платформ и от текущей выбранной платформы. Типовые элементы вкладки описаны ниже.
 
