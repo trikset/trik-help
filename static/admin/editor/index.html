@@ -405,20 +405,14 @@
       .article-picker-item.active { background: color-mix(in srgb, var(--soft) 78%, transparent); }
       .article-picker-title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px; font-weight: 500; line-height: 1.12; }
       .article-picker-file { grid-column: 1 / -1; overflow: hidden; color: var(--muted); font-size: 12px; line-height: 1.05; text-overflow: ellipsis; white-space: nowrap; }
-      .article-picker-link-action {
-        grid-column: 1 / -1;
-        width: fit-content;
-        margin-top: 4px;
-        padding: 3px 6px;
-        border: 0;
-        border-radius: 6px;
-        background: color-mix(in srgb, var(--primary) 9%, transparent);
-        color: var(--primary);
+      .article-picker-link-item { cursor: pointer; }
+      .article-picker-link-item .article-picker-title::before { content: "🔗"; margin-right: 7px; font-size: 13px; }
+      .article-picker-heading {
+        padding: 8px 8px 5px;
+        color: var(--muted);
         font-size: 12px;
-        line-height: 1.1;
-        cursor: pointer;
+        line-height: 1;
       }
-      .article-picker-link-action:hover { background: color-mix(in srgb, var(--primary) 15%, transparent); }
       .article-picker-arrow { grid-column: 2; grid-row: 1 / span 2; align-self: center; color: var(--muted); font-size: 16px; }
       .article-picker-empty { padding: 10px; color: var(--muted); font-size: 13px; }
       @media (prefers-color-scheme: dark) { .menu-popover button.danger { color: #ff9b92; } }
@@ -2236,8 +2230,25 @@
         return options;
       }
 
+      function firstDocIdInNode(node) {
+        const own = nodeDocId(node);
+        if (own) return own;
+        for (const child of node.items || []) {
+          const found = firstDocIdInNode(child);
+          if (found) return found;
+        }
+        return '';
+      }
+
+      function sectionRouteForNode(node) {
+        const own = nodeDocId(node);
+        if (own) return routeLabelForDocId(own, 0);
+        const first = firstDocIdInNode(node);
+        return first ? first.split('/')[0] : (node.href || '').replace(/^\//, '').replace(/\/$/, '') || slugify(displayLabel(node));
+      }
+
       function articlePickerItems(items = state.sidebar?.docs || []) {
-        return items.map((node) => ({node, id: nodeDocId(node), label: displayLabel(node), children: Array.isArray(node.items) ? node.items : []}));
+        return items.map((node) => ({node, id: nodeDocId(node), route: sectionRouteForNode(node), label: displayLabel(node), children: Array.isArray(node.items) ? node.items : []}));
       }
 
       function articleItemMatches(item, query) {
@@ -2256,8 +2267,7 @@
 
       function articleRouteLabel(item, level = 0) {
         if (item.id) return routeLabelForDocId(item.id, level);
-        const href = item.node.href || '';
-        return normalizedPublicPath(href).replace(/^\//, '').replace(/\/$/, '') || href || 'link';
+        return item.route || sectionRouteForNode(item.node);
       }
 
       function openArticlePickerAt(anchor, blockIndex) {
@@ -2267,6 +2277,16 @@
         articlePickerEl.style.left = `${Math.min(rect.left, window.innerWidth - 320)}px`;
         renderArticlePicker({focusLevel: 0});
         articlePickerEl.hidden = false;
+      }
+
+      function articleNodeForPath(path) {
+        let items = state.sidebar?.docs || [];
+        let node = null;
+        for (const index of path) {
+          node = items[index];
+          items = Array.isArray(node?.items) ? node.items : [];
+        }
+        return node;
       }
 
       function articleItemsForLevel(level) {
@@ -2288,16 +2308,22 @@
         const levels = Math.max(1, picker.path.length + 1);
         articlePickerEl.innerHTML = Array.from({length: levels}, (_, level) => {
           const query = picker.queries[level] || '';
+          const parentNode = level > 0 ? articleNodeForPath(picker.path.slice(0, level)) : null;
+          const parentId = parentNode ? (nodeDocId(parentNode) || firstDocIdInNode(parentNode)) : '';
+          const parentRoute = parentNode ? sectionRouteForNode(parentNode) : '';
+          const parentLink = parentNode && parentId
+            ? `<div class="article-picker-item article-picker-link-item" data-article-select="${escapeHtml(parentId)}"><span class="article-picker-title">Ссылка на &quot;${escapeHtml(displayLabel(parentNode))}&quot;</span><span class="article-picker-file">${escapeHtml(parentRoute)}</span></div><div class="article-picker-heading">Подстраницы</div>`
+            : '';
           const items = articleItemsForLevel(level).filter((item) => articleItemMatches(item, query));
           return `<div class="article-picker-panel" data-article-level="${level}">
             <input class="article-picker-search" data-article-search="${level}" placeholder="Поиск" value="${escapeHtml(query)}" />
+            ${parentLink}
             ${items.length ? items.map((item) => {
               const originalItems = articleItemsForLevel(level);
               const index = originalItems.findIndex((candidate) => candidate.node === item.node);
               const active = picker.path[level] === index;
               const hasChildren = item.children.length > 0;
-              const canSelect = Boolean(item.id);
-              return `<div class="article-picker-item${active ? ' active' : ''}" data-article-index="${index}" data-article-id="${escapeHtml(item.id || '')}" data-article-has-children="${hasChildren ? 'true' : 'false'}"><span class="article-picker-title">${escapeHtml(item.label)}</span>${hasChildren ? '<span class="article-picker-arrow">›</span>' : ''}<span class="article-picker-file">${escapeHtml(articleRouteLabel(item, level))}</span>${canSelect ? `<button type="button" class="article-picker-link-action" data-article-select="${escapeHtml(item.id)}">Ссылка на ${escapeHtml(articleRouteLabel(item, level))}</button>` : ''}</div>`;
+              return `<div class="article-picker-item${active ? ' active' : ''}" data-article-index="${index}" data-article-id="${escapeHtml(item.id || '')}" data-article-has-children="${hasChildren ? 'true' : 'false'}"><span class="article-picker-title">${escapeHtml(item.label)}</span>${hasChildren ? '<span class="article-picker-arrow">›</span>' : ''}<span class="article-picker-file">${escapeHtml(articleRouteLabel(item, level))}</span></div>`;
             }).join('') : '<div class="article-picker-empty">Ничего не найдено</div>'}
           </div>`;
         }).join('');
