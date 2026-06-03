@@ -249,19 +249,24 @@
         background-clip: content-box;
       }
       .tree-group { margin: 0; }
-      .tree > .tree-group:not(:first-child) { margin-top: 8px; }
+      .tree > .tree-group:not(:first-child) { margin-top: 18px; }
+      .tree > .tree-group > .tree-row {
+        min-height: 28px;
+        margin-bottom: 6px;
+      }
       .tree > .tree-group > .tree-row .node-title {
         text-transform: uppercase;
         letter-spacing: .035em;
         font-size: 12.5px;
-        font-weight: 750;
+        font-weight: 760;
+        color: var(--text);
       }
       .tree-row {
         position: relative;
         display: grid;
-        grid-template-columns: 18px minmax(0, 1fr) 22px 24px;
+        grid-template-columns: 16px minmax(0, 1fr) 18px 22px;
         align-items: center;
-        min-height: 30px;
+        min-height: 28px;
         gap: 2px;
         border-radius: 7px;
         padding-right: 2px;
@@ -285,8 +290,8 @@
         outline: 1px dashed var(--primary);
       }
       .twisty, .node-menu, .drag-handle {
-        width: 24px;
-        height: 24px;
+        width: 20px;
+        height: 20px;
         border: 0;
         border-radius: 7px;
         background: transparent;
@@ -310,12 +315,18 @@
       .twisty {
         grid-column: 3;
         justify-self: end;
-        opacity: 0;
+        opacity: .42;
         transform: translateX(2px);
+        font-size: 14px;
+        line-height: 1;
       }
+      .tree > .tree-group > .tree-row .twisty { opacity: 0; }
+      .tree > .tree-group > .tree-row:hover .twisty,
+      .tree > .tree-group > .tree-row .twisty:focus-visible,
+      .tree > .tree-group > .tree-row .twisty.open:hover { opacity: .42; }
       .tree-row:hover .twisty,
-      .twisty:focus-visible,
-      .twisty.open { opacity: 1; }
+      .twisty:focus-visible { opacity: .72; }
+      .twisty.open { transform: translateX(2px) rotate(90deg); }
       .twisty.empty { cursor: default; opacity: 0; pointer-events: none; }
       .node-main {
         grid-column: 2;
@@ -325,7 +336,7 @@
         color: inherit;
         text-align: left;
         cursor: pointer;
-        padding: 5px 3px;
+        padding: 4px 3px;
       }
       .node-title {
         overflow: hidden;
@@ -350,9 +361,14 @@
       }
       .tree-row:hover .node-menu, .node-menu.open { opacity: 1; }
       .tree-children {
-        margin-left: 12px;
-        padding-left: 6px;
-        border-left: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+        margin-left: 8px;
+        padding-left: 5px;
+        border-left: 1px solid color-mix(in srgb, var(--border) 58%, transparent);
+      }
+      .tree > .tree-group > .tree-children {
+        margin-left: 0;
+        padding-left: 0;
+        border-left: 0;
       }
       .insert-line {
         position: relative;
@@ -639,7 +655,7 @@
         background: color-mix(in srgb, var(--soft) 46%, transparent);
       }
       body.mode-view .tree-row {
-        grid-template-columns: minmax(0, 1fr) 24px;
+        grid-template-columns: minmax(0, 1fr) 20px;
         gap: 2px;
         padding-right: 4px;
       }
@@ -3092,7 +3108,7 @@
       function renderInsertLine(parentPath, index) {
         const line = document.createElement('div');
         line.className = 'insert-line';
-        line.style.marginLeft = `${Math.min(parentPath.length * 4, 18)}px`;
+        line.style.marginLeft = `${Math.min(parentPath.length * 2, 8)}px`;
         const plus = document.createElement('button');
         plus.type = 'button';
         plus.className = 'insert-plus';
@@ -3117,13 +3133,13 @@
         group.className = `tree-group ${state.open.has(key) || state.filter ? '' : 'collapsed'}`;
         const row = document.createElement('div');
         row.className = `tree-row ${state.selectedKey === key ? 'active' : ''} ${node.draft ? 'draft' : ''} ${node.type === 'category' && !nodeDocId(node) ? 'category-only' : ''}`;
-        row.style.paddingLeft = `${Math.min(path.length * 4, 18)}px`;
+        row.style.paddingLeft = `${Math.min(path.length * 2, 8)}px`;
 
         const twisty = document.createElement('button');
         twisty.type = 'button';
         const expanded = state.open.has(key) || state.filter;
         twisty.className = `twisty ${hasChildren ? '' : 'empty'} ${expanded ? 'open' : ''}`;
-        twisty.textContent = hasChildren ? (expanded ? '▾' : '▸') : '';
+        twisty.textContent = hasChildren ? '›' : '';
         twisty.setAttribute('aria-label', hasChildren ? 'Свернуть или развернуть' : 'Нет вложенных страниц');
         twisty.addEventListener('click', (event) => {
           event.stopPropagation();
@@ -3744,16 +3760,12 @@
           if (!contentResponse.ok) throw new Error(`content HTTP ${contentResponse.status}`);
           state.sidebar = await response.json();
           state.content = await contentResponse.json();
-          function openAll(items = state.sidebar.docs, path = []) {
+          function openTopLevelTopics(items = state.sidebar.docs) {
             items.forEach((item, index) => {
-              const nodePath = [...path, index];
-              if (Array.isArray(item.items) && item.items.length) {
-                state.open.add(nodeKey(item, nodePath));
-                openAll(item.items, nodePath);
-              }
+              if (Array.isArray(item.items) && item.items.length) state.open.add(nodeKey(item, [index]));
             });
           }
-          openAll();
+          openTopLevelTopics();
           const route = readEditorRoute();
           state.mode = route.mode;
           state.draftId = route.mode === 'edit' ? (route.draftId || `#${Date.now().toString().slice(-5)}`) : null;
