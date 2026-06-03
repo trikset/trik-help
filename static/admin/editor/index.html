@@ -52,10 +52,61 @@
         align-items: center;
         justify-content: space-between;
         gap: 16px;
-        padding: 14px 22px;
+        padding: 10px 18px;
         border-bottom: 1px solid var(--border);
         background: color-mix(in srgb, var(--panel) 92%, transparent);
       }
+      .app-topbar-left, .app-topbar-right, .workspace-title, .mode-tabs, .draft-meta {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        min-width: 0;
+      }
+      .app-topbar-left { flex-wrap: wrap; }
+      .workspace-logo {
+        display: inline-grid;
+        place-items: center;
+        width: 26px;
+        height: 26px;
+        border-radius: 7px;
+        background: #12223f;
+        color: var(--trik-lime);
+        font-weight: 800;
+        font-size: 14px;
+      }
+      .workspace-name { font-weight: 650; color: var(--text); }
+      .topbar-separator { color: var(--muted); }
+      .mode-tab {
+        min-height: 30px;
+        padding: 5px 10px;
+        border-radius: 8px;
+        border: 1px solid transparent;
+        background: transparent;
+        color: var(--text);
+        text-decoration: none;
+        cursor: pointer;
+      }
+      .mode-tab.active {
+        border-color: var(--border);
+        background: color-mix(in srgb, var(--panel-soft) 82%, transparent);
+        box-shadow: inset 0 -1px 0 color-mix(in srgb, var(--muted) 12%, transparent);
+      }
+      .sync-pill, .draft-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        min-height: 30px;
+        padding: 5px 10px;
+        border-radius: 9px;
+        background: color-mix(in srgb, var(--panel-soft) 86%, transparent);
+        color: var(--muted);
+        white-space: nowrap;
+      }
+      .sync-pill strong { color: var(--text); font-weight: 600; }
+      .sync-ok { color: var(--primary); font-weight: 700; }
+      .topbar-link { color: var(--muted); text-decoration: none; white-space: nowrap; }
+      .topbar-link:hover { color: var(--primary); }
+      .draft-meta[hidden], .view-only[hidden], .edit-only[hidden] { display: none; }
       h1, h2, h3 { margin: 0; }
       h1 { font-size: 20px; }
       h2 { font-size: 24px; line-height: 1.2; }
@@ -567,6 +618,16 @@
       .page-block:hover {
         background: color-mix(in srgb, var(--soft) 46%, transparent);
       }
+      body.mode-view .page-block { padding-left: 10px; }
+      body.mode-view .page-block:hover { background: transparent; }
+      body.mode-view .block-controls,
+      body.mode-view .drag-handle,
+      body.mode-view .node-menu,
+      body.mode-view .insert-line,
+      body.mode-view #add-root,
+      body.mode-view .tab-insert,
+      body.mode-view .tab-drag { display: none !important; }
+      body.mode-view .editable-block:focus { box-shadow: none; }
       .block-controls {
         position: absolute;
         left: 8px;
@@ -956,11 +1017,29 @@
   </head>
   <body>
     <header>
-      <div>
-        <h1>Новый редактор TRIK Help</h1>
-        <div class="muted">Страницы выбираются из меню сайта. Изменения в меню отображаются сразу в редакторе.</div>
+      <div class="app-topbar-left">
+        <div class="workspace-title">
+          <span class="workspace-logo">T</span>
+          <span class="topbar-separator">/</span>
+          <span class="workspace-name">Русский</span>
+        </div>
+        <div class="mode-tabs" aria-label="Режимы редактора">
+          <button id="mode-editor" class="mode-tab active" type="button" title="Просмотр структуры и контента без редактирования">Editor</button>
+          <a id="mode-preview" class="mode-tab" href="/" target="_blank" rel="noreferrer" title="Открыть опубликованную страницу">Preview</a>
+        </div>
+        <div id="draft-meta" class="draft-meta" hidden>
+          <span class="topbar-separator">/</span>
+          <span id="draft-pill" class="draft-pill">Драфт</span>
+        </div>
       </div>
-      <a href="/admin/">← Админка</a>
+      <div class="app-topbar-right">
+        <span id="sync-pill" class="sync-pill view-only"><strong>Synced</strong><span class="sync-ok">✓</span></span>
+        <button id="history-button" class="mode-tab view-only" type="button" title="История изменений — следующий этап">История</button>
+        <button id="changes-button" class="mode-tab view-only" type="button" title="Change requests — следующий этап">Change requests</button>
+        <button id="edit-mode" class="button primary view-only" type="button">Редактировать</button>
+        <button id="cancel-edit" class="button edit-only" type="button" hidden>Отменить</button>
+        <a class="topbar-link" href="/admin/">← Админка</a>
+      </div>
     </header>
 
     <div class="layout">
@@ -1042,6 +1121,9 @@
         sidebar: null,
         selectedKey: null,
         selectedNode: null,
+        mode: 'view',
+        draftId: null,
+        suppressUrlUpdate: false,
         open: new Set(),
         dirty: false,
         filter: '',
@@ -1076,6 +1158,14 @@
       const pageTocEl = document.getElementById('page-toc');
       const openPageEl = document.getElementById('open-page');
       const saveEl = document.getElementById('save');
+      const editModeEl = document.getElementById('edit-mode');
+      const cancelEditEl = document.getElementById('cancel-edit');
+      const modeEditorEl = document.getElementById('mode-editor');
+      const modePreviewEl = document.getElementById('mode-preview');
+      const draftMetaEl = document.getElementById('draft-meta');
+      const draftPillEl = document.getElementById('draft-pill');
+      const historyButtonEl = document.getElementById('history-button');
+      const changesButtonEl = document.getElementById('changes-button');
       const searchEl = document.getElementById('search');
       const popoverEl = document.getElementById('popover');
       const articlePickerEl = document.createElement('div');
@@ -1120,6 +1210,73 @@
 
       function displayLabel(node) {
         return node.label || node.id || node.href || 'Без названия';
+      }
+
+
+      function isEditing() {
+        return state.mode === 'edit';
+      }
+
+      function routeDocId(docId) {
+        return docId || 'intro';
+      }
+
+      function currentDocId() {
+        return nodeDocId(state.selectedNode) || 'intro';
+      }
+
+      function editorUrlForDoc(docId, {mode = state.mode, draftId = state.draftId} = {}) {
+        const url = new URL(window.location.href);
+        url.searchParams.set('doc', routeDocId(docId));
+        if (mode === 'edit') url.searchParams.set('mode', 'edit');
+        else url.searchParams.delete('mode');
+        if (mode === 'edit' && draftId) url.searchParams.set('draft', draftId);
+        else url.searchParams.delete('draft');
+        return `${url.pathname}${url.search}${url.hash}`;
+      }
+
+      function readEditorRoute() {
+        const params = new URLSearchParams(window.location.search);
+        return {
+          docId: params.get('doc') || 'intro',
+          mode: params.get('mode') === 'edit' ? 'edit' : 'view',
+          draftId: params.get('draft') || null,
+        };
+      }
+
+      function updateEditorUrl(docId, {replace = false} = {}) {
+        if (state.suppressUrlUpdate) return;
+        const url = editorUrlForDoc(docId);
+        const current = `${window.location.pathname}${window.location.search}${window.location.hash}`;
+        if (url === current) return;
+        history[replace ? 'replaceState' : 'pushState']({docId: routeDocId(docId), mode: state.mode, draftId: state.draftId}, '', url);
+      }
+
+      function updateEditorModeUi() {
+        const editing = isEditing();
+        document.body.classList.toggle('mode-edit', editing);
+        document.body.classList.toggle('mode-view', !editing);
+        document.querySelectorAll('.view-only').forEach((el) => { el.hidden = editing; });
+        document.querySelectorAll('.edit-only').forEach((el) => { el.hidden = !editing; });
+        draftMetaEl.hidden = !editing;
+        modeEditorEl.classList.add('active');
+        modeEditorEl.title = editing ? 'Сейчас открыт драфт редактирования' : 'Просмотр структуры и контента без редактирования';
+        saveEl.hidden = !editing;
+        if (editing) {
+          draftPillEl.textContent = `Драфт ${state.draftId || ''}`.trim();
+          noticeEl.innerHTML = '<span class="dirty">Режим редактирования:</span> изменения пока экспортируются как draft bundle. Полный Change request workflow подключим следующим этапом.';
+        } else if (state.selectedNode) {
+          noticeEl.textContent = 'Режим просмотра: можно переходить по статьям и проверять контент. Для правок нажмите «Редактировать».';
+        }
+        if (state.selectedNode) modePreviewEl.href = nodePublicUrl(state.selectedNode);
+      }
+
+      function setEditorMode(mode, {draftId = null, replaceUrl = false, render = true} = {}) {
+        state.mode = mode === 'edit' ? 'edit' : 'view';
+        state.draftId = state.mode === 'edit' ? (draftId || state.draftId || `#${Date.now().toString().slice(-5)}`) : null;
+        updateEditorModeUi();
+        if (render && state.selectedNode) renderPageContent(nodeDocId(state.selectedNode));
+        if (state.selectedNode) updateEditorUrl(nodeDocId(state.selectedNode), {replace: replaceUrl});
       }
 
       function slugify(value, fallback = 'page') {
@@ -1198,6 +1355,7 @@
       }
 
       function markDirty(message, undoSnapshot = null, options = {}) {
+        if (!isEditing()) return;
         state.dirty = true;
         saveEl.disabled = false;
         if (options.scope === 'sidebar') state.sidebarDirty = true;
@@ -1260,7 +1418,7 @@
       }
 
       function tableCellAttrs(options, row, col, header = false) {
-        if (!options?.editable) return '';
+        if (!options?.editable || !isEditing()) return '';
         const nested = options.nestedCtx ? ` data-nested-table="true" data-tab-index="${options.nestedCtx.tabIndex}" data-nested-block-index="${options.nestedCtx.nestedIndex}"` : '';
         return ` contenteditable="true" spellcheck="true" data-table-cell="true" data-block-index="${options.blockIndex}"${nested} data-table-row="${row}" data-table-col="${col}" data-table-header="${header ? 'true' : 'false'}"`;
       }
@@ -1274,7 +1432,7 @@
       }
 
       function editableAttrs(index) {
-        return `contenteditable="true" spellcheck="true" class="editable-block" data-editable-block="${index}"`;
+        return isEditing() ? `contenteditable="true" spellcheck="true" class="editable-block" data-editable-block="${index}"` : 'class="editable-block"';
       }
 
       function parseTabs(raw) {
@@ -1314,11 +1472,11 @@
       function renderNestedBlocks(blocks, tabIndex, parentBlockIndex) {
         return blocks.map((block, nestedIndex) => {
           let html = '';
-          const nestedAttrs = `contenteditable="true" spellcheck="true" class="editable-block" data-nested-editable="true" data-tab-index="${tabIndex}" data-nested-block-index="${nestedIndex}"`;
+          const nestedAttrs = isEditing() ? `contenteditable="true" spellcheck="true" class="editable-block" data-nested-editable="true" data-tab-index="${tabIndex}" data-nested-block-index="${nestedIndex}"` : 'class="editable-block"';
           if (block.type === 'image') {
             const src = imageSrc(block.raw);
             const alt = imageAlt(block.raw);
-            html = src ? `<p><img data-image-edit="true" src="${escapeHtml(src)}" alt="${escapeHtml(alt)}" /></p>` : `<div class="raw-block">${escapeHtml(block.raw)}</div>`;
+            html = src ? `<p><img ${isEditing() ? 'data-image-edit="true"' : ''} src="${escapeHtml(src)}" alt="${escapeHtml(alt)}" /></p>` : `<div class="raw-block">${escapeHtml(block.raw)}</div>`;
           } else if (block.type.startsWith('heading-')) {
             html = `<div ${nestedAttrs}>${inlineMarkdown(block.text || block.raw.replace(/^#+\s*/, ''))}</div>`;
           } else if (block.type === 'paragraph') {
@@ -1336,7 +1494,8 @@
           } else {
             html = `<div class="raw-block">${escapeHtml(block.raw)}</div>`;
           }
-          return `<section class="page-block nested-block" data-tab-index="${tabIndex}" data-nested-block-index="${nestedIndex}" data-block-type="${escapeHtml(block.type)}"><div class="block-controls"><button class="block-control" type="button" data-block-menu="add" data-nested-menu="true" data-tab-index="${tabIndex}" data-nested-block-index="${nestedIndex}" title="Добавить вложенный блок ниже">+</button><button class="block-control" type="button" data-block-menu="actions" data-block-drag="true" data-nested-menu="true" data-tab-index="${tabIndex}" data-nested-block-index="${nestedIndex}" title="Действия с вложенным блоком">⋮⋮</button></div>${html}</section>`;
+          const controls = isEditing() ? `<div class="block-controls"><button class="block-control" type="button" data-block-menu="add" data-nested-menu="true" data-tab-index="${tabIndex}" data-nested-block-index="${nestedIndex}" title="Добавить вложенный блок ниже">+</button><button class="block-control" type="button" data-block-menu="actions" data-block-drag="true" data-nested-menu="true" data-tab-index="${tabIndex}" data-nested-block-index="${nestedIndex}" title="Действия с вложенным блоком">⋮⋮</button></div>` : '';
+          return `<section class="page-block nested-block" data-tab-index="${tabIndex}" data-nested-block-index="${nestedIndex}" data-block-type="${escapeHtml(block.type)}">${controls}${html}</section>`;
         }).join('');
       }
 
@@ -1375,11 +1534,13 @@
         const key = tabsKey(blockIndex);
         const activeIndex = Math.min(state.activeTabs[key] ?? 0, tabs.length - 1);
         const labels = tabs.map((tab, tabIndex) => {
-          const title = tabIndex === activeIndex
+          const title = isEditing() && tabIndex === activeIndex
             ? `<span class="tab-title-editable" contenteditable="true" spellcheck="true" data-tab-title-edit="${tabIndex}">${escapeHtml(tab.label)}</span>`
             : `<span class="tab-title-readonly">${escapeHtml(tab.label)}</span>`;
-          return `<button class="tab-insert" type="button" data-tab-insert="${tabIndex}" title="Добавить вкладку здесь"></button><button class="tab-label ${tabIndex === activeIndex ? 'active' : ''}" type="button" data-tab-switch="${tabIndex}"><span class="tab-drag" data-tab-menu="${tabIndex}" data-tab-drag="true" title="Действия вкладки">⋮⋮</span>${title}</button>`;
-        }).join('') + `<button class="tab-insert" type="button" data-tab-insert="${tabs.length}" title="Добавить вкладку здесь"></button>`;
+          const insert = isEditing() ? `<button class="tab-insert" type="button" data-tab-insert="${tabIndex}" title="Добавить вкладку здесь"></button>` : '';
+          const drag = isEditing() ? `<span class="tab-drag" data-tab-menu="${tabIndex}" data-tab-drag="true" title="Действия вкладки">⋮⋮</span>` : '';
+          return `${insert}<button class="tab-label ${tabIndex === activeIndex ? 'active' : ''}" type="button" data-tab-switch="${tabIndex}">${drag}${title}</button>`;
+        }).join('') + (isEditing() ? `<button class="tab-insert" type="button" data-tab-insert="${tabs.length}" title="Добавить вкладку здесь"></button>` : '');
         const panels = tabs.map((tab, tabIndex) => `<div class="tab-panel" data-tab-panel="${tabIndex}" ${tabIndex !== activeIndex ? 'hidden' : ''}>${renderNestedBlocks(parseBlocks(tab.body), tabIndex, blockIndex)}</div>`).join('');
         return `<div class="tabs-block theme-tabs-container tabs-container" data-tabs-block="true"><div class="tabs-head tabs">${labels}</div><div class="margin-top--md">${panels}</div></div>`;
       }
@@ -1525,7 +1686,12 @@
         noticeEl.textContent = 'Экспорт подготовлен: JSON-bundle изменений и Markdown текущей страницы скачаны. Серверное сохранение/PR-flow подключим следующим шагом.';
       }
 
-      saveEl.addEventListener('click', exportEditorChanges);
+      saveEl.addEventListener('click', () => { if (isEditing()) exportEditorChanges(); });
+      editModeEl.addEventListener('click', () => setEditorMode('edit'));
+      cancelEditEl.addEventListener('click', () => setEditorMode('view'));
+      modeEditorEl.addEventListener('click', () => { if (isEditing()) setEditorMode('view'); });
+      historyButtonEl.addEventListener('click', () => { noticeEl.textContent = 'История изменений появится следующим этапом после draft/change request модели.'; });
+      changesButtonEl.addEventListener('click', () => { noticeEl.textContent = 'Change requests появятся следующим этапом. Сейчас подключён только локальный режим драфта.'; });
 
       function addBlockAfter(index, type) {
         const page = state.content[nodeDocId(state.selectedNode)];
@@ -1665,7 +1831,7 @@
       }
 
       function renderBlock(block, index) {
-        const controls = `<div class="block-controls"><button class="block-control" type="button" data-block-menu="add" data-block-index="${index}" title="Добавить блок ниже">+</button><button class="block-control" type="button" data-block-menu="actions" data-block-drag="true" data-block-index="${index}" title="Действия с блоком">⋮⋮</button></div>`;
+        const controls = isEditing() ? `<div class="block-controls"><button class="block-control" type="button" data-block-menu="add" data-block-index="${index}" title="Добавить блок ниже">+</button><button class="block-control" type="button" data-block-menu="actions" data-block-drag="true" data-block-index="${index}" title="Действия с блоком">⋮⋮</button></div>` : '';
         let html = '';
         if (block.type === 'anchor') {
           return `<span id="${escapeHtml(block.anchor || '')}" class="anchor-block"></span>`;
@@ -1676,7 +1842,7 @@
         } else if (block.type === 'image') {
           const src = imageSrc(block.raw);
           const alt = imageAlt(block.raw);
-          html = src ? `<p><img data-image-edit="true" src="${escapeHtml(src)}" alt="${escapeHtml(alt)}" /></p>` : `<div class="raw-block">${escapeHtml(block.raw)}</div>`;
+          html = src ? `<p><img ${isEditing() ? 'data-image-edit="true"' : ''} src="${escapeHtml(src)}" alt="${escapeHtml(alt)}" /></p>` : `<div class="raw-block">${escapeHtml(block.raw)}</div>`;
         } else if (block.type === 'code') {
           html = renderCode(block.raw);
         } else if (block.type === 'quote') {
@@ -1688,7 +1854,7 @@
         } else if (block.type === 'content-ref') {
           html = renderContentRef(block.raw);
         } else if (block.type === 'table') {
-          html = renderTable(block.raw, {editable: true, blockIndex: index});
+          html = renderTable(block.raw, {editable: isEditing(), blockIndex: index});
         } else {
           html = block.type === 'paragraph'
             ? `<p ${editableAttrs(index)}>${inlineMarkdown(block.raw).replace(/\n/g, '<br />')}</p>`
@@ -1841,6 +2007,10 @@
       }
 
       function showFormatToolbar() {
+        if (!isEditing()) {
+          formatToolbarEl.hidden = true;
+          return;
+        }
         const selection = window.getSelection();
         if (!selection || selection.isCollapsed || !contentEl.contains(selection.anchorNode)) {
           formatToolbarEl.hidden = true;
@@ -2108,6 +2278,7 @@
       }
 
       function showTablePopover(cell) {
+        if (!isEditing() || !cell) return;
         const ctx = tableContextFromCell(cell);
         state.activeTableCell = {cell, ctx};
         closePopover();
@@ -2447,8 +2618,11 @@
         titleEl.textContent = displayLabel(node);
         pathEl.textContent = docsPathForDoc(docId);
         openPageEl.href = nodePublicUrl(node);
+        modePreviewEl.href = nodePublicUrl(node);
         renderPageContent(docId);
         renderTree();
+        updateEditorModeUi();
+        updateEditorUrl(docId);
       }
 
       function openModal({title, message = '', fields = '', submitText = 'Готово', danger = false}) {
@@ -2714,11 +2888,13 @@
       }
 
       function showInsertAtMenu(button, parentPath, index) {
+        if (!isEditing()) return;
         const parentNode = parentPath.length ? getNodeAtPath(parentPath) : null;
         openAddPopover(button, canCreateGroupInside(parentNode), (kind) => insertAt(parentPath, index, kind));
       }
 
       function showAddNearSelectedMenu(button) {
+        if (!isEditing()) return;
         const ctx = selectedInsertionContext();
         openAddPopover(button, currentCanAddGroup(), (kind) => insertAt(ctx.parentPath, ctx.index, kind));
       }
@@ -2798,6 +2974,7 @@
       }
 
       function openPopover(button, node, parentPath = [], indexInParent = 0) {
+        if (!isEditing()) return;
         state.popoverNode = {node, parentPath, indexInParent};
         const canAddInside = node.type === 'category';
         popoverEl.innerHTML = `
@@ -2813,6 +2990,7 @@
       }
 
       function openBlockPopover(button, blockIndex, kind) {
+        if (!isEditing()) return;
         const page = state.content[nodeDocId(state.selectedNode)];
         const block = page?.blocks?.[blockIndex];
         if (!block) return;
@@ -2967,6 +3145,7 @@
       });
 
       document.getElementById('add-root').addEventListener('click', (event) => {
+        if (!isEditing()) return;
         event.stopPropagation();
         showAddNearSelectedMenu(event.currentTarget);
       });
@@ -3024,6 +3203,7 @@
         }
         const blockAction = event.target.dataset.blockAction;
         if (blockAction && state.popoverBlock) {
+          if (!isEditing()) return;
           const index = state.popoverBlock.blockIndex;
           const nestedCtx = state.popoverBlock.nestedCtx;
           const actionTarget = event.target;
@@ -3052,6 +3232,7 @@
         }
         const action = event.target.dataset.action;
         if (!action || !state.popoverNode) return;
+        if (!isEditing()) return;
         const {node, parentPath, indexInParent} = state.popoverNode;
         closePopover();
         if (action === 'rename') renameNode(node);
@@ -3241,6 +3422,7 @@
       }
 
       contentEl.addEventListener('pointerdown', (event) => {
+        if (!isEditing()) return;
         const tabHandle = event.target.closest('[data-tab-drag]');
         if (tabHandle) return startHoldForTabDrag(tabHandle, event);
         const blockHandle = event.target.closest('[data-block-drag]');
@@ -3274,7 +3456,7 @@
           if (!selectDocInEditor(docId)) noticeEl.textContent = `Не нашёл статью для ссылки: ${contentRef.getAttribute('href') || ''}`;
           return;
         }
-        const editableImage = event.target.closest('[data-image-edit]');
+        const editableImage = isEditing() ? event.target.closest('[data-image-edit]') : null;
         if (editableImage) {
           event.preventDefault();
           event.stopPropagation();
@@ -3294,7 +3476,7 @@
           showTablePopover(tableCell);
           return;
         }
-        const tabMenu = event.target.closest('[data-tab-menu]');
+        const tabMenu = isEditing() ? event.target.closest('[data-tab-menu]') : null;
         if (tabMenu) {
           event.preventDefault();
           event.stopPropagation();
@@ -3316,7 +3498,7 @@
             return;
           }
         }
-        const tabInsert = event.target.closest('[data-tab-insert]');
+        const tabInsert = isEditing() ? event.target.closest('[data-tab-insert]') : null;
         if (tabInsert) {
           event.preventDefault();
           event.stopPropagation();
@@ -3324,7 +3506,7 @@
           addTabAt(Number(blockEl?.dataset.blockIndex), Number(tabInsert.dataset.tabInsert));
           return;
         }
-        const button = event.target.closest('[data-block-menu]');
+        const button = isEditing() ? event.target.closest('[data-block-menu]') : null;
         if (!button) return;
         event.preventDefault();
         event.stopPropagation();
@@ -3336,6 +3518,7 @@
       });
 
       contentEl.addEventListener('keydown', (event) => {
+        if (!isEditing()) return;
         const tableCell = event.target.closest('[data-table-cell]');
         if (tableCell && event.key === 'Enter') {
           event.preventDefault();
@@ -3361,6 +3544,7 @@
         }
       });
       contentEl.addEventListener('blur', (event) => {
+        if (!isEditing()) return;
         const title = event.target.closest('[data-tab-title-edit]');
         if (!title) return;
         const blockEl = title.closest('[data-block-index]');
@@ -3368,14 +3552,17 @@
       }, true);
 
       contentEl.addEventListener('focusin', (event) => {
+        if (!isEditing()) return;
         const editable = event.target.closest('[data-editable-block], [data-nested-editable]');
         if (editable) state.activeEditable = editable;
       });
       contentEl.addEventListener('blur', (event) => {
+        if (!isEditing()) return;
         const tableCell = event.target.closest('[data-table-cell]');
         if (tableCell) updateTableCellFromElement(tableCell);
       }, true);
       contentEl.addEventListener('input', (event) => {
+        if (!isEditing()) return;
         const editable = event.target.closest('[data-editable-block], [data-nested-editable]');
         if (!editable) return;
         if (editable.dataset.nestedEditable) updateNestedBlockFromEditable(editable);
@@ -3389,6 +3576,7 @@
         if (!event.target.closest('select')) event.preventDefault();
       });
       formatToolbarEl.addEventListener('click', async (event) => {
+        if (!isEditing()) return;
         const button = event.target.closest('[data-format]');
         if (!button) return;
         const command = button.dataset.format;
@@ -3510,14 +3698,32 @@
             const key = nodeKey(item, [index]);
             if (index < 2) state.open.add(key);
           });
+          const route = readEditorRoute();
+          state.mode = route.mode;
+          state.draftId = route.mode === 'edit' ? (route.draftId || `#${Date.now().toString().slice(-5)}`) : null;
           renderTree();
+          state.suppressUrlUpdate = true;
+          const routed = route.docId ? selectDocInEditor(route.docId) : false;
           const first = state.sidebar.docs[0];
-          if (first) selectNode(first, nodeKey(first, [0]));
+          if (!routed && first) selectNode(first, nodeKey(first, [0]));
+          state.suppressUrlUpdate = false;
+          updateEditorModeUi();
+          if (state.selectedNode) updateEditorUrl(nodeDocId(state.selectedNode), {replace: true});
         } catch (error) {
           treeEl.innerHTML = `<div class="empty-state">Не удалось загрузить sidebars.json: ${error.message}</div>`;
           titleEl.textContent = 'Ошибка загрузки меню';
         }
       }
+
+      window.addEventListener('popstate', () => {
+        if (!state.sidebar) return;
+        const route = readEditorRoute();
+        state.suppressUrlUpdate = true;
+        setEditorMode(route.mode, {draftId: route.draftId, replaceUrl: true, render: false});
+        selectDocInEditor(route.docId || 'intro');
+        state.suppressUrlUpdate = false;
+        updateEditorModeUi();
+      });
 
       boot();
     </script>
