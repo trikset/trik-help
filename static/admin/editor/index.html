@@ -1061,6 +1061,7 @@
         activeLink: null,
         linkHoverCloseTimer: null,
         articlePicker: null,
+        articlePickerWheelUntil: 0,
         activeImage: null,
         activeTableCell: null,
         dirtyDocs: new Set(),
@@ -2279,11 +2280,22 @@
         return Math.max(8, Math.min(top, Math.max(8, window.innerHeight - estimatedHeight - 8)));
       }
 
+      function smartFirstPanelOrigin(rect) {
+        const width = 270;
+        const gap = 8;
+        const estimatedHeight = 420;
+        const belowSpace = window.innerHeight - rect.bottom - gap;
+        const rightSpace = window.innerWidth - rect.right - gap;
+        const left = Math.max(8, Math.min(rect.left, window.innerWidth - width - 8));
+        if (belowSpace >= Math.min(estimatedHeight, 360)) return {top: rect.bottom + gap, left};
+        if (rightSpace >= width + gap) return {top: clampPanelTop(rect.top, estimatedHeight), left: rect.right + gap};
+        return {top: clampPanelTop(rect.top - estimatedHeight + rect.height, estimatedHeight), left};
+      }
+
       function openArticlePickerAt(anchor, blockIndex) {
         const rect = anchor.getBoundingClientRect();
-        const top = clampPanelTop(rect.bottom + 6, 280);
-        const left = Math.max(8, Math.min(rect.left, window.innerWidth - 282));
-        state.articlePicker = {blockIndex, path: [], queries: {0: ''}, panelOrigins: [{top, left}]};
+        const origin = smartFirstPanelOrigin(rect);
+        state.articlePicker = {blockIndex, path: [], queries: {0: ''}, panelOrigins: [origin], scrollTops: {}};
         renderArticlePicker({focusLevel: 0});
         articlePickerEl.hidden = false;
       }
@@ -2323,6 +2335,10 @@
       function renderArticlePicker({focusLevel = null, preserveSearch = false} = {}) {
         const picker = state.articlePicker;
         if (!picker) return;
+        articlePickerEl.querySelectorAll('.article-picker-panel').forEach((panel) => {
+          picker.scrollTops = picker.scrollTops || {};
+          picker.scrollTops[panel.dataset.articleLevel] = panel.scrollTop;
+        });
         const activeSearch = articlePickerEl.querySelector('[data-article-search]:focus');
         const activeLevel = activeSearch ? Number(activeSearch.dataset.articleSearch) : null;
         const caret = activeSearch ? activeSearch.selectionStart : null;
@@ -2349,6 +2365,10 @@
             }).join('') : '<div class="article-picker-empty">Ничего не найдено</div>'}
           </div>`;
         }).join('');
+        articlePickerEl.querySelectorAll('.article-picker-panel').forEach((panel) => {
+          const top = picker.scrollTops?.[panel.dataset.articleLevel];
+          if (top != null) panel.scrollTop = top;
+        });
         const levelToFocus = focusLevel ?? (preserveSearch ? activeLevel : null);
         if (levelToFocus != null) {
           const next = articlePickerEl.querySelector(`[data-article-search="${levelToFocus}"]`);
@@ -3414,7 +3434,12 @@
         if (!panel) return;
         event.preventDefault();
         event.stopPropagation();
+        state.articlePickerWheelUntil = Date.now() + 180;
         panel.scrollBy({top: event.deltaY, left: 0, behavior: 'auto'});
+        if (state.articlePicker) {
+          state.articlePicker.scrollTops = state.articlePicker.scrollTops || {};
+          state.articlePicker.scrollTops[panel.dataset.articleLevel] = panel.scrollTop;
+        }
       }, {passive: false});
 
       articlePickerEl.addEventListener('input', (event) => {
@@ -3426,6 +3451,7 @@
         renderArticlePicker({preserveSearch: true});
       });
       articlePickerEl.addEventListener('mouseover', (event) => {
+        if (Date.now() < state.articlePickerWheelUntil) return;
         const item = event.target.closest('[data-article-index]');
         if (!item || !state.articlePicker) return;
         const level = Number(item.closest('[data-article-level]')?.dataset.articleLevel || 0);
