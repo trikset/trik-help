@@ -358,14 +358,13 @@
       .menu-popover button.danger { color: #b42318; }
       .article-picker {
         position: fixed;
+        inset: 0;
         z-index: 40;
-        display: flex;
-        align-items: flex-start;
-        gap: 8px;
-        max-width: calc(100vw - 24px);
+        pointer-events: none;
       }
       .article-picker[hidden] { display: none; }
       .article-picker-panel {
+        position: fixed;
         width: 270px;
         max-width: min(270px, calc(100vw - 24px));
         max-height: min(520px, calc(100vh - 24px));
@@ -375,6 +374,7 @@
         border-radius: 12px;
         background: var(--panel);
         box-shadow: 0 12px 32px rgba(12, 26, 48, .18);
+        pointer-events: auto;
       }
       .article-picker-search {
         width: 100%;
@@ -393,7 +393,8 @@
         row-gap: 0;
         column-gap: 8px;
         width: 100%;
-        padding: 5px 8px;
+        min-height: 48px;
+        padding: 6px 8px;
         border: 0;
         border-radius: 8px;
         background: transparent;
@@ -403,12 +404,13 @@
       }
       .article-picker-item:hover,
       .article-picker-item.active { background: color-mix(in srgb, var(--soft) 78%, transparent); }
-      .article-picker-title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px; font-weight: 500; line-height: 1.12; }
-      .article-picker-file { grid-column: 1 / -1; overflow: hidden; color: var(--muted); font-size: 12px; line-height: 1.05; text-overflow: ellipsis; white-space: nowrap; }
+      .article-picker-title { align-self: end; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px; font-weight: 500; line-height: 1.15; }
+      .article-picker-file { grid-column: 1 / -1; align-self: start; overflow: hidden; color: var(--muted); font-size: 12px; line-height: 1.15; text-overflow: ellipsis; white-space: nowrap; }
       .article-picker-link-item { cursor: pointer; }
       .article-picker-link-item .article-picker-title::before { content: "🔗"; margin-right: 7px; font-size: 13px; }
+      .article-picker-divider { height: 1px; margin: 6px -6px 4px; background: var(--border); }
       .article-picker-heading {
-        padding: 8px 8px 5px;
+        padding: 7px 8px 5px;
         color: var(--muted);
         font-size: 12px;
         line-height: 1;
@@ -2272,11 +2274,19 @@
 
       function openArticlePickerAt(anchor, blockIndex) {
         const rect = anchor.getBoundingClientRect();
-        state.articlePicker = {blockIndex, path: [], queries: {0: ''}};
-        articlePickerEl.style.top = `${Math.min(rect.bottom + 6, window.innerHeight - 540)}px`;
-        articlePickerEl.style.left = `${Math.min(rect.left, window.innerWidth - 320)}px`;
+        const top = Math.max(8, Math.min(rect.bottom + 6, window.innerHeight - 540));
+        const left = Math.max(8, Math.min(rect.left, window.innerWidth - 282));
+        state.articlePicker = {blockIndex, path: [], queries: {0: ''}, panelOrigins: [{top, left}]};
         renderArticlePicker({focusLevel: 0});
         articlePickerEl.hidden = false;
+      }
+
+      function panelOriginForLevel(level) {
+        const picker = state.articlePicker;
+        const fallback = picker?.panelOrigins?.[0] || {top: 8, left: 8};
+        const origin = picker?.panelOrigins?.[level];
+        if (origin) return origin;
+        return {top: fallback.top, left: Math.min(fallback.left + (278 * level), window.innerWidth - 282)};
       }
 
       function articleNodeForPath(path) {
@@ -2312,10 +2322,11 @@
           const parentId = parentNode ? (nodeDocId(parentNode) || firstDocIdInNode(parentNode)) : '';
           const parentRoute = parentNode ? sectionRouteForNode(parentNode) : '';
           const parentLink = parentNode && parentId
-            ? `<div class="article-picker-item article-picker-link-item" data-article-select="${escapeHtml(parentId)}"><span class="article-picker-title">Ссылка на &quot;${escapeHtml(displayLabel(parentNode))}&quot;</span><span class="article-picker-file">${escapeHtml(parentRoute)}</span></div><div class="article-picker-heading">Подстраницы</div>`
+            ? `<div class="article-picker-item article-picker-link-item" data-article-select="${escapeHtml(parentId)}"><span class="article-picker-title">Ссылка на &quot;${escapeHtml(displayLabel(parentNode))}&quot;</span><span class="article-picker-file">${escapeHtml(parentRoute)}</span></div><div class="article-picker-divider"></div><div class="article-picker-heading">Подстраницы</div>`
             : '';
           const items = articleItemsForLevel(level).filter((item) => articleItemMatches(item, query));
-          return `<div class="article-picker-panel" data-article-level="${level}">
+          const origin = panelOriginForLevel(level);
+          return `<div class="article-picker-panel" data-article-level="${level}" style="top:${origin.top}px;left:${origin.left}px">
             <input class="article-picker-search" data-article-search="${level}" placeholder="Поиск" value="${escapeHtml(query)}" />
             ${parentLink}
             ${items.length ? items.map((item) => {
@@ -3403,6 +3414,13 @@
         const hasChildren = item.dataset.articleHasChildren === 'true';
         state.articlePicker.path = hasChildren ? [...state.articlePicker.path.slice(0, level), index] : state.articlePicker.path.slice(0, level);
         if (hasChildren) {
+          const rect = item.getBoundingClientRect();
+          const currentOrigin = panelOriginForLevel(level);
+          state.articlePicker.panelOrigins = state.articlePicker.panelOrigins.slice(0, level + 1);
+          state.articlePicker.panelOrigins[level + 1] = {
+            top: Math.max(8, Math.min(rect.top, window.innerHeight - 520)),
+            left: Math.min(currentOrigin.left + 278, window.innerWidth - 282),
+          };
           state.articlePicker.queries[level + 1] = state.articlePicker.queries[level + 1] || '';
           renderArticlePicker();
         } else if (articlePickerEl.querySelectorAll('.article-picker-panel').length > level + 1) {
