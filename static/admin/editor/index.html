@@ -231,7 +231,7 @@
       .tree {
         overflow: auto;
         min-height: 0;
-        padding: 10px 10px 18px;
+        padding: 8px 8px 14px;
         overscroll-behavior: contain;
         scrollbar-width: thin;
         scrollbar-color: color-mix(in srgb, var(--muted) 34%, transparent) transparent;
@@ -248,23 +248,23 @@
         background: color-mix(in srgb, var(--muted) 52%, transparent);
         background-clip: content-box;
       }
-      .tree-group { margin: 1px 0; }
-      .tree > .tree-group:not(:first-child) { margin-top: 14px; }
+      .tree-group { margin: 0; }
+      .tree > .tree-group:not(:first-child) { margin-top: 8px; }
       .tree > .tree-group > .tree-row .node-title {
         text-transform: uppercase;
         letter-spacing: .035em;
-        font-size: 13px;
+        font-size: 12.5px;
         font-weight: 750;
       }
       .tree-row {
         position: relative;
         display: grid;
-        grid-template-columns: 26px 22px minmax(0, 1fr) 30px;
+        grid-template-columns: 18px minmax(0, 1fr) 22px 24px;
         align-items: center;
-        min-height: 38px;
+        min-height: 30px;
         gap: 2px;
-        border-radius: 8px;
-        padding-right: 4px;
+        border-radius: 7px;
+        padding-right: 2px;
         color: #666f79;
       }
       .tree-row:hover {
@@ -285,16 +285,17 @@
         outline: 1px dashed var(--primary);
       }
       .twisty, .node-menu, .drag-handle {
-        width: 28px;
-        height: 28px;
+        width: 24px;
+        height: 24px;
         border: 0;
-        border-radius: 8px;
+        border-radius: 7px;
         background: transparent;
         color: var(--muted);
         cursor: pointer;
       }
       .drag-handle {
-        width: 22px;
+        grid-column: 1;
+        width: 18px;
         opacity: 0;
         cursor: grab;
         touch-action: none;
@@ -306,20 +307,31 @@
       .tree-row.dragging-source .drag-handle { opacity: 1; }
       .tree.dragging .drag-handle { opacity: .45; }
       .twisty:hover, .node-menu:hover, .drag-handle:hover { background: color-mix(in srgb, var(--panel) 70%, transparent); color: var(--text); }
-      .twisty.empty { cursor: default; opacity: .25; }
+      .twisty {
+        grid-column: 3;
+        justify-self: end;
+        opacity: 0;
+        transform: translateX(2px);
+      }
+      .tree-row:hover .twisty,
+      .twisty:focus-visible,
+      .twisty.open { opacity: 1; }
+      .twisty.empty { cursor: default; opacity: 0; pointer-events: none; }
       .node-main {
+        grid-column: 2;
         min-width: 0;
         border: 0;
         background: transparent;
         color: inherit;
         text-align: left;
         cursor: pointer;
-        padding: 8px 4px;
+        padding: 5px 3px;
       }
       .node-title {
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: normal;
+        line-height: 1.22;
       }
       .tree-row.category-only .node-title {
         font-weight: 700;
@@ -332,25 +344,26 @@
         display: none;
       }
       .node-menu {
+        grid-column: 4;
         opacity: 0;
         font-weight: 700;
       }
       .tree-row:hover .node-menu, .node-menu.open { opacity: 1; }
       .tree-children {
-        margin-left: 24px;
-        padding-left: 10px;
+        margin-left: 12px;
+        padding-left: 6px;
         border-left: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
       }
       .insert-line {
         position: relative;
-        height: 11px;
-        margin: -2px 0;
+        height: 10px;
+        margin: -3px 0;
       }
       .insert-line::before {
         content: "";
         position: absolute;
-        left: 28px;
-        right: 10px;
+        left: 22px;
+        right: 8px;
         top: 5px;
         height: 1px;
         border-radius: 999px;
@@ -358,16 +371,16 @@
       }
       .insert-plus {
         position: absolute;
-        left: 4px;
+        left: 2px;
         top: 50%;
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        width: 22px;
-        height: 22px;
+        width: 20px;
+        height: 20px;
         transform: translateY(-50%) scale(.92);
         border: 0;
-        border-radius: 8px;
+        border-radius: 7px;
         background: color-mix(in srgb, var(--muted) 10%, var(--panel));
         color: var(--text);
         opacity: 0;
@@ -626,12 +639,12 @@
         background: color-mix(in srgb, var(--soft) 46%, transparent);
       }
       body.mode-view .tree-row {
-        grid-template-columns: 22px minmax(0, 1fr);
-        gap: 4px;
-        padding-right: 8px;
+        grid-template-columns: minmax(0, 1fr) 24px;
+        gap: 2px;
+        padding-right: 4px;
       }
-      body.mode-view .tree-row .twisty { grid-column: 1; }
-      body.mode-view .tree-row .node-main { grid-column: 2; }
+      body.mode-view .tree-row .node-main { grid-column: 1; }
+      body.mode-view .tree-row .twisty { grid-column: 2; }
       body.mode-view .page-block { padding-left: 10px; }
       body.mode-view .page-block:hover { background: transparent; }
       body.mode-view .block-controls,
@@ -3108,8 +3121,9 @@
 
         const twisty = document.createElement('button');
         twisty.type = 'button';
-        twisty.className = `twisty ${hasChildren ? '' : 'empty'}`;
-        twisty.textContent = hasChildren ? (state.open.has(key) || state.filter ? '▾' : '▸') : '•';
+        const expanded = state.open.has(key) || state.filter;
+        twisty.className = `twisty ${hasChildren ? '' : 'empty'} ${expanded ? 'open' : ''}`;
+        twisty.textContent = hasChildren ? (expanded ? '▾' : '▸') : '';
         twisty.setAttribute('aria-label', hasChildren ? 'Свернуть или развернуть' : 'Нет вложенных страниц');
         twisty.addEventListener('click', (event) => {
           event.stopPropagation();
@@ -3730,10 +3744,16 @@
           if (!contentResponse.ok) throw new Error(`content HTTP ${contentResponse.status}`);
           state.sidebar = await response.json();
           state.content = await contentResponse.json();
-          state.sidebar.docs.forEach((item, index) => {
-            const key = nodeKey(item, [index]);
-            if (index < 2) state.open.add(key);
-          });
+          function openAll(items = state.sidebar.docs, path = []) {
+            items.forEach((item, index) => {
+              const nodePath = [...path, index];
+              if (Array.isArray(item.items) && item.items.length) {
+                state.open.add(nodeKey(item, nodePath));
+                openAll(item.items, nodePath);
+              }
+            });
+          }
+          openAll();
           const route = readEditorRoute();
           state.mode = route.mode;
           state.draftId = route.mode === 'edit' ? (route.draftId || `#${Date.now().toString().slice(-5)}`) : null;
