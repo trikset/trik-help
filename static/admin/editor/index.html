@@ -338,6 +338,15 @@
       .twisty:focus-visible { opacity: .72; }
       .twisty.open svg { transform: rotate(90deg); }
       .twisty.empty { cursor: default; opacity: 0; pointer-events: none; }
+      .twisty.link-indicator {
+        opacity: .58;
+        pointer-events: none;
+      }
+      .twisty.link-indicator svg {
+        transform: none;
+        width: 17px;
+        height: 17px;
+      }
       .node-main {
         grid-column: 2;
         grid-row: 1;
@@ -371,6 +380,11 @@
         grid-row: 1;
         opacity: 0;
         font-weight: 700;
+      }
+      .node-menu svg {
+        width: 18px;
+        height: 18px;
+        display: block;
       }
       .tree-row:hover .node-menu, .node-menu.open { opacity: 1; }
       .tree-children {
@@ -3151,9 +3165,12 @@
         const twisty = document.createElement('button');
         twisty.type = 'button';
         const expanded = state.open.has(key) || state.filter;
-        twisty.className = `twisty ${hasChildren ? '' : 'empty'} ${expanded ? 'open' : ''}`;
-        twisty.innerHTML = hasChildren ? '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5.75 15.25 12 9 18.25" stroke="currentColor" stroke-width="2.15" stroke-linecap="round" stroke-linejoin="round"/></svg>' : '';
-        twisty.setAttribute('aria-label', hasChildren ? 'Свернуть или развернуть' : 'Нет вложенных страниц');
+        const isExternalLink = node.type === 'link';
+        twisty.className = `twisty ${hasChildren ? '' : (isExternalLink ? 'link-indicator' : 'empty')} ${expanded ? 'open' : ''}`;
+        twisty.innerHTML = hasChildren
+          ? '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5.75 15.25 12 9 18.25" stroke="currentColor" stroke-width="2.15" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+          : (isExternalLink ? '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M10 7H7.75A2.75 2.75 0 0 0 5 9.75v6.5A2.75 2.75 0 0 0 7.75 19h6.5A2.75 2.75 0 0 0 17 16.25V14" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/><path d="M13 5h6v6M18.5 5.5 11.5 12.5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>' : '');
+        twisty.setAttribute('aria-label', hasChildren ? 'Свернуть или развернуть' : (isExternalLink ? 'Внешняя ссылка' : 'Нет вложенных страниц'));
         twisty.addEventListener('click', (event) => {
           event.stopPropagation();
           if (!hasChildren) return;
@@ -3190,7 +3207,7 @@
         const menu = document.createElement('button');
         menu.type = 'button';
         menu.className = 'node-menu';
-        menu.textContent = '⋯';
+        menu.innerHTML = '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="5.5" r="1.55" fill="currentColor"/><circle cx="12" cy="12" r="1.55" fill="currentColor"/><circle cx="12" cy="18.5" r="1.55" fill="currentColor"/></svg>';
         menu.setAttribute('aria-label', `Действия для ${displayLabel(node)}`);
         menu.addEventListener('click', (event) => {
           event.stopPropagation();
