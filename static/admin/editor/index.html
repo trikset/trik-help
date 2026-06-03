@@ -357,33 +357,51 @@
       .menu-popover .menu-icon { display: inline-flex; width: 24px; margin-right: 6px; color: var(--muted); }
       .menu-popover button.danger { color: #b42318; }
       @media (prefers-color-scheme: dark) { .menu-popover button.danger { color: #ff9b92; } }
-      .link-popover { min-width: 320px; max-width: min(460px, calc(100vw - 24px)); padding: 10px; }
-      .link-popover .link-url-row {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) auto;
-        gap: 8px;
+      .link-popover {
+        display: flex;
         align-items: center;
-        padding: 6px 6px 10px;
+        gap: 12px;
+        min-width: 360px;
+        max-width: min(460px, calc(100vw - 24px));
+        padding: 10px 12px;
+        border-radius: 8px;
+      }
+      .link-popover .link-url-row {
+        display: flex;
+        align-items: center;
+        min-width: 0;
+        flex: 1 1 auto;
       }
       .link-popover .link-url {
         overflow: hidden;
-        color: var(--primary);
-        font-size: 13px;
+        color: var(--text);
+        font-size: 15px;
+        font-weight: 650;
+        text-decoration: none;
         text-overflow: ellipsis;
         white-space: nowrap;
       }
+      .link-popover .link-url::after {
+        content: "↗";
+        margin-left: 6px;
+        color: var(--muted);
+        font-size: 14px;
+      }
       .link-popover .link-actions {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 4px;
-        border-top: 1px solid var(--border);
-        padding-top: 6px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        flex: 0 0 auto;
       }
       .link-popover .link-action-button {
-        display: inline-flex;
-        justify-content: center;
-        gap: 6px;
-        padding: 8px;
+        display: inline-grid;
+        place-items: center;
+        width: 28px;
+        height: 28px;
+        padding: 0;
+        border-radius: 7px;
+        color: var(--muted);
+        font-size: 16px;
         text-align: center;
       }
       .image-popover { min-width: 340px; max-width: min(500px, calc(100vw - 24px)); padding: 10px; }
@@ -594,6 +612,74 @@
         border: 1px solid var(--border);
         border-radius: 12px;
         background: var(--panel-soft);
+      }
+      .content-ref-card {
+        display: grid;
+        grid-template-columns: 44px minmax(0, 1fr) auto;
+        align-items: center;
+        gap: 18px;
+        width: 100%;
+        min-height: 76px;
+        margin: 6px 0;
+        padding: 16px 22px;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        background: var(--panel);
+        box-shadow: 0 6px 18px rgba(12, 26, 48, .08);
+        color: var(--text);
+        text-decoration: none;
+      }
+      .content-ref-card:hover {
+        border-color: color-mix(in srgb, var(--primary) 36%, var(--border));
+        box-shadow: 0 10px 24px rgba(12, 26, 48, .11);
+      }
+      .content-ref-icon {
+        position: relative;
+        display: grid;
+        place-items: center;
+        width: 36px;
+        height: 42px;
+        color: var(--muted);
+      }
+      .content-ref-icon::before {
+        content: "";
+        width: 28px;
+        height: 34px;
+        border: 2px solid currentColor;
+        border-radius: 6px;
+        background: linear-gradient(135deg, transparent 0 48%, currentColor 49% 55%, transparent 56%) top right / 12px 12px no-repeat;
+      }
+      .content-ref-icon::after {
+        content: "↪";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        display: grid;
+        place-items: center;
+        width: 18px;
+        height: 18px;
+        border-radius: 999px;
+        background: var(--panel);
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1;
+      }
+      .content-ref-title {
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-size: 18px;
+        font-weight: 650;
+        color: var(--text);
+      }
+      .content-ref-action {
+        padding: 7px 12px;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        background: var(--panel-soft);
+        color: var(--muted);
+        font-size: 14px;
       }
       .editable-block { outline: none; border-radius: 8px; }
       .editable-block:focus { box-shadow: 0 0 0 2px color-mix(in srgb, var(--primary) 18%, transparent); }
@@ -909,6 +995,7 @@
         tabDragging: null,
         holdTimer: null,
         activeLink: null,
+        linkHoverCloseTimer: null,
         activeImage: null,
         activeTableCell: null,
         dirtyDocs: new Set(),
@@ -1236,6 +1323,7 @@
           current = [];
           if (!text) return;
           if (/^```/.test(text)) return blocks.push({type: 'code', raw: text});
+          if (/^<div className="content-ref-card">/.test(text)) return blocks.push({type: 'content-ref', raw: text});
           if (/^!\[[^\]]*\]\([^)]+\)$/.test(text) || /^<div[^>]*>\s*<img[\s\S]*<\/div>$/.test(text) || /^<img[\s\S]*>$/.test(text)) return blocks.push({type: 'image', raw: text});
           if (/^:::/m.test(text)) return blocks.push({type: 'hint', raw: text});
           if (/^>\s/.test(text)) return blocks.push({type: 'quote', raw: text});
@@ -1256,6 +1344,16 @@
           }
           if (inFence) {
             current.push(line);
+            continue;
+          }
+          if (/^<div className="content-ref-card">/.test(line)) {
+            flush();
+            current.push(line);
+            continue;
+          }
+          if (current.length && /^<\/div>\s*$/.test(line) && /^<div className="content-ref-card">/.test(current[0])) {
+            current.push(line);
+            flush();
             continue;
           }
           if (!line.trim()) flush();
@@ -1279,7 +1377,7 @@
           hint: {type: 'hint', raw: ':::info\nНовая подсказка.\n:::'},
           code: {type: 'code', raw: '```js\n// Новый код\n```'},
           quote: {type: 'quote', raw: '> Новая цитата'},
-          link: {type: 'paragraph', raw: '[Задать вопрос](https://trikset.com)'},
+          link: {type: 'content-ref', raw: '<div className="content-ref-card">\n<a href="/studio/about/"><span className="content-ref-icon" aria-hidden="true"></span><span className="content-ref-title">О TRIK Studio</span><span className="content-ref-action">View</span></a>\n</div>'},
           tabs: {type: 'tabs', raw: '<Tabs>\n<TabItem value={"tab-1"} label={"Вкладка 1"}>\nНовая вкладка.\n</TabItem>\n\n<TabItem value={"tab-2"} label={"Вкладка 2"}>\nВторая вкладка.\n</TabItem>\n</Tabs>'},
           columns: {type: 'paragraph', raw: '<div class="row">\n<div class="col">Колонка 1</div>\n<div class="col">Колонка 2</div>\n</div>'},
         };
@@ -1302,6 +1400,13 @@
         if (block.type === 'anchor') return block.raw || (block.anchor ? `######  {#${block.anchor}}` : '');
         if (block.type?.startsWith('heading-')) return markdownHeading(block);
         return block.raw || '';
+      }
+
+      function renderContentRef(raw) {
+        const link = raw.match(/<a\s+href="([^"]+)"[^>]*>[\s\S]*?<span className="content-ref-title">([\s\S]*?)<\/span>[\s\S]*?<\/a>/);
+        if (!link) return `<div class="raw-block">${escapeHtml(raw)}</div>`;
+        const [, href, title] = link;
+        return `<a class="content-ref-card" href="${escapeHtml(href)}" target="_blank" rel="noopener"><span class="content-ref-icon" aria-hidden="true"></span><span class="content-ref-title">${escapeHtml(title.replace(/<[^>]+>/g, ''))}</span><span class="content-ref-action">View</span></a>`;
       }
 
       function pageToMarkdown(page) {
@@ -1499,6 +1604,8 @@
           html = `<div class="hint-block">${inlineMarkdown(block.raw.replace(/^:::\w*\n?/, '').replace(/:::$/, '').trim()).replace(/\n/g, '<br />')}</div>`;
         } else if (block.type === 'tabs') {
           html = renderTabs(block.raw, index);
+        } else if (block.type === 'content-ref') {
+          html = renderContentRef(block.raw);
         } else if (block.type === 'table') {
           html = renderTable(block.raw, {editable: true, blockIndex: index});
         } else {
@@ -1688,6 +1795,8 @@
 
       function showLinkPopover(link) {
         if (!link) return;
+        clearTimeout(state.linkHoverCloseTimer);
+        if (state.activeLink === link && !popoverEl.hidden && popoverEl.classList.contains('link-popover')) return;
         closePopover();
         state.activeLink = link;
         const href = link.getAttribute('href') || '';
@@ -1695,13 +1804,12 @@
         popoverEl.className = 'menu-popover link-popover';
         popoverEl.innerHTML = `
           <div class="link-url-row">
-            <a class="link-url" href="${escapeHtml(absoluteHref)}" target="_blank" rel="noreferrer" title="${escapeHtml(absoluteHref)}">${escapeHtml(href)}</a>
-            <button type="button" class="link-action-button" data-link-action="open" title="Открыть ссылку">↗</button>
+            <a class="link-url" href="${escapeHtml(absoluteHref)}" target="_blank" rel="noreferrer" title="${escapeHtml(absoluteHref)}">${escapeHtml(link.textContent.trim() || href)}</a>
           </div>
           <div class="link-actions">
-            <button type="button" class="link-action-button" data-link-action="edit">✎ Изменить</button>
-            <button type="button" class="link-action-button" data-link-action="copy">⧉ Копировать</button>
-            <button type="button" class="link-action-button danger" data-link-action="unlink">⌫ Убрать</button>
+            <button type="button" class="link-action-button" data-link-action="copy" title="Копировать ссылку">⧉</button>
+            <button type="button" class="link-action-button" data-link-action="edit" title="Изменить ссылку">✎</button>
+            <button type="button" class="link-action-button danger" data-link-action="unlink" title="Убрать ссылку">×</button>
           </div>
         `;
         const rect = link.getBoundingClientRect();
@@ -2387,6 +2495,7 @@
       }
 
       function closePopover() {
+        clearTimeout(state.linkHoverCloseTimer);
         popoverEl.hidden = true;
         popoverEl.innerHTML = '';
         popoverEl.className = 'menu-popover';
@@ -2838,6 +2947,24 @@
         if (tabHandle) return startHoldForTabDrag(tabHandle, event);
         const blockHandle = event.target.closest('[data-block-drag]');
         if (blockHandle) return startHoldForBlockDrag(blockHandle, event);
+      });
+
+      contentEl.addEventListener('mouseover', (event) => {
+        const editableLink = event.target.closest('[data-editable-block] a, [data-nested-editable] a, [data-table-cell] a');
+        if (!editableLink) return;
+        showLinkPopover(editableLink);
+      });
+      contentEl.addEventListener('mouseout', (event) => {
+        const editableLink = event.target.closest('[data-editable-block] a, [data-nested-editable] a, [data-table-cell] a');
+        if (!editableLink || editableLink !== state.activeLink) return;
+        const next = event.relatedTarget;
+        if (next && (editableLink.contains(next) || popoverEl.contains(next))) return;
+        state.linkHoverCloseTimer = setTimeout(() => closePopover(), 160);
+      });
+      popoverEl.addEventListener('mouseenter', () => clearTimeout(state.linkHoverCloseTimer));
+      popoverEl.addEventListener('mouseleave', () => {
+        if (!popoverEl.classList.contains('link-popover')) return;
+        state.linkHoverCloseTimer = setTimeout(() => closePopover(), 160);
       });
 
       contentEl.addEventListener('click', (event) => {
