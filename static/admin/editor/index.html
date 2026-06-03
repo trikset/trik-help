@@ -905,6 +905,60 @@
         color: var(--muted);
         font-size: 14px;
       }
+      .doc-pagination {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+        margin: 56px 0 4px;
+      }
+      .doc-pagination.single { grid-template-columns: 1fr; }
+      .doc-page-link {
+        display: grid;
+        grid-template-columns: 42px minmax(0, 1fr) 42px;
+        align-items: center;
+        min-height: 78px;
+        padding: 16px 18px;
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        background: var(--panel);
+        color: var(--text);
+        text-decoration: none;
+        box-shadow: 0 2px 8px rgba(12, 26, 48, .04);
+      }
+      .doc-page-link:hover {
+        border-color: color-mix(in srgb, var(--primary) 34%, var(--border));
+        box-shadow: 0 8px 20px rgba(12, 26, 48, .08);
+        text-decoration: none;
+      }
+      .doc-page-link.prev { text-align: right; }
+      .doc-page-link.next { text-align: left; }
+      .doc-page-arrow {
+        display: grid;
+        place-items: center;
+        color: var(--muted);
+      }
+      .doc-page-arrow svg { width: 29px; height: 29px; }
+      .doc-page-meta { min-width: 0; }
+      .doc-page-direction {
+        display: block;
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.15;
+      }
+      .doc-page-title {
+        display: block;
+        overflow: hidden;
+        color: var(--text);
+        font-size: 16px;
+        font-weight: 650;
+        line-height: 1.25;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      @media (max-width: 720px) {
+        .doc-pagination { grid-template-columns: 1fr; }
+        .doc-page-link.prev { text-align: left; }
+      }
       .editable-block { outline: none; border-radius: 8px; }
       .editable-block:focus { box-shadow: 0 0 0 2px color-mix(in srgb, var(--primary) 18%, transparent); }
       .tabs-block::before { content: none; }
@@ -1298,6 +1352,31 @@
       function nodePublicUrl(node) {
         if (node.type === 'link') return node.href || '#';
         return publicUrlForDoc(nodeDocId(node));
+      }
+
+      function flattenDocNavigation(items = state.sidebar?.docs || [], result = []) {
+        for (const item of items || []) {
+          const docId = nodeDocId(item);
+          if (docId && contentForDocId(docId)) result.push({id: docId, title: displayLabel(item), href: publicUrlForDoc(docId)});
+          if (Array.isArray(item.items)) flattenDocNavigation(item.items, result);
+        }
+        return result;
+      }
+
+      function docNavigationFor(docId) {
+        const docs = flattenDocNavigation();
+        const index = docs.findIndex((item) => item.id === docId || item.id.replace(/\/index$/, '') === docId.replace(/\/index$/, ''));
+        return index < 0 ? {prev: null, next: null} : {prev: docs[index - 1] || null, next: docs[index + 1] || null};
+      }
+
+      function renderDocPagination(docId) {
+        const {prev, next} = docNavigationFor(docId);
+        if (!prev && !next) return '';
+        const arrow = (dir) => dir === 'prev'
+          ? '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+          : '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+        const card = (item, dir) => item ? `<a class="doc-page-link ${dir}" href="${escapeHtml(item.href)}" data-editor-doc-link="${escapeHtml(item.id)}"><span class="doc-page-arrow">${dir === 'prev' ? arrow('prev') : ''}</span><span class="doc-page-meta"><span class="doc-page-direction">${dir === 'prev' ? 'Previous' : 'Next'}</span><span class="doc-page-title">${escapeHtml(item.title)}</span></span><span class="doc-page-arrow">${dir === 'next' ? arrow('next') : ''}</span></a>` : '';
+        return `<nav class="doc-pagination ${prev && next ? '' : 'single'}" aria-label="Навигация по страницам">${card(prev, 'prev')}${card(next, 'next')}</nav>`;
       }
 
       function docsPathForDoc(id) {
@@ -2066,7 +2145,7 @@
           return;
         }
         try {
-          contentEl.innerHTML = page.blocks.map(renderBlock).join('');
+          contentEl.innerHTML = `${page.blocks.map(renderBlock).join('')}${renderDocPagination(docId)}`;
           const toc = page.toc.filter((item) => item.level <= 3);
           pageTocEl.innerHTML = `<h3>На этой странице</h3>${toc.length ? toc.map((item) => `<a class="toc-level-${item.level}" href="#${escapeHtml(item.anchor || '')}">${escapeHtml(item.text)}</a>`).join('') : '<div class="muted">Нет заголовков.</div>'}`;
         } catch (error) {
@@ -3778,6 +3857,13 @@
           event.stopPropagation();
           const docId = docIdFromPublicHref(contentRef.getAttribute('href') || '');
           if (!selectDocInEditor(docId)) noticeEl.textContent = `Не нашёл статью для ссылки: ${contentRef.getAttribute('href') || ''}`;
+          return;
+        }
+        const docPageLink = event.target.closest('[data-editor-doc-link]');
+        if (docPageLink) {
+          event.preventDefault();
+          event.stopPropagation();
+          selectDocInEditor(docPageLink.dataset.editorDocLink);
           return;
         }
         const editableImage = isEditing() ? event.target.closest('[data-image-edit]') : null;

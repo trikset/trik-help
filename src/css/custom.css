@@ -162,6 +162,57 @@
   max-height: 64px;
 }
 
+/* GitBook-like previous/next cards. Docusaurus generates them automatically from sidebars. */
+.pagination-nav {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 3.5rem;
+}
+
+.pagination-nav:has(> :only-child) {
+  grid-template-columns: 1fr;
+}
+
+.pagination-nav__link {
+  min-height: 78px;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(12, 26, 48, 0.04);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.pagination-nav__link:hover {
+  border-color: color-mix(in srgb, var(--ifm-color-primary) 34%, var(--ifm-color-emphasis-200));
+  box-shadow: 0 8px 20px rgba(12, 26, 48, 0.08);
+  text-decoration: none;
+}
+
+.pagination-nav__sublabel {
+  color: var(--ifm-color-emphasis-600);
+  font-size: 0;
+  line-height: 1.15;
+}
+
+.pagination-nav__sublabel::after {
+  font-size: 0.88rem;
+}
+
+.pagination-nav__link--prev .pagination-nav__sublabel::after { content: "Previous"; }
+.pagination-nav__link--next .pagination-nav__sublabel::after { content: "Next"; }
+
+.pagination-nav__label {
+  color: var(--ifm-font-color-base);
+  font-size: 1rem;
+  line-height: 1.25;
+}
+
+@media (max-width: 720px) {
+  .pagination-nav {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Compatibility anchors are only jump targets for old GitBook links; don't show stray # marks. */
 .theme-doc-markdown h6.anchor {
   height: 0;
