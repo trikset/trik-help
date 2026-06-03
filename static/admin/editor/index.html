@@ -340,8 +340,9 @@
       .twisty.empty { cursor: default; opacity: 0; pointer-events: none; }
       .twisty.link-indicator {
         opacity: .58;
-        pointer-events: none;
       }
+      .tree-row:hover .twisty.link-indicator,
+      .twisty.link-indicator:focus-visible { opacity: .82; }
       .twisty.link-indicator svg {
         transform: none;
         width: 17px;
@@ -3171,8 +3172,13 @@
           ? '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5.75 15.25 12 9 18.25" stroke="currentColor" stroke-width="2.15" stroke-linecap="round" stroke-linejoin="round"/></svg>'
           : (isExternalLink ? '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M10 7H7.75A2.75 2.75 0 0 0 5 9.75v6.5A2.75 2.75 0 0 0 7.75 19h6.5A2.75 2.75 0 0 0 17 16.25V14" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/><path d="M13 5h6v6M18.5 5.5 11.5 12.5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>' : '');
         twisty.setAttribute('aria-label', hasChildren ? 'Свернуть или развернуть' : (isExternalLink ? 'Внешняя ссылка' : 'Нет вложенных страниц'));
+        if (isExternalLink) twisty.title = 'Внешняя ссылка';
         twisty.addEventListener('click', (event) => {
           event.stopPropagation();
+          if (isExternalLink && node.href) {
+            window.open(node.href, '_blank', 'noreferrer');
+            return;
+          }
           if (!hasChildren) return;
           state.open.has(key) ? state.open.delete(key) : state.open.add(key);
           renderTree();
