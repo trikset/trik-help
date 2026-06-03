@@ -27,7 +27,7 @@ function stripFrontmatter(source) {
 }
 
 function headingAnchor(text) {
-  const explicit = text.match(/\{#([^}]+)\}/);
+  const explicit = text.match(/\{#([^}]+)\}/) || text.match(/&#123;#([^&]+)&#125;/i);
   if (explicit) return explicit[1];
   return text
     .replace(/<[^>]+>/g, '')
@@ -59,6 +59,7 @@ function blockType(raw) {
   if (/^```/.test(text)) return 'code';
   if (/^:::/m.test(text)) return 'hint';
   if (/^<Tabs[\s>]/.test(text)) return 'tabs';
+  if (/^<div className="content-ref-card">/.test(text)) return 'content-ref';
   if (/^>\s/.test(text)) return 'quote';
   if (/^!\[[^\]]*\]\([^)]+\)$/.test(text) || /^<div[^>]*>\s*<img[\s\S]*<\/div>$/.test(text) || /^<img[\s\S]*>$/.test(text)) return 'image';
   if (/^\|.+\|\n\|[-:|\s]+\|/.test(text)) return 'table';
@@ -100,6 +101,17 @@ function parseBlocks(source) {
       continue;
     }
 
+    if (/^<div className="content-ref-card">/.test(line)) {
+      flush();
+      current.push(line);
+      continue;
+    }
+    if (current.length && /^<\/div>\s*$/.test(line) && /^<div className="content-ref-card">/.test(current[0])) {
+      current.push(line);
+      flush();
+      continue;
+    }
+
     if (line.startsWith('```')) {
       current.push(line);
       inFence = !inFence;
@@ -107,6 +119,13 @@ function parseBlocks(source) {
       continue;
     }
     if (inFence) { current.push(line); continue; }
+
+    if (/^#{1,6}\s+/.test(line)) {
+      flush();
+      current.push(line);
+      flush();
+      continue;
+    }
 
     if (/^:::/m.test(line)) {
       current.push(line);
