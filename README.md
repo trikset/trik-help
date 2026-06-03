@@ -10,9 +10,9 @@
 
 Также в справке описано взаимодействие TRIK Studio с поддерживаемыми платформами:
 
-* [Контроллером ТРИК](trik/about/).
-* [LEGO EV3](ev3/about.md).
-* [LEGO NXT](nxt/about.md).
-* [Квадрокоптером Геоскан Пионер](pioneer/about.md).
+* [Контроллером ТРИК](trik/about/)
+* [LEGO EV3](ev3/about.md)
+* [LEGO NXT](nxt/about.md)
+* [Квадрокоптером Геоскан Пионер](pioneer/about.md)
 
 <div align="center"><img src=".gitbook/assets/trik_studio_logo_&#x26;_text_right.png" alt=""></div>
