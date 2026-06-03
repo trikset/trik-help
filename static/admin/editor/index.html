@@ -471,10 +471,21 @@
         text-align: left;
         cursor: pointer;
       }
+      .menu-popover button.icon-menu-button {
+        display: grid;
+        grid-template-columns: 24px minmax(0, 1fr) 18px;
+        align-items: center;
+        gap: 8px;
+        min-height: 34px;
+        padding: 7px 9px;
+      }
       .menu-popover button:hover { background: color-mix(in srgb, var(--soft) 74%, transparent); }
       .menu-popover .menu-separator { height: 1px; margin: 5px -6px; background: var(--border); }
-      .menu-popover .menu-icon { display: inline-flex; width: 24px; margin-right: 6px; color: var(--muted); }
+      .menu-popover .menu-icon { display: inline-grid; place-items: center; width: 22px; height: 22px; color: var(--muted); }
+      .menu-popover .menu-icon svg { width: 20px; height: 20px; display: block; }
+      .menu-popover .menu-check { color: var(--muted); font-size: 16px; line-height: 1; text-align: center; }
       .menu-popover button.danger { color: #b42318; }
+      .menu-popover button.danger .menu-icon { color: #b42318; }
       .article-picker {
         position: fixed;
         inset: 0;
@@ -1500,8 +1511,13 @@
         return `<table data-table-edit="${options.editable ? 'true' : 'false'}"><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table>`;
       }
 
-      function editableAttrs(index) {
-        return isEditing() ? `contenteditable="true" spellcheck="true" class="editable-block" data-editable-block="${index}"` : 'class="editable-block"';
+      function blockAlignStyle(block) {
+        return block?.align ? ` style="text-align: ${escapeHtml(block.align)}"` : '';
+      }
+
+      function editableAttrs(index, block = null) {
+        const align = blockAlignStyle(block);
+        return isEditing() ? `contenteditable="true" spellcheck="true" class="editable-block" data-editable-block="${index}"${align}` : `class="editable-block"${align}`;
       }
 
       function parseTabs(raw) {
@@ -1784,6 +1800,56 @@
         markDirty(`Удалён блок #${index + 1} (${escapeHtml(removed.type)}).`, null);
       }
 
+      function duplicateBlock(index) {
+        const page = state.content[nodeDocId(state.selectedNode)];
+        const block = page?.blocks?.[index];
+        if (!page || !block) return;
+        page.blocks.splice(index + 1, 0, JSON.parse(JSON.stringify(block)));
+        refreshPageToc(page);
+        renderPageContent(nodeDocId(state.selectedNode));
+        markDirty(`Дублирован блок #${index + 1}.`, null);
+      }
+
+      function blockPlainText(block) {
+        if (!block) return '';
+        if (block.type?.startsWith('heading-')) return block.text || block.raw.replace(/^#+\s*/, '').trim();
+        return String(block.raw || '').replace(/^#+\s*/, '').trim();
+      }
+
+      function setBlockTextType(index, type) {
+        const page = state.content[nodeDocId(state.selectedNode)];
+        const block = page?.blocks?.[index];
+        if (!block) return;
+        const text = blockPlainText(block) || (type === 'paragraph' ? 'Новый параграф.' : 'Новый заголовок');
+        if (type === 'paragraph') {
+          block.type = 'paragraph';
+          block.raw = text;
+          delete block.level;
+          delete block.text;
+          delete block.anchor;
+        } else {
+          const level = Number(type.replace('heading-', '')) || 2;
+          block.type = type;
+          block.level = level;
+          block.text = text;
+          block.raw = `${'#'.repeat(level)} ${text}`;
+          block.anchor = block.anchor || makeAnchor(text);
+          if (index === 0) syncSelectedNodeTitleAndPath(text);
+        }
+        refreshPageToc(page);
+        renderPageContent(nodeDocId(state.selectedNode));
+        markDirty(`Тип блока #${index + 1} изменён на «${blockTypeLabel(type)}».`, null);
+      }
+
+      function setBlockAlign(index, align) {
+        const page = state.content[nodeDocId(state.selectedNode)];
+        const block = page?.blocks?.[index];
+        if (!block) return;
+        block.align = align === 'left' ? '' : align;
+        renderPageContent(nodeDocId(state.selectedNode));
+        markDirty(`Выравнивание блока #${index + 1} изменено.`, null);
+      }
+
       function nestedContextFromButton(button) {
         if (!button?.dataset?.nestedMenu) return null;
         const nestedEl = button.closest('[data-nested-block-index]');
@@ -1907,7 +1973,7 @@
         }
         if (block.type.startsWith('heading-')) {
           const level = Math.min(Math.max(block.level || 2, 1), 3);
-          html = `<h${level} id="${escapeHtml(block.anchor || '')}" ${editableAttrs(index)}>${inlineMarkdown(block.text || block.raw)}</h${level}>`;
+          html = `<h${level} id="${escapeHtml(block.anchor || '')}" ${editableAttrs(index, block)}>${inlineMarkdown(block.text || block.raw)}</h${level}>`;
         } else if (block.type === 'image') {
           const src = imageSrc(block.raw);
           const alt = imageAlt(block.raw);
@@ -1926,7 +1992,7 @@
           html = renderTable(block.raw, {editable: isEditing(), blockIndex: index});
         } else {
           html = block.type === 'paragraph'
-            ? `<p ${editableAttrs(index)}>${inlineMarkdown(block.raw).replace(/\n/g, '<br />')}</p>`
+            ? `<p ${editableAttrs(index, block)}>${inlineMarkdown(block.raw).replace(/\n/g, '<br />')}</p>`
             : renderMarkdownBlock(block.raw);
         }
         return `<section class="page-block" data-block-index="${index}" data-block-type="${escapeHtml(block.type)}">${controls}${html}</section>`;
@@ -3083,49 +3149,79 @@
         button.classList.add('open');
       }
 
+      function menuIcon(name) {
+        const icons = {
+          paragraph: '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 7h14M5 12h11M5 17h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>',
+          h1: '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 6v12M14 6v12M5 12h9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M18 10.5 20 9v9" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+          h2: '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 6v12M13 6v12M4 12h9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M17 10.5c.7-.9 3.4-1 3.6.8.2 1.4-1.4 2.5-3.8 5.1h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+          h3: '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 6v12M13 6v12M4 12h9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M17 10h3.5l-2.1 2.7c1.5.1 2.5.9 2.5 2.4 0 1.7-1.3 2.7-3.1 2.7-.8 0-1.5-.2-2.1-.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+          left: '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 7h14M5 12h10M5 17h13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>',
+          center: '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 7h14M8 12h8M6 17h12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>',
+          right: '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 7h14M9 12h10M6 17h13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>',
+          duplicate: '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="8" y="7" width="10" height="11" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M6 15H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v1M13 10v5M10.5 12.5h5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>',
+          delete: '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 7h14M10 11v6M14 11v6M8 7l.6 12h6.8L16 7M9.5 7l.6-2h3.8l.6 2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+          link: '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9.5 14.5 14.5 9.5M10.5 7.8l1-1a4 4 0 0 1 5.7 5.7l-1 1M13.5 16.2l-1 1a4 4 0 0 1-5.7-5.7l1-1" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>',
+        };
+        return icons[name] || icons.paragraph;
+      }
+
+      function blockMenuButton(action, label, icon, checked = false, danger = false) {
+        return `<button type="button" class="icon-menu-button ${danger ? 'danger' : ''}" data-block-action="${action}"><span class="menu-icon">${menuIcon(icon)}</span><span>${label}</span><span class="menu-check">${checked ? '✓' : ''}</span></button>`;
+      }
+
       function openBlockPopover(button, blockIndex, kind) {
         if (!isEditing()) return;
         const page = state.content[nodeDocId(state.selectedNode)];
         const block = page?.blocks?.[blockIndex];
         if (!block) return;
         state.popoverBlock = {blockIndex, kind};
-        const typeLabel = block.type.replace('heading-', 'заголовок ');
+        const isTextBlock = block.type === 'paragraph' || block.type.startsWith('heading-');
+        const align = block.align || 'left';
         const contentRefActions = block.type === 'content-ref'
-          ? '<button type="button" data-block-action="replace-content-ref">Заменить ссылку…</button><div class="menu-separator"></div>'
+          ? `${blockMenuButton('replace-content-ref', 'Заменить ссылку…', 'link')}<div class="menu-separator"></div>`
           : '';
         popoverEl.innerHTML = kind === 'add'
           ? `
-            <button type="button" data-block-action="add-heading-1">Заголовок 1</button>
-            <button type="button" data-block-action="add-heading-2">Заголовок 2</button>
-            <button type="button" data-block-action="add-heading-3">Заголовок 3</button>
-            <button type="button" data-block-action="add-paragraph">Параграф</button>
-            <button type="button" data-block-action="add-image">Картинка</button>
-            <button type="button" data-block-action="add-table">Таблица</button>
-            <button type="button" data-block-action="add-bulleted-list">Маркеры</button>
-            <button type="button" data-block-action="add-numbered-list">Нумерация</button>
-            <button type="button" data-block-action="add-task-list">Список задач</button>
-            <button type="button" data-block-action="add-hint">Подсказка</button>
-            <button type="button" data-block-action="add-code">Код</button>
-            <button type="button" data-block-action="add-quote">Цитата</button>
-            <button type="button" data-block-action="add-link">Ссылка</button>
-            <button type="button" data-block-action="add-tabs">Табы</button>
-            <button type="button" data-block-action="add-columns">Колонки</button>
+            ${blockMenuButton('add-heading-1', 'Заголовок 1', 'h1')}
+            ${blockMenuButton('add-heading-2', 'Заголовок 2', 'h2')}
+            ${blockMenuButton('add-heading-3', 'Заголовок 3', 'h3')}
+            ${blockMenuButton('add-paragraph', 'Параграф', 'paragraph')}
+            ${blockMenuButton('add-image', 'Картинка', 'paragraph')}
+            ${blockMenuButton('add-table', 'Таблица', 'paragraph')}
+            ${blockMenuButton('add-bulleted-list', 'Маркеры', 'paragraph')}
+            ${blockMenuButton('add-numbered-list', 'Нумерация', 'paragraph')}
+            ${blockMenuButton('add-task-list', 'Список задач', 'paragraph')}
+            ${blockMenuButton('add-hint', 'Подсказка', 'paragraph')}
+            ${blockMenuButton('add-code', 'Код', 'paragraph')}
+            ${blockMenuButton('add-quote', 'Цитата', 'paragraph')}
+            ${blockMenuButton('add-link', 'Ссылка', 'link')}
+            ${blockMenuButton('add-tabs', 'Табы', 'paragraph')}
+            ${blockMenuButton('add-columns', 'Колонки', 'paragraph')}
           `
-          : `
-            ${contentRefActions}
-            <button type="button" data-block-action="move">Перетащить блок</button>
-            <button type="button" data-block-action="duplicate">Дублировать</button>
-            <button type="button" data-block-action="edit-raw">Редактировать Markdown</button>
-            <button type="button" class="danger" data-block-action="delete">Удалить</button>
-          `;
+          : isTextBlock
+            ? `
+              ${blockMenuButton('turn-paragraph', 'Параграф', 'paragraph', block.type === 'paragraph')}
+              ${blockMenuButton('turn-heading-1', 'Заголовок 1', 'h1', block.type === 'heading-1')}
+              ${blockMenuButton('turn-heading-2', 'Заголовок 2', 'h2', block.type === 'heading-2')}
+              ${blockMenuButton('turn-heading-3', 'Заголовок 3', 'h3', block.type === 'heading-3')}
+              <div class="menu-separator"></div>
+              ${blockMenuButton('align-left', 'Слева', 'left', align === 'left')}
+              ${blockMenuButton('align-center', 'Центр', 'center', align === 'center')}
+              ${blockMenuButton('align-right', 'Справа', 'right', align === 'right')}
+              <div class="menu-separator"></div>
+              ${blockMenuButton('duplicate', 'Дублировать', 'duplicate')}
+              ${blockMenuButton('delete', 'Удалить', 'delete', false, true)}
+            `
+            : `
+              ${contentRefActions}
+              ${blockMenuButton('duplicate', 'Дублировать', 'duplicate')}
+              ${blockMenuButton('delete', 'Удалить', 'delete', false, true)}
+            `;
         const rect = button.getBoundingClientRect();
-        popoverEl.style.top = `${Math.min(rect.bottom + 6, window.innerHeight - 220)}px`;
+        popoverEl.style.top = `${Math.min(rect.bottom + 6, window.innerHeight - 300)}px`;
         popoverEl.style.left = `${Math.min(rect.left, window.innerWidth - 250)}px`;
         popoverEl.hidden = false;
         button.classList.add('open');
-        noticeEl.innerHTML = kind === 'add'
-          ? `<span class="dirty">Черновик:</span> выбор типа блока ниже блока #${blockIndex + 1}. Сами операции добавления подключим следующим шагом.`
-          : `<span class="dirty">Блок #${blockIndex + 1}:</span> ${escapeHtml(typeLabel)}. Действия пока показаны как интерфейсный черновик.`;
       }
 
       function matchesFilter(node, childrenMatch) {
@@ -3317,12 +3413,13 @@
           noticeEl.innerHTML = `<span class="dirty">Черновик:</span> действие вкладки «${escapeHtml(event.target.textContent.trim())}» подключим позже.`;
           return;
         }
-        const blockAction = event.target.dataset.blockAction;
+        const blockButton = event.target.closest?.('[data-block-action]');
+        const blockAction = blockButton?.dataset.blockAction;
         if (blockAction && state.popoverBlock) {
           if (!isEditing()) return;
           const index = state.popoverBlock.blockIndex;
           const nestedCtx = state.popoverBlock.nestedCtx;
-          const actionTarget = event.target;
+          const actionTarget = blockButton;
           if (blockAction === 'replace-content-ref' && !nestedCtx) {
             openArticlePickerAt(actionTarget, index);
             closePopover();
@@ -3343,7 +3440,20 @@
             deleteBlock(index);
             return;
           }
-          noticeEl.innerHTML = `<span class="dirty">Черновик:</span> действие «${escapeHtml(event.target.textContent.trim())}» для блока #${index + 1}. Сохранение этих операций подключим следующим шагом.`;
+          if (blockAction === 'duplicate') {
+            duplicateBlock(index);
+            return;
+          }
+          if (blockAction.startsWith('turn-')) {
+            const targetType = blockAction.replace('turn-', '');
+            setBlockTextType(index, targetType === 'paragraph' ? 'paragraph' : targetType);
+            return;
+          }
+          if (blockAction.startsWith('align-')) {
+            setBlockAlign(index, blockAction.replace('align-', ''));
+            return;
+          }
+          noticeEl.innerHTML = `<span class="dirty">Черновик:</span> действие «${escapeHtml(blockButton.textContent.trim())}» для блока #${index + 1}. Сохранение этих операций подключим следующим шагом.`;
           return;
         }
         const action = event.target.dataset.action;
