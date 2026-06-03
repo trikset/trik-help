@@ -77,6 +77,9 @@
       .workspace-name { font-weight: 650; color: var(--text); }
       .topbar-separator { color: var(--muted); }
       .mode-tab {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
         min-height: 30px;
         padding: 5px 10px;
         border-radius: 8px;
@@ -86,6 +89,14 @@
         text-decoration: none;
         cursor: pointer;
       }
+      .mode-icon {
+        display: inline-grid;
+        place-items: center;
+        width: 18px;
+        height: 18px;
+        color: var(--primary);
+      }
+      .mode-icon svg { width: 18px; height: 18px; display: block; }
       .mode-tab.active {
         border-color: var(--border);
         background: color-mix(in srgb, var(--panel-soft) 82%, transparent);
@@ -618,6 +629,13 @@
       .page-block:hover {
         background: color-mix(in srgb, var(--soft) 46%, transparent);
       }
+      body.mode-view .tree-row {
+        grid-template-columns: 22px minmax(0, 1fr);
+        gap: 4px;
+        padding-right: 8px;
+      }
+      body.mode-view .tree-row .twisty { grid-column: 1; }
+      body.mode-view .tree-row .node-main { grid-column: 2; }
       body.mode-view .page-block { padding-left: 10px; }
       body.mode-view .page-block:hover { background: transparent; }
       body.mode-view .block-controls,
@@ -1024,8 +1042,8 @@
           <span class="workspace-name">Русский</span>
         </div>
         <div class="mode-tabs" aria-label="Режимы редактора">
-          <button id="mode-editor" class="mode-tab active" type="button" title="Просмотр структуры и контента без редактирования">Editor</button>
-          <a id="mode-preview" class="mode-tab" href="/" target="_blank" rel="noreferrer" title="Открыть опубликованную страницу">Preview</a>
+          <button id="mode-editor" class="mode-tab active" type="button" title="Просмотр структуры и контента без редактирования"><span class="mode-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M5 6.5C5 5.12 6.12 4 7.5 4h8.75C17.77 4 19 5.23 19 6.75v10.5c0 .41-.34.75-.75.75H7.5A2.5 2.5 0 0 1 5 15.5v-9Z" stroke="currentColor" stroke-width="1.8"/><path d="M8.25 8h7.25M8.25 11h5.5M7.5 18A2.5 2.5 0 0 1 5 15.5c0-1.38 1.12-2.5 2.5-2.5H19" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M15.8 15.05 18.75 18l-2.95 2.95" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Редактор</button>
+          <a id="mode-preview" class="mode-tab" href="/" target="_blank" rel="noreferrer" title="Открыть опубликованную страницу"><span class="mode-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M3.75 12s2.75-5 8.25-5 8.25 5 8.25 5-2.75 5-8.25 5-8.25-5-8.25-5Z" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="2.6" stroke="currentColor" stroke-width="1.8"/></svg></span>Предпросмотр</a>
         </div>
         <div id="draft-meta" class="draft-meta" hidden>
           <span class="topbar-separator">/</span>
@@ -1033,9 +1051,9 @@
         </div>
       </div>
       <div class="app-topbar-right">
-        <span id="sync-pill" class="sync-pill view-only"><strong>Synced</strong><span class="sync-ok">✓</span></span>
+        <span id="sync-pill" class="sync-pill view-only"><strong>Синхронизировано</strong><span class="sync-ok">✓</span></span>
         <button id="history-button" class="mode-tab view-only" type="button" title="История изменений — следующий этап">История</button>
-        <button id="changes-button" class="mode-tab view-only" type="button" title="Change requests — следующий этап">Change requests</button>
+        <button id="changes-button" class="mode-tab view-only" type="button" title="Заявки на изменения — следующий этап">Заявки на изменения</button>
         <button id="edit-mode" class="button primary view-only" type="button">Редактировать</button>
         <button id="cancel-edit" class="button edit-only" type="button" hidden>Отменить</button>
         <a class="topbar-link" href="/admin/">← Админка</a>
@@ -1264,7 +1282,7 @@
         saveEl.hidden = !editing;
         if (editing) {
           draftPillEl.textContent = `Драфт ${state.draftId || ''}`.trim();
-          noticeEl.innerHTML = '<span class="dirty">Режим редактирования:</span> изменения пока экспортируются как draft bundle. Полный Change request workflow подключим следующим этапом.';
+          noticeEl.innerHTML = '<span class="dirty">Режим редактирования:</span> изменения пока экспортируются как черновик. Полный поток заявок на изменения подключим следующим этапом.';
         } else if (state.selectedNode) {
           noticeEl.textContent = 'Режим просмотра: можно переходить по статьям и проверять контент. Для правок нажмите «Редактировать».';
         }
@@ -1683,7 +1701,7 @@
         const stem = docId ? slugify(docId.replace(/\/index$/, '').split('/').pop(), 'trik-help-edit') : 'trik-help-edit';
         downloadText(`${stem}-editor-export.json`, `${JSON.stringify(bundle, null, 2)}\n`, 'application/json;charset=utf-8');
         if (docId && state.content[docId]) downloadText(`${stem}.md`, pageToMarkdown(state.content[docId]));
-        noticeEl.textContent = 'Экспорт подготовлен: JSON-bundle изменений и Markdown текущей страницы скачаны. Серверное сохранение/PR-flow подключим следующим шагом.';
+        noticeEl.textContent = 'Экспорт подготовлен: JSON с изменениями и Markdown текущей страницы скачаны. Серверное сохранение и заявки на изменения подключим следующим шагом.';
       }
 
       saveEl.addEventListener('click', () => { if (isEditing()) exportEditorChanges(); });
@@ -1691,7 +1709,7 @@
       cancelEditEl.addEventListener('click', () => setEditorMode('view'));
       modeEditorEl.addEventListener('click', () => { if (isEditing()) setEditorMode('view'); });
       historyButtonEl.addEventListener('click', () => { noticeEl.textContent = 'История изменений появится следующим этапом после draft/change request модели.'; });
-      changesButtonEl.addEventListener('click', () => { noticeEl.textContent = 'Change requests появятся следующим этапом. Сейчас подключён только локальный режим драфта.'; });
+      changesButtonEl.addEventListener('click', () => { noticeEl.textContent = 'Заявки на изменения появятся следующим этапом. Сейчас подключён только локальный режим черновика.'; });
 
       function addBlockAfter(index, type) {
         const page = state.content[nodeDocId(state.selectedNode)];
