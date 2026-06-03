@@ -53,8 +53,3 @@ import TabItem from '@theme/TabItem';
 5\. При успешном подключении вверху экрана рядом с иконкой <img src="/gitbook/assets/icon-1.png" alt="" data-size="line" /> отобразится ip-адрес контроллера, а в списке иконкой <img src="/gitbook/assets/icon-2.png" alt="" data-size="line" /> будет выделено имя сети.
 
 ![](/gitbook/assets/screenshot_5.png)
-
-
-{/* Compatibility anchors for old GitBook/Docusaurus links. */}
-###### ​ {#accesspoint}
-###### ​ {#client}

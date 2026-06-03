@@ -69,8 +69,3 @@ title: "Действия при неправильной работе TRIK Studi
 ![](/gitbook/assets/logs.png)
 
 5\. На компьютер загрузится архив. Отправьте его нам через [форму обратной связи](https://trikset.com/support#feedback). Мы рассмотрим ваш запрос и исправим ошибку.
-
-
-{/* Compatibility anchors for old GitBook/Docusaurus links. */}
-###### ​ {#trikstudio}
-###### ​ {#trik}

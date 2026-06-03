@@ -820,38 +820,3 @@ title: "Добавление ограничений в 2D-модель"
 </root>
 
 ```
-
-
-{/* Compatibility anchors for old GitBook/Docusaurus links. */}
-###### ​ {#less-than-constraints-greater-than-less-than-constraints-greater-than}
-###### ​ {#less-than-timelimit-greater-than}
-###### ​ {#less-than-constraint-greater-than-less-than-constraint-greater-than}
-###### ​ {#event}
-###### ​ {#init}
-###### ​ {#condition}
-###### ​ {#less-than-conditions-greater-than-less-than-conditions-greater-than}
-###### ​ {#equals}
-###### ​ {#notequal}
-###### ​ {#greater}
-###### ​ {#less}
-###### ​ {#inside}
-###### ​ {#settedup}
-###### ​ {#timer}
-###### ​ {#intdouble}
-###### ​ {#variablevalue}
-###### ​ {#objectstate}
-###### ​ {#typeof}
-###### ​ {#minusabs}
-###### ​ {#summinmax}
-###### ​ {#trigger}
-###### ​ {#fail}
-###### ​ {#success}
-###### ​ {#setter}
-###### ​ {#setup}
-###### ​ {#less-than-message-text-vash-tekst-greater-than}
-###### ​ {#less-than-inside-greater-than}
-###### ​ {#less-than-trigger-greater-than-less-than-trigger-greater-than}
-###### ​ {#less-than-success-greater-than}
-###### ​ {#less-than-equals-greater-than-less-than-equals-greater-than}
-###### ​ {#less-than-objectstate-greater-than}
-###### ​ {#less-than-int-greater-than}

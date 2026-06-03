@@ -1273,9 +1273,3 @@ title: "Примеры задания ограничений"
     </trigger>
 </event>
 ```
-
-
-{/* Compatibility anchors for old GitBook/Docusaurus links. */}
-###### ​ {#ex3}
-###### ​ {#ex4}
-###### ​ {#ex5}

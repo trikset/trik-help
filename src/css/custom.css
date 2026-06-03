@@ -198,8 +198,8 @@
   font-size: 0.88rem;
 }
 
-.pagination-nav__link--prev .pagination-nav__sublabel::after { content: "Previous"; }
-.pagination-nav__link--next .pagination-nav__sublabel::after { content: "Next"; }
+.pagination-nav__link--prev .pagination-nav__sublabel::after { content: "Предыдущая"; }
+.pagination-nav__link--next .pagination-nav__sublabel::after { content: "Следующая"; }
 
 .pagination-nav__label {
   color: var(--ifm-font-color-base);

@@ -246,27 +246,3 @@ TRIK Studio в режиме редактирования имеет следую
 Подробнее читайте в статье:
 
 [Работа с графиками](/docs/studio/interface/graphics/)
-
-
-{/* Compatibility anchors for old GitBook/Docusaurus links. */}
-###### ​ {#editor-window-1}
-###### ​ {#mode-debug}
-###### ​ {#menu}
-###### ​ {#panel-file}
-###### ​ {#mode-edit}
-###### ​ {#panel-mode-switching}
-###### ​ {#status-bar}
-###### ​ {#editor-window}
-###### ​ {#panel-edit}
-###### ​ {#panel-view}
-###### ​ {#panel-interpreter}
-###### ​ {#panel-generators}
-###### ​ {#panel-other}
-###### ​ {#panel-property-editor}
-###### ​ {#panel-configure-devices}
-###### ​ {#panel-palette}
-###### ​ {#panel-variables}
-###### ​ {#window-2-d-1}
-###### ​ {#window-error}
-###### ​ {#panel-settings-robot}
-###### ​ {#panel-graphics}

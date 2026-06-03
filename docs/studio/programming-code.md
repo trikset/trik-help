@@ -50,8 +50,3 @@ title: "Программирование на текстовом языке"
 
 ### Квадрокоптер Геоскан Пионер &#123;#peoneer&#125;
 Для квадрокоптера Геоскан Пионер возможна генерация в Lua.
-
-
-{/* Compatibility anchors for old GitBook/Docusaurus links. */}
-###### ​ {#generation}
-###### ​ {#new-programm}

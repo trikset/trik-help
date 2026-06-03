@@ -62,8 +62,3 @@ title: "Запуск программ и их загрузка на контро
 Эксперты в EV3 могут посмотреть на сгенерированный на внутреннем языке EV3 код с помощью кнопки «Сгенерировать в байткод EV3».
 
 ![](https://thumb.tildacdn.com/tild3134-3061-4964-b165-326466663064/-/resize/892x/-/format/webp/ev3-bytecode.png)
-
-
-{/* Compatibility anchors for old GitBook/Docusaurus links. */}
-###### ​ {#2d}
-###### ​ {#upload}

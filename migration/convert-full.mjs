@@ -339,6 +339,10 @@ function stripHeadingSyntax(line) {
     .replace(/<a\s+[^>]*id="[^"]+"[^>]*><\/a>/g, '')
   );
 }
+function compatAnchorLine(safe) {
+  return `###### \u200b {#${safe}}`;
+}
+
 function insertCompatAnchorNearHeading(text, safe) {
   const lines = text.split('\n');
   for (let i = 0; i < lines.length; i++) {
@@ -346,7 +350,7 @@ function insertCompatAnchorNearHeading(text, safe) {
     const title = stripHeadingSyntax(lines[i]);
     if (!title) continue;
     if (slugifyCompatHeading(title) !== safe) continue;
-    lines.splice(i, 0, `###### \u200b {#${safe}}`);
+    lines.splice(i, 0, compatAnchorLine(safe));
     return {text: lines.join('\n'), inserted: true};
   }
   return {text, inserted: false};
@@ -375,19 +379,17 @@ function addCompatAnchorsForReferencedHashes() {
     if (outRel === 'studio/programming-visual/blocks.md') {
       ['initialization','vse-obshie-bloki','vyrazhenie','inicializaciya-peremennoi'].forEach(a => anchors.add(a));
     }
-    const additions = [];
     for (const id of anchors) {
       const safe = id.replace(/[^A-Za-z0-9А-Яа-я._~%:-]/g, '-');
       if (!safe) continue;
       if (text.includes(`{#${safe}}`) || text.includes(`id="${safe}"`)) continue;
       const placed = insertCompatAnchorNearHeading(text, safe);
       text = placed.text;
-      if (!placed.inserted) additions.push(`###### \u200b {#${safe}}`);
+      // If no matching heading exists, don't append invisible service anchors at the
+      // end of the article: they pollute editable Markdown and are easy to miss.
+      // Leave such links to Docusaurus broken-anchor warnings instead.
     }
-    if (additions.length) {
-      text += `\n\n{/* Compatibility anchors for old GitBook/Docusaurus links. */}\n` + additions.join('\n') + '\n';
-      writeUtf(file, text);
-    }
+    writeUtf(file, text);
   }
 }
 
@@ -417,7 +419,7 @@ function addCompatAnchorsNearLinkedHeadings() {
       if (!safe || existing.has(safe)) continue;
       const idx = lines.findIndex(line => /^#{1,6}\s+/.test(line) && stripHeadingSyntax(line) === label);
       if (idx === -1) continue;
-      inserts.push({idx, line: `###### \u200b {#${safe}}`});
+      inserts.push({idx, line: compatAnchorLine(safe)});
       existing.add(safe);
     }
     if (inserts.length) {
@@ -436,7 +438,6 @@ function addLocalCompatAnchorsForSelfLinks() {
     const selfNames = new Set([path.posix.basename(outRel), path.posix.basename(outRel).replace(/\.md$/, ''), './', '.', '']);
     if (outRel.endsWith('/index.md')) selfNames.add('README.md');
     const inserts = [];
-    const append = [];
     for (const m of text.matchAll(/\]\(([^)]*#[^)]+)\)/g)) {
       const href = m[1];
       const raw = href.split('#')[0].replace(/^\.\//, '').replace(/\/$/, '');
@@ -450,13 +451,12 @@ function addLocalCompatAnchorsForSelfLinks() {
       for (let i = 0; i < lines.length; i++) {
         if (/^#{1,6}\s+/.test(lines[i]) && slugifyCompatHeading(stripHeadingSyntax(lines[i])) === safe) { idx = i; break; }
       }
-      if (idx >= 0) inserts.push({idx, line: `###### \u200b {#${safe}}`});
-      else append.push(`###### \u200b {#${safe}}`);
+      if (idx >= 0) inserts.push({idx, line: compatAnchorLine(safe)});
+      // Do not append unmatched compatibility anchors to the article tail.
       existing.add(safe);
     }
-    if (inserts.length || append.length) {
+    if (inserts.length) {
       for (const ins of inserts.sort((a, b) => b.idx - a.idx)) lines.splice(ins.idx, 0, ins.line);
-      if (append.length) lines.push('', '{/* Compatibility anchors for old GitBook/Docusaurus links. */}', ...append);
       writeUtf(file, lines.join('\n'));
     }
   }
@@ -530,7 +530,7 @@ writeUtf(path.join(site, 'sidebars.ts'), `import type {SidebarsConfig} from '@do
 // Clean Docusaurus sample artifacts.
 fs.rmSync(path.join(site, 'blog'), {recursive:true, force:true});
 fs.mkdirSync(path.join(site, 'src', 'pages'), {recursive:true});
-fs.writeFileSync(path.join(site, 'src', 'pages', 'index.tsx'), `import React from 'react';\nimport {Redirect} from '@docusaurus/router';\n\nexport default function Home(): JSX.Element {\n  return <Redirect to="/docs/intro" />;\n}\n`);
+fs.writeFileSync(path.join(site, 'src', 'pages', 'index.tsx'), `import React from 'react';\nimport {Redirect} from '@docusaurus/router';\n\nexport default function Home(): React.ReactElement {\n  return <Redirect to="/docs/intro" />;\n}\n`);
 try { fs.rmSync(path.join(site, 'src', 'components', 'HomepageFeatures'), {recursive:true, force:true}); } catch {}
 try { fs.rmSync(path.join(site, 'static', 'img', 'docusaurus.png'), {force:true}); } catch {}
 

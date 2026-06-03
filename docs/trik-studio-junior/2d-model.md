@@ -30,7 +30,3 @@ title: "2D-модель в TRIK Studio Junior"
 Элемент «Кубик» позволяет создавать упражнения в виде игр-головоломок, в которой «Исполнителю» необходимо расставить ящики по обозначенным местам лабиринта.
 
 ![](/gitbook/assets/sokoban.png)
-
-
-{/* Compatibility anchors for old GitBook/Docusaurus links. */}
-###### ​ {#cube}

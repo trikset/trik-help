@@ -94,9 +94,3 @@ title: "Подключение контроллера LEGO NXT к TRIK Studio"
 ![](/gitbook/assets/NXT-connect%20E%20BT.png)
 
 12\. Нажмите «ОК».
-
-
-{/* Compatibility anchors for old GitBook/Docusaurus links. */}
-###### ​ {#usb}
-###### ​ {#bluetooth}
-###### ​ {#nxt-usb}

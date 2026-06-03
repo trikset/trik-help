@@ -68,11 +68,3 @@ title: "Подпрограммы"
 :::info
 Коллекция подпрограмм хранится в каталоге пользователя и не теряется при удалении или переустановке TRIK Studio.
 :::
-
-
-{/* Compatibility anchors for old GitBook/Docusaurus links. */}
-###### ​ {#save}
-###### ​ {#export}
-###### ​ {#import}
-###### ​ {#load}
-###### ​ {#delete}

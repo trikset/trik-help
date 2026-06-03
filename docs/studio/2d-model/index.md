@@ -256,17 +256,3 @@ title: "2D-модель"
 | \&lt;small&gt; | Маленький шрифт   |
 
 <figure><img src="/gitbook/assets/ScreenRecorderProject4.gif" alt="" /><figcaption></figcaption></figure>
-
-
-{/* Compatibility anchors for old GitBook/Docusaurus links. */}
-###### ​ {#editor-world}
-###### ​ {#grid}
-###### ​ {#ruler}
-###### ​ {#return-to-start}
-###### ​ {#start-stop}
-###### ​ {#speed-control}
-###### ​ {#ports}
-###### ​ {#fast-settings}
-###### ​ {#editor-line}
-###### ​ {#add-image}
-###### ​ {#motors}

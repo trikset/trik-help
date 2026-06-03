@@ -154,9 +154,3 @@ title: "Тестирование подключенных к контролле�
 ![](/gitbook/assets/TRIK-Test%2020.png)
 
 2\. При правильно работающей камере, на экран должно выдаваться изображение.
-
-
-{/* Compatibility anchors for old GitBook/Docusaurus links. */}
-###### ​ {#gyroscope}
-###### ​ {#accelerometer}
-###### ​ {#camera}

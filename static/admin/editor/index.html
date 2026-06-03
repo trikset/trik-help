@@ -1375,7 +1375,7 @@
         const arrow = (dir) => dir === 'prev'
           ? '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>'
           : '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-        const card = (item, dir) => item ? `<a class="doc-page-link ${dir}" href="${escapeHtml(item.href)}" data-editor-doc-link="${escapeHtml(item.id)}"><span class="doc-page-arrow">${dir === 'prev' ? arrow('prev') : ''}</span><span class="doc-page-meta"><span class="doc-page-direction">${dir === 'prev' ? 'Previous' : 'Next'}</span><span class="doc-page-title">${escapeHtml(item.title)}</span></span><span class="doc-page-arrow">${dir === 'next' ? arrow('next') : ''}</span></a>` : '';
+        const card = (item, dir) => item ? `<a class="doc-page-link ${dir}" href="${escapeHtml(item.href)}" data-editor-doc-link="${escapeHtml(item.id)}"><span class="doc-page-arrow">${dir === 'prev' ? arrow('prev') : ''}</span><span class="doc-page-meta"><span class="doc-page-direction">${dir === 'prev' ? 'Предыдущая' : 'Следующая'}</span><span class="doc-page-title">${escapeHtml(item.title)}</span></span><span class="doc-page-arrow">${dir === 'next' ? arrow('next') : ''}</span></a>` : '';
         return `<nav class="doc-pagination ${prev && next ? '' : 'single'}" aria-label="Навигация по страницам">${card(prev, 'prev')}${card(next, 'next')}</nav>`;
       }
 
@@ -1733,6 +1733,8 @@
           const text = current.join('\n').trim();
           current = [];
           if (!text) return;
+          if (text === '{/* Compatibility anchors for old GitBook/Docusaurus links. */}') return;
+          if (/^<(?:span|a)\s+[^>]*id="[^"]+"[^>]*><\/(?:span|a)>$/.test(text)) return blocks.push({type: 'anchor', raw: text, anchor: text.match(/id="([^"]+)"/)?.[1] || ''});
           if (/^```/.test(text)) return blocks.push({type: 'code', raw: text});
           if (/^<div className="content-ref-card">/.test(text)) return blocks.push({type: 'content-ref', raw: text});
           if (/^!\[[^\]]*\]\([^)]+\)$/.test(text) || /^<div[^>]*>\s*<img[\s\S]*<\/div>$/.test(text) || /^<img[\s\S]*>$/.test(text)) return blocks.push({type: 'image', raw: text});
@@ -1743,7 +1745,10 @@
           if (/^\s*\d+\.\s+/m.test(text)) return blocks.push({type: 'numbered-list', raw: text});
           if (/^\s*[-*+]\s+/m.test(text)) return blocks.push({type: 'bulleted-list', raw: text});
           const h = text.match(/^(#{1,6})\s+(.+)$/);
-          if (h) return blocks.push({type: `heading-${h[1].length}`, raw: text, level: h[1].length, text: cleanHeadingText(h[2]), anchor: headingAnchorFromText(h[2])});
+          if (h) {
+            const headingText = cleanHeadingText(h[2]);
+            return blocks.push({type: headingText ? `heading-${h[1].length}` : 'anchor', raw: text, level: h[1].length, text: headingText, anchor: headingAnchorFromText(h[2])});
+          }
           blocks.push({type: 'paragraph', raw: text});
         }
         for (const line of raw.split(/\r?\n/)) {
@@ -2628,6 +2633,7 @@
           .replace(/\s*&#123;#.*?&#125;\s*/gi, '')
           .replace(/<[^>]+>/g, '')
           .replace(/&#x20;|&nbsp;/gi, ' ')
+          .replace(/[\u200b\u200c\u200d\ufeff]/g, '')
           .replace(/&[#a-z0-9]+;/gi, '')
           .trim();
       }

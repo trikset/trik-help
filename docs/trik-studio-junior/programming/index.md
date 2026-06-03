@@ -25,8 +25,3 @@ title: "Программирование на визуальном языке в
 Подробнее о подпрограммах читайте в статье:
 
 [Подпрограммы в TRIK Studio Junior](/docs/trik-studio-junior/programming/subprograms/)
-
-
-{/* Compatibility anchors for old GitBook/Docusaurus links. */}
-###### ​ {#main-diagramm}
-###### ​ {#subprogram}

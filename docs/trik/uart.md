@@ -228,11 +228,3 @@ title: "Подключение к контроллеру ТРИК с помощ�
 11\. Или указать IP-адрес `10.0.5.2` в соответствующем окне TRIK Studio для управления контроллером.
 
 ![](/gitbook/assets/UART%207%20TRIK%208a.jpg)
-
-
-{/* Compatibility anchors for old GitBook/Docusaurus links. */}
-###### ​ {#uart-driver}
-###### ​ {#uart-com}
-###### ​ {#uart-modem1}
-###### ​ {#uart-modem2}
-###### ​ {#uart-lan1}

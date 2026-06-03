@@ -132,8 +132,3 @@ brick.irCamera().stop();
 ```
 </TabItem>
 </Tabs>
-
-
-{/* Compatibility anchors for old GitBook/Docusaurus links. */}
-###### ​ {#getImage}
-###### ​ {#readSensor}

@@ -27,7 +27,3 @@ title: "Программирование на визуальном языке"
 Подробнее о подпрограммах читайте в статье:
 
 [Подпрограммы](/docs/studio/programming-visual/subprograms/)
-
-
-{/* Compatibility anchors for old GitBook/Docusaurus links. */}
-###### ​ {#main-diagramm}

@@ -170,13 +170,3 @@ TRIK Studio позволяет экспортировать текущие на�
 
 ## Импорт настроек &#123;#import&#125;
 TRIK Studio позволяет импортировать настройки из экспортированного ранее файла. Для этого необходимо нажать кнопку «Импорт» внизу окна и выбрать нужный файл `.ini`.
-
-
-{/* Compatibility anchors for old GitBook/Docusaurus links. */}
-###### ​ {#robots}
-###### ​ {#behavior}
-###### ​ {#vkladka-raznoe}
-###### ​ {#editor}
-###### ​ {#shortcuts}
-###### ​ {#import}
-###### ​ {#export}

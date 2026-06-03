@@ -21,8 +21,3 @@ title: "Подключение контроллера LEGO EV3 к TRIK Studio"
 
 ## Подключение по Bluetooth &#123;#bluetooth&#125;
 Процедура подключения робота LEGO EV3 по Bluetooth аналогична [подключению робота LEGO NXT](/docs/nxt/connect-to-studio/).
-
-
-{/* Compatibility anchors for old GitBook/Docusaurus links. */}
-###### ​ {#usb}
-###### ​ {#bluetooth}

@@ -58,7 +58,3 @@ title: "Управление роботом с пульта"
 :::info
 Готовую программу вы можете найти в корневой папке с TRIK Studio `/examples/trik/remoteControl` или скачать [здесь](https://dl.trikset.com/trikset-help/remoteControl.qrs).
 :::
-
-
-{/* Compatibility anchors for old GitBook/Docusaurus links. */}
-###### ​ {#algorithm}

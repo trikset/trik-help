@@ -62,8 +62,3 @@ title: "Скриншот экрана контроллера ТРИК"
 10\. Выберите в левом окне директорию, в которую хотите сохранить снимок. Перетащите созданное изображение из правого окна в левое.
 
 ![](/gitbook/assets/winscp-copy.png)
-
-
-{/* Compatibility anchors for old GitBook/Docusaurus links. */}
-###### ​ {#web}
-###### ​ {#utilities}

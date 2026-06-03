@@ -85,12 +85,3 @@ title: "Главное меню TRIK Studio"
 * **Проверить на наличие обновлений** — получить из интернета информацию о наличии новой версии среды или какого-либо из подключаемых модулей и запустить при необходимости автообновление.
 
 ![](/gitbook/assets/05%207%20ru%20Menu%20Help%203.png)
-
-
-{/* Compatibility anchors for old GitBook/Docusaurus links. */}
-###### ​ {#menu-file}
-###### ​ {#menu-edit}
-###### ​ {#menu-view}
-###### ​ {#menu-tools}
-###### ​ {#menu-settings}
-###### ​ {#menu-about}

@@ -48,6 +48,7 @@ function cleanHeading(text) {
     .replace(/&#123;#.*?&#125;/g, '')
     .replace(/<[^>]+>/g, '')
     .replace(/&#x20;|&nbsp;/g, ' ')
+    .replace(/[\u200b\u200c\u200d\ufeff]/g, '')
     .replace(/&[#a-z0-9]+;/gi, '')
     .trim();
 }
@@ -60,6 +61,7 @@ function blockType(raw) {
   if (/^:::/m.test(text)) return 'hint';
   if (/^<Tabs[\s>]/.test(text)) return 'tabs';
   if (/^<div className="content-ref-card">/.test(text)) return 'content-ref';
+  if (/^<(?:span|a)\s+[^>]*id="[^"]+"[^>]*><\/(?:span|a)>$/.test(text)) return 'anchor';
   if (/^>\s/.test(text)) return 'quote';
   if (/^!\[[^\]]*\]\([^)]+\)$/.test(text) || /^<div[^>]*>\s*<img[\s\S]*<\/div>$/.test(text) || /^<img[\s\S]*>$/.test(text)) return 'image';
   if (/^\|.+\|\n\|[-:|\s]+\|/.test(text)) return 'table';
@@ -80,8 +82,16 @@ function parseBlocks(source) {
   function flush() {
     const raw = current.join('\n').trim();
     if (!raw) { current = []; return; }
+    if (raw === '{/* Compatibility anchors for old GitBook/Docusaurus links. */}') { current = []; return; }
     const type = blockType(raw);
     const block = {type, raw};
+    if (type === 'anchor') {
+      const id = raw.match(/id="([^"]+)"/)?.[1];
+      block.anchor = id || '';
+      blocks.push(block);
+      current = [];
+      return;
+    }
     const heading = raw.match(/^(#{1,6})\s+(.+)$/);
     if (heading) {
       block.level = heading[1].length;

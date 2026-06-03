@@ -54,7 +54,3 @@ title: "Запуск программ и их загрузка на контро
 :::info
 Раздел дополняется.
 :::
-
-
-{/* Compatibility anchors for old GitBook/Docusaurus links. */}
-###### ​ {#2d}

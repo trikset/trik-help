@@ -52,7 +52,3 @@ TRIK Studio поддерживает 4 платформы:
   * 64-разрядная Windows 10.
   * Ubuntu 16.04 и выше.
   * macOS 10.12 Sierra и выше.
-
-
-{/* Compatibility anchors for old GitBook/Docusaurus links. */}
-###### ​ {#platforms}

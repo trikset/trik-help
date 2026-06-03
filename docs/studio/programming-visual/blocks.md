@@ -214,25 +214,3 @@ title: "Общие блоки"
 Закончить рисование маркером.
 
 Блок доступен только в режиме двухмерной модели.
-
-
-{/* Compatibility anchors for old GitBook/Docusaurus links. */}
-###### ​ {#expression}
-###### ​ {#condition}
-###### ​ {#timer}
-###### ​ {#subprogram}
-###### ​ {#initial}
-###### ​ {#final}
-###### ​ {#variableinit}
-###### ​ {#endif}
-###### ​ {#while}
-###### ​ {#loop}
-###### ​ {#switch}
-###### ​ {#fork}
-###### ​ {#join}
-###### ​ {#killthread}
-###### ​ {#random}
-###### ​ {#comment}
-###### ​ {#markerdown}
-###### ​ {#markerup}
-###### ​ {#initialization}

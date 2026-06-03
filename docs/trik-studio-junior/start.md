@@ -33,8 +33,3 @@ title: "Начало работы и создание проекта в TRIK Stu
 ![](/gitbook/assets/main-window-menu-open-project.png)
 
 По умолчанию TRIK Studio Junior ищет файлы в формате `*.tsj` .
-
-
-{/* Compatibility anchors for old GitBook/Docusaurus links. */}
-###### ​ {#new-project}
-###### ​ {#open-project}

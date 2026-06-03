@@ -606,23 +606,3 @@ text="Finish" textY="0" x="1300" y="-200" visible="true" id="Start" color="#ff00
 ## Пример модели мира
 
 [Скачать](/gitbook/assets/example-2d-restrictions.xml)
-
-
-{/* Compatibility anchors for old GitBook/Docusaurus links. */}
-###### ​ {#less-than-region-greater-than}
-###### ​ {#create-xml}
-###### ​ {#less-than-robots-greater-than-less-than-robots-greater-than}
-###### ​ {#less-than-robot-greater-than-less-than-robot-greater-than}
-###### ​ {#less-than-sensors-greater-than-less-than-sensors-greater-than}
-###### ​ {#less-than-sensor-greater-than}
-###### ​ {#less-than-startposition-greater-than}
-###### ​ {#wheels}
-###### ​ {#less-than-wall-greater-than}
-###### ​ {#less-than-skittle-greater-than}
-###### ​ {#less-than-ball-greater-than}
-###### ​ {#less-than-line-greater-than}
-###### ​ {#less-than-cubicbezier-greater-than}
-###### ​ {#less-than-rectangle-greater-than}
-###### ​ {#less-than-ellipse-greater-than}
-###### ​ {#less-than-stylus-greater-than}
-###### ​ {#less-than-stylusline-greater-than}

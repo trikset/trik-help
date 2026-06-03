@@ -80,10 +80,3 @@ title: "Добавление и удаление блоков"
 2\. Выберите из списка блок, которым хотите заменить выделенный.
 
 ![Замена блока](/gitbook/assets/exchange.png)
-
-
-{/* Compatibility anchors for old GitBook/Docusaurus links. */}
-###### ​ {#mouse-gesture}
-###### ​ {#dropanddown}
-###### ​ {#connection}
-###### ​ {#del}

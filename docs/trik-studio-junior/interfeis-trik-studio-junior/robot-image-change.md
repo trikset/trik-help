@@ -48,8 +48,3 @@ title: "Как заменить изображение «Исполнителя�
 
 ## Скачать изображения «Исполнителя» &#123;#download&#125;
 На сайте trikset.com вы можете [скачать](https://trikset.com/products/trik-studio-junior#fields) заготовленные изображения «Исполнителей».
-
-
-{/* Compatibility anchors for old GitBook/Docusaurus links. */}
-###### ​ {#context}
-###### ​ {#settings}

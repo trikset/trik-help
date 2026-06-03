@@ -115,11 +115,3 @@ title: "Меню контроллера ТРИК"
 
 | ![](/gitbook/assets/%D0%9E%20%D1%81%D0%B8%D1%81%D1%82%D0%B5%D0%BC%D0%B51.png) | ![](/gitbook/assets/%D0%9E%20%D1%81%D0%B8%D1%81%D1%82%D0%B5%D0%BC%D0%B5%202.png) |
 | ---------------------------------------- | ----------------------------------------- |
-
-
-{/* Compatibility anchors for old GitBook/Docusaurus links. */}
-###### ​ {#files}
-###### ​ {#testing}
-###### ​ {#network}
-###### ​ {#interaction}
-###### ​ {#language}
