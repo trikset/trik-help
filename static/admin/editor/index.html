@@ -1875,7 +1875,7 @@
       }
 
       function renderPageContent(docId) {
-        const page = state.content[docId];
+        const page = contentForDocId(docId);
         if (!docId || !page) {
           contentEl.innerHTML = '<div class="notice">Для этого пункта меню пока нет файла страницы.</div>';
           pageTocEl.innerHTML = '<h3>На этой странице</h3><div class="muted">Нет заголовков.</div>';
@@ -2588,30 +2588,46 @@
         return clone.innerText.trim();
       }
 
+      function contentForDocId(docId) {
+        if (!docId) return null;
+        if (state.content[docId]) return state.content[docId];
+        const withIndex = docId.endsWith('/index') ? '' : `${docId}/index`;
+        if (withIndex && state.content[withIndex]) return state.content[withIndex];
+        const withoutIndex = docId.replace(/\/index$/, '');
+        if (withoutIndex !== docId && state.content[withoutIndex]) return state.content[withoutIndex];
+        return null;
+      }
+
+      function isNewDraftPage(node, docId) {
+        return Boolean(node?.draft && contentForDocId(docId)?.draft);
+      }
+
       function syncSelectedNodeTitleAndPath(titleText) {
         const node = state.selectedNode;
         if (!node || node.type === 'link' || !titleText) return;
         const oldId = nodeDocId(node);
         if (!oldId) return;
         const path = findNodePath(node) || [];
-        const parentPath = path.slice(0, -1);
-        const prefix = baseDocPrefix(parentPath);
-        const slug = slugify(titleText, 'page');
-        const newId = node.type === 'category' ? `${prefix ? `${prefix}/` : ''}${slug}/index` : `${prefix ? `${prefix}/` : ''}${slug}`;
         node.label = titleText;
-        if (node.type === 'doc' && newId !== oldId) {
-          node.id = newId;
-          if (state.content[oldId]) {
-            state.content[newId] = {...state.content[oldId], id: newId, file: docsPathForDoc(newId)};
-            delete state.content[oldId];
+        if (node.type === 'category' && node.link) node.link.label = titleText;
+        if (isNewDraftPage(node, oldId)) {
+          const parentPath = path.slice(0, -1);
+          const prefix = baseDocPrefix(parentPath);
+          const slug = slugify(titleText, 'page');
+          const newId = node.type === 'category' ? `${prefix ? `${prefix}/` : ''}${slug}/index` : `${prefix ? `${prefix}/` : ''}${slug}`;
+          if (node.type === 'doc' && newId !== oldId) {
+            node.id = newId;
+            const page = contentForDocId(oldId);
+            if (page) {
+              state.content[newId] = {...page, id: newId, file: docsPathForDoc(newId)};
+              delete state.content[oldId];
+            }
           }
-        }
-        if (node.type === 'category' && node.link) {
-          node.link.label = titleText;
-          if (newId !== oldId) {
+          if (node.type === 'category' && node.link && newId !== oldId) {
             node.link.id = newId;
-            if (state.content[oldId]) {
-              state.content[newId] = {...state.content[oldId], id: newId, file: docsPathForDoc(newId)};
+            const page = contentForDocId(oldId);
+            if (page) {
+              state.content[newId] = {...page, id: newId, file: docsPathForDoc(newId)};
               delete state.content[oldId];
             }
           }
@@ -2620,6 +2636,7 @@
         titleEl.textContent = displayLabel(node);
         pathEl.textContent = docsPathForDoc(nodeDocId(node));
         openPageEl.href = nodePublicUrl(node);
+        modePreviewEl.href = nodePublicUrl(node);
       }
 
       function selectNode(node, key) {
@@ -2944,7 +2961,8 @@
           return;
         }
         const oldId = nodeDocId(node);
-        const base = oldId ? oldId.replace(/\/index$/, '').split('/') : [];
+        const cleanOldId = oldId ? oldId.replace(/\/index$/, '') : '';
+        const base = cleanOldId ? cleanOldId.split('/') : [];
         const oldSlug = base.at(-1) || slugify(oldLabel);
         const prefix = base.length > 1 ? `${base.slice(0, -1).join('/')}/` : '/';
         const result = await askPathDialog({title: 'Изменить название и путь', label: oldLabel, prefix, slug: oldSlug, submitText: 'Сохранить'});
@@ -2954,15 +2972,22 @@
         if (node.type === 'doc') {
           const parentPrefix = prefix === '/' ? '' : prefix;
           node.id = `${parentPrefix}${result.slug}`;
-          if (state.content[oldId]) {
-            state.content[node.id] = {...state.content[oldId], id: node.id, file: docsPathForDoc(node.id)};
+          const page = contentForDocId(oldId);
+          if (page) {
+            state.content[node.id] = {...page, id: node.id, file: docsPathForDoc(node.id)};
             delete state.content[oldId];
           }
         }
         if (node.type === 'category' && node.link) {
           node.link.label = result.label;
           const parentPrefix = prefix === '/' ? '' : prefix;
-          node.link.id = `${parentPrefix}${result.slug}/index`;
+          const newId = `${parentPrefix}${result.slug}/index`;
+          node.link.id = newId;
+          const page = contentForDocId(oldId);
+          if (page) {
+            state.content[newId] = {...page, id: newId, file: docsPathForDoc(newId)};
+            delete state.content[oldId];
+          }
         }
         markDirty(`Название и путь изменены: «${oldLabel}» → «${result.label}».`, undoSnapshot, {scope: 'sidebar'});
         if (state.selectedNode === node) selectNode(node, state.selectedKey);
