@@ -3200,9 +3200,13 @@
           ? node.href
           : (node.type === 'category' ? (nodeDocId(node) ? `группа · ${nodeDocId(node)}` : 'группа') : node.id);
         main.addEventListener('click', () => {
+          if (node.type === 'link' && node.href) {
+            window.open(node.href, '_blank', 'noreferrer');
+            return;
+          }
           if (hasChildren && !state.filter) {
             state.open.has(key) ? state.open.delete(key) : state.open.add(key);
-            if (!nodeDocId(node) && node.type !== 'link') {
+            if (!nodeDocId(node)) {
               renderTree();
               return;
             }
