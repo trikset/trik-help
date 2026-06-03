@@ -1377,7 +1377,7 @@
           hint: {type: 'hint', raw: ':::info\nНовая подсказка.\n:::'},
           code: {type: 'code', raw: '```js\n// Новый код\n```'},
           quote: {type: 'quote', raw: '> Новая цитата'},
-          link: {type: 'content-ref', raw: '<div className="content-ref-card">\n<a href="/studio/about/"><span className="content-ref-icon" aria-hidden="true"></span><span className="content-ref-title">О TRIK Studio</span><span className="content-ref-action">View</span></a>\n</div>'},
+          link: {type: 'content-ref', raw: contentRefRaw('studio/about/index', 'О TRIK Studio')},
           tabs: {type: 'tabs', raw: '<Tabs>\n<TabItem value={"tab-1"} label={"Вкладка 1"}>\nНовая вкладка.\n</TabItem>\n\n<TabItem value={"tab-2"} label={"Вкладка 2"}>\nВторая вкладка.\n</TabItem>\n</Tabs>'},
           columns: {type: 'paragraph', raw: '<div class="row">\n<div class="col">Колонка 1</div>\n<div class="col">Колонка 2</div>\n</div>'},
         };
@@ -1402,11 +1402,22 @@
         return block.raw || '';
       }
 
-      function renderContentRef(raw) {
+      function contentRefData(raw) {
         const link = raw.match(/<a\s+href="([^"]+)"[^>]*>[\s\S]*?<span className="content-ref-title">([\s\S]*?)<\/span>[\s\S]*?<\/a>/);
-        if (!link) return `<div class="raw-block">${escapeHtml(raw)}</div>`;
+        if (!link) return null;
         const [, href, title] = link;
-        return `<a class="content-ref-card" href="${escapeHtml(href)}" target="_blank" rel="noopener"><span class="content-ref-icon" aria-hidden="true"></span><span class="content-ref-title">${escapeHtml(title.replace(/<[^>]+>/g, ''))}</span><span class="content-ref-action">View</span></a>`;
+        return {href, title: title.replace(/<[^>]+>/g, '').trim()};
+      }
+
+      function contentRefRaw(docId, title) {
+        const href = publicUrlForDoc(docId);
+        return `<div className="content-ref-card">\n<a href="${href}"><span className="content-ref-icon" aria-hidden="true"></span><span className="content-ref-title">${escapeHtml(title || docId)}</span><span className="content-ref-action">Просмотр</span></a>\n</div>`;
+      }
+
+      function renderContentRef(raw) {
+        const data = contentRefData(raw);
+        if (!data) return `<div class="raw-block">${escapeHtml(raw)}</div>`;
+        return `<a class="content-ref-card" href="${escapeHtml(data.href)}" data-content-ref="true"><span class="content-ref-icon" aria-hidden="true"></span><span class="content-ref-title">${escapeHtml(data.title)}</span><span class="content-ref-action">Просмотр</span></a>`;
       }
 
       function pageToMarkdown(page) {
@@ -2107,6 +2118,74 @@
         return null;
       }
 
+      function findNodePathByDocId(docId, items = state.sidebar?.docs || [], path = []) {
+        for (let index = 0; index < items.length; index += 1) {
+          const node = items[index];
+          if (nodeDocId(node) === docId) return [...path, index];
+          if (Array.isArray(node.items)) {
+            const found = findNodePathByDocId(docId, node.items, [...path, index]);
+            if (found) return found;
+          }
+        }
+        return null;
+      }
+
+      function normalizedPublicPath(href) {
+        const clean = String(href || '').split('#')[0].split('?')[0];
+        const path = clean.replace(/^https?:\/\/[^/]+/i, '') || '/';
+        return path.endsWith('/') ? path : `${path}/`;
+      }
+
+      function docIdFromPublicHref(href) {
+        const normalized = normalizedPublicPath(href);
+        const direct = collectArticleOptions().find((item) => publicUrlForDoc(item.id) === normalized);
+        if (direct) return direct.id;
+        const path = normalized.replace(/^\//, '').replace(/\/$/, '');
+        return path ? `${path}/index`.replace(/\/index\/index$/, '/index') : 'intro';
+      }
+
+      function selectDocInEditor(docId) {
+        const path = findNodePathByDocId(docId);
+        if (!path) return false;
+        const node = getNodeAtPath(path);
+        if (!node) return false;
+        path.slice(0, -1).forEach((_, i) => {
+          const parent = getNodeAtPath(path.slice(0, i + 1));
+          if (parent) state.open.add(nodeKey(parent, path.slice(0, i + 1)));
+        });
+        selectNode(node, nodeKey(node, path));
+        return true;
+      }
+
+      function collectArticleOptions(items = state.sidebar?.docs || [], depth = 0, options = []) {
+        items.forEach((item) => {
+          const id = nodeDocId(item);
+          if (id && state.content[id]) options.push({id, label: `${'— '.repeat(depth)}${displayLabel(item)}`});
+          if (Array.isArray(item.items)) collectArticleOptions(item.items, depth + 1, options);
+        });
+        return options;
+      }
+
+      async function replaceContentRef(blockIndex) {
+        const page = state.content[nodeDocId(state.selectedNode)];
+        const block = page?.blocks?.[blockIndex];
+        if (!block || block.type !== 'content-ref') return;
+        const currentDocId = docIdFromPublicHref(contentRefData(block.raw)?.href || '');
+        const options = collectArticleOptions();
+        const result = await openModal({
+          title: 'Заменить ссылку',
+          message: 'Выберите статью, на которую должен вести этот блок.',
+          fields: `<label class="field-label">Статья<select name="docId">${options.map((item) => `<option value="${escapeHtml(item.id)}"${item.id === currentDocId ? ' selected' : ''}>${escapeHtml(item.label)}</option>`).join('')}</select></label>`,
+          submitText: 'Заменить',
+        });
+        const docId = result?.docId;
+        const option = options.find((item) => item.id === docId);
+        if (!docId || !option) return;
+        block.raw = contentRefRaw(docId, option.label.replace(/^(?:—\s*)+/, ''));
+        renderPageContent(nodeDocId(state.selectedNode));
+        markDirty(`Ссылка блока #${blockIndex + 1} заменена.`, null);
+      }
+
       function markdownFromEditable(editable) {
         const clone = editable.cloneNode(true);
         clone.querySelectorAll('a').forEach((link) => {
@@ -2530,6 +2609,9 @@
         if (!block) return;
         state.popoverBlock = {blockIndex, kind};
         const typeLabel = block.type.replace('heading-', 'заголовок ');
+        const contentRefActions = block.type === 'content-ref'
+          ? '<button type="button" data-block-action="replace-content-ref">Заменить ссылку…</button><div class="menu-separator"></div>'
+          : '';
         popoverEl.innerHTML = kind === 'add'
           ? `
             <button type="button" data-block-action="add-heading-1">Заголовок 1</button>
@@ -2549,6 +2631,7 @@
             <button type="button" data-block-action="add-columns">Колонки</button>
           `
           : `
+            ${contentRefActions}
             <button type="button" data-block-action="move">Перетащить блок</button>
             <button type="button" data-block-action="duplicate">Дублировать</button>
             <button type="button" data-block-action="edit-raw">Редактировать Markdown</button>
@@ -2745,6 +2828,10 @@
             addBlockAfter(index, blockAction.replace('add-', ''));
             return;
           }
+          if (blockAction === 'replace-content-ref') {
+            replaceContentRef(index);
+            return;
+          }
           if (blockAction === 'delete') {
             deleteBlock(index);
             return;
@@ -2765,7 +2852,7 @@
       });
 
       function blockTypeLabel(type) {
-        const labels = {'heading-1':'Заголовок 1','heading-2':'Заголовок 2','heading-3':'Заголовок 3', paragraph:'Параграф', image:'Картинка', table:'Таблица', 'bulleted-list':'Маркеры', 'numbered-list':'Нумерация', 'task-list':'Список задач', hint:'Подсказка', code:'Код', quote:'Цитата', link:'Ссылка', tabs:'Табы'};
+        const labels = {'heading-1':'Заголовок 1','heading-2':'Заголовок 2','heading-3':'Заголовок 3', paragraph:'Параграф', image:'Картинка', table:'Таблица', 'bulleted-list':'Маркеры', 'numbered-list':'Нумерация', 'task-list':'Список задач', hint:'Подсказка', code:'Код', quote:'Цитата', link:'Ссылка', 'content-ref':'Ссылка на статью', tabs:'Табы'};
         return labels[type] || type || 'Блок';
       }
 
@@ -2968,6 +3055,14 @@
       });
 
       contentEl.addEventListener('click', (event) => {
+        const contentRef = event.target.closest('[data-content-ref]');
+        if (contentRef) {
+          event.preventDefault();
+          event.stopPropagation();
+          const docId = docIdFromPublicHref(contentRef.getAttribute('href') || '');
+          if (!selectDocInEditor(docId)) noticeEl.textContent = `Не нашёл статью для ссылки: ${contentRef.getAttribute('href') || ''}`;
+          return;
+        }
         const editableImage = event.target.closest('[data-image-edit]');
         if (editableImage) {
           event.preventDefault();
