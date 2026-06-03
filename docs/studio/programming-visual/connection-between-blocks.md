@@ -10,7 +10,7 @@ title: "Связи между блоками"
 
 Пусть необходимо, чтобы вслед за задержкой программа сразу же завершилась.\
 \
-Для этого надо соединить блоки [«Таймер»](/studio/programming-visual/blocks/#taimer) и [«Конец»](/studio/programming-visual/blocks/#konec) стрелкой, имеющей направление от блока «Таймер» к блоку завершения программы.
+Для этого надо соединить блоки [«Таймер»](/docs/studio/programming-visual/blocks/#taimer) и [«Конец»](/docs/studio/programming-visual/blocks/#konec) стрелкой, имеющей направление от блока «Таймер» к блоку завершения программы.
 
 ![](/gitbook/assets/example.png)
 
@@ -54,7 +54,7 @@ title: "Связи между блоками"
 
 ## Удаление связей
 
-Удаление связей осуществляется аналогично [удалению блоков](/studio/programming-visual/blocks-add-delete/#del).
+Удаление связей осуществляется аналогично [удалению блоков](/docs/studio/programming-visual/blocks-add-delete/#del).
 
 ## Добавление нового блока на связь
 

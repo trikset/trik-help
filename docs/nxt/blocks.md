@@ -12,7 +12,7 @@ title: "Блоки LEGO NXT"
 
 Блоки, доступные для всех платформ см. в статье
 
-[Общие блоки](/studio/programming-visual/blocks/)
+[Общие блоки](/docs/studio/programming-visual/blocks/)
 
 
 

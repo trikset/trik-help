@@ -14,4 +14,4 @@ TRIK Studio можно интегрировать с внешней средой
 
 О том, как интегрировать PyCharm с TRIK Studio читайте в статьях:
 
-[Запуск 2D-модели в TRIK Studio из PyCharm](/integrations/pycharm/running-2d-model-in-trik-studio-from-pycharm/)
+[Запуск 2D-модели в TRIK Studio из PyCharm](/docs/integrations/pycharm/running-2d-model-in-trik-studio-from-pycharm/)

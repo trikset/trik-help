@@ -14,7 +14,7 @@ title: "Как открыть настройки робота?"
 
 ### Способ 2
 
-1\. Выберите в [главном меню](/studio/interface/main-menu/#menu-settings) `Настройки → Настройки...`.
+1\. Выберите в [главном меню](/docs/studio/interface/main-menu/#menu-settings) `Настройки → Настройки...`.
 
 ![](/gitbook/assets/07%202%20ru%20menu-settings-mini%202.png)
 

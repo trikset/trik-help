@@ -21,7 +21,7 @@ title: "WinSCP"
 2\. Заполните данные:
 
 * **File protocol:** SCP
-* **Host name:** [IP-адрес контроллера](/trik/wi-fi/network-connection/#accesspoint).
+* **Host name:** [IP-адрес контроллера](/docs/trik/wi-fi/network-connection/#accesspoint).
 * **User name:** root.
 
 Поле `Password` оставьте пустым.

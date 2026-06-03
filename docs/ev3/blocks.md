@@ -11,14 +11,14 @@ title: "Блоки LEGO EV3"
 3. [Рисования на дисплее](#risovanie-na-displee) — блоки, используемые для вывода графики и текста на экран.
 4. [Line Leader](#line-leader) — блоки для продвинутого датчика «Line Leader».
 
-&#x20;Блоки, доступные для всех платформ см. в статье «[Общие блоки](/studio/programming-visual/blocks/)».
+&#x20;Блоки, доступные для всех платформ см. в статье «[Общие блоки](/docs/studio/programming-visual/blocks/)».
 
 ###### ​ {#bloki-deistviya}
 ## Блоки действия
 
 | Вид                                                                                          | Название                                                                | Описание                                                                                                                                                                                                                         |
 | -------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| <img src="/gitbook/assets/sendMessageThreadsBlock.png" alt="" data-size="original" />       | [Отправить сообщение в задачу](#otpravit-soobshenie-v-zadachu) | Отправляет данное сообщение в параллельную задачу с заданным идентификатором (идентификатор должен быть указан при создании задачи в блоке «[Параллельные задачи](/studio/programming-visual/blocks/#parallelnye-zadachi)»). |
+| <img src="/gitbook/assets/sendMessageThreadsBlock.png" alt="" data-size="original" />       | [Отправить сообщение в задачу](#otpravit-soobshenie-v-zadachu) | Отправляет данное сообщение в параллельную задачу с заданным идентификатором (идентификатор должен быть указан при создании задачи в блоке «[Параллельные задачи](/docs/studio/programming-visual/blocks/#parallelnye-zadachi)»). |
 | <img src="/gitbook/assets/beepBlock.png" alt="" data-size="original" />                     | [Гудок](#gudok)                                                | Проиграть на роботе звук с фиксированной частотой.                                                                                                                                                                               |
 | <img src="/gitbook/assets/playToneBlock.png" alt="" data-size="original" />                 | [Играть звук](#igrat-zvuk)                                     | Проиграть на роботе звук с заданной частотой и длительностью.                                                                                                                                                                    |
 | <img src="/gitbook/assets/enginesForwardBlock.png" alt="" data-size="original" />           | [Моторы вперед](#motory-vpered)                                | Включить моторы по заданным портам с заданной мощностью.                                                                                                                                                                         |
@@ -37,7 +37,7 @@ title: "Блоки LEGO EV3"
 
 ![Отправить сообщение в задачу](/gitbook/assets/sendMessageThreadsBlock%20%281%29.png)
 
-Отправляет данное сообщение в параллельную задачу с заданным идентификатором (идентификатор должен быть указан при создании задачи в блоке «[Параллельные задачи](/studio/programming-visual/blocks/#parallelnye-zadachi)»).
+Отправляет данное сообщение в параллельную задачу с заданным идентификатором (идентификатор должен быть указан при создании задачи в блоке «[Параллельные задачи](/docs/studio/programming-visual/blocks/#parallelnye-zadachi)»).
 
 В качестве сообщения может быть любое выражение.
 
@@ -281,7 +281,7 @@ title: "Блоки LEGO EV3"
 | -------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
 | <img src="/gitbook/assets/printTextBlock.png" alt="" data-size="original" />    | [Напечатать текст](#napechatat-tekst)                                           | Печатает заданную строку в заданном месте на экране робота.       |
 | <img src="/gitbook/assets/clearScreenBlock.png" alt="" data-size="original" />  | [Очистить экран](#ochistit-ekran)                                               | Стереть всё, что нарисовано на экране.                            |
-| <img src="/gitbook/assets/drawRectBlock.png" alt="" data-size="original" />     | [Нарисовать прямоугольник](/trik/programming-visual/blocks/#narisovat-pryamougolnik) | Нарисовать на экране прямоугольник.                               |
+| <img src="/gitbook/assets/drawRectBlock.png" alt="" data-size="original" />     | [Нарисовать прямоугольник](/docs/trik/programming-visual/blocks/#narisovat-pryamougolnik) | Нарисовать на экране прямоугольник.                               |
 | <img src="/gitbook/assets/drawPixelBlock.png" alt="" data-size="original" />    | [Нарисовать точку](#narisovat-tochku)                                           | Нарисовать на экране точку в указанных координатах.               |
 | <img src="/gitbook/assets/drawLineBlock.png" alt="" data-size="original" />     | [Нарисовать линию](#narisovat-liniyu)                                           | Нарисовать на экране отрезок.                                     |
 | <img src="/gitbook/assets/drawCircleBlock.png" alt="" data-size="original" />   | [Нарисовать круг](#narisovat-krug)                                              | Нарисовать на экране круг с заданным центром и заданным радиусом. |

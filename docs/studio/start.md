@@ -6,7 +6,7 @@ title: "Начало работы и создание проекта"
 
 ## Главное окно
 
-После запуска **TRIK Studio** откроется стартовая страница, на которой будет отображена [версия](/studio/about/version/) TRIK Studio, быстрый доступ к недавним проектам, а также кнопки для [открытия существующего проекта](#open-project) и [создания нового](#new-project).
+После запуска **TRIK Studio** откроется стартовая страница, на которой будет отображена [версия](/docs/studio/about/version/) TRIK Studio, быстрый доступ к недавним проектам, а также кнопки для [открытия существующего проекта](#open-project) и [создания нового](#new-project).
 
 ![Стартовая страница TRIK Studio](/gitbook/assets/ts-main-window.png)
 
@@ -15,7 +15,7 @@ title: "Начало работы и создание проекта"
 
 ![](/gitbook/assets/trik-studio-new.png)
 
-Или в [главном меню](/studio/interface/main-menu/) выберите `Файл → Новый проект`.&#x20;
+Или в [главном меню](/docs/studio/interface/main-menu/) выберите `Файл → Новый проект`.&#x20;
 
 ![](/gitbook/assets/trik-studio-new-from-menu.png)
 
@@ -25,18 +25,18 @@ title: "Начало работы и создание проекта"
 
 О программировании на визуальном языке читайте в статье:
 
-[Программирование на визуальном языке](/studio/programming-visual/)
+[Программирование на визуальном языке](/docs/studio/programming-visual/)
 
 Про создание новой текстовой программы читайте в статье:
 
-[Программирование на текстовом языке](/studio/programming-code/)
+[Программирование на текстовом языке](/docs/studio/programming-code/)
 
 ## Запуск существующего проекта &#123;#open-project&#125;
 Для запуска существующего проекта нажмите кнопку «Открыть проект» на стартовой странице TRIK Studio.
 
 ![](/gitbook/assets/trik-studio-open.png)
 
-Или в [главном меню](/studio/interface/main-menu/) выберите `Файл → Открыть...`.&#x20;
+Или в [главном меню](/docs/studio/interface/main-menu/) выберите `Файл → Открыть...`.&#x20;
 
 ![](/gitbook/assets/trik-studio-open-from-menu.png)
 
