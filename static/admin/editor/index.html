@@ -356,6 +356,56 @@
       .menu-popover .menu-separator { height: 1px; margin: 5px -6px; background: var(--border); }
       .menu-popover .menu-icon { display: inline-flex; width: 24px; margin-right: 6px; color: var(--muted); }
       .menu-popover button.danger { color: #b42318; }
+      .article-picker {
+        position: fixed;
+        z-index: 40;
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        max-width: calc(100vw - 24px);
+      }
+      .article-picker[hidden] { display: none; }
+      .article-picker-panel {
+        width: 300px;
+        max-width: min(300px, calc(100vw - 24px));
+        max-height: min(520px, calc(100vh - 24px));
+        overflow: auto;
+        padding: 8px;
+        border: 1px solid color-mix(in srgb, var(--border) 78%, transparent);
+        border-radius: 12px;
+        background: var(--panel);
+        box-shadow: 0 12px 32px rgba(12, 26, 48, .18);
+      }
+      .article-picker-search {
+        width: 100%;
+        margin-bottom: 6px;
+        padding: 9px 10px;
+        border: 1px solid var(--border);
+        border-radius: 9px;
+        background: var(--panel-soft);
+        color: var(--text);
+        outline: none;
+      }
+      .article-picker-search:focus { border-color: color-mix(in srgb, var(--primary) 42%, var(--border)); }
+      .article-picker-item {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 8px;
+        width: 100%;
+        padding: 8px 9px;
+        border: 0;
+        border-radius: 9px;
+        background: transparent;
+        color: var(--text);
+        text-align: left;
+        cursor: pointer;
+      }
+      .article-picker-item:hover,
+      .article-picker-item.active { background: color-mix(in srgb, var(--soft) 78%, transparent); }
+      .article-picker-title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px; font-weight: 650; }
+      .article-picker-file { grid-column: 1 / -1; overflow: hidden; color: var(--muted); font-size: 12px; text-overflow: ellipsis; white-space: nowrap; }
+      .article-picker-arrow { grid-column: 2; grid-row: 1 / span 2; align-self: center; color: var(--muted); font-size: 16px; }
+      .article-picker-empty { padding: 10px; color: var(--muted); font-size: 13px; }
       @media (prefers-color-scheme: dark) { .menu-popover button.danger { color: #ff9b92; } }
       .link-popover {
         display: flex;
@@ -996,6 +1046,7 @@
         holdTimer: null,
         activeLink: null,
         linkHoverCloseTimer: null,
+        articlePicker: null,
         activeImage: null,
         activeTableCell: null,
         dirtyDocs: new Set(),
@@ -1012,6 +1063,10 @@
       const saveEl = document.getElementById('save');
       const searchEl = document.getElementById('search');
       const popoverEl = document.getElementById('popover');
+      const articlePickerEl = document.createElement('div');
+      articlePickerEl.className = 'article-picker';
+      articlePickerEl.hidden = true;
+      document.body.append(articlePickerEl);
       const formatToolbarEl = document.getElementById('format-toolbar');
       const formatTypeEl = document.getElementById('format-type');
       const modalBackdropEl = document.getElementById('modal-backdrop');
@@ -2166,22 +2221,71 @@
         return options;
       }
 
-      async function replaceContentRef(blockIndex) {
+      function articlePickerItems(items = state.sidebar?.docs || []) {
+        return items.map((node) => ({node, id: nodeDocId(node), label: displayLabel(node), children: Array.isArray(node.items) ? node.items : []}));
+      }
+
+      function articleItemMatches(item, query) {
+        if (!query) return true;
+        const haystack = `${item.label} ${item.id || ''}`.toLowerCase();
+        return haystack.includes(query);
+      }
+
+      function openArticlePickerAt(anchor, blockIndex) {
+        const rect = anchor.getBoundingClientRect();
+        state.articlePicker = {blockIndex, path: [], queries: {0: ''}};
+        articlePickerEl.style.top = `${Math.min(rect.bottom + 6, window.innerHeight - 540)}px`;
+        articlePickerEl.style.left = `${Math.min(rect.left, window.innerWidth - 320)}px`;
+        renderArticlePicker();
+        articlePickerEl.hidden = false;
+      }
+
+      function articleItemsForLevel(level) {
+        let items = state.sidebar?.docs || [];
+        for (let i = 0; i < level; i += 1) {
+          const index = state.articlePicker?.path?.[i];
+          const node = items[index];
+          items = Array.isArray(node?.items) ? node.items : [];
+        }
+        return articlePickerItems(items);
+      }
+
+      function renderArticlePicker() {
+        const picker = state.articlePicker;
+        if (!picker) return;
+        const levels = Math.max(1, picker.path.length + 1);
+        articlePickerEl.innerHTML = Array.from({length: levels}, (_, level) => {
+          const query = picker.queries[level] || '';
+          const items = articleItemsForLevel(level).filter((item) => articleItemMatches(item, query));
+          return `<div class="article-picker-panel" data-article-level="${level}">
+            <input class="article-picker-search" data-article-search="${level}" placeholder="Поиск" value="${escapeHtml(query)}" />
+            ${items.length ? items.map((item) => {
+              const originalItems = articleItemsForLevel(level);
+              const index = originalItems.findIndex((candidate) => candidate.node === item.node);
+              const active = picker.path[level] === index;
+              const hasChildren = item.children.length > 0;
+              const file = item.id ? docsPathForDoc(item.id) : (item.node.href || 'Внешняя ссылка');
+              return `<button type="button" class="article-picker-item${active ? ' active' : ''}" data-article-index="${index}" data-article-id="${escapeHtml(item.id || '')}" data-article-has-children="${hasChildren ? 'true' : 'false'}"><span class="article-picker-title">${escapeHtml(item.label)}</span>${hasChildren ? '<span class="article-picker-arrow">›</span>' : ''}<span class="article-picker-file">${escapeHtml(file)}</span></button>`;
+            }).join('') : '<div class="article-picker-empty">Ничего не найдено</div>'}
+          </div>`;
+        }).join('');
+        articlePickerEl.querySelector('.article-picker-search')?.focus({preventScroll: true});
+      }
+
+      function closeArticlePicker() {
+        articlePickerEl.hidden = true;
+        articlePickerEl.innerHTML = '';
+        state.articlePicker = null;
+      }
+
+      function replaceContentRefWithDoc(blockIndex, docId) {
         const page = state.content[nodeDocId(state.selectedNode)];
         const block = page?.blocks?.[blockIndex];
         if (!block || block.type !== 'content-ref') return;
-        const currentDocId = docIdFromPublicHref(contentRefData(block.raw)?.href || '');
-        const options = collectArticleOptions();
-        const result = await openModal({
-          title: 'Заменить ссылку',
-          message: 'Выберите статью, на которую должен вести этот блок.',
-          fields: `<label class="field-label">Статья<select name="docId">${options.map((item) => `<option value="${escapeHtml(item.id)}"${item.id === currentDocId ? ' selected' : ''}>${escapeHtml(item.label)}</option>`).join('')}</select></label>`,
-          submitText: 'Заменить',
-        });
-        const docId = result?.docId;
-        const option = options.find((item) => item.id === docId);
-        if (!docId || !option) return;
-        block.raw = contentRefRaw(docId, option.label.replace(/^(?:—\s*)+/, ''));
+        const path = findNodePathByDocId(docId);
+        const node = path ? getNodeAtPath(path) : null;
+        block.raw = contentRefRaw(docId, node ? displayLabel(node) : docId);
+        closeArticlePicker();
         renderPageContent(nodeDocId(state.selectedNode));
         markDirty(`Ссылка блока #${blockIndex + 1} заменена.`, null);
       }
@@ -2817,6 +2921,12 @@
         if (blockAction && state.popoverBlock) {
           const index = state.popoverBlock.blockIndex;
           const nestedCtx = state.popoverBlock.nestedCtx;
+          const actionTarget = event.target;
+          if (blockAction === 'replace-content-ref' && !nestedCtx) {
+            openArticlePickerAt(actionTarget, index);
+            closePopover();
+            return;
+          }
           closePopover();
           if (nestedCtx) {
             if (blockAction.startsWith('add-')) return addNestedBlockAfter(nestedCtx, blockAction.replace('add-', ''));
@@ -2826,10 +2936,6 @@
           }
           if (blockAction.startsWith('add-')) {
             addBlockAfter(index, blockAction.replace('add-', ''));
-            return;
-          }
-          if (blockAction === 'replace-content-ref') {
-            replaceContentRef(index);
             return;
           }
           if (blockAction === 'delete') {
@@ -3218,11 +3324,43 @@
         markDirty(`Тип блока #${index + 1} изменён.`, null);
       });
 
+      articlePickerEl.addEventListener('input', (event) => {
+        const search = event.target.closest('[data-article-search]');
+        if (!search || !state.articlePicker) return;
+        const level = Number(search.dataset.articleSearch);
+        state.articlePicker.queries[level] = search.value.trim().toLowerCase();
+        state.articlePicker.path = state.articlePicker.path.slice(0, level);
+        renderArticlePicker();
+        const next = articlePickerEl.querySelector(`[data-article-search="${level}"]`);
+        next?.focus({preventScroll: true});
+      });
+      articlePickerEl.addEventListener('click', (event) => {
+        const item = event.target.closest('[data-article-index]');
+        if (!item || !state.articlePicker) return;
+        event.preventDefault();
+        event.stopPropagation();
+        const level = Number(item.closest('[data-article-level]')?.dataset.articleLevel || 0);
+        const index = Number(item.dataset.articleIndex);
+        const id = item.dataset.articleId;
+        const hasChildren = item.dataset.articleHasChildren === 'true';
+        state.articlePicker.path = [...state.articlePicker.path.slice(0, level), index];
+        if (hasChildren) {
+          state.articlePicker.queries[level + 1] = state.articlePicker.queries[level + 1] || '';
+          renderArticlePicker();
+          return;
+        }
+        if (id) replaceContentRefWithDoc(state.articlePicker.blockIndex, id);
+      });
+
       document.addEventListener('click', (event) => {
         if (!popoverEl.contains(event.target)) closePopover();
+        if (!articlePickerEl.contains(event.target) && !event.target.closest('[data-block-action="replace-content-ref"]')) closeArticlePicker();
       });
       document.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape') closePopover();
+        if (event.key === 'Escape') {
+          closePopover();
+          closeArticlePicker();
+        }
       });
 
       async function boot() {
