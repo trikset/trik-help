@@ -3341,6 +3341,23 @@
         </div>`;
       }
 
+
+      function positionPopoverWithinViewport(rect, width, height, {gap = 6, alignRight = false} = {}) {
+        const maxLeft = Math.max(8, window.innerWidth - width - 8);
+        const maxTop = Math.max(8, window.innerHeight - height - 8);
+        let left = alignRight ? rect.right - width : rect.left;
+        let top = rect.bottom + gap;
+        if (top + height > window.innerHeight - 8) {
+          const above = rect.top - gap - height;
+          top = above >= 8 ? above : maxTop;
+        }
+        if (left > maxLeft) left = maxLeft;
+        if (left < 8) left = 8;
+        if (top > maxTop) top = maxTop;
+        if (top < 8) top = 8;
+        return {top, left};
+      }
+
       function openBlockPopover(button, blockIndex, kind) {
         if (!isEditing()) return;
         const page = state.content[nodeDocId(state.selectedNode)];
@@ -3392,9 +3409,14 @@
               ${blockMenuButton('delete', 'Удалить', 'delete', false, true)}
             `;
         const rect = button.getBoundingClientRect();
-        popoverEl.style.top = `${Math.min(rect.bottom + 6, window.innerHeight - 300)}px`;
-        popoverEl.style.left = `${Math.min(rect.left, window.innerWidth - 250)}px`;
         popoverEl.hidden = false;
+        popoverEl.style.visibility = 'hidden';
+        popoverEl.style.left = '0px';
+        popoverEl.style.top = '0px';
+        const {top, left} = positionPopoverWithinViewport(rect, Math.min(Math.max(popoverEl.offsetWidth, 240), window.innerWidth - 16), Math.min(Math.max(popoverEl.offsetHeight, 180), window.innerHeight - 16));
+        popoverEl.style.top = `${top}px`;
+        popoverEl.style.left = `${left}px`;
+        popoverEl.style.visibility = '';
         button.classList.add('open');
       }
 
