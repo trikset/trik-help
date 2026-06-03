@@ -369,6 +369,7 @@
         max-width: min(270px, calc(100vw - 24px));
         max-height: min(520px, calc(100vh - 24px));
         overflow: auto;
+        overscroll-behavior: contain;
         padding: 6px;
         border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
         border-radius: 12px;
@@ -393,8 +394,8 @@
         row-gap: 0;
         column-gap: 8px;
         width: 100%;
-        min-height: 48px;
-        padding: 6px 8px;
+        min-height: 44px;
+        padding: 5px 8px;
         border: 0;
         border-radius: 8px;
         background: transparent;
@@ -404,10 +405,11 @@
       }
       .article-picker-item:hover,
       .article-picker-item.active { background: color-mix(in srgb, var(--soft) 78%, transparent); }
-      .article-picker-title { align-self: end; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px; font-weight: 500; line-height: 1.15; }
-      .article-picker-file { grid-column: 1 / -1; align-self: start; overflow: hidden; color: var(--muted); font-size: 12px; line-height: 1.15; text-overflow: ellipsis; white-space: nowrap; }
+      .article-picker-title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px; font-weight: 500; line-height: 1.18; }
+      .article-picker-file { grid-column: 1; overflow: hidden; color: var(--muted); font-size: 12px; line-height: 1.18; text-overflow: ellipsis; white-space: nowrap; }
       .article-picker-link-item { cursor: pointer; }
-      .article-picker-link-item .article-picker-title::before { content: "🔗"; margin-right: 7px; font-size: 13px; }
+      .article-picker-link-item .article-picker-title::before { content: "🔗"; display: inline-block; width: 18px; margin-right: 4px; font-size: 13px; text-align: center; }
+      .article-picker-link-item .article-picker-file { padding-left: 22px; }
       .article-picker-divider { height: 1px; margin: 6px -6px 4px; background: var(--border); }
       .article-picker-heading {
         padding: 7px 8px 5px;
@@ -2272,9 +2274,13 @@
         return item.route || sectionRouteForNode(item.node);
       }
 
+      function clampPanelTop(top, estimatedHeight = 280) {
+        return Math.max(8, Math.min(top, Math.max(8, window.innerHeight - estimatedHeight - 8)));
+      }
+
       function openArticlePickerAt(anchor, blockIndex) {
         const rect = anchor.getBoundingClientRect();
-        const top = Math.max(8, Math.min(rect.bottom + 6, window.innerHeight - 540));
+        const top = clampPanelTop(rect.bottom + 6, 280);
         const left = Math.max(8, Math.min(rect.left, window.innerWidth - 282));
         state.articlePicker = {blockIndex, path: [], queries: {0: ''}, panelOrigins: [{top, left}]};
         renderArticlePicker({focusLevel: 0});
@@ -3398,6 +3404,13 @@
         markDirty(`Тип блока #${index + 1} изменён.`, null);
       });
 
+      articlePickerEl.addEventListener('wheel', (event) => {
+        const panel = event.target.closest('.article-picker-panel');
+        if (!panel) return;
+        event.preventDefault();
+        panel.scrollTop += event.deltaY;
+      }, {passive: false});
+
       articlePickerEl.addEventListener('input', (event) => {
         const search = event.target.closest('[data-article-search]');
         if (!search || !state.articlePicker) return;
@@ -3417,8 +3430,10 @@
           const rect = item.getBoundingClientRect();
           const currentOrigin = panelOriginForLevel(level);
           state.articlePicker.panelOrigins = state.articlePicker.panelOrigins.slice(0, level + 1);
+          const childCount = articleItemsForLevel(level + 1).length;
+          const estimatedHeight = Math.min(520, 64 + Math.max(1, childCount) * 44 + 72);
           state.articlePicker.panelOrigins[level + 1] = {
-            top: Math.max(8, Math.min(rect.top, window.innerHeight - 520)),
+            top: clampPanelTop(rect.top, estimatedHeight),
             left: Math.min(currentOrigin.left + 278, window.innerWidth - 282),
           };
           state.articlePicker.queries[level + 1] = state.articlePicker.queries[level + 1] || '';
