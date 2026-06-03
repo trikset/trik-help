@@ -54,6 +54,26 @@ function cleanHeading(text) {
 }
 
 
+
+function listBlocksFromText(text) {
+  const lines = String(text || '').split(/\r?\n/).map((line) => line.trim()).filter(Boolean);
+  if (!lines.length) return [];
+  if (/^\s*\d+\\?\.\s+/.test(lines[0])) {
+    return lines.map((line) => ({type: 'numbered-list', raw: line.replace(/^\s*\d+\\?\.\s+/, '').trim() || 'Новый пункт'}));
+  }
+  if (/^\s*[-*+]\s+\[[ xX]\]\s+/.test(lines[0])) {
+    return lines.map((line) => ({
+      type: 'task-list',
+      raw: line.replace(/^\s*[-*+]\s+\[[ xX]\]\s+/, '').trim() || 'Новая задача',
+      checked: /^\s*[-*+]\s+\[[xX]\]\s+/.test(line),
+    }));
+  }
+  if (/^\s*[-*+]\s+/.test(lines[0])) {
+    return lines.map((line) => ({type: 'bulleted-list', raw: line.replace(/^\s*[-*+]\s+/, '').trim() || 'Новый пункт'}));
+  }
+  return [];
+}
+
 function blockType(raw) {
   const text = raw.trim();
   if (/^#{1,6}\s+/.test(text)) return `heading-${text.match(/^#+/)[0].length}`;
@@ -66,7 +86,7 @@ function blockType(raw) {
   if (/^!\[[^\]]*\]\([^)]+\)$/.test(text) || /^<div[^>]*>\s*<img[\s\S]*<\/div>$/.test(text) || /^<img[\s\S]*>$/.test(text)) return 'image';
   if (/^\|.+\|\n\|[-:|\s]+\|/.test(text)) return 'table';
   if (/^\s*[-*+]\s+\[[ xX]\]/m.test(text)) return 'task-list';
-  if (/^\s*\d+\.\s+/m.test(text)) return 'numbered-list';
+  if (/^\s*\d+\\?\.\s+/m.test(text)) return 'numbered-list';
   if (/^\s*[-*+]\s+/m.test(text)) return 'bulleted-list';
   return 'paragraph';
 }
@@ -84,6 +104,12 @@ function parseBlocks(source) {
     if (!raw) { current = []; return; }
     if (raw === '{/* Compatibility anchors for old GitBook/Docusaurus links. */}') { current = []; return; }
     const type = blockType(raw);
+    const listBlocks = listBlocksFromText(raw);
+    if (listBlocks.length) {
+      blocks.push(...listBlocks);
+      current = [];
+      return;
+    }
     const block = {type, raw};
     if (type === 'anchor') {
       const id = raw.match(/id="([^"]+)"/)?.[1];
@@ -117,6 +143,13 @@ function parseBlocks(source) {
       continue;
     }
     if (current.length && /^<\/div>\s*$/.test(line) && /^<div className="content-ref-card">/.test(current[0])) {
+      current.push(line);
+      flush();
+      continue;
+    }
+
+    if (/^\s*(?:\d+\\?\.\s+|[-*+]\s+(?:\[[ xX]\]\s+)?)/.test(line)) {
+      flush();
       current.push(line);
       flush();
       continue;
